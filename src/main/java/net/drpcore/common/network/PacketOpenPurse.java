@@ -1,0 +1,36 @@
+package net.drpcore.common.network;
+
+import io.netty.buffer.ByteBuf;
+import net.drpcore.common.DarkRoleplayCore;
+import net.drpcore.common.entities.player.ExtendedPlayer;
+import net.drpcore.common.gui.GuiHandler;
+import net.drpcore.common.gui.inventories.PlayerInventory;
+import net.drpcore.common.items.templates.BackpackBase;
+import net.drpcore.common.items.templates.PurseBase;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.ItemStack;
+
+public class PacketOpenPurse extends PacketBase<PacketOpenPurse>{
+
+	@Override
+	public void fromBytes(ByteBuf buf) {}
+
+	@Override
+	public void toBytes(ByteBuf buf) {}
+
+	@Override
+	public void handleClientSide(PacketOpenPurse message, EntityPlayer player) {
+		
+	}
+
+	@Override
+	public void handleServerSide(PacketOpenPurse message, EntityPlayer player) {
+		//TODO Inventory Packet
+		PlayerInventory inventory = player.getCapability(DarkRoleplayCore.getDrpcoreInv(), null).getInventory();
+		if(inventory.getStackInSlot(PlayerInventory.SLOT_PURSE) != null && inventory.getStackInSlot(PlayerInventory.SLOT_PURSE).getItem() instanceof PurseBase){
+			ItemStack purse = inventory.getStackInSlot(PlayerInventory.SLOT_PURSE);
+			((PurseBase) purse.getItem()).openPurse(player.worldObj, player);
+		}
+	}
+
+}
