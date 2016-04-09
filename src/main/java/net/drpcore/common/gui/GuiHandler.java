@@ -8,6 +8,7 @@ import net.drpcore.common.gui.container.PlayerInventoryContainer;
 import net.drpcore.common.gui.inventories.PlayerInventory;
 import net.drpcore.common.gui.inventories.PurseInventory;
 import net.drpcore.common.items.templates.PurseBase;
+import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.BlockPos;

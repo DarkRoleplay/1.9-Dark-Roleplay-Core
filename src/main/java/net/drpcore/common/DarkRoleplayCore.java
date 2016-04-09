@@ -10,9 +10,9 @@ import net.drpcore.client.events.ClientDisconnectFromServer;
 import net.drpcore.common.blocks.DRPCoreBlocks;
 import net.drpcore.common.config.ConfigurationManager;
 import net.drpcore.common.entities.player.PlayerCapabilityController;
-import net.drpcore.common.entities.player.capabilites.AdditionalPlayerStorage;
-import net.drpcore.common.entities.player.capabilites.DefaultImplementation;
-import net.drpcore.common.entities.player.capabilites.IPlayerCapability;
+import net.drpcore.common.entities.player.advancedInventoryCapabiliy.AdvancedPlayerStorage;
+import net.drpcore.common.entities.player.advancedInventoryCapabiliy.DefaultImplementation;
+import net.drpcore.common.entities.player.advancedInventoryCapabiliy.IPlayerInventoryAdvanced;
 import net.drpcore.common.events.EntityConstruct;
 import net.drpcore.common.events.EntityJoinWorld;
 import net.drpcore.common.events.LivingDrop;
@@ -63,17 +63,17 @@ public class DarkRoleplayCore {
 	@net.minecraftforge.fml.common.Mod.Instance(MODID)
     public static DarkRoleplayCore instance;
 	
-	@CapabilityInject(IPlayerCapability.class)
-	private static final Capability<IPlayerCapability> DRPCORE_INV = null;
+	@CapabilityInject(IPlayerInventoryAdvanced.class)
+	private static final Capability<IPlayerInventoryAdvanced> DRPCORE_INV = null;
 	
-	public static Capability<IPlayerCapability> getDrpcoreInv() {
+	public static Capability<IPlayerInventoryAdvanced> getDrpcoreInv() {
 		return DRPCORE_INV;
 	}
 
 	@Mod.EventHandler
     public void preInit(FMLPreInitializationEvent event){
 		
-		CapabilityManager.INSTANCE.register(IPlayerCapability.class, new AdditionalPlayerStorage() , DefaultImplementation.class);
+		CapabilityManager.INSTANCE.register(IPlayerInventoryAdvanced.class, new AdvancedPlayerStorage() , DefaultImplementation.class);
 		MinecraftForge.EVENT_BUS.register(new PlayerCapabilityController());
 		
 		

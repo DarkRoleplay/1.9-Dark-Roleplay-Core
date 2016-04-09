@@ -111,9 +111,7 @@ public class FoodBase extends Item {
 			--stack.stackSize;
 
 			if (poisioned) {
-				//TODO test Posioned Food
 				player.addPotionEffect(new PotionEffect(Potion.getPotionById(19), 1200, 1));
-				//player.addPotionEffect(new PotionEffect(19, 1200, 1));
 			}
 
 			player.getFoodStats().addStats(feedAmount, saturationAmount);
@@ -127,7 +125,6 @@ public class FoodBase extends Item {
 
 	protected void onFoodEaten(ItemStack stack, World worldIn, EntityPlayer player) {
 		if (!worldIn.isRemote && this.potionId > 0 && worldIn.rand.nextFloat() < this.potionEffectProbability) {
-			//TODO test if additional Potion effects are working
 			player.addPotionEffect(new PotionEffect(Potion.getPotionById(this.potionId), this.potionDuration * 20, this.potionAmplifier));
 		}
 	}

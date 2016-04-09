@@ -116,10 +116,10 @@ public abstract class InventoryCustom implements IInventory{
 
 	protected abstract String getNbtKey();
 	
-	public void writeToNBT(NBTTagCompound compound) {
+	public NBTTagCompound writeToNBT(NBTTagCompound compound) {
 		String key = getNbtKey();
 		if (key == null || key.equals("")) {
-			return;
+			return null;
 		}
 		NBTTagList items = new NBTTagList();
 		for (int i = 0; i < getSizeInventory(); ++i) {
@@ -131,6 +131,7 @@ public abstract class InventoryCustom implements IInventory{
 			}
 		}
 		compound.setTag(key, items);
+		return compound;
 	}
 	
 	public void readFromNBT(NBTTagCompound compound) {

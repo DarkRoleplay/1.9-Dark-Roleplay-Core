@@ -1,10 +1,12 @@
 package net.drpcore.common.entities.player;
 
 import net.drpcore.common.DarkRoleplayCore;
-import net.drpcore.common.entities.player.capabilites.IPlayerCapability;
-import net.drpcore.common.entities.player.capabilites.PlayerCapabilityProvider;
+import net.drpcore.common.entities.player.advancedInventoryCapabiliy.IPlayerInventoryAdvanced;
+import net.drpcore.common.entities.player.advancedInventoryCapabiliy.PlayerCapabilityProvider;
+import net.drpcore.common.gui.inventories.PlayerInventory;
 import net.minecraft.entity.Entity;
 import net.minecraft.init.Items;
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.capabilities.ICapabilityProvider;
 import net.minecraftforge.event.AttachCapabilitiesEvent;
@@ -30,8 +32,10 @@ public class PlayerCapabilityController {
         Entity entity = event.getEntity();
         if (entity != null && entity.hasCapability(DarkRoleplayCore.getDrpcoreInv(), event.getFace()))
         {
-            IPlayerCapability inv = entity.getCapability(DarkRoleplayCore.getDrpcoreInv(), event.getFace());
-            System.out.println("Hi I'm a " + inv.getOwnerType());
+            IPlayerInventoryAdvanced inv = entity.getCapability(DarkRoleplayCore.getDrpcoreInv(), event.getFace());
+            
+            PlayerInventory inventory = event.getEntity().getCapability(DarkRoleplayCore.getDrpcoreInv(), null).getInventory();
+            inventory.setInventorySlotContents(1, new ItemStack(Items.stone_axe));
         }
     }
 	
