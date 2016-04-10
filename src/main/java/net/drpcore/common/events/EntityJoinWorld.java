@@ -1,6 +1,5 @@
 package net.drpcore.common.events;
 
-import net.drpcore.common.entities.player.ExtendedPlayer;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.world.World;
 import net.minecraftforge.event.entity.EntityEvent.EntityConstructing;

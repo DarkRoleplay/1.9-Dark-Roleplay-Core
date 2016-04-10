@@ -1,7 +1,7 @@
 package net.drpcore.common.gui.container;
 
 import net.drpcore.common.gui.inventories.InventoryCustom;
-import net.drpcore.common.gui.inventories.PlayerInventory;
+import net.drpcore.common.gui.inventories.AdvancedPlayerInventory;
 import net.drpcore.common.gui.slots.SLOT_AMMUNITIONCONTAINER;
 import net.drpcore.common.gui.slots.SLOT_ARMOR;
 import net.drpcore.common.gui.slots.SLOT_BACKPACK;
@@ -26,7 +26,7 @@ import net.minecraft.item.ItemArmor;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.CraftingManager;
 
-public class PlayerInventoryContainer extends Container{
+public class AdvancedPlayerInventoryContainer extends Container{
 
 	private final InventoryCustom inventory2;
 	
@@ -57,7 +57,7 @@ public class PlayerInventoryContainer extends Container{
 		return true;
 	}
 
-	public PlayerInventoryContainer(EntityPlayer player, InventoryPlayer inventoryPlayer, PlayerInventory inventoryCustom){
+	public AdvancedPlayerInventoryContainer(EntityPlayer player, InventoryPlayer inventoryPlayer, AdvancedPlayerInventory inventoryCustom){
 		this.thePlayer = player;
 		
 		//Hotbar

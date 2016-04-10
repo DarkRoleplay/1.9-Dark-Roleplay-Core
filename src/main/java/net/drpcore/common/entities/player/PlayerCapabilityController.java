@@ -3,7 +3,7 @@ package net.drpcore.common.entities.player;
 import net.drpcore.common.DarkRoleplayCore;
 import net.drpcore.common.entities.player.advancedInventoryCapabiliy.IPlayerInventoryAdvanced;
 import net.drpcore.common.entities.player.advancedInventoryCapabiliy.PlayerCapabilityProvider;
-import net.drpcore.common.gui.inventories.PlayerInventory;
+import net.drpcore.common.gui.inventories.AdvancedPlayerInventory;
 import net.minecraft.entity.Entity;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
@@ -16,13 +16,6 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 public class PlayerCapabilityController {
 
 	@SubscribeEvent
-	public void attachPlayerCapabilities(AttachCapabilitiesEvent.Entity event) {
-
-		event.addCapability(new ResourceLocation(DarkRoleplayCore.MODID + ":" + "DRPCore_Inventory"), new PlayerCapabilityProvider(event.getEntity()));
-		
-	}
-
-	@SubscribeEvent
     public void onInteract(PlayerInteractEvent event)
     {
         if (event.getEntityPlayer().getHeldItemMainhand() == null) return;
@@ -30,11 +23,11 @@ public class PlayerCapabilityController {
 
         // This is just a example of how to interact with the TE, note the strong type binding that getCapability has
         Entity entity = event.getEntity();
-        if (entity != null && entity.hasCapability(DarkRoleplayCore.getDrpcoreInv(), event.getFace()))
+        if (entity != null && entity.hasCapability(DarkRoleplayCore.DRPCORE_INV, event.getFace()))
         {
-            IPlayerInventoryAdvanced inv = entity.getCapability(DarkRoleplayCore.getDrpcoreInv(), event.getFace());
+            IPlayerInventoryAdvanced inv = entity.getCapability(DarkRoleplayCore.DRPCORE_INV, event.getFace());
             
-            PlayerInventory inventory = event.getEntity().getCapability(DarkRoleplayCore.getDrpcoreInv(), null).getInventory();
+            AdvancedPlayerInventory inventory = event.getEntity().getCapability(DarkRoleplayCore.DRPCORE_INV, null).getInventory();
             inventory.setInventorySlotContents(1, new ItemStack(Items.stone_axe));
         }
     }

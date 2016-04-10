@@ -64,16 +64,14 @@ public class DarkRoleplayCore {
     public static DarkRoleplayCore instance;
 	
 	@CapabilityInject(IPlayerInventoryAdvanced.class)
-	private static final Capability<IPlayerInventoryAdvanced> DRPCORE_INV = null;
+	public static final Capability<IPlayerInventoryAdvanced> DRPCORE_INV = null;
 	
-	public static Capability<IPlayerInventoryAdvanced> getDrpcoreInv() {
-		return DRPCORE_INV;
-	}
-
 	@Mod.EventHandler
     public void preInit(FMLPreInitializationEvent event){
 		
 		CapabilityManager.INSTANCE.register(IPlayerInventoryAdvanced.class, new AdvancedPlayerStorage() , DefaultImplementation.class);
+		
+		
 		MinecraftForge.EVENT_BUS.register(new PlayerCapabilityController());
 		
 		
@@ -96,8 +94,6 @@ public class DarkRoleplayCore {
 		NetworkRegistry.INSTANCE.registerGuiHandler(instance, new GuiHandler()); 
 		proxy.registerEvents();
 		GameRegistry.registerBlock(DRPCoreBlocks.blockStructureManager,"blockStructureManager");
-		MinecraftForge.EVENT_BUS.register(new ClientConnectedToServer());
-		MinecraftForge.EVENT_BUS.register(new ClientDisconnectFromServer());
 		registerEvents();
 		
 		SchematicController.findSchematics();
@@ -123,8 +119,10 @@ public class DarkRoleplayCore {
 	}
 	
 	public static void registerEvents(){
+		MinecraftForge.EVENT_BUS.register(new ClientConnectedToServer());
+		MinecraftForge.EVENT_BUS.register(new ClientDisconnectFromServer());
 		MinecraftForge.EVENT_BUS.register(new EntityConstruct());
-		MinecraftForge.EVENT_BUS.register(new LivingDrop());
 		MinecraftForge.EVENT_BUS.register(new EntityJoinWorld());
+		MinecraftForge.EVENT_BUS.register(new LivingDrop());
 	}
 }

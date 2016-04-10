@@ -1,6 +1,6 @@
 package net.drpcore.common.entities.player.advancedInventoryCapabiliy;
 
-import net.drpcore.common.gui.inventories.PlayerInventory;
+import net.drpcore.common.gui.inventories.AdvancedPlayerInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTBase;
 import net.minecraft.nbt.NBTTagCompound;
@@ -10,14 +10,14 @@ import net.minecraftforge.common.capabilities.Capability.IStorage;
 
 public class AdvancedPlayerStorage implements Capability.IStorage<IPlayerInventoryAdvanced> {
 	
-	public final PlayerInventory inventory = new PlayerInventory();
+	public final AdvancedPlayerInventory inventory = new AdvancedPlayerInventory();
 
 	@Override
 	public NBTBase writeNBT(Capability<IPlayerInventoryAdvanced> capability, IPlayerInventoryAdvanced instance, EnumFacing side) {
 
 		NBTTagCompound nbtData = new NBTTagCompound();
 		
-		return inventory.writeToNBT(nbtData);
+		return instance.getInventory().writeToNBT(nbtData);
 	}
 
 	@Override
@@ -25,7 +25,7 @@ public class AdvancedPlayerStorage implements Capability.IStorage<IPlayerInvento
 		
 		NBTTagCompound properties = (NBTTagCompound) nbt;
 
-		inventory.readFromNBT(properties);
+		instance.getInventory().readFromNBT(properties);
 	}
 
 }

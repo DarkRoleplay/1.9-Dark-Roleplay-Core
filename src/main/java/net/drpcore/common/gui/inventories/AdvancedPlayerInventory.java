@@ -9,7 +9,7 @@ import net.drpcore.common.items.templates.RingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 
-public class PlayerInventory extends InventoryCustom{
+public class AdvancedPlayerInventory extends InventoryCustom{
 
 	private final String name = "Inventory";
 	
@@ -29,7 +29,7 @@ public class PlayerInventory extends InventoryCustom{
 		return SAVE_KEY;
 	}
 
-	public PlayerInventory(){
+	public AdvancedPlayerInventory(){
 		this.inventory = new ItemStack[INV_SIZE];
 	}
 	

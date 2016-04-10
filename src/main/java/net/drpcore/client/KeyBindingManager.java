@@ -5,8 +5,7 @@ import java.util.HashMap;
 import org.lwjgl.input.Keyboard;
 
 import net.drpcore.common.DarkRoleplayCore;
-import net.drpcore.common.entities.player.ExtendedPlayer;
-import net.drpcore.common.gui.inventories.PlayerInventory;
+import net.drpcore.common.gui.inventories.AdvancedPlayerInventory;
 import net.drpcore.common.items.templates.PurseBase;
 import net.drpcore.common.network.PacketHandler;
 import net.drpcore.common.network.PacketOpenCraftingGui;
@@ -34,8 +33,8 @@ public class KeyBindingManager {
 		else if(this.openInventory.isKeyDown()){
 			PacketHandler.sendToServer(new PacketOpenInventory());
 		}else if(this.openPurse.isKeyDown()){
-			PlayerInventory inventory = Minecraft.getMinecraft().thePlayer.getCapability(DarkRoleplayCore.getDrpcoreInv(), null).getInventory();
-			if(inventory.getStackInSlot(PlayerInventory.SLOT_PURSE) != null && inventory.getStackInSlot(PlayerInventory.SLOT_PURSE).getItem() instanceof PurseBase){
+			AdvancedPlayerInventory inventory = Minecraft.getMinecraft().thePlayer.getCapability(DarkRoleplayCore.DRPCORE_INV, null).getInventory();
+			if(inventory.getStackInSlot(AdvancedPlayerInventory.SLOT_PURSE) != null && inventory.getStackInSlot(AdvancedPlayerInventory.SLOT_PURSE).getItem() instanceof PurseBase){
 				PacketHandler.sendToServer(new PacketOpenPurse());
 			}
 		}

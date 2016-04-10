@@ -150,10 +150,10 @@ public class CraftingManager {
 			for(ItemStack Input: MainIngredients){
 				for(int i = 0; i < Input.stackSize; ++i){
 					ItemStack removedItem = Input;
+					int containingSlot = getInventorySlotContainItem(Input.getItem(), player);
 					if(getInventorySlotContainItem(Input.getItem(), player) >= 0)
 						removedItem = playerInv.getStackInSlot(getInventorySlotContainItem(Input.getItem(), player));
-						//TODO fix crafting not consuming items
-						//playerInv.consumeInventoryItem(Input.getItem());
+						playerInv.decrStackSize(getInventorySlotContainItem(Input.getItem(), player), 1);
 					if(Input.getItem().hasContainerItem(Input)){
 						player.worldObj.spawnEntityInWorld(new EntityItem(player.worldObj, player.posX, player.posY, player.posZ,Input.getItem().getContainerItem(removedItem)));
 					}

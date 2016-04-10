@@ -1,15 +1,15 @@
 package net.drpcore.common.entities.player.advancedInventoryCapabiliy;
 
-import net.drpcore.common.gui.inventories.PlayerInventory;
+import net.drpcore.common.gui.inventories.AdvancedPlayerInventory;
 
 public interface  IPlayerInventoryAdvanced {
 	/**
 	 * @return the additional Inventory from the Player
 	 */
-	public void setInventory(PlayerInventory playerInv);
+	public void setInventory(AdvancedPlayerInventory playerInv);
 	
 	/**
 	 * @return the additional Inventory from the Player
 	 */
-	public PlayerInventory getInventory();
+	public AdvancedPlayerInventory getInventory();
 }

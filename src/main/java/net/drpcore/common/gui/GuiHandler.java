@@ -1,11 +1,11 @@
 package net.drpcore.common.gui;
 
+import net.drpcore.client.guis.AdvancedPlayerInventoryGui;
 import net.drpcore.common.DarkRoleplayCore;
-import net.drpcore.common.entities.player.ExtendedPlayer;
 import net.drpcore.common.gui.container.Container_Crafting;
 import net.drpcore.common.gui.container.Container_Purse;
-import net.drpcore.common.gui.container.PlayerInventoryContainer;
-import net.drpcore.common.gui.inventories.PlayerInventory;
+import net.drpcore.common.gui.container.AdvancedPlayerInventoryContainer;
+import net.drpcore.common.gui.inventories.AdvancedPlayerInventory;
 import net.drpcore.common.gui.inventories.PurseInventory;
 import net.drpcore.common.items.templates.PurseBase;
 import net.minecraft.client.Minecraft;
@@ -26,13 +26,13 @@ public class GuiHandler implements IGuiHandler{
 		switch(ID){
 			case GUI_INVENTORY:
 				//TODO stuff
-				return new PlayerInventoryContainer(player,player.inventory,player.getCapability(DarkRoleplayCore.getDrpcoreInv(), null).getInventory());
+				return new AdvancedPlayerInventoryContainer(player,player.inventory,player.getCapability(DarkRoleplayCore.DRPCORE_INV, null).getInventory());
 			case GUI_CRAFTING:
 				return new Container_Crafting(player.inventory);
 			case GUI_PURSE:
-				PlayerInventory inventory = player.getCapability(DarkRoleplayCore.getDrpcoreInv(), null).getInventory();
-				if(inventory.getStackInSlot(PlayerInventory.SLOT_PURSE) != null && inventory.getStackInSlot(PlayerInventory.SLOT_PURSE).getItem() instanceof PurseBase){
-					ItemStack purse = inventory.getStackInSlot(PlayerInventory.SLOT_PURSE);
+				AdvancedPlayerInventory inventory = player.getCapability(DarkRoleplayCore.DRPCORE_INV, null).getInventory();
+				if(inventory.getStackInSlot(AdvancedPlayerInventory.SLOT_PURSE) != null && inventory.getStackInSlot(AdvancedPlayerInventory.SLOT_PURSE).getItem() instanceof PurseBase){
+					ItemStack purse = inventory.getStackInSlot(AdvancedPlayerInventory.SLOT_PURSE);
 					return new Container_Purse(player, player.inventory, new PurseInventory(purse,((PurseBase) purse.getItem()).SlotAmount));
 				} 
 				return null;
@@ -45,13 +45,13 @@ public class GuiHandler implements IGuiHandler{
 	public Object getClientGuiElement(int ID, EntityPlayer player, World world,	int x, int y, int z) {
 		switch(ID){
 		case GUI_INVENTORY:
-			return new PlayerInventoryGui(player, player.inventory, player.getCapability(DarkRoleplayCore.getDrpcoreInv(), null).getInventory());
+			return new AdvancedPlayerInventoryGui(player, player.inventory, player.getCapability(DarkRoleplayCore.DRPCORE_INV, null).getInventory());
 		case GUI_CRAFTING:
 			return new CraftingGui(new Container_Crafting(player.inventory), player, world.getBlockState(new BlockPos(x,y,z)).getBlock());
 		case GUI_PURSE:
-			PlayerInventory inventory = player.getCapability(DarkRoleplayCore.getDrpcoreInv(), null).getInventory();
-			if(inventory.getStackInSlot(PlayerInventory.SLOT_PURSE) != null && inventory.getStackInSlot(PlayerInventory.SLOT_PURSE).getItem() instanceof PurseBase){
-				ItemStack purse = inventory.getStackInSlot(PlayerInventory.SLOT_PURSE);
+			AdvancedPlayerInventory inventory = player.getCapability(DarkRoleplayCore.DRPCORE_INV, null).getInventory();
+			if(inventory.getStackInSlot(AdvancedPlayerInventory.SLOT_PURSE) != null && inventory.getStackInSlot(AdvancedPlayerInventory.SLOT_PURSE).getItem() instanceof PurseBase){
+				ItemStack purse = inventory.getStackInSlot(AdvancedPlayerInventory.SLOT_PURSE);
 				return new PurseGui((Container_Purse) new Container_Purse(player, player.inventory, new PurseInventory(purse,((PurseBase) purse.getItem()).SlotAmount)));
 			}
 			return null;

@@ -1,18 +1,18 @@
 package net.drpcore.common.entities.player.advancedInventoryCapabiliy;
 
-import net.drpcore.common.gui.inventories.PlayerInventory;
+import net.drpcore.common.gui.inventories.AdvancedPlayerInventory;
 
 public class DefaultImplementation implements IPlayerInventoryAdvanced{
 
-	private PlayerInventory inventory = null;
+	private AdvancedPlayerInventory inventory = new AdvancedPlayerInventory();
 	
 	@Override
-	public void setInventory(PlayerInventory playerInv) {
+	public void setInventory(AdvancedPlayerInventory playerInv) {
 		this.inventory = playerInv;
 	}
 
 	@Override
-	public PlayerInventory getInventory() {
+	public AdvancedPlayerInventory getInventory() {
 		return inventory;
 	}
 
