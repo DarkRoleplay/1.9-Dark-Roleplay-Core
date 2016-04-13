@@ -1,6 +1,6 @@
 package net.drpcore.common.gui;
 
-import net.drpcore.client.guis.AdvancedPlayerInventoryGui;
+import net.drpcore.client.gui.guis.AdvancedPlayerInventoryGui;
 import net.drpcore.common.DarkRoleplayCore;
 import net.drpcore.common.gui.container.Container_Crafting;
 import net.drpcore.common.gui.container.Container_Purse;

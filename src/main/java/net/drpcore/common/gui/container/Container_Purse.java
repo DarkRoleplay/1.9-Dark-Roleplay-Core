@@ -1,7 +1,7 @@
 package net.drpcore.common.gui.container;
 
+import net.drpcore.client.gui.slots.SLOT_CURRENCY;
 import net.drpcore.common.gui.inventories.PurseInventory;
-import net.drpcore.common.gui.slots.SLOT_CURRENCY;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Container;

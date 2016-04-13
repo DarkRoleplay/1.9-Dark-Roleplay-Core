@@ -13,7 +13,7 @@ import net.drpcore.common.entities.player.PlayerCapabilityController;
 import net.drpcore.common.entities.player.advancedInventoryCapabiliy.AdvancedPlayerStorage;
 import net.drpcore.common.entities.player.advancedInventoryCapabiliy.DefaultImplementation;
 import net.drpcore.common.entities.player.advancedInventoryCapabiliy.IPlayerInventoryAdvanced;
-import net.drpcore.common.events.EntityConstruct;
+import net.drpcore.common.events.AttachCapabilitiesEntity;
 import net.drpcore.common.events.EntityJoinWorld;
 import net.drpcore.common.events.LivingDrop;
 import net.drpcore.common.gui.GuiHandler;
@@ -72,7 +72,6 @@ public class DarkRoleplayCore {
 		CapabilityManager.INSTANCE.register(IPlayerInventoryAdvanced.class, new AdvancedPlayerStorage() , DefaultImplementation.class);
 		
 		
-		MinecraftForge.EVENT_BUS.register(new PlayerCapabilityController());
 		
 		
 		configManager = new ConfigurationManager(new File(event.getModConfigurationDirectory().getPath() + "\\Advanced Configuration"));
@@ -119,9 +118,8 @@ public class DarkRoleplayCore {
 	}
 	
 	public static void registerEvents(){
-		MinecraftForge.EVENT_BUS.register(new ClientConnectedToServer());
-		MinecraftForge.EVENT_BUS.register(new ClientDisconnectFromServer());
-		MinecraftForge.EVENT_BUS.register(new EntityConstruct());
+		proxy.registerEvents();
+		MinecraftForge.EVENT_BUS.register(new AttachCapabilitiesEntity());
 		MinecraftForge.EVENT_BUS.register(new EntityJoinWorld());
 		MinecraftForge.EVENT_BUS.register(new LivingDrop());
 	}

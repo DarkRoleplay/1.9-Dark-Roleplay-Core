@@ -3,11 +3,11 @@ package net.drpcore.common.gui;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import net.drpcore.client.gui.buttons.craftCategoryButton;
+import net.drpcore.client.gui.buttons.craftIngredientButton;
+import net.drpcore.client.gui.buttons.craftLaunchCraftButton;
+import net.drpcore.client.gui.buttons.craftPageButton;
 import net.drpcore.common.DarkRoleplayCore;
-import net.drpcore.common.gui.buttons.craftCategoryButton;
-import net.drpcore.common.gui.buttons.craftIngredientButton;
-import net.drpcore.common.gui.buttons.craftLaunchCraftButton;
-import net.drpcore.common.gui.buttons.craftPageButton;
 import net.drpcore.common.network.PacketCraft;
 import net.drpcore.common.network.PacketHandler;
 import net.drpcore.common.util.crafting.CraftingManager;
