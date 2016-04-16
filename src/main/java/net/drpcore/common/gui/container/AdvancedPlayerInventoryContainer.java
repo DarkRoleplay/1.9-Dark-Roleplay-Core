@@ -50,6 +50,8 @@ public class AdvancedPlayerInventoryContainer extends Container{
 	private static final int SPECIAL_PURSE = OFFHAND + 5;
 	private static final int SPECIAL_BACKPACK = OFFHAND + 6;
 	private static final int SPECIAL_AMMUNITIONCONTAINER = OFFHAND + 7;
+	private static final int SPECIAL_COSMETIC_ARMOR_START = SPECIAL_AMMUNITIONCONTAINER + 1;
+	private static final int SPECIAL_COSMETIC_ARMOR_END = SPECIAL_COSMETIC_ARMOR_START + 3;
 	
 	private final EntityPlayer thePlayer;
 
@@ -105,6 +107,12 @@ public class AdvancedPlayerInventoryContainer extends Container{
 		addSlotToContainer(new SLOT_BACKPACK(inventoryCustom, 5, 134, 9));
 		addSlotToContainer(new SLOT_PURSE(inventoryCustom, 4, 134, 27));
 		addSlotToContainer(new SLOT_AMMUNITIONCONTAINER(inventoryCustom,6,134,45));
+
+		//Cosmetic Armor Slots
+	
+		for (int i = 0; i < 4; ++i){
+			this.addSlotToContainer(new SLOT_ARMOR(player, inventoryCustom, inventoryCustom.getSizeInventory() - 4 + i, 26, 9 + i * 18, i));
+		}
 		
 		inventory2 = inventoryCustom;
 	}
@@ -239,7 +247,7 @@ public class AdvancedPlayerInventoryContainer extends Container{
 	public void onContainerClosed(EntityPlayer player)
     {
         InventoryPlayer inventoryplayer = player.inventory;
-
+        
         if (inventoryplayer.getItemStack() != null)
         {
             player.dropPlayerItemWithRandomChoice(inventoryplayer.getItemStack(), false);

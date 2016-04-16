@@ -13,7 +13,7 @@ public class SLOT_NECKLACE  extends Slot{
 	
 	public SLOT_NECKLACE(IInventory inventory, int par2, int par3, int par4){
 		super(inventory, par2, par3, par4);
-		this.setBackgroundLocation(new ResourceLocation(DarkRoleplayCore.MODID, "items/empty_slot_necklace"));
+		//this.setBackgroundLocation(new ResourceLocation(DarkRoleplayCore.MODID, "items/empty_slot_necklace"));
 	}
 	
 	@Override

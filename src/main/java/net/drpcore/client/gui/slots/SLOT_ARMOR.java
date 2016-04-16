@@ -63,6 +63,12 @@ public class SLOT_ARMOR extends Slot {
 				return "minecraft:items/empty_armor_slot_leggings";
 			case FEET:
 				return "minecraft:items/empty_armor_slot_boots";
+			case MAINHAND:
+				break;
+			case OFFHAND:
+				break;
+			default:
+				break;
 		}
 		
 		return "";

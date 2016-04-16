@@ -13,7 +13,7 @@ public class SLOT_RING extends Slot{
 
 	public SLOT_RING(IInventory inventory, int par2, int par3, int par4){
 		super(inventory, par2, par3, par4);
-		this.setBackgroundLocation(new ResourceLocation(DarkRoleplayCore.MODID, "items/empty_slot_ring"));
+		//this.setBackgroundLocation(new ResourceLocation(DarkRoleplayCore.MODID, "items/empty_slot_ring"));
 	}
 	
 	@Override

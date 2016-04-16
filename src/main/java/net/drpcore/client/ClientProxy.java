@@ -3,6 +3,7 @@ package net.drpcore.client;
 import net.drpcore.client.events.ClientConnectedToServer;
 import net.drpcore.client.events.ClientDisconnectFromServer;
 import net.drpcore.client.events.OnPlayerTick;
+import net.drpcore.client.events.RenderPlayer;
 import net.drpcore.client.util.UpdateCheck;
 import net.drpcore.common.proxy.CommonProxy;
 import net.minecraftforge.common.MinecraftForge;

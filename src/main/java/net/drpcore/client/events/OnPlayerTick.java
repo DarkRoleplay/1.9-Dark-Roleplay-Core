@@ -11,11 +11,15 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent.PlayerTickEvent;
 
 public class OnPlayerTick {
-
+	
 	private boolean hasShownUp = false;
 	
 	@SubscribeEvent
 	public void onPlayerTick(PlayerTickEvent event){
+		displayUpdate();
+	}
+
+	public void displayUpdate(){
 		if(UpdateCheck.isNewVersionAvailable() && !hasShownUp /*&& Minecraft.getMinecraft().currentScreen == null*/){
 			ClickEvent downloadURL = new ClickEvent(Action.OPEN_URL, UpdateCheck.getDownloadURL());
 			ClickEvent changelogURL = new ClickEvent(Action.OPEN_URL, UpdateCheck.getChangelogURL());

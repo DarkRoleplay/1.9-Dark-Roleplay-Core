@@ -9,7 +9,7 @@ public class ClientDisconnectFromServer {
 
 	@SubscribeEvent
 	public void ClientDisconnectFromServerEvent(ClientDisconnectionFromServerEvent event){
-		CraftingManager.unloadAllRecipes();
+		//CraftingManager.unloadAllRecipes();
 	}
 	
 }

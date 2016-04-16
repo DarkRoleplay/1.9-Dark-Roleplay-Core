@@ -10,7 +10,6 @@ import net.drpcore.common.DarkRoleplayCore;
 public class UpdateCheck {
 
 	private static final String UPDATE_URL = "https://www.dropbox.com/s/xinucsj2gjzbpjr/DarkRoleplayCore.txt?dl=1";
-	
 	private static boolean newVersionAvailable = false;
 	
 	private static String newVersion = "none";
@@ -26,27 +25,29 @@ public class UpdateCheck {
 				try {
 					URL url = new URL(UPDATE_URL);
 					Scanner scanner = new Scanner(url.openStream());
+					String[] version;
 					
-					String[] version = scanner.nextLine().split("~");
-
-					scanner.close();
-					
-					if(version[0].equals("1.8")){
-						if(!DarkRoleplayCore.VERSION.equals(version[1])){
-							newVersion = version[1];
-							setNewVersionAvailable();
-							if(!version[2].equals("none")) downloadURL = version[2];
-								 
-							if(!version[3].equals("none")) changelogURL = version[3];
-							
+					for(version = scanner.nextLine().split("~"); version != null; ){
+						
+						if(version[0].equals("1.9")){
+							if(!DarkRoleplayCore.VERSION.equals(version[1])){
+								newVersion = version[1];
+								setNewVersionAvailable();
+								if(!version[2].equals("none")) downloadURL = version[2];
+									 
+								if(!version[3].equals("none")) changelogURL = version[3];
+								
+							}
 						}
 					}
 					
+					scanner.close();
+					
 					
 				} catch (MalformedURLException e) {
-					System.err.println("Dark Roleplay Medieval Update Check failed!");
+					System.err.println("Dark Roleplay Core Update Check failed!");
 				} catch (IOException e) {
-					System.err.println("Dark Roleplay Medieval Update Check failed!");
+					System.err.println("Dark Roleplay Core Update Check failed!");
 				}
 			}
 			
