@@ -18,8 +18,10 @@ public class ClientProxy extends CommonProxy{
 	}
 	
 	public void registerEvents(){
+		MinecraftForge.EVENT_BUS.register(new OnPlayerTick());
 		MinecraftForge.EVENT_BUS.register(new ClientConnectedToServer());
 		MinecraftForge.EVENT_BUS.register(new ClientDisconnectFromServer());
+		MinecraftForge.EVENT_BUS.register(new RenderPlayer());
 		
 		ClientRegistry.registerKeyBinding(KeyBindingManager.openInventory);
 		ClientRegistry.registerKeyBinding(KeyBindingManager.openCrafting);
