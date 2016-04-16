@@ -25,7 +25,6 @@ import net.drpcore.common.util.schematic.SchematicController;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
-
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.CapabilityInject;
@@ -38,6 +37,7 @@ import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.network.NetworkRegistry;
 import net.minecraftforge.fml.common.registry.GameRegistry;
+import net.minecraftforge.fml.relauncher.Side;
 
 @Mod(modid = DarkRoleplayCore.MODID, version = DarkRoleplayCore.VERSION, name = DarkRoleplayCore.NAME ,acceptedMinecraftVersions = DarkRoleplayCore.ACCEPTEDVERSIONS)
 public class DarkRoleplayCore {
@@ -50,6 +50,8 @@ public class DarkRoleplayCore {
 	public static File schematicPath;
 	
 	public static final Logger log = LogManager.getLogger("Dark Roleplay Core");
+	
+	public static Side isServer;
 	
 	public static ConfigurationManager configManager;
 	public static CraftingManager CM = new CraftingManager();
@@ -67,6 +69,8 @@ public class DarkRoleplayCore {
     public void preInit(FMLPreInitializationEvent event){
 		CapabilityManager.INSTANCE.register(IPlayerInventoryAdvanced.class, new AdvancedPlayerStorage() , DefaultImplementation.class);
 
+		isServer = event.getSide();
+		
 		configManager = new ConfigurationManager(new File(event.getModConfigurationDirectory().getPath() + "\\Advanced Configuration"));
 		schematicPath = configManager.CConfigFolder;
 	}

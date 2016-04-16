@@ -246,12 +246,12 @@ public class AdvancedPlayerInventoryContainer extends Container{
 	@Override
 	public void onContainerClosed(EntityPlayer player)
     {
-        InventoryPlayer inventoryplayer = player.inventory;
+       // InventoryPlayer inventoryplayer = player.inventory;
         
-        if (inventoryplayer.getItemStack() != null)
-        {
-            player.dropPlayerItemWithRandomChoice(inventoryplayer.getItemStack(), false);
-            inventoryplayer.setItemStack((ItemStack)null);
-        }   
+       // if (inventoryplayer.getItemStack() != null)
+      //  {
+       //     player.dropPlayerItemWithRandomChoice(inventoryplayer.getItemStack(), false);
+       //     inventoryplayer.setItemStack((ItemStack)null);
+       // }   
     }
 }

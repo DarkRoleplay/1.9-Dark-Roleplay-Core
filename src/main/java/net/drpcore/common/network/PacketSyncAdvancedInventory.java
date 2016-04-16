@@ -50,14 +50,14 @@ public class PacketSyncAdvancedInventory  extends PacketBase<PacketSyncAdvancedI
 
 	@Override
 	public void handleClientSide(PacketSyncAdvancedInventory message, EntityPlayer player) {
-		AdvancedPlayerInventory inventory = player.getCapability(DarkRoleplayCore.DRPCORE_INV, null).getInventory();
+		AdvancedPlayerInventory inventory = Minecraft.getMinecraft().thePlayer.getCapability(DarkRoleplayCore.DRPCORE_INV, null).getInventory();
 		inventory.setInventorySlotContents(message.slotID, message.stack);
 	}
 
 	@Override
 	public void handleServerSide(PacketSyncAdvancedInventory message, EntityPlayer player) {
-		AdvancedPlayerInventory inventory = player.getCapability(DarkRoleplayCore.DRPCORE_INV, null).getInventory();
-		inventory.setInventorySlotContents(message.slotID, message.stack);
+		//AdvancedPlayerInventory inventory = player.getCapability(DarkRoleplayCore.DRPCORE_INV, null).getInventory();
+		//inventory.setInventorySlotContents(message.slotID, message.stack);
 	}
 
 }

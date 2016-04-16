@@ -18,4 +18,5 @@ public class CommonProxy{
 	public void registerRandom(){
 		
 	}
+
 }
