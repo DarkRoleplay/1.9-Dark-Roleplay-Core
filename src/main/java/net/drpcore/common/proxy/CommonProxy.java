@@ -5,18 +5,18 @@ import net.drpcore.common.events.EntityJoinWorld;
 import net.drpcore.common.events.LivingDrop;
 import net.minecraftforge.common.MinecraftForge;
 
-public class CommonProxy{
+public class CommonProxy {
 
-	public void checkForUpdates(){
-		
-	}
-	
-	public void registerEvents(){
+	public void checkForUpdates() {
 
 	}
-	
-	public void registerRandom(){
-		
+
+	public void registerEvents() {
+
+	}
+
+	public void registerRandom() {
+
 	}
 
 }

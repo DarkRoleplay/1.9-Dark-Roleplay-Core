@@ -10,26 +10,15 @@ import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.client.registry.ClientRegistry;
 import net.minecraftforge.fml.common.FMLCommonHandler;
 
-public class ClientProxy extends CommonProxy{
-	
-	public void checkForUpdates(){
+public class ClientProxy extends CommonProxy {
+
+	public void checkForUpdates() {
+
 		UpdateCheck.checkForUpdate();
-		FMLCommonHandler.instance().bus().register(new OnPlayerTick());
+
 	}
-	
-	public void registerEvents(){
-		MinecraftForge.EVENT_BUS.register(new OnPlayerTick());
-		MinecraftForge.EVENT_BUS.register(new ClientConnectedToServer());
-		MinecraftForge.EVENT_BUS.register(new ClientDisconnectFromServer());
-		MinecraftForge.EVENT_BUS.register(new RenderPlayer());
-		
-		ClientRegistry.registerKeyBinding(KeyBindingManager.openInventory);
-		ClientRegistry.registerKeyBinding(KeyBindingManager.openCrafting);
-		ClientRegistry.registerKeyBinding(KeyBindingManager.openPurse);
-		FMLCommonHandler.instance().bus().register(new KeyBindingManager());
-	}
-	
-	public void registerRandom(){
-		
-	}
+
+	public void registerEvents() {}
+
+	public void registerRandom() {}
 }

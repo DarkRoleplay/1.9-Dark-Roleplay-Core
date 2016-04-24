@@ -19,33 +19,34 @@ public class Schematic {
 	private short height;
 	private short length;
 	private int totalSize;
-	
+
 	private BlockPos[] positions;
 	private IBlockState[] states;
 
-	public BlockPos getPositionWithOffset(BlockPos posA, BlockPos posB){
-		
+	public BlockPos getPositionWithOffset(BlockPos posA, BlockPos posB) {
+
 		posA = posA.add(posB.getX(), posB.getY(), posB.getZ());
-		
+
 		return posA;
-		
+
 	}
-	
-	public Schematic(BlockPos[] positions,IBlockState[] states, short width, short height, short length){
-		
+
+	public Schematic(BlockPos[] positions, IBlockState[] states, short width, short height, short length) {
+
 		this.width = width;
 		this.height = height;
 		this.length = length;
 		this.totalSize = width * height * length;
-		
+
 		this.positions = positions;
 		this.states = states;
 	}
-	
-	public void generate(World world, BlockPos pos){
+
+	public void generate(World world, BlockPos pos) {
+
 		System.out.println("Debug2");
 		int current = 0;
-		for(BlockPos position: positions){
+		for(BlockPos position : positions){
 			if(states[current].getBlock() != Blocks.air){
 				System.out.println(getPositionWithOffset(position, pos));
 			}
@@ -53,5 +54,5 @@ public class Schematic {
 			current++;
 		}
 	}
-	
+
 }

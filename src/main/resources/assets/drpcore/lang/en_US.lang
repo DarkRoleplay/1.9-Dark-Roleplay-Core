@@ -1,3 +1,10 @@
 keyBinding.openPurse=Open Purse
 keyBinding.openCrafting=Open Crafing Menu
 keyBinding.openInventory=Open Inventory
+
+drpcore.util.modName=Dark Roleplay Core
+drpcore.update.newVersionAvailable=There is a new Version available!
+drpcore.update.currentVersion=Your Current version is
+drpcore.update.latestVersion=but the latest one is
+drpcore.update.openDownload=Click here to open the Download Page,
+drpcore.update.openChangelog=or here to take first a look at the Changelog.

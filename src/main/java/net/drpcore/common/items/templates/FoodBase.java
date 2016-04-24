@@ -46,8 +46,7 @@ public class FoodBase extends Item {
 
 	private static FoodIngredient[] INGREDIENTS;
 
-	public FoodBase(int feedAmount, float saturation, int eatTime, FoodIngredient[] ingreadients,
-			EnumFoodCategory foodType) {
+	public FoodBase(int feedAmount, float saturation, int eatTime, FoodIngredient[] ingreadients, EnumFoodCategory foodType) {
 		this.baseFeedAmount = feedAmount;
 		this.baseSaturation = saturation;
 		this.itemUseDuration = eatTime * 20;
@@ -57,6 +56,7 @@ public class FoodBase extends Item {
 	}
 
 	public ItemStack[] getPossibleIngredients() {
+
 		ItemStack[] Ingredients = new ItemStack[] {};
 		return Ingredients;
 	}
@@ -66,9 +66,9 @@ public class FoodBase extends Item {
 	 * pressed. Args: itemStack, world, entityPlayer
 	 */
 	@Override
-	public ActionResult<ItemStack> onItemRightClick(ItemStack itemStackIn, World worldIn, EntityPlayer playerIn,
-			EnumHand hand) {
-		if (playerIn.canEat(this.alwaysEdible)) {
+	public ActionResult<ItemStack> onItemRightClick(ItemStack itemStackIn, World worldIn, EntityPlayer playerIn, EnumHand hand) {
+
+		if(playerIn.canEat(this.alwaysEdible)){
 			playerIn.setActiveHand(hand);
 			// playerIn.setItemInUse(itemStackIn,
 			// this.getMaxItemUseDuration(itemStackIn));
@@ -78,6 +78,7 @@ public class FoodBase extends Item {
 	}
 
 	public FoodBase setPotionEffect(int id, int duration, int amplifier, float probability) {
+
 		this.potionId = id;
 		this.potionDuration = duration;
 		this.potionAmplifier = amplifier;
@@ -87,22 +88,22 @@ public class FoodBase extends Item {
 
 	@Override
 	public ItemStack onItemUseFinish(ItemStack stack, World worldIn, EntityLivingBase entityLiving) {
-		if (entityLiving instanceof EntityPlayer) {
+
+		if(entityLiving instanceof EntityPlayer){
 			EntityPlayer player = (EntityPlayer) entityLiving;
 			int meta = stack.getMetadata();
 
 			boolean poisioned;
 
-			if ((poisioned = isPoisioned(meta)))
-				meta--;
+			if((poisioned = isPoisioned(meta))) meta--;
 
 			ArrayList<Integer> addToList = getContainedIngrediens(meta);
 
 			int feedAmount = this.baseFeedAmount;
 			float saturationAmount = this.baseSaturation;
 
-			for (int i = 0; i < addToList.size(); i++) {
-				if (addToList.get(i) == 1) {
+			for(int i = 0; i < addToList.size(); i++){
+				if(addToList.get(i) == 1){
 					feedAmount += INGREDIENTS[i].getFeedAmount();
 					saturationAmount += INGREDIENTS[i].getSaturationAmount();
 				}
@@ -110,13 +111,13 @@ public class FoodBase extends Item {
 
 			--stack.stackSize;
 
-			if (poisioned) {
+			if(poisioned){
 				player.addPotionEffect(new PotionEffect(Potion.getPotionById(19), 1200, 1));
 			}
 
 			player.getFoodStats().addStats(feedAmount, saturationAmount);
 
-			worldIn.playSound((EntityPlayer)null, player.posX, player.posY, player.posZ, SoundEvents.entity_player_burp, SoundCategory.PLAYERS, 0.5F, worldIn.rand.nextFloat() * 0.1F + 0.9F);
+			worldIn.playSound((EntityPlayer) null, player.posX, player.posY, player.posZ, SoundEvents.entity_player_burp, SoundCategory.PLAYERS, 0.5F, worldIn.rand.nextFloat() * 0.1F + 0.9F);
 			this.onFoodEaten(stack, worldIn, player);
 			player.addStat(StatList.func_188057_b(this));
 		}
@@ -124,28 +125,33 @@ public class FoodBase extends Item {
 	}
 
 	protected void onFoodEaten(ItemStack stack, World worldIn, EntityPlayer player) {
-		if (!worldIn.isRemote && this.potionId > 0 && worldIn.rand.nextFloat() < this.potionEffectProbability) {
+
+		if(!worldIn.isRemote && this.potionId > 0 && worldIn.rand.nextFloat() < this.potionEffectProbability){
 			player.addPotionEffect(new PotionEffect(Potion.getPotionById(this.potionId), this.potionDuration * 20, this.potionAmplifier));
 		}
 	}
 
 	public FoodBase setAlwaysEdible() {
+
 		this.alwaysEdible = true;
 		return this;
 	}
 
 	@Override
 	public EnumAction getItemUseAction(ItemStack stack) {
+
 		return EnumAction.EAT;
 	}
 
 	@Override
 	public int getMaxItemUseDuration(ItemStack stack) {
+
 		return this.itemUseDuration;
 	}
 
 	public boolean isPoisioned(int meta) {
-		if (meta % 2 == 1)
+
+		if(meta % 2 == 1)
 			return true;
 		else
 			return false;
@@ -157,20 +163,19 @@ public class FoodBase extends Item {
 
 		int meta = stack.getItemDamage();
 
-		if (isPoisioned(meta)) {
+		if(isPoisioned(meta)){
 			meta--;
 			tooltip.add(TextFormatting.DARK_GREEN + "Poisoned");
 		}
-		if (meta > 0)
-			tooltip.add(TextFormatting.WHITE + "Ingredients:");
+		if(meta > 0) tooltip.add(TextFormatting.WHITE + "Ingredients:");
 
-		if (stack.getItemDamage() == 0);
-			tooltip.add(TextFormatting.DARK_GRAY + "none");
+		if(stack.getItemDamage() == 0) ;
+		tooltip.add(TextFormatting.DARK_GRAY + "none");
 
 		ArrayList<Integer> addToList = getContainedIngrediens(meta);
 
-		for (int i = 0; i < addToList.size(); i++) {
-			if (addToList.get(i) == 1) {
+		for(int i = 0; i < addToList.size(); i++){
+			if(addToList.get(i) == 1){
 				tooltip.add(TextFormatting.AQUA + this.INGREDIENTS[i].getName());
 			}
 
@@ -182,13 +187,13 @@ public class FoodBase extends Item {
 
 		ArrayList<Integer> containing = new ArrayList<Integer>();
 
-		if (meta >= Math.pow(2, this.INGREDIENTS.length + 1)) {
+		if(meta >= Math.pow(2, this.INGREDIENTS.length + 1)){
 			meta = (int) (Math.pow(2, this.INGREDIENTS.length + 1) - 1);
 		}
 
 		meta /= 2;
 
-		while (meta != 0) {
+		while(meta != 0){
 			containing.add(meta % 2);
 			meta /= 2;
 		}

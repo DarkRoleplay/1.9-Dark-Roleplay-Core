@@ -13,16 +13,22 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.network.FMLNetworkEvent;
 import net.minecraftforge.fml.common.network.FMLNetworkEvent.ClientConnectedToServerEvent;
 
-public class ClientConnectedToServer{
+/**
+ * Currently unused but will be Used to Load an unload Crafting Recipes when they will be
+ * configurable
+ * 
+ * @author JTK222
+ */
+public class ClientConnectedToServer {
 
 	@SubscribeEvent
-	public void ClientConnectedToServerEvent(ClientConnectedToServerEvent event){
+	public void ClientConnectedToServerEvent(ClientConnectedToServerEvent event) {
+
 		if(event.isLocal()){
-			//ConfigurationManager configManager = DarkRoleplayCore.configManager;
-			//configManager.readMainRecipes();
-			System.out.println("DARK ROLEPLAY DEBUG | Player joint Singleplayer");
-		}else{
-			System.out.println("DARK ROLEPLAY DEBUG | Player joint Multiplayer");
+			DarkRoleplayCore.log.debug("Player has joined a Singleplayer World!");
+		}
+		else{
+			DarkRoleplayCore.log.debug("Player has joined a Multiplayer World!");
 		}
 	}
 }

@@ -1,5 +1,8 @@
 package net.drpcore.common.gui.inventories;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import net.drpcore.common.DarkRoleplayCore;
 import net.drpcore.common.items.templates.AmmunitionBase;
 import net.drpcore.common.items.templates.BackpackBase;
@@ -8,18 +11,27 @@ import net.drpcore.common.items.templates.NecklaceBase;
 import net.drpcore.common.items.templates.PurseBase;
 import net.drpcore.common.items.templates.RingBase;
 import net.drpcore.common.network.PacketHandler;
-import net.drpcore.common.network.PacketSyncAdvancedInventory;
+import net.drpcore.common.network.packets.PacketSyncAdvancedInventory;
 import net.minecraft.client.Minecraft;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.inventory.IInvBasic;
+import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemArmor;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.NBTTagList;
+import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.text.ITextComponent;
+import net.minecraftforge.fml.common.FMLCommonHandler;
 import net.minecraftforge.fml.relauncher.Side;
 
-public class AdvancedPlayerInventory extends InventoryCustom {
+public class AdvancedPlayerInventory implements IInventory {
 
-	private final String name = "Inventory";
+	protected ItemStack[] inventory;
 
 	private static final String SAVE_KEY = "DRPCoreCustomInv";
 
@@ -40,19 +52,64 @@ public class AdvancedPlayerInventory extends InventoryCustom {
 
 	public AdvancedPlayerInventory() {
 		this.inventory = new ItemStack[INV_SIZE];
-		// this.player = Minecraft.getMinecraft().thePlayer;
+	}
+
+	public AdvancedPlayerInventory(AdvancedPlayerInventory inv, EntityPlayer player) {
+		this.inventory = inv.inventory;
+		this.player = player;
 	}
 
 	@Override
-	protected String getNbtKey() {
+	public int getSizeInventory() {
 
-		return SAVE_KEY;
+		return inventory.length;
 	}
 
 	@Override
-	public String getName() {
+	public ItemStack getStackInSlot(int slot) {
 
-		return name;
+		return slot >= this.getSizeInventory() ? null : this.inventory[slot];
+	}
+
+	@Override
+	public ItemStack decrStackSize(int slot, int amount) {
+
+		ItemStack stack = this.inventory[slot];
+		if(stack != null){
+			if(stack.stackSize > amount){
+				stack = stack.splitStack(amount);
+				syncSlotToClients(slot);
+				return stack;
+			}
+			else{
+				setInventorySlotContents(slot, null);
+				syncSlotToClients(slot);
+				return stack;
+			}
+		}
+		else{
+			return null;
+		}
+	}
+
+	@Override
+	public ItemStack removeStackFromSlot(int slot) {
+
+		if(this.inventory[slot] != null){
+			ItemStack itemstack = this.inventory[slot];
+			this.inventory[slot] = null;
+			return itemstack;
+		}
+		else{
+			return null;
+		}
+	}
+
+	@Override
+	public void setInventorySlotContents(int slot, ItemStack stack) {
+
+		this.inventory[slot] = stack;
+		syncSlotToClients(slot);
 	}
 
 	@Override
@@ -62,14 +119,30 @@ public class AdvancedPlayerInventory extends InventoryCustom {
 	}
 
 	@Override
-	public boolean isUseableByPlayer(EntityPlayer player) {
+	public void markDirty() {
+
+		try{
+			player.inventory.markDirty();
+		}
+		catch(Exception e){}
+	}
+
+	@Override
+	public boolean isUseableByPlayer(EntityPlayer par1EntityPlayer) {
 
 		return true;
 	}
 
 	@Override
+	public void openInventory(EntityPlayer player) {}
+
+	@Override
+	public void closeInventory(EntityPlayer player) {}
+
+	@Override
 	public boolean isItemValidForSlot(int slot, ItemStack stack) {
 
+		if(stack == null) return false;
 		if(slot == SLOT_NECKLACE && stack.getItem() instanceof NecklaceBase)
 			return true;
 		else if(slot >= SLOT_RING_LEFT && slot <= SLOT_RING_RIGHT && stack.getItem() instanceof RingBase)
@@ -93,53 +166,171 @@ public class AdvancedPlayerInventory extends InventoryCustom {
 	}
 
 	@Override
-	public ItemStack decrStackSize(int slot, int amount) {
+	public int getField(int id) {
 
-		ItemStack stack = getStackInSlot(slot);
-		if(stack != null){
-			if(stack.stackSize > amount){
-				stack = stack.splitStack(amount);
-			}
-			else{
-				setInventorySlotContents(slot, null);
-			}
-			markDirty();
-			syncSlotToClients(slot);
-			;
-		}
-		return stack;
+		return 0;
 	}
 
 	@Override
-	public ItemStack removeStackFromSlot(int index) {
+	public void setField(int id, int value) {}
+
+	@Override
+	public int getFieldCount() {
+
+		return 0;
+	}
+
+	@Override
+	public void clear() {
+
+		for(int i = 0; i < inventory.length; i++){
+			inventory[i] = null;
+		}
+	}
+
+	@Override
+	public boolean hasCustomName() {
+
+		return false;
+	}
+
+	@Override
+	public ITextComponent getDisplayName() {
 
 		return null;
 	}
 
 	@Override
-	public void setInventorySlotContents(int slot, ItemStack stack) {
+	public String getName() {
 
-		inventory[slot] = stack;
-		if(stack != null && stack.stackSize > this.getInventoryStackLimit()){
-			stack.stackSize = getInventoryStackLimit();
+		return null;
+	}
+
+	// -----Custom Inventory Start------
+
+	protected String getNbtKey() {
+
+		return SAVE_KEY;
+	}
+
+	public void saveNBT(EntityPlayer player) {
+
+		NBTTagCompound tags = player.getEntityData();
+		saveNBT(tags);
+	}
+
+	public void saveNBT(NBTTagCompound tags) {
+
+		NBTTagList tagList = new NBTTagList();
+		NBTTagCompound invSlot;
+		for(int i = 0; i < this.inventory.length; ++i){
+			if(this.inventory[i] != null){
+				invSlot = new NBTTagCompound();
+				invSlot.setByte("Slot", (byte) i);
+				this.inventory[i].writeToNBT(invSlot);
+				tagList.appendTag(invSlot);
+			}
 		}
-		markDirty();
-		syncSlotToClients(slot);
+		tags.setTag("Baubles.Inventory", tagList);
+	}
+
+	public void readNBT(EntityPlayer player) {
+
+		NBTTagCompound tags = player.getEntityData();
+		readNBT(tags);
+	}
+
+	public void readNBT(NBTTagCompound tags) {
+
+		NBTTagList tagList = tags.getTagList("Baubles.Inventory", 10);
+		for(int i = 0; i < tagList.tagCount(); ++i){
+			NBTTagCompound nbttagcompound = (NBTTagCompound) tagList.getCompoundTagAt(i);
+			int j = nbttagcompound.getByte("Slot") & 255;
+			ItemStack itemstack = ItemStack.loadItemStackFromNBT(nbttagcompound);
+			if(itemstack != null){
+				this.inventory[j] = itemstack;
+			}
+		}
+	}
+
+	public void dropItems(ArrayList<EntityItem> drops) {
+
+		for(int i = 0; i < 4; ++i){
+			if(this.inventory[i] != null){
+				EntityItem ei = new EntityItem(player.worldObj, player.posX, player.posY + player.getEyeHeight(), player.posZ, this.inventory[i].copy());
+				ei.setPickupDelay(40);
+				float f1 = player.worldObj.rand.nextFloat() * 0.5F;
+				float f2 = player.worldObj.rand.nextFloat() * (float) Math.PI * 2.0F;
+				ei.motionX = (double) (-MathHelper.sin(f2) * f1);
+				ei.motionZ = (double) (MathHelper.cos(f2) * f1);
+				ei.motionY = 0.20000000298023224D;
+				drops.add(ei);
+				this.inventory[i] = null;
+				syncSlotToClients(i);
+			}
+		}
+	}
+
+	public void dropItemsAt(List<EntityItem> drops, Entity e) {
+
+		for(int i = 0; i < 4; ++i){
+			if(this.inventory[i] != null){
+				EntityItem ei = new EntityItem(e.worldObj, e.posX, e.posY + e.getEyeHeight(), e.posZ, this.inventory[i].copy());
+				ei.setPickupDelay(40);
+				float f1 = e.worldObj.rand.nextFloat() * 0.5F;
+				float f2 = e.worldObj.rand.nextFloat() * (float) Math.PI * 2.0F;
+				ei.motionX = (double) (-MathHelper.sin(f2) * f1);
+				ei.motionZ = (double) (MathHelper.cos(f2) * f1);
+				ei.motionY = 0.20000000298023224D;
+				drops.add(ei);
+				this.inventory[i] = null;
+				syncSlotToClients(i);
+			}
+		}
+	}
+
+	public NBTTagCompound writeToNBT(NBTTagCompound compound) {
+
+		String key = getNbtKey();
+		if(key == null || key.equals("")){ return null; }
+		NBTTagList items = new NBTTagList();
+		for(int i = 0; i < getSizeInventory(); ++i){
+			if(getStackInSlot(i) != null){
+				NBTTagCompound item = new NBTTagCompound();
+				item.setByte("Slot", (byte) i);
+				getStackInSlot(i).writeToNBT(item);
+				items.appendTag(item);
+			}
+		}
+		compound.setTag(key, items);
+		return compound;
+	}
+
+	public void readFromNBT(NBTTagCompound compound) {
+
+		String key = getNbtKey();
+		if(key == null || key.equals("")){ return; }
+		NBTTagList items = compound.getTagList(key, compound.getId());
+		for(int i = 0; i < items.tagCount(); ++i){
+			NBTTagCompound item = items.getCompoundTagAt(i);
+			byte slot = item.getByte("Slot");
+			if(slot >= 0 && slot < getSizeInventory()){
+				inventory[slot] = ItemStack.loadItemStackFromNBT(item);
+			}
+		}
 	}
 
 	public void syncSlotToClients(int slot) {
 
-		try{
-			if(DarkRoleplayCore.isServer == Side.SERVER){
-				PacketHandler.INSTANCE.sendToAll(new PacketSyncAdvancedInventory(slot, player));
-				//PacketHandler.sendToAll(new PacketSyncAdvancedInventory(slot, player));
-			}
+		if(DarkRoleplayCore.isServer == Side.SERVER) for(EntityPlayerMP other : (List<EntityPlayerMP>) FMLCommonHandler.instance().getMinecraftServerInstance().getPlayerList().getPlayerList()){
+			for(int i = 0; i < this.getSizeInventory(); i++)
+				PacketHandler.sendTo(new PacketSyncAdvancedInventory(i, player), other);
 		}
-		catch(Exception e){
-			e.printStackTrace();
-		}
+		/*
+		 * try { if(player != null) if (DarkRoleplayCore.isServer ==
+		 * Side.SERVER) { PacketHandler.INSTANCE.sendToAll(new
+		 * PacketSyncAdvancedInventory( slot, player)); } } catch (Exception e)
+		 * { e.printStackTrace(); }
+		 */
 	}
-
-	@Override
-	public void markDirty() {}
 }

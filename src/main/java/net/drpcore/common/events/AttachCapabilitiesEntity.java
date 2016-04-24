@@ -14,8 +14,8 @@ public class AttachCapabilitiesEntity {
 
 	@SubscribeEvent
 	public void attachPlayerCapabilities(AttachCapabilitiesEvent.Entity event) {
-		if(event.getEntity() instanceof EntityPlayer)
-			event.addCapability(new ResourceLocation(DarkRoleplayCore.MODID, "DRPCore_Inventory"), new PlayerCapabilityProvider(event.getEntity()));
+
+		if(event.getEntity() instanceof EntityPlayer) event.addCapability(new ResourceLocation(DarkRoleplayCore.MODID, "DRPCore_Inventory"), new PlayerCapabilityProvider(event.getEntity()));
 	}
-	
+
 }

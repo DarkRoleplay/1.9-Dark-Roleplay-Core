@@ -4,12 +4,12 @@ import java.io.IOException;
 
 import org.lwjgl.opengl.GL11;
 
-import net.drpcore.client.gui.buttons.craftCategoryButton;
-import net.drpcore.client.gui.buttons.craftIngredientButton;
-import net.drpcore.client.gui.buttons.rotateEntityRender;
 import net.drpcore.common.DarkRoleplayCore;
 import net.drpcore.common.entities.player.advancedInventoryCapabiliy.AdvancedPlayerStorage;
 import net.drpcore.common.entities.player.advancedInventoryCapabiliy.IPlayerInventoryAdvanced;
+import net.drpcore.common.gui.buttons.craftCategoryButton;
+import net.drpcore.common.gui.buttons.craftIngredientButton;
+import net.drpcore.common.gui.buttons.rotateEntityRender;
 import net.drpcore.common.gui.container.AdvancedPlayerInventoryContainer;
 import net.drpcore.common.gui.inventories.AdvancedPlayerInventory;
 import net.minecraft.client.Minecraft;
@@ -45,7 +45,7 @@ public class AdvancedPlayerInventoryGui extends GuiContainer {
 	private final EntityPlayer player;
 
 	private float rotation = 0F;
-	
+
 	rotateEntityRender rotateLeft;
 	rotateEntityRender rotateRigth;
 
@@ -65,9 +65,11 @@ public class AdvancedPlayerInventoryGui extends GuiContainer {
 		int posX = ((this.width - this.xSize + this.tabButtonWidth) / 2);
 		int posY = (this.height - this.ySize) / 2;
 
-		rotateLeft = new rotateEntityRender(buttonID++, posX + 106, posY + 64, false); // 63 65
-		rotateRigth = new rotateEntityRender(buttonID++, posX + 62, posY + 64, true); // 107 65
-	
+		rotateLeft = new rotateEntityRender(buttonID++, posX + 106, posY + 64, false); // 63
+																						// 65
+		rotateRigth = new rotateEntityRender(buttonID++, posX + 62, posY + 64, true); // 107
+																						// 65
+
 		buttonList.add(rotateLeft);
 		buttonList.add(rotateRigth);
 	}
@@ -97,14 +99,14 @@ public class AdvancedPlayerInventoryGui extends GuiContainer {
 	protected void actionPerformed(GuiButton button) throws IOException {
 
 		switch (button.id) {
-			//Rotate Left
+			// Rotate Left
 			case 0:
 				this.rotation -= 10;
 				if(this.rotation < -180){
 					this.rotation += 360;
 				}
 				break;
-			//Rotate Right
+			// Rotate Right
 			case 1:
 				this.rotation += 10;
 				if(this.rotation > 180){
@@ -113,49 +115,50 @@ public class AdvancedPlayerInventoryGui extends GuiContainer {
 				break;
 		}
 	}
-	public static void drawEntityOnScreen(int posX, int posY, int scale, float rotationYaw, float rotationPitch, EntityLivingBase ent)
-    {
+
+	public static void drawEntityOnScreen(int posX, int posY, int scale, float rotationYaw, float rotationPitch, EntityLivingBase ent) {
+
 		GlStateManager.enableColorMaterial();
-        GlStateManager.pushMatrix();
-        GlStateManager.translate((float)posX, (float)posY, 50.0F);
-        GlStateManager.scale((float)(-scale), (float)scale, (float)scale);
-        GlStateManager.rotate(180.0F, 0.0F, 0.0F, 1.0F);
-        
-        float f = ent.renderYawOffset;
-        float f1 = ent.rotationYaw;
-        float f2 = ent.rotationPitch;
-        float f3 = ent.prevRotationYawHead;
-        float f4 = ent.rotationYawHead;
-        
-        GlStateManager.rotate(135.0F, 0.0F, 1.0F, 0.0F); //Rotation Y
-        RenderHelper.enableStandardItemLighting();
-        GlStateManager.rotate(-135.0F, 0.0F, 1.0F, 0.0F); //Rotation Y
-        GlStateManager.rotate(10F, 1.0F, 0.0F, 0.0F);
-        
-        ent.renderYawOffset = rotationYaw;
-        ent.rotationYaw = rotationYaw;
-        ent.rotationPitch = 0F;
-        ent.rotationYawHead = ent.rotationYaw;
-        ent.prevRotationYawHead = ent.rotationYaw;
-        
-        GlStateManager.translate(0.0F, 0.0F, 0.0F);
-        RenderManager rendermanager = Minecraft.getMinecraft().getRenderManager();
-        rendermanager.setPlayerViewY(180.0F);
-        rendermanager.setRenderShadow(false);
-        rendermanager.doRenderEntity(ent, 0.0D, 0.0D, 0.0D, 0.0F, 1.0F, false);
-        rendermanager.setRenderShadow(true);
-        
-        ent.renderYawOffset = f;
-        ent.rotationYaw = f1;
-        ent.rotationPitch = f2;
-        ent.prevRotationYawHead = f3;
-        ent.rotationYawHead = f4;
-        
-        GlStateManager.popMatrix();
-        RenderHelper.disableStandardItemLighting();
-        GlStateManager.disableRescaleNormal();
-        GlStateManager.setActiveTexture(OpenGlHelper.lightmapTexUnit);
-        GlStateManager.disableTexture2D();
-        GlStateManager.setActiveTexture(OpenGlHelper.defaultTexUnit);
-    }
+		GlStateManager.pushMatrix();
+		GlStateManager.translate((float) posX, (float) posY, 50.0F);
+		GlStateManager.scale((float) (-scale), (float) scale, (float) scale);
+		GlStateManager.rotate(180.0F, 0.0F, 0.0F, 1.0F);
+
+		float f = ent.renderYawOffset;
+		float f1 = ent.rotationYaw;
+		float f2 = ent.rotationPitch;
+		float f3 = ent.prevRotationYawHead;
+		float f4 = ent.rotationYawHead;
+
+		GlStateManager.rotate(135.0F, 0.0F, 1.0F, 0.0F); // Rotation Y
+		RenderHelper.enableStandardItemLighting();
+		GlStateManager.rotate(-135.0F, 0.0F, 1.0F, 0.0F); // Rotation Y
+		GlStateManager.rotate(10F, 1.0F, 0.0F, 0.0F);
+
+		ent.renderYawOffset = rotationYaw;
+		ent.rotationYaw = rotationYaw;
+		ent.rotationPitch = 0F;
+		ent.rotationYawHead = ent.rotationYaw;
+		ent.prevRotationYawHead = ent.rotationYaw;
+
+		GlStateManager.translate(0.0F, 0.0F, 0.0F);
+		RenderManager rendermanager = Minecraft.getMinecraft().getRenderManager();
+		rendermanager.setPlayerViewY(180.0F);
+		rendermanager.setRenderShadow(false);
+		rendermanager.doRenderEntity(ent, 0.0D, 0.0D, 0.0D, 0.0F, 1.0F, false);
+		rendermanager.setRenderShadow(true);
+
+		ent.renderYawOffset = f;
+		ent.rotationYaw = f1;
+		ent.rotationPitch = f2;
+		ent.prevRotationYawHead = f3;
+		ent.rotationYawHead = f4;
+
+		GlStateManager.popMatrix();
+		RenderHelper.disableStandardItemLighting();
+		GlStateManager.disableRescaleNormal();
+		GlStateManager.setActiveTexture(OpenGlHelper.lightmapTexUnit);
+		GlStateManager.disableTexture2D();
+		GlStateManager.setActiveTexture(OpenGlHelper.defaultTexUnit);
+	}
 }
