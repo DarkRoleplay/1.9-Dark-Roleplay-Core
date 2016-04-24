@@ -5,6 +5,6 @@
     "1.9-recomended" : "0.1.4-PRE"
   },
   "1.9" : {
-    "0.1.5" : "Firstly Implemented This System"
+    "0.1.4-PRE" : "Firstly Implemented the Forge Update Checker"
   }
 }
