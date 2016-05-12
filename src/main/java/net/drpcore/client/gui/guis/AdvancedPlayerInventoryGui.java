@@ -5,8 +5,7 @@ import java.io.IOException;
 import org.lwjgl.opengl.GL11;
 
 import net.drpcore.common.DarkRoleplayCore;
-import net.drpcore.common.entities.player.advancedInventoryCapabiliy.AdvancedPlayerStorage;
-import net.drpcore.common.entities.player.advancedInventoryCapabiliy.IPlayerInventoryAdvanced;
+import net.drpcore.common.capabilities.entities.player.advancedInventory.IPlayerAdvancedInventory;
 import net.drpcore.common.gui.buttons.craftCategoryButton;
 import net.drpcore.common.gui.buttons.craftIngredientButton;
 import net.drpcore.common.gui.buttons.rotateEntityRender;

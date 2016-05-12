@@ -1,5 +1,7 @@
 package net.drpcore.common.gui.slots;
 
+import net.drpcore.common.items.templates.EnumDRPEquipType;
+import net.drpcore.common.items.templates.IDRPEquip;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.inventory.IInventory;
@@ -44,15 +46,18 @@ public class SLOT_ARMOR extends Slot {
 
 	public boolean isItemValid(ItemStack itemstack) {
 
-		return true;
-
-		// ItemArmor item = (itemstack == null ? null : itemstack.getItem()
-		// instanceof ItemArmor ? (ItemArmor) itemstack.getItem() : null);
-
-		// EntityEquipmentSlot type = item.getEquipmentSlot();
-
-		// return item != null && item.isValidArmor(itemstack, type, player) &&
-		// type == armorType;
+		Item item = (itemstack == null ? null : itemstack.getItem());
+				
+		if (itemstack == null)
+        {
+            return false;
+        }else{
+        	 if (item instanceof IDRPEquip){
+     			if(((IDRPEquip) item).getEquipType() == EnumDRPEquipType.WEARABLEHEAD)
+     				return true;
+     		}
+            return itemstack.getItem().isValidArmor(itemstack, armorType,null);
+        }
 	}
 
 	@SideOnly(Side.CLIENT)

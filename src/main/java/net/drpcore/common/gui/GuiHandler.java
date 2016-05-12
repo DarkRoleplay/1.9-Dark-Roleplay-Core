@@ -4,6 +4,7 @@ import net.drpcore.client.gui.guis.AdvancedPlayerInventoryGui;
 import net.drpcore.client.gui.guis.CraftingGui;
 import net.drpcore.client.gui.guis.PurseGui;
 import net.drpcore.common.DarkRoleplayCore;
+import net.drpcore.common.capabilities.entities.player.advancedInventory.AdvancedInventoryProvider;
 import net.drpcore.common.gui.container.Container_Crafting;
 import net.drpcore.common.gui.container.Container_Purse;
 import net.drpcore.common.gui.container.AdvancedPlayerInventoryContainer;
@@ -28,8 +29,7 @@ public class GuiHandler implements IGuiHandler{
 
 		switch (ID) {
 			case GUI_INVENTORY:
-				//TODO stuff
-				return new AdvancedPlayerInventoryContainer(player,player.inventory,new AdvancedPlayerInventory((AdvancedPlayerInventory)player.getCapability(DarkRoleplayCore.DRPCORE_INV, null).getInventory(),player));
+				return new AdvancedPlayerInventoryContainer(player,player.inventory,new AdvancedPlayerInventory((AdvancedPlayerInventory)player.getCapability(AdvancedInventoryProvider.ADVANCED_INVENTORY, null).getInventory(),player));
 			case GUI_CRAFTING:
 				return new Container_Crafting(player.inventory);
 			case GUI_PURSE:
@@ -48,7 +48,7 @@ public class GuiHandler implements IGuiHandler{
 	public Object getClientGuiElement(int ID, EntityPlayer player, World world,	int x, int y, int z) {
 		switch(ID){
 		case GUI_INVENTORY:
-			return new AdvancedPlayerInventoryGui(player, player.inventory,new AdvancedPlayerInventory((AdvancedPlayerInventory)player.getCapability(DarkRoleplayCore.DRPCORE_INV, null).getInventory(),player));
+			return new AdvancedPlayerInventoryGui(player, player.inventory,new AdvancedPlayerInventory((AdvancedPlayerInventory)player.getCapability(AdvancedInventoryProvider.ADVANCED_INVENTORY, null).getInventory(),player));
 		case GUI_CRAFTING:
 			return new CraftingGui(new Container_Crafting(player.inventory), player, world.getBlockState(new BlockPos(x,y,z)).getBlock());
 		case GUI_PURSE:

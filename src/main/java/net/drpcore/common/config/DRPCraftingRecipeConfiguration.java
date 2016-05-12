@@ -70,37 +70,39 @@ public class DRPCraftingRecipeConfiguration {
 		}
 
 		// Depending Output
-		for(int i = 1; i < (int) Math.pow(2, additionalInput.length); i++){
-			ArrayList<ItemStack> needetIngredients = new ArrayList<ItemStack>();
-			int j = i;
-			int k = 0;
-			while(j > 0){
-				if(j % 2 == 1) needetIngredients.add(additionalInput[k]);
-				k++;
-				j = j / 2;
-			}
-			ItemStack[] usedIngredients = new ItemStack[needetIngredients.size()];
-			usedIngredients = needetIngredients.toArray(usedIngredients);
-			ItemStack dependingOutput = recipe.getOutput(usedIngredients);
-			if(!dependingOutput.equals(DefaultOutput) && dependingOutput != null){
-				String writtenIngredients = null;
-				for(ItemStack items : usedIngredients){
-					if(writtenIngredients == null){
-						writtenIngredients = items.getItem().getRegistryName().toString();
-					}
-					else{
-						writtenIngredients = writtenIngredients + "&" + items.getItem().getRegistryName();
-					}
+		
+		if(additionalInput != null){
+			for(int i = 1; i < (int) Math.pow(2, additionalInput.length); i++){
+				ArrayList<ItemStack> needetIngredients = new ArrayList<ItemStack>();
+				int j = i;
+				int k = 0;
+				while(j > 0){
+					if(j % 2 == 1) needetIngredients.add(additionalInput[k]);
+					k++;
+					j = j / 2;
 				}
-
-				CRCategoryConfig.get(dependingOutputCategory.getQualifiedName() + "." + i, "needetIngredients", writtenIngredients);
-				CRCategoryConfig.get(dependingOutputCategory.getQualifiedName() + "." + i, "name", dependingOutput.getItem().getRegistryName().toString());
-				CRCategoryConfig.get(dependingOutputCategory.getQualifiedName() + "." + i, "amount", dependingOutput.stackSize);
-				CRCategoryConfig.get(dependingOutputCategory.getQualifiedName() + "." + i, "metadata", dependingOutput.getMetadata());
-
+				ItemStack[] usedIngredients = new ItemStack[needetIngredients.size()];
+				usedIngredients = needetIngredients.toArray(usedIngredients);
+				ItemStack dependingOutput = recipe.getOutput(usedIngredients);
+				if(!dependingOutput.equals(DefaultOutput) && dependingOutput != null){
+					String writtenIngredients = null;
+					for(ItemStack items : usedIngredients){
+						if(writtenIngredients == null){
+							writtenIngredients = items.getItem().getRegistryName().toString();
+						}
+						else{
+							writtenIngredients = writtenIngredients + "&" + items.getItem().getRegistryName();
+						}
+					}
+	
+					CRCategoryConfig.get(dependingOutputCategory.getQualifiedName() + "." + i, "needetIngredients", writtenIngredients);
+					CRCategoryConfig.get(dependingOutputCategory.getQualifiedName() + "." + i, "name", dependingOutput.getItem().getRegistryName().toString());
+					CRCategoryConfig.get(dependingOutputCategory.getQualifiedName() + "." + i, "amount", dependingOutput.stackSize);
+					CRCategoryConfig.get(dependingOutputCategory.getQualifiedName() + "." + i, "metadata", dependingOutput.getMetadata());
+	
+				}
 			}
 		}
-
 		CRCategoryConfig.save();
 	}
 

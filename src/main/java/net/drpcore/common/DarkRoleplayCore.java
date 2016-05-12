@@ -10,12 +10,13 @@ import net.drpcore.client.events.ClientDisconnectFromServer;
 import net.drpcore.client.keybinding.DRPCoreKeybindings;
 import net.drpcore.client.util.UpdateCheck;
 import net.drpcore.common.blocks.DRPCoreBlocks;
+import net.drpcore.common.capabilities.entities.player.advancedInventory.AdvancedInventoryStorage;
+import net.drpcore.common.capabilities.entities.player.advancedInventory.DefaultAdvancedInventory;
+import net.drpcore.common.capabilities.entities.player.advancedInventory.IPlayerAdvancedInventory;
 import net.drpcore.common.config.ConfigurationManager;
 import net.drpcore.common.config.DRPCoreConfig;
+import net.drpcore.common.crafting.AdvancedRecipe;
 import net.drpcore.common.crafting.DRPCoreCrafting;
-import net.drpcore.common.entities.player.advancedInventoryCapabiliy.AdvancedPlayerStorage;
-import net.drpcore.common.entities.player.advancedInventoryCapabiliy.DefaultImplementation;
-import net.drpcore.common.entities.player.advancedInventoryCapabiliy.IPlayerInventoryAdvanced;
 import net.drpcore.common.events.AttachCapabilitiesEntity;
 import net.drpcore.common.events.DRPCoreEvents;
 import net.drpcore.common.events.EntityJoinWorld;
@@ -46,7 +47,7 @@ import net.minecraftforge.fml.common.network.NetworkRegistry;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.relauncher.Side;
 
-@Mod(modid = DarkRoleplayCore.MODID, version = DRPCoreInfo.VERSION, name = DRPCoreInfo.NAME, acceptedMinecraftVersions = DRPCoreInfo.ACCEPTEDVERSIONS , updateJSON = DRPCoreInfo.UPDATECHECK , useMetadata = false)
+@Mod(modid = DarkRoleplayCore.MODID, version = DRPCoreInfo.VERSION, name = DRPCoreInfo.NAME, acceptedMinecraftVersions = DRPCoreInfo.ACCEPTEDVERSIONS , updateJSON = DRPCoreInfo.UPDATECHECK , useMetadata = true)
 public class DarkRoleplayCore {
 
 	public static final String MODID = "drpcore";
@@ -66,8 +67,8 @@ public class DarkRoleplayCore {
 	public static ConfigurationManager configManager;
 	public static CraftingManager CM = new CraftingManager();
 
-	@CapabilityInject(IPlayerInventoryAdvanced.class)
-	public static final Capability<IPlayerInventoryAdvanced> DRPCORE_INV = null;
+	@CapabilityInject(IPlayerAdvancedInventory.class)
+	public static final Capability<IPlayerAdvancedInventory> DRPCORE_INV = null;
 
 	@Mod.EventHandler
 	public void preInit(FMLPreInitializationEvent event) {
@@ -84,10 +85,14 @@ public class DarkRoleplayCore {
 
 		DRPCoreCrafting.preInit(event);
 
-		DRPCoreKeybindings.preInit(event);
+		if(event.getSide() == Side.CLIENT)
+			DRPCoreKeybindings.preInit(event);
 
-		CapabilityManager.INSTANCE.register(IPlayerInventoryAdvanced.class, new AdvancedPlayerStorage(), DefaultImplementation.class);
+		//CapabilityManager.INSTANCE.register(IPlayerAdvancedInventory.class, new AdvancedPlayerStorage(), DefaultImplementation.class);
 
+		CapabilityManager.INSTANCE.register(IPlayerAdvancedInventory.class, AdvancedInventoryStorage.inventoryStorage, DefaultAdvancedInventory.class);
+
+		
 		isServer = event.getSide();
 
 		configManager = new ConfigurationManager(new File(event.getModConfigurationDirectory().getPath() + "\\Advanced Configuration"));
@@ -108,8 +113,9 @@ public class DarkRoleplayCore {
 		DRPCoreEvents.init(event);
 
 		DRPCoreCrafting.init(event);
-
-		DRPCoreKeybindings.init(event);
+		
+		if(event.getSide() == Side.CLIENT)
+			DRPCoreKeybindings.init(event);
 
 		schematicPath = new File(configManager.getConfigFolder().getPath() + "\\schematics");
 		schematicPath.mkdir();
@@ -121,7 +127,8 @@ public class DarkRoleplayCore {
 		SchematicController.debug();
 		
 		log.info("Initialization has been Finished!");
-
+		AdvancedRecipe rcp = new AdvancedRecipe(new ItemStack(Items.stone_axe), new ItemStack[] {new ItemStack(Blocks.cobblestone), new ItemStack(Items.stick)});
+		System.out.println(rcp.createRegistryName());
 	}
 
 	@Mod.EventHandler
@@ -137,7 +144,8 @@ public class DarkRoleplayCore {
 
 		DRPCoreCrafting.postInit(event);
 
-		DRPCoreKeybindings.postInit(event);
+		if(event.getSide() == Side.CLIENT)
+			DRPCoreKeybindings.postInit(event);
 		
 		log.info("Post Initialization has been Finished!");
 	}

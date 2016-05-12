@@ -1,7 +1,8 @@
 package net.drpcore.common.events;
 
 import net.drpcore.common.DarkRoleplayCore;
-import net.drpcore.common.entities.player.advancedInventoryCapabiliy.PlayerCapabilityProvider;
+import net.drpcore.common.capabilities.entities.player.advancedInventory.AdvancedInventoryProvider;
+import net.drpcore.common.capabilities.entities.player.advancedInventory.DefaultAdvancedInventory;
 import net.drpcore.common.gui.inventories.AdvancedPlayerInventory;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
@@ -13,9 +14,10 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 public class AttachCapabilitiesEntity {
 
 	@SubscribeEvent
-	public void attachPlayerCapabilities(AttachCapabilitiesEvent.Entity event) {
-
-		if(event.getEntity() instanceof EntityPlayer) event.addCapability(new ResourceLocation(DarkRoleplayCore.MODID, "DRPCore_Inventory"), new PlayerCapabilityProvider(event.getEntity()));
+	public void AttachCapability(AttachCapabilitiesEvent.Entity e)
+	{
+		if(!e.getEntity().hasCapability(AdvancedInventoryProvider.ADVANCED_INVENTORY, null) && e.getEntity() instanceof EntityPlayer)
+			e.addCapability(new ResourceLocation("drpcore_advancedInventory"), new AdvancedInventoryProvider(new DefaultAdvancedInventory()));
 	}
 
 }

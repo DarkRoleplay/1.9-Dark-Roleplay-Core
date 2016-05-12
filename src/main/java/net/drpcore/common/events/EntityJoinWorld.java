@@ -3,6 +3,7 @@ package net.drpcore.common.events;
 import java.util.List;
 
 import net.drpcore.common.DarkRoleplayCore;
+import net.drpcore.common.capabilities.entities.player.advancedInventory.AdvancedInventoryProvider;
 import net.drpcore.common.gui.inventories.AdvancedPlayerInventory;
 import net.drpcore.common.network.PacketHandler;
 import net.drpcore.common.network.packets.PacketOpenPurse;
@@ -38,14 +39,14 @@ public class EntityJoinWorld {
 	public void handleEvent(PlayerLoggedInEvent event) {
 
 		if(event.player instanceof EntityPlayerMP){
-			AdvancedPlayerInventory inventory = event.player.getCapability(DarkRoleplayCore.DRPCORE_INV, null).getInventory();
+			AdvancedPlayerInventory inventory = event.player.getCapability(AdvancedInventoryProvider.ADVANCED_INVENTORY, null).getInventory();
 
 			for(int i = 0; i < inventory.getSizeInventory(); i++)
 				PacketHandler.sendTo(new PacketSyncAdvancedInventory(i, event.player), (EntityPlayerMP) event.player);
 
 			for(EntityPlayerMP other : (List<EntityPlayerMP>) FMLCommonHandler.instance().getMinecraftServerInstance().getPlayerList().getPlayerList()){
 				if(other == event.player) continue;
-				inventory = other.getCapability(DarkRoleplayCore.DRPCORE_INV, null).getInventory();// getCosArmorInventory(other.getUniqueID());
+				inventory = other.getCapability(AdvancedInventoryProvider.ADVANCED_INVENTORY, null).getInventory();// getCosArmorInventory(other.getUniqueID());
 				for(int i = 0; i < inventory.getSizeInventory(); i++)
 					PacketHandler.sendTo(new PacketSyncAdvancedInventory(i, other), (EntityPlayerMP) event.player);
 				for(int i = 0; i < inventory.getSizeInventory(); i++)

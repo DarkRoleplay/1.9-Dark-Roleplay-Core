@@ -9,7 +9,8 @@ public enum EnumDRPEquipType {
 	BELT(false),
 	BACKPACK(true),
 	PURSE(true),
-	QUIVER(true);
+	QUIVER(true),
+	WEARABLEHEAD(false);
 
 	boolean hasStorage = false;
 
