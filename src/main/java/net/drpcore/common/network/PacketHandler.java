@@ -12,22 +12,22 @@ import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
 import net.minecraftforge.fml.common.network.simpleimpl.SimpleNetworkWrapper;
 import net.minecraftforge.fml.relauncher.Side;
 
+
 public class PacketHandler {
 
 	public static final SimpleNetworkWrapper INSTANCE = NetworkRegistry.INSTANCE.newSimpleChannel("DarkRoleplay".toLowerCase());
 
 	public static void init() {
 		// INSTANCE.registerMessage(/*PacketClass.class,PacketClass.class, ID,
+
 		// Side.Client bzw Side.server*/)
-
 		int i = 0;
-
-		INSTANCE.registerMessage(PacketSyncAdvancedInventory.class, PacketSyncAdvancedInventory.class, i++, Side.CLIENT);
-		INSTANCE.registerMessage(PacketOpenInventory.class, PacketOpenInventory.class, i++, Side.SERVER);
-		INSTANCE.registerMessage(PacketOpenCraftingGui.class, PacketOpenCraftingGui.class, i++, Side.SERVER);
-		INSTANCE.registerMessage(PacketCraft.class, PacketCraft.class, i++, Side.SERVER);
-		INSTANCE.registerMessage(PacketOpenPurse.class, PacketOpenPurse.class, i++, Side.SERVER);
-		INSTANCE.registerMessage(PacketSwitchArmor.class, PacketSwitchArmor.class, i++, Side.SERVER);
+		INSTANCE.registerMessage(PacketSyncAdvancedInventory.class, PacketSyncAdvancedInventory.class, i++ , Side.CLIENT);
+		INSTANCE.registerMessage(PacketOpenInventory.class, PacketOpenInventory.class, i++ , Side.SERVER);
+		INSTANCE.registerMessage(PacketOpenCraftingGui.class, PacketOpenCraftingGui.class, i++ , Side.SERVER);
+		INSTANCE.registerMessage(PacketCraft.class, PacketCraft.class, i++ , Side.SERVER);
+		INSTANCE.registerMessage(PacketOpenPurse.class, PacketOpenPurse.class, i++ , Side.SERVER);
+		INSTANCE.registerMessage(PacketSwitchArmor.class, PacketSwitchArmor.class, i++ , Side.SERVER);
 	}
 
 	public static void sendTo(IMessage message, EntityPlayerMP player) {
@@ -39,5 +39,4 @@ public class PacketHandler {
 
 		INSTANCE.sendToServer(message);
 	}
-
 }

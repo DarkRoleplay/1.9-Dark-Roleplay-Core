@@ -5,6 +5,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.util.ResourceLocation;
 
+
 public class craftIngredientButton extends GuiButton {
 
 	boolean dir;
@@ -22,28 +23,24 @@ public class craftIngredientButton extends GuiButton {
 		mc.getTextureManager().bindTexture(new ResourceLocation(DarkRoleplayCore.MODID + ":textures/guis/GuiCrafting.png"));
 		int x = 198; // 178;
 		int y = 110; // 110;
-		if(this.enabled){
-			if(!flag){
-				if(!this.dir){
+		if(this.enabled) {
+			if( ! flag) {
+				if( ! this.dir) {
 					y += this.height;
-				}
-				else{
+				} else {
 					y += this.height;
 					x += this.width;
 				}
-			}
-			else{
-				if(!this.dir){
+			} else {
+				if( ! this.dir) {
 					y += (this.height * 2);
-				}
-				else{
+				} else {
 					y += (this.height * 2);
 					x += this.width;
 				}
 			}
-		}
-		else{
-			if(this.dir){
+		} else {
+			if(this.dir) {
 				x += this.width;
 			}
 		}

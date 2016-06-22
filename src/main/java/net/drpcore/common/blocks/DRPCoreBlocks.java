@@ -4,6 +4,7 @@ import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 
+
 /**
  * Used to do all Block stuff (Registration and all Block Variables)
  * 
@@ -16,5 +17,4 @@ public class DRPCoreBlocks {
 	public static void init(FMLInitializationEvent event) {}
 
 	public static void postInit(FMLPostInitializationEvent event) {}
-
 }

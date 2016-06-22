@@ -13,6 +13,7 @@ import net.minecraft.util.text.translation.I18n;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent.PlayerTickEvent;
 
+
 /**
  * Only used once to Inform the Player update available Updates
  * 
@@ -24,33 +25,41 @@ public class OnPlayerTick {
 
 	@SubscribeEvent
 	public void onPlayerTick(PlayerTickEvent event) {
+
 		displayUpdate(event.player);
 	}
 
 	public void displayUpdate(EntityPlayer player) {
 		/*
-		if(UpdateCheck.isNewVersionAvailable() && !hasShownUp){
-			ClickEvent downloadURL = new ClickEvent(Action.OPEN_URL, UpdateCheck.getDownloadURL());
-			ClickEvent changelogURL = new ClickEvent(Action.OPEN_URL, UpdateCheck.getChangelogURL());
-
-			TextComponentString separator = new TextComponentString(TextFormatting.DARK_PURPLE + "-------------------------------------");
-			TextComponentString line1 = new TextComponentString(TextFormatting.GOLD + I18n.translateToLocal(DPRCoreLocalization.modName)+":");
-			TextComponentString line2 = new TextComponentString(TextFormatting.GOLD + I18n.translateToLocal(DPRCoreLocalization.updateNewVersionAvailable));
-			TextComponentString line3 = new TextComponentString(TextFormatting.GOLD + I18n.translateToLocal(DPRCoreLocalization.updateCurrentVersion)+": " + DarkRoleplayCore.VERSION  + " " + I18n.translateToLocal(DPRCoreLocalization.updateLatestVersion)+": " + UpdateCheck.getVersion());
-			TextComponentString line4 = new TextComponentString(TextFormatting.GOLD + I18n.translateToLocal(DPRCoreLocalization.updateOpenDownload));
-			TextComponentString line5 = new TextComponentString(TextFormatting.GOLD + I18n.translateToLocal(DPRCoreLocalization.updateOpenChangelog));
-
-			line4.getChatStyle().setChatClickEvent(downloadURL);
-			line5.getChatStyle().setChatClickEvent(changelogURL);
-
-			player.addChatComponentMessage(separator);
-			player.addChatComponentMessage(line1);
-			player.addChatComponentMessage(line2);
-			player.addChatComponentMessage(line3);
-			player.addChatComponentMessage(line4);
-			player.addChatComponentMessage(line5);
-			player.addChatComponentMessage(separator);
-			hasShownUp = true;
-		}*/
+		 * if(UpdateCheck.isNewVersionAvailable() && !hasShownUp){
+		 * ClickEvent downloadURL = new ClickEvent(Action.OPEN_URL, UpdateCheck.getDownloadURL());
+		 * ClickEvent changelogURL = new ClickEvent(Action.OPEN_URL, UpdateCheck.getChangelogURL());
+		 * TextComponentString separator = new TextComponentString(TextFormatting.DARK_PURPLE +
+		 * "-------------------------------------");
+		 * TextComponentString line1 = new TextComponentString(TextFormatting.GOLD +
+		 * I18n.translateToLocal(DPRCoreLocalization.modName)+":");
+		 * TextComponentString line2 = new TextComponentString(TextFormatting.GOLD +
+		 * I18n.translateToLocal(DPRCoreLocalization.updateNewVersionAvailable));
+		 * TextComponentString line3 = new TextComponentString(TextFormatting.GOLD +
+		 * I18n.translateToLocal(DPRCoreLocalization.updateCurrentVersion)+": " +
+		 * DarkRoleplayCore.VERSION + " " +
+		 * I18n.translateToLocal(DPRCoreLocalization.updateLatestVersion)+": " +
+		 * UpdateCheck.getVersion());
+		 * TextComponentString line4 = new TextComponentString(TextFormatting.GOLD +
+		 * I18n.translateToLocal(DPRCoreLocalization.updateOpenDownload));
+		 * TextComponentString line5 = new TextComponentString(TextFormatting.GOLD +
+		 * I18n.translateToLocal(DPRCoreLocalization.updateOpenChangelog));
+		 * line4.getChatStyle().setChatClickEvent(downloadURL);
+		 * line5.getChatStyle().setChatClickEvent(changelogURL);
+		 * player.addChatComponentMessage(separator);
+		 * player.addChatComponentMessage(line1);
+		 * player.addChatComponentMessage(line2);
+		 * player.addChatComponentMessage(line3);
+		 * player.addChatComponentMessage(line4);
+		 * player.addChatComponentMessage(line5);
+		 * player.addChatComponentMessage(separator);
+		 * hasShownUp = true;
+		 * }
+		 */
 	}
 }

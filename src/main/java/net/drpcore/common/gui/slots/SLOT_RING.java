@@ -9,6 +9,7 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
+
 public class SLOT_RING extends Slot {
 
 	public SLOT_RING(IInventory inventory, int par2, int par3, int par4) {
@@ -22,5 +23,4 @@ public class SLOT_RING extends Slot {
 
 		return itemstack.getItem() instanceof RingBase;
 	}
-
 }

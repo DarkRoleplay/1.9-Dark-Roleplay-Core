@@ -7,6 +7,7 @@ import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 
+@Deprecated
 public class CraftingRecipe {
 
 	private ItemStack DefaultOutput;
@@ -24,35 +25,35 @@ public class CraftingRecipe {
 	private boolean ignoreMeta = false;
 
 	// private Skill needetSkill;
-
 	/**
-	 * 
 	 * @param craftingStation
-	 *        The block needed null for Handcrafted
+	 *            The block needed null for Handcrafted
 	 * @param Category
-	 *        The Category you will find the Recipe choose what you want. Not
-	 *        existing Categorys will be added
+	 *            The Category you will find the Recipe choose what you want. Not
+	 *            existing Categorys will be added
 	 * @param output
-	 *        The Output ItemStack
+	 *            The Output ItemStack
 	 * @param mainIngredients
-	 *        The List of Items that is necesary for the Recipe example: {new
-	 *        ItemStack(Items.apple,1), new ItemStack(Items.sugar,1);}
+	 *            The List of Items that is necesary for the Recipe example: {new
+	 *            ItemStack(Items.apple,1), new ItemStack(Items.sugar,1);}
 	 */
 	public CraftingRecipe(Block craftingStation, String Category, ItemStack output, ItemStack[] mainIngredients, ItemStack[] additionalIngredients) {
-		if(craftingStation == null) craftingStation = Blocks.air;
+		if(craftingStation == null)
+			craftingStation = Blocks.air;
 		this.CraftingStation = craftingStation;
-		if(Category == null) Category = "Default Category";
+		if(Category == null)
+			Category = "Default Category";
 		this.Category = Category;
-		if(output == null) output = new ItemStack(Blocks.bedrock);
+		if(output == null)
+			output = new ItemStack(Blocks.bedrock);
 		this.setDefaultOutput(output);
-		if(mainIngredients == null){
+		if(mainIngredients == null) {
 			ItemStack[] DefaultIngredients = {new ItemStack(Blocks.bedrock)};
 			mainIngredients = DefaultIngredients;
 		}
-		if(additionalIngredients != null){
+		if(additionalIngredients != null) {
 			this.AdditionalIngredients = additionalIngredients;
 		}
-
 		ItemStack[] Test = {new ItemStack(Items.apple)};
 		this.MainIngredients = mainIngredients;
 	}
@@ -69,6 +70,7 @@ public class CraftingRecipe {
 
 	/**
 	 * Override to change Output depending on Additional Ingredients
+	 * 
 	 * @param addIngredients
 	 * @return ItemStack depending on
 	 */
@@ -126,5 +128,4 @@ public class CraftingRecipe {
 
 		return this.ignoreMeta;
 	}
-
 }

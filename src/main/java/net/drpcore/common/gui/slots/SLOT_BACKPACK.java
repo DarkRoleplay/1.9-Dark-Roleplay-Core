@@ -9,6 +9,7 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
+
 public class SLOT_BACKPACK extends Slot {
 
 	public SLOT_BACKPACK(IInventory inventory, int par2, int par3, int par4) {
@@ -16,7 +17,6 @@ public class SLOT_BACKPACK extends Slot {
 		// this.setBackgroundLocation(new
 		// ResourceLocation(DarkRoleplayCore.MODID,
 		// "items/empty_slot_backpack"));
-
 	}
 
 	@Override
@@ -24,5 +24,4 @@ public class SLOT_BACKPACK extends Slot {
 
 		return itemstack.getItem() instanceof BackpackBase;
 	}
-
 }

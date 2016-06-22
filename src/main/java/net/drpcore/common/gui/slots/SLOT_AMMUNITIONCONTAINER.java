@@ -9,6 +9,7 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
+
 public class SLOT_AMMUNITIONCONTAINER extends Slot {
 
 	public SLOT_AMMUNITIONCONTAINER(IInventory inventory, int par2, int par3, int par4) {

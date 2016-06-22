@@ -12,6 +12,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
+
 public class SLOT_ARMOR extends Slot {
 
 	private EntityEquipmentSlot armorType = null;
@@ -21,7 +22,6 @@ public class SLOT_ARMOR extends Slot {
 	public SLOT_ARMOR(EntityPlayer player, IInventory inventory, int slotID, int posX, int posY, int armorType) {
 		super(inventory, slotID, posX, posY);
 		this.player = player;
-
 		switch (armorType) {
 			case 0:
 				this.armorType = EntityEquipmentSlot.HEAD;
@@ -36,7 +36,6 @@ public class SLOT_ARMOR extends Slot {
 				this.armorType = EntityEquipmentSlot.FEET;
 				break;
 		}
-
 	}
 
 	public int getSlotStackLimit() {
@@ -47,17 +46,15 @@ public class SLOT_ARMOR extends Slot {
 	public boolean isItemValid(ItemStack itemstack) {
 
 		Item item = (itemstack == null ? null : itemstack.getItem());
-				
-		if (itemstack == null)
-        {
-            return false;
-        }else{
-        	 if (item instanceof IDRPEquip){
-     			if(((IDRPEquip) item).getEquipType() == EnumDRPEquipType.WEARABLEHEAD)
-     				return true;
-     		}
-            return itemstack.getItem().isValidArmor(itemstack, armorType,null);
-        }
+		if(itemstack == null) {
+			return false;
+		} else {
+			if(item instanceof IDRPEquip) {
+				if(((IDRPEquip) item).getEquipType() == EnumDRPEquipType.WEARABLEHEAD)
+					return true;
+			}
+			return itemstack.getItem().isValidArmor(itemstack, armorType, null);
+		}
 	}
 
 	@SideOnly(Side.CLIENT)
@@ -79,9 +76,6 @@ public class SLOT_ARMOR extends Slot {
 			default:
 				break;
 		}
-
 		return "";
-
 	}
-
 }

@@ -9,6 +9,7 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
+
 public class SLOT_NECKLACE extends Slot {
 
 	public SLOT_NECKLACE(IInventory inventory, int par2, int par3, int par4) {
@@ -23,5 +24,4 @@ public class SLOT_NECKLACE extends Slot {
 
 		return itemstack.getItem() instanceof NecklaceBase;
 	}
-
 }

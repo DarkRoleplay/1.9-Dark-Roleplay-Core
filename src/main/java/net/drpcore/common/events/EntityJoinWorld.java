@@ -20,6 +20,7 @@ import net.minecraftforge.fml.common.FMLCommonHandler;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.PlayerEvent.PlayerLoggedInEvent;
 
+
 public class EntityJoinWorld {
 
 	/*
@@ -34,22 +35,20 @@ public class EntityJoinWorld {
 	 * (EntityPlayer) event.getEntity()), (EntityPlayerMP) event.getEntity()); }
 	 * } } } }
 	 */
-
 	@SubscribeEvent
 	public void handleEvent(PlayerLoggedInEvent event) {
 
-		if(event.player instanceof EntityPlayerMP){
+		if(event.player instanceof EntityPlayerMP) {
 			AdvancedPlayerInventory inventory = event.player.getCapability(AdvancedInventoryProvider.ADVANCED_INVENTORY, null).getInventory();
-
-			for(int i = 0; i < inventory.getSizeInventory(); i++)
+			for(int i = 0; i < inventory.getSizeInventory(); i++ )
 				PacketHandler.sendTo(new PacketSyncAdvancedInventory(i, event.player), (EntityPlayerMP) event.player);
-
-			for(EntityPlayerMP other : (List<EntityPlayerMP>) FMLCommonHandler.instance().getMinecraftServerInstance().getPlayerList().getPlayerList()){
-				if(other == event.player) continue;
+			for(EntityPlayerMP other : (List<EntityPlayerMP>) FMLCommonHandler.instance().getMinecraftServerInstance().getPlayerList().getPlayerList()) {
+				if(other == event.player)
+					continue;
 				inventory = other.getCapability(AdvancedInventoryProvider.ADVANCED_INVENTORY, null).getInventory();// getCosArmorInventory(other.getUniqueID());
-				for(int i = 0; i < inventory.getSizeInventory(); i++)
+				for(int i = 0; i < inventory.getSizeInventory(); i++ )
 					PacketHandler.sendTo(new PacketSyncAdvancedInventory(i, other), (EntityPlayerMP) event.player);
-				for(int i = 0; i < inventory.getSizeInventory(); i++)
+				for(int i = 0; i < inventory.getSizeInventory(); i++ )
 					PacketHandler.sendTo(new PacketSyncAdvancedInventory(i, event.player), other);
 			}
 		}

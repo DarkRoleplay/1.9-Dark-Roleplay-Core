@@ -5,6 +5,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.util.ResourceLocation;
 
+
 public class craftCategoryButton extends GuiButton {
 
 	boolean dir;
@@ -22,21 +23,18 @@ public class craftCategoryButton extends GuiButton {
 		mc.getTextureManager().bindTexture(new ResourceLocation(DarkRoleplayCore.MODID + ":textures/guis/GuiCrafting.png"));
 		int x = 178; // 178;
 		int y = 110; // 110;
-		if(this.enabled){
-			if(!flag){
-				if(!this.dir){
+		if(this.enabled) {
+			if( ! flag) {
+				if( ! this.dir) {
 					y += this.height;
-				}
-				else{
+				} else {
 					y += this.height;
 					x += this.width;
 				}
-			}
-			else{
-				if(!this.dir){
+			} else {
+				if( ! this.dir) {
 					y += (this.height * 2);
-				}
-				else{
+				} else {
 					y += (this.height * 2);
 					x += this.width;
 				}
@@ -44,5 +42,4 @@ public class craftCategoryButton extends GuiButton {
 		}
 		this.drawTexturedModalRect(this.xPosition, this.yPosition, x, y, this.width, this.height);
 	}
-
 }

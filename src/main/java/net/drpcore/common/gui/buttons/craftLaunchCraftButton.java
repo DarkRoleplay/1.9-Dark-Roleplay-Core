@@ -5,6 +5,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.util.ResourceLocation;
 
+
 public class craftLaunchCraftButton extends GuiButton {
 
 	public craftLaunchCraftButton(int buttonID, int x, int y) {
@@ -19,15 +20,13 @@ public class craftLaunchCraftButton extends GuiButton {
 		mc.getTextureManager().bindTexture(new ResourceLocation(DarkRoleplayCore.MODID + ":textures/guis/GuiCrafting.png"));
 		int x = 178; // 178;
 		int y = 25; // 110;
-		if(this.enabled){
-			if(!flag){
+		if(this.enabled) {
+			if( ! flag) {
 				x += width;
-			}
-			else{
+			} else {
 				x += width * 2;
 			}
 		}
 		this.drawTexturedModalRect(this.xPosition, this.yPosition, x, y, this.width, this.height);
 	}
-
 }

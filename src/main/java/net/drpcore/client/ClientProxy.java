@@ -10,12 +10,12 @@ import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.client.registry.ClientRegistry;
 import net.minecraftforge.fml.common.FMLCommonHandler;
 
+
 public class ClientProxy extends CommonProxy {
 
 	public void checkForUpdates() {
 
 		UpdateCheck.checkForUpdate();
-
 	}
 
 	public void registerEvents() {}

@@ -11,13 +11,13 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.event.AttachCapabilitiesEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
+
 public class AttachCapabilitiesEntity {
 
 	@SubscribeEvent
-	public void AttachCapability(AttachCapabilitiesEvent.Entity e)
-	{
-		if(!e.getEntity().hasCapability(AdvancedInventoryProvider.ADVANCED_INVENTORY, null) && e.getEntity() instanceof EntityPlayer)
+	public void AttachCapability(AttachCapabilitiesEvent.Entity e) {
+
+		if( ! e.getEntity().hasCapability(AdvancedInventoryProvider.ADVANCED_INVENTORY, null) && e.getEntity() instanceof EntityPlayer)
 			e.addCapability(new ResourceLocation("drpcore_advancedInventory"), new AdvancedInventoryProvider(new DefaultAdvancedInventory()));
 	}
-
 }

@@ -8,6 +8,7 @@ import javax.swing.filechooser.FileFilter;
 
 import net.drpcore.common.DarkRoleplayCore;
 
+@Deprecated
 public class SchematicController {
 
 	public static ArrayList<String> Schematics = new ArrayList<String>();
@@ -15,33 +16,27 @@ public class SchematicController {
 	public static void findSchematics() {
 
 		File[] SubDirectorys = DarkRoleplayCore.schematicPath.listFiles();
-
 		ArrayList<File[]> schematics = new ArrayList<File[]>();
-
-		if(SubDirectorys != null){
-			for(File potentialFile : SubDirectorys){
-				if(potentialFile.isDirectory()){
-
+		if(SubDirectorys != null) {
+			for(File potentialFile : SubDirectorys) {
+				if(potentialFile.isDirectory()) {
 					File[] tempSchematics = potentialFile.listFiles(new FilenameFilter() {
 
 						@Override
 						public boolean accept(File dir, String name) {
 
-							if(name.endsWith(".schematic")) return true;
+							if(name.endsWith(".schematic"))
+								return true;
 							return false;
 						}
 					});
-
 					schematics.add(tempSchematics);
-
-				}
-				else{
+				} else {
 					Schematics.add(potentialFile.getName());
 				}
 			}
-
-			for(File[] SchematicList : schematics){
-				for(File Schematic : SchematicList){
+			for(File[] SchematicList : schematics) {
+				for(File Schematic : SchematicList) {
 					Schematics.add(Schematic.getName());
 				}
 			}
@@ -50,9 +45,8 @@ public class SchematicController {
 
 	public static void debug() {
 
-		for(String name : Schematics){
+		for(String name : Schematics) {
 			System.out.println(name);
 		}
 	}
-
 }

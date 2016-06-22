@@ -26,9 +26,11 @@ import net.minecraftforge.client.event.sound.SoundEvent;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
+
 public class FoodBase extends Item {
 
 	private int baseFeedAmount;
+
 	private float baseSaturation;
 
 	private boolean alwaysEdible;
@@ -38,8 +40,11 @@ public class FoodBase extends Item {
 	public int itemUseDuration;
 
 	private int potionId;
+
 	private int potionDuration;
+
 	private int potionAmplifier;
+
 	private float potionEffectProbability;
 
 	private static final String __OBFID = "CL_00000036";
@@ -68,12 +73,11 @@ public class FoodBase extends Item {
 	@Override
 	public ActionResult<ItemStack> onItemRightClick(ItemStack itemStackIn, World worldIn, EntityPlayer playerIn, EnumHand hand) {
 
-		if(playerIn.canEat(this.alwaysEdible)){
+		if(playerIn.canEat(this.alwaysEdible)) {
 			playerIn.setActiveHand(hand);
 			// playerIn.setItemInUse(itemStackIn,
 			// this.getMaxItemUseDuration(itemStackIn));
 		}
-
 		return new ActionResult(EnumActionResult.SUCCESS, itemStackIn);
 	}
 
@@ -89,34 +93,26 @@ public class FoodBase extends Item {
 	@Override
 	public ItemStack onItemUseFinish(ItemStack stack, World worldIn, EntityLivingBase entityLiving) {
 
-		if(entityLiving instanceof EntityPlayer){
+		if(entityLiving instanceof EntityPlayer) {
 			EntityPlayer player = (EntityPlayer) entityLiving;
 			int meta = stack.getMetadata();
-
 			boolean poisioned;
-
-			if((poisioned = isPoisioned(meta))) meta--;
-
+			if((poisioned = isPoisioned(meta)))
+				meta-- ;
 			ArrayList<Integer> addToList = getContainedIngrediens(meta);
-
 			int feedAmount = this.baseFeedAmount;
 			float saturationAmount = this.baseSaturation;
-
-			for(int i = 0; i < addToList.size(); i++){
-				if(addToList.get(i) == 1){
+			for(int i = 0; i < addToList.size(); i++ ) {
+				if(addToList.get(i) == 1) {
 					feedAmount += INGREDIENTS[i].getFeedAmount();
 					saturationAmount += INGREDIENTS[i].getSaturationAmount();
 				}
 			}
-
 			--stack.stackSize;
-
-			if(poisioned){
+			if(poisioned) {
 				player.addPotionEffect(new PotionEffect(Potion.getPotionById(19), 1200, 1));
 			}
-
 			player.getFoodStats().addStats(feedAmount, saturationAmount);
-
 			worldIn.playSound((EntityPlayer) null, player.posX, player.posY, player.posZ, SoundEvents.entity_player_burp, SoundCategory.PLAYERS, 0.5F, worldIn.rand.nextFloat() * 0.1F + 0.9F);
 			this.onFoodEaten(stack, worldIn, player);
 			player.addStat(StatList.func_188057_b(this));
@@ -126,7 +122,7 @@ public class FoodBase extends Item {
 
 	protected void onFoodEaten(ItemStack stack, World worldIn, EntityPlayer player) {
 
-		if(!worldIn.isRemote && this.potionId > 0 && worldIn.rand.nextFloat() < this.potionEffectProbability){
+		if( ! worldIn.isRemote && this.potionId > 0 && worldIn.rand.nextFloat() < this.potionEffectProbability) {
 			player.addPotionEffect(new PotionEffect(Potion.getPotionById(this.potionId), this.potionDuration * 20, this.potionAmplifier));
 		}
 	}
@@ -162,42 +158,34 @@ public class FoodBase extends Item {
 	public void addInformation(ItemStack stack, EntityPlayer playerIn, List<String> tooltip, boolean advanced) {
 
 		int meta = stack.getItemDamage();
-
-		if(isPoisioned(meta)){
-			meta--;
+		if(isPoisioned(meta)) {
+			meta-- ;
 			tooltip.add(TextFormatting.DARK_GREEN + "Poisoned");
 		}
-		if(meta > 0) tooltip.add(TextFormatting.WHITE + "Ingredients:");
-
-		if(stack.getItemDamage() == 0) ;
+		if(meta > 0)
+			tooltip.add(TextFormatting.WHITE + "Ingredients:");
+		if(stack.getItemDamage() == 0)
+			;
 		tooltip.add(TextFormatting.DARK_GRAY + "none");
-
 		ArrayList<Integer> addToList = getContainedIngrediens(meta);
-
-		for(int i = 0; i < addToList.size(); i++){
-			if(addToList.get(i) == 1){
+		for(int i = 0; i < addToList.size(); i++ ) {
+			if(addToList.get(i) == 1) {
 				tooltip.add(TextFormatting.AQUA + this.INGREDIENTS[i].getName());
 			}
-
 		}
-
 	}
 
 	public ArrayList<Integer> getContainedIngrediens(int meta) {
 
 		ArrayList<Integer> containing = new ArrayList<Integer>();
-
-		if(meta >= Math.pow(2, this.INGREDIENTS.length + 1)){
+		if(meta >= Math.pow(2, this.INGREDIENTS.length + 1)) {
 			meta = (int) (Math.pow(2, this.INGREDIENTS.length + 1) - 1);
 		}
-
 		meta /= 2;
-
-		while(meta != 0){
+		while(meta != 0) {
 			containing.add(meta % 2);
 			meta /= 2;
 		}
 		return containing;
 	}
-
 }

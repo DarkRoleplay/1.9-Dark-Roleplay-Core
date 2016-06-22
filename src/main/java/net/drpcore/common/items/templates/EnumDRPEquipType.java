@@ -1,7 +1,5 @@
 package net.drpcore.common.items.templates;
-
 public enum EnumDRPEquipType {
-
 	NECKLACE(false),
 	RING(false),
 	RING_LEFT(false),
@@ -17,5 +15,4 @@ public enum EnumDRPEquipType {
 	EnumDRPEquipType(boolean hasStorage) {
 		this.hasStorage = hasStorage;
 	}
-	
 }

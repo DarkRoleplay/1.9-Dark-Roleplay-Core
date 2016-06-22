@@ -4,6 +4,7 @@ import net.drpcore.common.gui.inventories.AdvancedPlayerInventory;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.nbt.NBTTagCompound;
 
+
 public interface IPlayerAdvancedInventory {
 
 	/**
@@ -16,9 +17,7 @@ public interface IPlayerAdvancedInventory {
 	 */
 	public AdvancedPlayerInventory getInventory();
 
-	
 	public NBTTagCompound saveNBTData();
-	
+
 	public void loadNBTData(NBTTagCompound compound);
-	
 }

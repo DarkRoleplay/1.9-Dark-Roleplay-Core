@@ -11,11 +11,15 @@ import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraftforge.fml.common.network.ByteBufUtils;
 
+
 public class PacketCraft extends PacketBase<PacketCraft> {
 
 	private int recipeID;
+
 	private Block craftingStation;
+
 	private int stationID;
+
 	private String category;
 
 	public PacketCraft() {}
@@ -43,14 +47,11 @@ public class PacketCraft extends PacketBase<PacketCraft> {
 	}
 
 	@Override
-	public void handleClientSide(PacketCraft message, EntityPlayer player) {
-
-	}
+	public void handleClientSide(PacketCraft message, EntityPlayer player) {}
 
 	@Override
 	public void handleServerSide(PacketCraft message, EntityPlayer player) {
 
 		CraftingManager.craftItem(message.stationID, message.category, message.recipeID, player);
 	}
-
 }

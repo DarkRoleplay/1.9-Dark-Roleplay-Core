@@ -13,31 +13,32 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
+@Deprecated
 public class Schematic {
 
 	private short width;
+
 	private short height;
+
 	private short length;
+
 	private int totalSize;
 
 	private BlockPos[] positions;
+
 	private IBlockState[] states;
 
 	public BlockPos getPositionWithOffset(BlockPos posA, BlockPos posB) {
 
 		posA = posA.add(posB.getX(), posB.getY(), posB.getZ());
-
 		return posA;
-
 	}
 
 	public Schematic(BlockPos[] positions, IBlockState[] states, short width, short height, short length) {
-
 		this.width = width;
 		this.height = height;
 		this.length = length;
 		this.totalSize = width * height * length;
-
 		this.positions = positions;
 		this.states = states;
 	}
@@ -46,13 +47,12 @@ public class Schematic {
 
 		System.out.println("Debug2");
 		int current = 0;
-		for(BlockPos position : positions){
-			if(states[current].getBlock() != Blocks.air){
+		for(BlockPos position : positions) {
+			if(states[current].getBlock() != Blocks.air) {
 				System.out.println(getPositionWithOffset(position, pos));
 			}
 			world.setBlockState(getPositionWithOffset(position, pos), states[current]);
-			current++;
+			current++ ;
 		}
 	}
-
 }

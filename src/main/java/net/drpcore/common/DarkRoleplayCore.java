@@ -47,17 +47,18 @@ import net.minecraftforge.fml.common.network.NetworkRegistry;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.relauncher.Side;
 
-@Mod(modid = DarkRoleplayCore.MODID, version = DRPCoreInfo.VERSION, name = DRPCoreInfo.NAME, acceptedMinecraftVersions = DRPCoreInfo.ACCEPTEDVERSIONS , updateJSON = DRPCoreInfo.UPDATECHECK , useMetadata = true)
+
+@Mod(modid = DarkRoleplayCore.MODID, version = DRPCoreInfo.VERSION, name = DRPCoreInfo.NAME, acceptedMinecraftVersions = DRPCoreInfo.ACCEPTEDVERSIONS, updateJSON = DRPCoreInfo.UPDATECHECK, useMetadata = true)
 public class DarkRoleplayCore {
 
 	public static final String MODID = "drpcore";
 
 	@net.minecraftforge.fml.common.Mod.Instance(MODID)
 	public static DarkRoleplayCore instance;
-	
+
 	@SidedProxy(clientSide = "net.drpcore.client.ClientProxy", serverSide = "net.drpcore.common.proxy.CommonProxy")
 	public static CommonProxy proxy;
-	
+
 	public static File schematicPath;
 
 	public static final Logger log = LogManager.getLogger("Dark Roleplay Core");
@@ -65,6 +66,7 @@ public class DarkRoleplayCore {
 	public static Side isServer;
 
 	public static ConfigurationManager configManager;
+
 	public static CraftingManager CM = new CraftingManager();
 
 	@CapabilityInject(IPlayerAdvancedInventory.class)
@@ -74,30 +76,18 @@ public class DarkRoleplayCore {
 	public void preInit(FMLPreInitializationEvent event) {
 
 		UpdateCheck.checkForUpdate();
-		
 		DRPCoreBlocks.preInit(event);
-
 		DRPCoreItems.preInit(event);
-
 		DRPCoreConfig.preInit(event);
-
 		DRPCoreEvents.preInit(event);
-
 		DRPCoreCrafting.preInit(event);
-
 		if(event.getSide() == Side.CLIENT)
 			DRPCoreKeybindings.preInit(event);
-
 		//CapabilityManager.INSTANCE.register(IPlayerAdvancedInventory.class, new AdvancedPlayerStorage(), DefaultImplementation.class);
-
 		CapabilityManager.INSTANCE.register(IPlayerAdvancedInventory.class, AdvancedInventoryStorage.inventoryStorage, DefaultAdvancedInventory.class);
-
-		
 		isServer = event.getSide();
-
 		configManager = new ConfigurationManager(new File(event.getModConfigurationDirectory().getPath() + "\\Advanced Configuration"));
 		schematicPath = configManager.CConfigFolder;
-		
 		log.info("Pre Initialization has been Finished!");
 	}
 
@@ -105,48 +95,33 @@ public class DarkRoleplayCore {
 	public void init(FMLInitializationEvent event) {
 
 		DRPCoreBlocks.init(event);
-
 		DRPCoreItems.init(event);
-
 		DRPCoreConfig.init(event);
-
 		DRPCoreEvents.init(event);
-
 		DRPCoreCrafting.init(event);
-		
 		if(event.getSide() == Side.CLIENT)
 			DRPCoreKeybindings.init(event);
-
 		schematicPath = new File(configManager.getConfigFolder().getPath() + "\\schematics");
 		schematicPath.mkdir();
-
 		PacketHandler.init();
 		NetworkRegistry.INSTANCE.registerGuiHandler(instance, new GuiHandler());
-		
 		SchematicController.findSchematics();
 		SchematicController.debug();
-		
 		log.info("Initialization has been Finished!");
-		AdvancedRecipe rcp = new AdvancedRecipe(new ItemStack(Items.stone_axe), new ItemStack[] {new ItemStack(Blocks.cobblestone), new ItemStack(Items.stick)});
-		System.out.println(rcp.createRegistryName());
+		//AdvancedRecipe rcp = new AdvancedRecipe(new ItemStack(Items.stone_axe), new ItemStack[] {new ItemStack(Blocks.cobblestone), new ItemStack(Items.stick)});
+		//System.out.println(rcp.createRegistryName());
 	}
 
 	@Mod.EventHandler
 	public void postInit(FMLPostInitializationEvent event) {
 
 		DRPCoreBlocks.postInit(event);
-
 		DRPCoreItems.postInit(event);
-
 		DRPCoreConfig.postInit(event);
-
 		DRPCoreEvents.postInit(event);
-
 		DRPCoreCrafting.postInit(event);
-
 		if(event.getSide() == Side.CLIENT)
 			DRPCoreKeybindings.postInit(event);
-		
 		log.info("Post Initialization has been Finished!");
 	}
 }

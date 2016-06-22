@@ -13,6 +13,7 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.network.FMLNetworkEvent;
 import net.minecraftforge.fml.common.network.FMLNetworkEvent.ClientConnectedToServerEvent;
 
+
 /**
  * Currently unused but will be Used to Load an unload Crafting Recipes when they will be
  * configurable
@@ -24,10 +25,9 @@ public class ClientConnectedToServer {
 	@SubscribeEvent
 	public void ClientConnectedToServerEvent(ClientConnectedToServerEvent event) {
 
-		if(event.isLocal()){
+		if(event.isLocal()) {
 			DarkRoleplayCore.log.debug("Player has joined a Singleplayer World!");
-		}
-		else{
+		} else {
 			DarkRoleplayCore.log.debug("Player has joined a Multiplayer World!");
 		}
 	}

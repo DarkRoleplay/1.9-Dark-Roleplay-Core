@@ -13,20 +13,19 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.network.PacketBuffer;
 import net.minecraftforge.fml.common.network.ByteBufUtils;
 
+
 public class PacketSyncAdvancedInventory extends PacketBase<PacketSyncAdvancedInventory> {
 
 	int slotID;
+
 	ItemStack stack;
 
 	public PacketSyncAdvancedInventory() {}
 
 	public PacketSyncAdvancedInventory(int slotID, EntityPlayer player) {
 		this.slotID = slotID;
-
-		if(player.hasCapability(DarkRoleplayCore.DRPCORE_INV, null)){
-
+		if(player.hasCapability(DarkRoleplayCore.DRPCORE_INV, null)) {
 			AdvancedPlayerInventory inventory = player.getCapability(DarkRoleplayCore.DRPCORE_INV, null).getInventory();
-
 			stack = inventory.getStackInSlot(slotID);
 		}
 	}
@@ -36,31 +35,30 @@ public class PacketSyncAdvancedInventory extends PacketBase<PacketSyncAdvancedIn
 
 		PacketBuffer pb = new PacketBuffer(buf);
 		slotID = pb.readInt();
-		try{
+		try {
 			stack = pb.readItemStackFromBuffer();
 		}
-		catch(IOException e){}
+		catch(IOException e) {}
 	}
 
 	@Override
 	public void toBytes(ByteBuf buf) {
 
 		PacketBuffer pb = new PacketBuffer(buf);
-
 		pb.writeInt(slotID);
 		pb.writeItemStackToBuffer(stack);
 	}
 
 	@Override
 	public void handleClientSide(PacketSyncAdvancedInventory message, EntityPlayer player) {
+
 		if(Minecraft.getMinecraft().thePlayer != null)
-		if(Minecraft.getMinecraft().thePlayer.getCapability(DarkRoleplayCore.DRPCORE_INV, null) != null){
-			AdvancedPlayerInventory inventory = Minecraft.getMinecraft().thePlayer.getCapability(DarkRoleplayCore.DRPCORE_INV, null).getInventory();
-			inventory.setInventorySlotContents(message.slotID, message.stack);
-		}
+			if(Minecraft.getMinecraft().thePlayer.getCapability(DarkRoleplayCore.DRPCORE_INV, null) != null) {
+				AdvancedPlayerInventory inventory = Minecraft.getMinecraft().thePlayer.getCapability(DarkRoleplayCore.DRPCORE_INV, null).getInventory();
+				inventory.setInventorySlotContents(message.slotID, message.stack);
+			}
 	}
 
 	@Override
 	public void handleServerSide(PacketSyncAdvancedInventory message, EntityPlayer player) {}
-
 }

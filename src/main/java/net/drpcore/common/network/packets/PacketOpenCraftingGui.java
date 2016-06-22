@@ -6,6 +6,7 @@ import net.drpcore.common.gui.GuiHandler;
 import net.drpcore.common.network.PacketBase;
 import net.minecraft.entity.player.EntityPlayer;
 
+
 public class PacketOpenCraftingGui extends PacketBase<PacketOpenCraftingGui> {
 
 	@Override
@@ -15,9 +16,7 @@ public class PacketOpenCraftingGui extends PacketBase<PacketOpenCraftingGui> {
 	public void toBytes(ByteBuf buf) {}
 
 	@Override
-	public void handleClientSide(PacketOpenCraftingGui message, EntityPlayer player) {
-
-	}
+	public void handleClientSide(PacketOpenCraftingGui message, EntityPlayer player) {}
 
 	@Override
 	public void handleServerSide(PacketOpenCraftingGui message, EntityPlayer player) {
@@ -25,5 +24,4 @@ public class PacketOpenCraftingGui extends PacketBase<PacketOpenCraftingGui> {
 		player.openGui(DarkRoleplayCore.instance, GuiHandler.GUI_CRAFTING, player.worldObj, player.getPosition().getX(), player.getPosition().getY(), player.getPosition().getZ());
 		// player.addStat(Achievements.DrpOpenCraft, 1);
 	}
-
 }

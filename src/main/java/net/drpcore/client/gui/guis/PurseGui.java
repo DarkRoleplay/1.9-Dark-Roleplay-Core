@@ -8,9 +8,11 @@ import net.drpcore.common.gui.inventories.PurseInventory;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.util.ResourceLocation;
 
+
 public class PurseGui extends GuiContainer {
 
 	private float xSize_lo;
+
 	private float ySize_lo;
 
 	private static final ResourceLocation iconLocation = new ResourceLocation(DarkRoleplayCore.MODID, "textures/guis/Purse.png");
@@ -45,10 +47,8 @@ public class PurseGui extends GuiContainer {
 		int k = (this.width - this.xSize) / 2;
 		int l = (this.height - this.ySize) / 2;
 		this.drawTexturedModalRect(k, l, 0, 0, this.xSize, this.ySize);
-
 		int x = 9 * (this.inventory.INV_SIZE - 1);
-
-		for(int i = 0; i < this.inventory.INV_SIZE; i++){
+		for(int i = 0; i < this.inventory.INV_SIZE; i++ ) {
 			this.drawTexturedModalRect(k + 79 - x + 18 * i, l + 7, 176, 0, 18, 18);
 		}
 	}

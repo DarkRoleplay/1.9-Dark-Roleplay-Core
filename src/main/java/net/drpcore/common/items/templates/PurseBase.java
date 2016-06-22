@@ -6,6 +6,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.world.World;
 
+
 public class PurseBase extends Item {
 
 	public int SlotAmount = 3;
@@ -18,5 +19,4 @@ public class PurseBase extends Item {
 
 		player.openGui(DarkRoleplayCore.instance, GuiHandler.GUI_PURSE, world, 0, 0, 0);
 	}
-
 }

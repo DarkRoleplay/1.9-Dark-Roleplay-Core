@@ -5,6 +5,7 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.network.FMLNetworkEvent.ClientConnectedToServerEvent;
 import net.minecraftforge.fml.common.network.FMLNetworkEvent.ClientDisconnectionFromServerEvent;
 
+
 /**
  * Currently unused but will be Used to Load an unload Crafting Recipes when they will be
  * configurable
@@ -15,5 +16,4 @@ public class ClientDisconnectFromServer {
 
 	@SubscribeEvent
 	public void ClientDisconnectFromServerEvent(ClientDisconnectionFromServerEvent event) {}
-
 }
