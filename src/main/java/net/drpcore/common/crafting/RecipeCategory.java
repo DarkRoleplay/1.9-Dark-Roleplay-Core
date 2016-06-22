@@ -13,7 +13,7 @@ public class RecipeCategory {
 
 	//-------------------------------------------------- Constructors --------------------------------------------------
 	public RecipeCategory(String unlocalizedName) {
-		this(Item.getItemFromBlock(Blocks.barrier), unlocalizedName);
+		this(Item.getItemFromBlock(Blocks.BARRIER), unlocalizedName);
 	}
 
 	public RecipeCategory(Item icon, String unlocalizedName) {

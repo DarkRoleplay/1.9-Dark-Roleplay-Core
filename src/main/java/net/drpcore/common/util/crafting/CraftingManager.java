@@ -26,8 +26,8 @@ public class CraftingManager {
 		DRPCraftingRecipeConfiguration.writeMainRecipe(Recipe);
 		Block Station = Recipe.getStation();
 		if(Station == null) {
-			Recipe.setStation(Blocks.air);
-			Station = Blocks.air;
+			Recipe.setStation(Blocks.AIR);
+			Station = Blocks.AIR;
 		}
 		String Category = Recipe.getCategory();
 		if(Category == null) {

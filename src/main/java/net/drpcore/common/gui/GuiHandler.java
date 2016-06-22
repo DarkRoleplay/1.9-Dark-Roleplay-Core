@@ -69,7 +69,7 @@ public class GuiHandler implements IGuiHandler {
 				}
 				return null;
 			case GUI_CRAFTING_RECIPESELECTION:
-				return new RecipeSelection(Blocks.stone);
+				return new RecipeSelection(Blocks.STONE);
 			default:
 				return null;
 		}

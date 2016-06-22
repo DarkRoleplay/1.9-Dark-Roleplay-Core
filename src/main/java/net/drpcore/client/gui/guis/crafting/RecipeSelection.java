@@ -69,7 +69,7 @@ public class RecipeSelection extends GuiScreen {
 		//Recipes
 		for(int a = 0; a < 6; a++ ) {
 			for(int b = 0; b < 3; b++ ) {
-				this.itemRender.renderItemAndEffectIntoGUI(new ItemStack(Blocks.beacon), k + 16 + (a * 26), l + 68 + (b * 26));
+				this.itemRender.renderItemAndEffectIntoGUI(new ItemStack(Blocks.BEACON), k + 16 + (a * 26), l + 68 + (b * 26));
 			}
 		}
 	}

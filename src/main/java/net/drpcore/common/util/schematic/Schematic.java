@@ -48,7 +48,7 @@ public class Schematic {
 		System.out.println("Debug2");
 		int current = 0;
 		for(BlockPos position : positions) {
-			if(states[current].getBlock() != Blocks.air) {
+			if(states[current].getBlock() != Blocks.AIR) {
 				System.out.println(getPositionWithOffset(position, pos));
 			}
 			world.setBlockState(getPositionWithOffset(position, pos), states[current]);

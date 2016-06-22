@@ -39,22 +39,22 @@ public class CraftingRecipe {
 	 */
 	public CraftingRecipe(Block craftingStation, String Category, ItemStack output, ItemStack[] mainIngredients, ItemStack[] additionalIngredients) {
 		if(craftingStation == null)
-			craftingStation = Blocks.air;
+			craftingStation = Blocks.AIR;
 		this.CraftingStation = craftingStation;
 		if(Category == null)
 			Category = "Default Category";
 		this.Category = Category;
 		if(output == null)
-			output = new ItemStack(Blocks.bedrock);
+			output = new ItemStack(Blocks.BEDROCK);
 		this.setDefaultOutput(output);
 		if(mainIngredients == null) {
-			ItemStack[] DefaultIngredients = {new ItemStack(Blocks.bedrock)};
+			ItemStack[] DefaultIngredients = {new ItemStack(Blocks.BEDROCK)};
 			mainIngredients = DefaultIngredients;
 		}
 		if(additionalIngredients != null) {
 			this.AdditionalIngredients = additionalIngredients;
 		}
-		ItemStack[] Test = {new ItemStack(Items.apple)};
+		ItemStack[] Test = {new ItemStack(Items.APPLE)};
 		this.MainIngredients = mainIngredients;
 	}
 

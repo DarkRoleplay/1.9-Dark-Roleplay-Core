@@ -30,7 +30,7 @@ public class CraftingController {
 
 	public static void registerRecipe(String category, AdvancedRecipe recipe) {
 
-		registerRecipe(Blocks.air, category, recipe);
+		registerRecipe(Blocks.AIR, category, recipe);
 	}
 
 	public static void registerRecipe(Block station, String category, AdvancedRecipe recipe) {

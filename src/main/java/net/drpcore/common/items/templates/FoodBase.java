@@ -113,9 +113,9 @@ public class FoodBase extends Item {
 				player.addPotionEffect(new PotionEffect(Potion.getPotionById(19), 1200, 1));
 			}
 			player.getFoodStats().addStats(feedAmount, saturationAmount);
-			worldIn.playSound((EntityPlayer) null, player.posX, player.posY, player.posZ, SoundEvents.entity_player_burp, SoundCategory.PLAYERS, 0.5F, worldIn.rand.nextFloat() * 0.1F + 0.9F);
+			worldIn.playSound((EntityPlayer) null, player.posX, player.posY, player.posZ, SoundEvents.ENTITY_PLAYER_BURP, SoundCategory.PLAYERS, 0.5F, worldIn.rand.nextFloat() * 0.1F + 0.9F);
 			this.onFoodEaten(stack, worldIn, player);
-			player.addStat(StatList.func_188057_b(this));
+			player.addStat(StatList.getObjectUseStats(this));
 		}
 		return stack;
 	}
