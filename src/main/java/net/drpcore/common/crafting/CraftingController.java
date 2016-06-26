@@ -116,4 +116,9 @@ public class CraftingController {
 
 		return block.getRegistryName().getResourceDomain() + "_" + block.getRegistryName().getResourcePath();
 	}
+	
+	public static boolean craftItem(Block station, String category, int reciepeID){
+		
+		return true;
+	}
 }
