@@ -1,6 +1,6 @@
 package net.drpcore.client.events;
 
-import net.drpcore.client.gui.guis.crafting.RecipeSelection;
+import net.drpcore.client.gui.crafting.guis.RecipeSelection;
 import net.minecraft.client.Minecraft;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent;

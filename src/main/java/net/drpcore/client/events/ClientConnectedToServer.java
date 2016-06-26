@@ -3,6 +3,7 @@ package net.drpcore.client.events;
 import net.drpcore.client.util.UpdateCheck;
 import net.drpcore.common.DarkRoleplayCore;
 import net.drpcore.common.config.ConfigurationManager;
+import net.drpcore.common.crafting.CraftingController;
 import net.minecraft.client.Minecraft;
 import net.minecraft.util.text.TextComponentString;
 import net.minecraft.util.text.TextFormatting;
@@ -15,7 +16,7 @@ import net.minecraftforge.fml.common.network.FMLNetworkEvent.ClientConnectedToSe
 
 
 /**
- * Currently unused but will be Used to Load an unload Crafting Recipes when they will be
+ * Currently unused but will be Used to Load and unload Crafting Recipes when they will be
  * configurable
  * 
  * @author JTK222
@@ -25,6 +26,8 @@ public class ClientConnectedToServer {
 	@SubscribeEvent
 	public void ClientConnectedToServerEvent(ClientConnectedToServerEvent event) {
 
+		CraftingController.loadRecipes();
+		
 		if(event.isLocal()) {
 			DarkRoleplayCore.log.debug("Player has joined a Singleplayer World!");
 		} else {

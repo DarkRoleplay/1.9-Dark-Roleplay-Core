@@ -16,4 +16,8 @@ public class DPRCoreLocalization {
 	public static final String updateOpenDownload = DarkRoleplayCore.MODID + ".update.openDownload";
 
 	public static final String updateOpenChangelog = DarkRoleplayCore.MODID + ".update.openChangelog";
+	
+	//-------------------------------------------------- Crafting Stuff --------------------------------------------------
+	
+	public static final String freeCraftingStation = DarkRoleplayCore.MODID + ".crafting.freeCrafting";
 }

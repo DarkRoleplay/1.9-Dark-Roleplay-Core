@@ -3,6 +3,7 @@ package net.drpcore.client.keybinding;
 import org.lwjgl.input.Keyboard;
 
 import net.drpcore.common.DarkRoleplayCore;
+import net.drpcore.common.crafting.CraftingController;
 import net.drpcore.common.gui.GuiHandler;
 import net.drpcore.common.gui.inventories.AdvancedPlayerInventory;
 import net.drpcore.common.items.templates.PurseBase;

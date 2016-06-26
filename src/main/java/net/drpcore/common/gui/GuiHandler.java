@@ -1,11 +1,12 @@
 package net.drpcore.common.gui;
 
+import net.drpcore.client.gui.crafting.guis.RecipeSelection;
 import net.drpcore.client.gui.guis.AdvancedPlayerInventoryGui;
 import net.drpcore.client.gui.guis.CraftingGui;
 import net.drpcore.client.gui.guis.PurseGui;
-import net.drpcore.client.gui.guis.crafting.RecipeSelection;
 import net.drpcore.common.DarkRoleplayCore;
 import net.drpcore.common.capabilities.entities.player.advancedInventory.AdvancedInventoryProvider;
+import net.drpcore.common.crafting.CraftingController;
 import net.drpcore.common.gui.container.Container_Crafting;
 import net.drpcore.common.gui.container.Container_Purse;
 import net.drpcore.common.gui.container.AdvancedPlayerInventoryContainer;
@@ -69,7 +70,9 @@ public class GuiHandler implements IGuiHandler {
 				}
 				return null;
 			case GUI_CRAFTING_RECIPESELECTION:
-				return new RecipeSelection(Blocks.STONE);
+				if(CraftingController.isStation(player.worldObj.getBlockState(player.getPosition()).getBlock()))
+					return new RecipeSelection(player.worldObj.getBlockState(player.getPosition()).getBlock());
+				else return new RecipeSelection(Blocks.AIR);
 			default:
 				return null;
 		}
