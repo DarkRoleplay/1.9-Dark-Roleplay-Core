@@ -1,7 +1,7 @@
 package net.drpcore.common.gui.slots;
 
+import net.drpcore.api.items.equip.RingBase;
 import net.drpcore.common.DarkRoleplayCore;
-import net.drpcore.common.items.templates.RingBase;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;

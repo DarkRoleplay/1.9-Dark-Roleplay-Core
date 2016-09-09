@@ -3,9 +3,9 @@ package net.drpcore.common.network.packets;
 import java.util.List;
 
 import io.netty.buffer.ByteBuf;
+import net.drpcore.api.items.equip.PurseBase;
 import net.drpcore.common.DarkRoleplayCore;
 import net.drpcore.common.gui.inventories.AdvancedPlayerInventory;
-import net.drpcore.common.items.templates.PurseBase;
 import net.drpcore.common.network.PacketBase;
 import net.drpcore.common.network.PacketHandler;
 import net.minecraft.entity.player.EntityPlayer;

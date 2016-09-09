@@ -1,7 +1,7 @@
 package net.drpcore.common.gui.slots;
 
-import net.drpcore.common.items.templates.EnumDRPEquipType;
-import net.drpcore.common.items.templates.IDRPEquip;
+import net.drpcore.api.items.EnumDRPEquipType;
+import net.drpcore.api.items.IDRPEquip;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.inventory.IInventory;

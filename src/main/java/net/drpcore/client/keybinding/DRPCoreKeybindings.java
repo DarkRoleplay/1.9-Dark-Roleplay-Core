@@ -2,16 +2,16 @@ package net.drpcore.client.keybinding;
 
 import org.lwjgl.input.Keyboard;
 
+import net.drpcore.api.items.equip.PurseBase;
 import net.drpcore.common.DarkRoleplayCore;
 import net.drpcore.common.crafting.CraftingController;
 import net.drpcore.common.gui.GuiHandler;
 import net.drpcore.common.gui.inventories.AdvancedPlayerInventory;
-import net.drpcore.common.items.templates.PurseBase;
 import net.drpcore.common.network.PacketHandler;
-import net.drpcore.common.network.packets.PacketOpenCraftingGui;
-import net.drpcore.common.network.packets.PacketOpenInventory;
-import net.drpcore.common.network.packets.PacketOpenPurse;
 import net.drpcore.common.network.packets.PacketSwitchArmor;
+import net.drpcore.common.network.packets.guis.PacketOpenCraftingGui;
+import net.drpcore.common.network.packets.guis.PacketOpenInventory;
+import net.drpcore.common.network.packets.guis.PacketOpenPurse;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.settings.KeyBinding;
 import net.minecraft.entity.player.EntityPlayer;
@@ -54,7 +54,6 @@ public class DRPCoreKeybindings {
 		if(this.openCrafting.isKeyDown()) {
 			EntityPlayer player = Minecraft.getMinecraft().thePlayer;
 			player.openGui(DarkRoleplayCore.instance, GuiHandler.GUI_CRAFTING_RECIPESELECTION, player.worldObj, player.getPosition().getX(), player.getPosition().getY(), player.getPosition().getZ());
-			//PacketHandler.sendToServer(new PacketOpenCraftingGui());
 		} else if(this.openInventory.isKeyDown()) {
 			PacketHandler.sendToServer(new PacketOpenInventory());
 		} else if(this.openPurse.isKeyDown()) {

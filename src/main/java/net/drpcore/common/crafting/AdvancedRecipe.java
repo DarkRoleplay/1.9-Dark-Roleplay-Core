@@ -20,18 +20,16 @@ public class AdvancedRecipe {
 	/**
 	 * Item displayed as a preview in recipe selection screen
 	 */
-	private Item previewItem;
+	private ItemStack previewItem;
 
 	private ItemStack defaultOutput;
 
 	private ItemStack[] primaryIngredients;
 
-	// TODO Initialize Variable
 	private boolean[] respectMetaPrimary;
 
 	private ItemStack[] secondaryIngredients;
 
-	// TODO Initialize Variable
 	private boolean[] respectMetaSecondary;
 
 	// TODO Initialize Variable
@@ -48,6 +46,11 @@ public class AdvancedRecipe {
 
 	//Automaticly set by registerRecipe Method
 	private String category;
+	
+	//Automaticly set by registerRecipe Method
+
+	
+	private int registeredID;
 
 	// -------------------------------------------------- Constructors --------------------------------------------------
 	/**
@@ -61,7 +64,7 @@ public class AdvancedRecipe {
 	 *            The needed Ingredients to craft this recipe
 	 */
 	public AdvancedRecipe(String modname, ItemStack defaultOutput, ItemStack[] primaryIngredients) {
-		this(modname, defaultOutput.getItem(), defaultOutput, primaryIngredients, null);
+		this(modname, defaultOutput, defaultOutput, primaryIngredients, null);
 	}
 
 	/**
@@ -76,7 +79,7 @@ public class AdvancedRecipe {
 	 * @param primaryIngredients
 	 *            The needed Ingredients to craft this recipe
 	 */
-	public AdvancedRecipe(String modname, Item previewItem, ItemStack defaultOutput, ItemStack[] primaryIngredients) {
+	public AdvancedRecipe(String modname, ItemStack previewItem, ItemStack defaultOutput, ItemStack[] primaryIngredients) {
 		this(modname, previewItem, defaultOutput, primaryIngredients, null);
 	}
 
@@ -94,11 +97,11 @@ public class AdvancedRecipe {
 	 * @param secondaryIngredients
 	 *            Like primaryIngredients but are not a must have (more in the getOutput method)
 	 */
-	public AdvancedRecipe(String modname, Item previewItem, ItemStack defaultOutput, ItemStack[] primaryIngredients, ItemStack[] secondaryIngredients) {
+	public AdvancedRecipe(String modname, ItemStack previewItem, ItemStack defaultOutput, ItemStack[] primaryIngredients, ItemStack[] secondaryIngredients) {
 		this.modname = modname;
 		this.previewItem = previewItem;
-		this.defaultOutput = defaultOutput;
-		this.primaryIngredients = primaryIngredients;
+		this.setDefaultOutput(defaultOutput);
+		this.setPrimaryIngredients(primaryIngredients);
 		this.respectMetaPrimary = new boolean[primaryIngredients.length];
 		for(short i = 0; i < primaryIngredients.length; i++ )
 			respectMetaPrimary[i] = true;
@@ -124,7 +127,7 @@ public class AdvancedRecipe {
 	/**
 	 * @return The Preview Item used for this Recipe
 	 */
-	public Item getPreviewItem() {
+	public ItemStack getPreviewItem() {
 
 		return this.previewItem;
 	}
@@ -134,7 +137,7 @@ public class AdvancedRecipe {
 	 */
 	public String getCategory() {
 
-		return category;
+		return this.category;
 	}
 
 	/**
@@ -142,7 +145,37 @@ public class AdvancedRecipe {
 	 */
 	public Block getStation() {
 
-		return station;
+		return this.station;
+	}
+
+	public ItemStack getDefaultOutput() {
+
+		return this.defaultOutput;
+	}
+	
+	public ItemStack[] getPrimaryIngredients() {
+
+		return this.primaryIngredients;
+	}
+	
+	public ItemStack[] getSecondaryIngredients() {
+
+		return this.secondaryIngredients;
+	}
+	
+	public boolean respectPrimaryMeta(int ingredient){
+		return this.respectMetaPrimary[ingredient];
+	}
+	
+	public boolean respectSecondaryMeta(int ingredient){
+		if(this.respectMetaSecondary != null)
+		return this.respectMetaSecondary[ingredient];
+		return false;
+	}
+	
+	public int getRegisteredID() {
+		
+		return registeredID;
 	}
 
 	// -------------------------------------------------- Setter --------------------------------------------------
@@ -152,9 +185,10 @@ public class AdvancedRecipe {
 	 * @param modname
 	 *            a String Supposed to be Readyble modname
 	 */
-	public void setmodname(String modname) {
+	public AdvancedRecipe setmodname(String modname) {
 
 		this.modname = modname;
+		return this;
 	}
 
 	/**
@@ -163,29 +197,54 @@ public class AdvancedRecipe {
 	 * @param previewItem
 	 *            The new Preview Item
 	 */
-	public void setPreviewItem(Item previewItem) {
+	public AdvancedRecipe setPreviewItem(ItemStack previewItem) {
 
 		this.previewItem = previewItem;
+		return this;
 	}
 
 	/**
 	 * @param station
 	 *            the station to set
 	 */
-	public void setStation(Block station) {
+	public AdvancedRecipe setStation(Block station) {
 
 		this.station = station;
+		return this;
 	}
 
 	/**
 	 * @param category
 	 *            the category to set
 	 */
-	public void setCategory(String category) {
+	public AdvancedRecipe setCategory(String category) {
 
 		this.category = category;
+		return this;}
+
+	public AdvancedRecipe setDefaultOutput(ItemStack defaultOutput) {
+
+		this.defaultOutput = defaultOutput;
+		return this;
 	}
 
+	public AdvancedRecipe setPrimaryIngredients(ItemStack[] primaryIngredients) {
+
+		this.primaryIngredients = primaryIngredients;
+		return this;
+	}
+	
+	public AdvancedRecipe setRegisteredID(int registeredID) {
+		
+		this.registeredID = registeredID;
+		return this;
+	}
+	
+	public AdvancedRecipe setCraftingTime(int craftingTime){
+		this.craftingTime = craftingTime;
+		return this;
+	}
+	
 	// -------------------------------------------------- Utility --------------------------------------------------
 	/**
 	 * Used to inform the Player about the unmet Condition so he can fix it up
@@ -206,22 +265,19 @@ public class AdvancedRecipe {
 		}
 	}
 
-	/**
-	 * Used to check if the Player has all the main Ingredients needet for the Recipe
-	 * 
-	 * @param player
-	 *            The Player to check
-	 * @return true or false
-	 */
-	public boolean doesHaveMainIngredients(EntityPlayer player) {
 
-		InventoryPlayer invOriginal = player.inventory;
+	public boolean doesHaveIngredients(EntityPlayer player, ItemStack[] input , int multiplier) {
+
 		// Clone Inventory to prevent ItemStacks count twice
-		ItemStack[] inv = invOriginal.mainInventory.clone();
+		ItemStack[] inv = new ItemStack[player.inventory.mainInventory.length];
+		for(int i = 0; i < player.inventory.mainInventory.length; i++){
+			if(player.inventory.mainInventory[i] != null)
+				inv[i] = player.inventory.mainInventory[i].copy();
+		}
 		// Current Stack to check if exists
 		short currentStack = 0;
-		for(ItemStack stack : primaryIngredients) {
-			int remainingAmount = stack.stackSize;
+		for(ItemStack stack : input) {
+			int remainingAmount = stack.stackSize * multiplier;
 			boolean hasFoundMatch = true;
 			while(hasFoundMatch && remainingAmount > 0) {
 				hasFoundMatch = false;
@@ -247,7 +303,7 @@ public class AdvancedRecipe {
 		}
 		return true;
 	}
-
+	
 	/**
 	 * Method for finding slot containing Item
 	 * 
@@ -265,7 +321,7 @@ public class AdvancedRecipe {
 		short found = - 1;
 		for(ItemStack tested : Inventory) {
 			i++ ;
-			if(tested.getItem() == stack.getItem()) {
+			if(tested != null && tested.getItem() == stack.getItem()) {
 				if(respectMeta)
 					if(tested.getMetadata() == stack.getMetadata()) {
 						found = i;
@@ -290,7 +346,7 @@ public class AdvancedRecipe {
 	 */
 	public ItemStack[] getOutput(ItemStack[] primaryIngr, ItemStack[] secondaryIngr) {
 
-		return new ItemStack[] {defaultOutput};
+		return new ItemStack[] {getDefaultOutput()};
 	}
 
 	/**
@@ -310,29 +366,13 @@ public class AdvancedRecipe {
 	 *         Must return 0 = all Conditions are met
 	 *         all other are unimportant and can be customized!
 	 */
-	public short doConditionsMet(ItemStack[] primaryInput, ItemStack[] secondaryInput, EntityPlayer player, BlockPos stationPos) {
+	public short doConditionsMet(ItemStack[] primaryInput, ItemStack[] secondaryInput,int multiplier, EntityPlayer player, BlockPos stationPos) {
 
-		if( ! doesHaveMainIngredients(player)) {
+		if( ! doesHaveIngredients(player,primaryInput , multiplier)) {
+			return 1;
+		}else if(! doesHaveIngredients(player,secondaryInput,multiplier)){
 			return 1;
 		}
 		return 0;
-	}
-
-	/** TODO Move to Recipe Manager */
-	public String createRegistryName() {
-
-		String name = defaultOutput.getItem().getRegistryName().getResourcePath();
-		String domain = defaultOutput.getItem().getRegistryName().getResourceDomain();
-		String registryName = domain + "_" + name;
-		for(ItemStack stack : primaryIngredients) {
-			char[] Chars = stack.getItem().getRegistryName().getResourcePath().toCharArray();
-			String ingredientName = "";
-			for(int i = 0; i < Chars.length; i += 2) {
-				ingredientName = ingredientName + Chars[i];
-			}
-			registryName = registryName + "_" + ingredientName;
-			ingredientName = "";
-		}
-		return registryName;
 	}
 }

@@ -1,11 +1,12 @@
 package net.drpcore.common.network;
 
 import net.drpcore.common.network.packets.PacketCraft;
-import net.drpcore.common.network.packets.PacketOpenCraftingGui;
-import net.drpcore.common.network.packets.PacketOpenInventory;
-import net.drpcore.common.network.packets.PacketOpenPurse;
+import net.drpcore.common.network.packets.PacketCraftOld;
 import net.drpcore.common.network.packets.PacketSwitchArmor;
 import net.drpcore.common.network.packets.PacketSyncAdvancedInventory;
+import net.drpcore.common.network.packets.guis.PacketOpenCraftingGui;
+import net.drpcore.common.network.packets.guis.PacketOpenInventory;
+import net.drpcore.common.network.packets.guis.PacketOpenPurse;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraftforge.fml.common.network.NetworkRegistry;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
@@ -25,9 +26,10 @@ public class PacketHandler {
 		INSTANCE.registerMessage(PacketSyncAdvancedInventory.class, PacketSyncAdvancedInventory.class, i++ , Side.CLIENT);
 		INSTANCE.registerMessage(PacketOpenInventory.class, PacketOpenInventory.class, i++ , Side.SERVER);
 		INSTANCE.registerMessage(PacketOpenCraftingGui.class, PacketOpenCraftingGui.class, i++ , Side.SERVER);
-		INSTANCE.registerMessage(PacketCraft.class, PacketCraft.class, i++ , Side.SERVER);
+		INSTANCE.registerMessage(PacketCraftOld.class, PacketCraftOld.class, i++ , Side.SERVER);
 		INSTANCE.registerMessage(PacketOpenPurse.class, PacketOpenPurse.class, i++ , Side.SERVER);
 		INSTANCE.registerMessage(PacketSwitchArmor.class, PacketSwitchArmor.class, i++ , Side.SERVER);
+		INSTANCE.registerMessage(PacketCraft.class, PacketCraft.class, i++, Side.SERVER);
 	}
 
 	public static void sendTo(IMessage message, EntityPlayerMP player) {

@@ -1,4 +1,4 @@
-package net.drpcore.common.items.templates;
+package net.drpcore.api.items;
 
 import net.minecraft.entity.player.EntityPlayer;
 

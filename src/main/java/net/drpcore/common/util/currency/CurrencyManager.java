@@ -3,7 +3,7 @@ package net.drpcore.common.util.currency;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import net.drpcore.common.items.templates.CurrencyBase;
+import net.drpcore.api.items.CurrencyBase;
 import net.minecraft.item.ItemStack;
 
 

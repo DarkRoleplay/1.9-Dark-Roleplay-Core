@@ -66,8 +66,6 @@ public class DarkRoleplayCore {
 
 	public static ConfigurationManager configManager;
 
-	public static CraftingManager CM = new CraftingManager();
-
 	@CapabilityInject(IPlayerAdvancedInventory.class)
 	public static final Capability<IPlayerAdvancedInventory> DRPCORE_INV = null;
 

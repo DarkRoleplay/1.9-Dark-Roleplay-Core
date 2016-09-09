@@ -1,5 +1,9 @@
 package net.drpcore.common.gui.container;
 
+import net.drpcore.api.items.AmmunitionBase;
+import net.drpcore.api.items.equip.NecklaceBase;
+import net.drpcore.api.items.equip.PurseBase;
+import net.drpcore.api.items.equip.RingBase;
 import net.drpcore.common.gui.inventories.AdvancedPlayerInventory;
 import net.drpcore.common.gui.slots.SLOT_AMMUNITIONCONTAINER;
 import net.drpcore.common.gui.slots.SLOT_ARMOR;
@@ -8,10 +12,6 @@ import net.drpcore.common.gui.slots.SLOT_BELT;
 import net.drpcore.common.gui.slots.SLOT_NECKLACE;
 import net.drpcore.common.gui.slots.SLOT_PURSE;
 import net.drpcore.common.gui.slots.SLOT_RING;
-import net.drpcore.common.items.templates.AmmunitionBase;
-import net.drpcore.common.items.templates.NecklaceBase;
-import net.drpcore.common.items.templates.PurseBase;
-import net.drpcore.common.items.templates.RingBase;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;

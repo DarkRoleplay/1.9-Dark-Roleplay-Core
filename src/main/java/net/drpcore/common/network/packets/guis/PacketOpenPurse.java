@@ -1,11 +1,11 @@
-package net.drpcore.common.network.packets;
+package net.drpcore.common.network.packets.guis;
 
 import io.netty.buffer.ByteBuf;
+import net.drpcore.api.items.equip.BackpackBase;
+import net.drpcore.api.items.equip.PurseBase;
 import net.drpcore.common.DarkRoleplayCore;
 import net.drpcore.common.gui.GuiHandler;
 import net.drpcore.common.gui.inventories.AdvancedPlayerInventory;
-import net.drpcore.common.items.templates.BackpackBase;
-import net.drpcore.common.items.templates.PurseBase;
 import net.drpcore.common.network.PacketBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;

@@ -1,7 +1,7 @@
 package net.drpcore.common.gui.slots;
 
-import net.drpcore.common.items.templates.CurrencyBase;
-import net.drpcore.common.items.templates.PurseBase;
+import net.drpcore.api.items.CurrencyBase;
+import net.drpcore.api.items.equip.PurseBase;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;

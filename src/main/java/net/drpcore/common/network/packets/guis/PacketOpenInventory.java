@@ -1,4 +1,4 @@
-package net.drpcore.common.network.packets;
+package net.drpcore.common.network.packets.guis;
 
 import net.drpcore.common.DarkRoleplayCore;
 import net.drpcore.common.gui.GuiHandler;

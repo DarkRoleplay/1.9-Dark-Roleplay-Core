@@ -4,12 +4,13 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 import net.drpcore.common.DarkRoleplayCore;
+import net.drpcore.common.crafting.CraftingController;
 import net.drpcore.common.gui.buttons.craftCategoryButton;
 import net.drpcore.common.gui.buttons.craftIngredientButton;
 import net.drpcore.common.gui.buttons.craftLaunchCraftButton;
 import net.drpcore.common.gui.buttons.craftPageButton;
 import net.drpcore.common.network.PacketHandler;
-import net.drpcore.common.network.packets.PacketCraft;
+import net.drpcore.common.network.packets.PacketCraftOld;
 import net.drpcore.common.util.crafting.CraftingManager;
 import net.drpcore.common.util.crafting.CraftingRecipe;
 import net.minecraft.block.Block;
@@ -32,13 +33,13 @@ public class CraftingGui extends GuiContainer {
 
 	public static final ResourceLocation BACKGROUND = new ResourceLocation(DarkRoleplayCore.MODID + ":textures/guis/GuiCrafting.png");
 
-	CraftingManager cm = new CraftingManager();
-
+	CraftingController cc = CraftingController.INSTANCE;
+	
 	EntityPlayer player = null;
 
 	private int xSize = 178;
 
-	private int ySize = 204;
+	private int ySize = 179;
 
 	private Block craftingStation = null;
 
@@ -221,7 +222,7 @@ public class CraftingGui extends GuiContainer {
 				}
 				break;
 			case 8:
-				PacketHandler.sendToServer(new PacketCraft(this.craftingStation, this.categoryName, this.selectedRecipe));
+				PacketHandler.sendToServer(new PacketCraftOld(this.craftingStation, this.categoryName, this.selectedRecipe));
 				break;
 		}
 	}

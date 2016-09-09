@@ -1,4 +1,4 @@
-package net.drpcore.common.network.packets;
+package net.drpcore.common.network.packets.guis;
 
 import io.netty.buffer.ByteBuf;
 import net.drpcore.common.DarkRoleplayCore;

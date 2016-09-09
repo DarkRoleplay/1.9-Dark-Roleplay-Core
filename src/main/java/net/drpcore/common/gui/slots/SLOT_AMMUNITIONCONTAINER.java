@@ -1,7 +1,7 @@
 package net.drpcore.common.gui.slots;
 
+import net.drpcore.api.items.AmmunitionBase;
 import net.drpcore.common.DarkRoleplayCore;
-import net.drpcore.common.items.templates.AmmunitionBase;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
