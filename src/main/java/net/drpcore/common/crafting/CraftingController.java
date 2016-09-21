@@ -3,6 +3,7 @@ package net.drpcore.common.crafting;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 
 import net.drpcore.common.util.crafting.CraftingRecipe;
 import net.minecraft.block.Block;
@@ -155,7 +156,10 @@ public class CraftingController {
 		
 		InventoryPlayer inventory = player.inventory;
 		ItemStack[] testInv = inventory.mainInventory.clone();
-
+		List<ItemStack[]> tempInv = new ArrayList<ItemStack[]>();
+		ArrayList<ItemStack> pRemovedItems = new ArrayList<ItemStack>();
+		ArrayList<ItemStack> sRemovedItems = new ArrayList<ItemStack>();
+		
 		HashMap<ArrayList<Integer>,ArrayList<Integer>> slotsToDecrease = new HashMap<ArrayList<Integer>, ArrayList<Integer>>();
  		
 		if(consumedPrimary != null)
@@ -164,7 +168,13 @@ public class CraftingController {
 				stack.stackSize *= craftAmount;
 				//System.out.println(stack.stackSize);
 				if(consumeItemStack(stack,testInv.clone(),recipe.respectPrimaryMeta(i),true) != null){
-					testInv = consumeItemStack(stack,testInv.clone(),recipe.respectPrimaryMeta(i),true) != null ? consumeItemStack(stack,testInv.clone(),recipe.respectPrimaryMeta(i),false) : testInv;
+					tempInv = consumeItemStack(stack,testInv.clone(),recipe.respectPrimaryMeta(i),true) != null ? consumeItemStack(stack,testInv.clone(),recipe.respectPrimaryMeta(i),false) : null;
+					if(tempInv != null){
+						for(ItemStack stack2 : tempInv.get(1)){
+							pRemovedItems.add(stack2);
+						}
+						testInv = tempInv.get(0);
+					}
 				}else{
 					return false;
 				}
@@ -176,18 +186,46 @@ public class CraftingController {
 				stack.stackSize *= craftAmount;
 				System.out.println(stack.stackSize);
 				if(consumeItemStack(stack,testInv,recipe.respectSecondaryMeta(i),true) != null){
-					testInv = consumeItemStack(stack,testInv,recipe.respectSecondaryMeta(i),true) != null ? consumeItemStack(stack,testInv,recipe.respectSecondaryMeta(i),false) : testInv;
+					tempInv = consumeItemStack(stack,testInv,recipe.respectSecondaryMeta(i),true) != null ? consumeItemStack(stack,testInv,recipe.respectSecondaryMeta(i),false) : null;
+					if(tempInv != null){
+						for(ItemStack stack2 : tempInv.get(1)){
+							sRemovedItems.add(stack2);
+						}
+						testInv = tempInv.get(0);
+				
 				}else{
 					return false;
 				}
 			}
+		}
 		
 		for(int i = 0; i < player.inventory.mainInventory.length ; i++ ){
 			player.inventory.mainInventory[i] = testInv[i];
 		}
 		
 		//Output
-		ItemStack[] output = recipe.getOutput(consumedPrimary, consumedSecondary);
+		//Container Items
+		for(ItemStack stack : pRemovedItems){
+			if(stack != null)
+			if(stack.getItem().getContainerItem(stack) != null){
+				stack = stack.getItem().getContainerItem(stack);
+				if(!inventory.addItemStackToInventory(stack.copy())){
+					player.worldObj.spawnEntityInWorld(new EntityItem(player.worldObj, player.posX, player.posY, player.posZ, stack.copy()));
+				}
+			}
+		}
+		
+		for(ItemStack stack : sRemovedItems){
+			if(stack.getItem().getContainerItem(stack) != null){
+				stack = stack.getItem().getContainerItem(stack);
+				if(stack != null)
+				if(!inventory.addItemStackToInventory(stack.copy())){
+					player.worldObj.spawnEntityInWorld(new EntityItem(player.worldObj, player.posX, player.posY, player.posZ, stack.copy()));
+				}
+			}
+		}
+
+		ItemStack[] output = recipe.getOutput(pRemovedItems.toArray(new ItemStack[recipe.getPrimaryIngredients().length]), recipe.getSecondaryIngredients() != null ?  sRemovedItems.toArray(new ItemStack[recipe.getSecondaryIngredients().length]) : null);
 		for(ItemStack stack : output){
 			for(int i = 0; i < craftAmount; i++){
 				if(!inventory.addItemStackToInventory(stack.copy())){
@@ -199,8 +237,14 @@ public class CraftingController {
 		return true;
 	}
 	
-	private static ItemStack[] consumeItemStack(ItemStack stack, ItemStack[] inventory, boolean ignoreMeta,boolean test) {
+	private static List<ItemStack[]> consumeItemStack(ItemStack stack, ItemStack[] inventory, boolean ignoreMeta,boolean test) {
 //.getContainerItem(removedItem)
+		ArrayList<ItemStack[]> toReturn = new ArrayList<ItemStack[]>();
+		
+		ArrayList<ItemStack> removedItems = new ArrayList<ItemStack>();
+		ItemStack[] removedItemsArray = new ItemStack[36];
+		
+		
 		if(test){
 			ItemStack[] tempInv = new ItemStack[inventory.length];
 			for(int i = 0; i < tempInv.length; i ++){
@@ -216,26 +260,40 @@ public class CraftingController {
 			if(inventory[i] != null && stack != null && inventory[i].getItem() == stack.getItem()) {
 				if(ignoreMeta) {
 					if(inventory[i].stackSize > missingAmount) {
+						removedItems.add(inventory[i].splitStack(stack.stackSize));
 						inventory[i].stackSize = inventory[i].stackSize - stack.stackSize;
-						return inventory;
+						toReturn.add(inventory);
+						toReturn.add(removedItems.toArray(removedItemsArray));
+						return toReturn;
 					} else if(inventory[i].stackSize == missingAmount) {
 						inventory[i] = null;
-						return inventory;
+						removedItems.add(inventory[i]);
+						toReturn.add(inventory);
+						toReturn.add(removedItems.toArray(removedItemsArray));
+						return toReturn;
 					} else if(inventory[i].stackSize < missingAmount) {
 						missingAmount -= inventory[i].stackSize;
+						removedItems.add(inventory[i]);
 						inventory[i] = null;
 					}
 				} else if( ! ignoreMeta && inventory[i].getMetadata() == stack.getMetadata()) {
 					if(inventory[i].stackSize >= stack.stackSize) {
+						removedItems.add(inventory[i].splitStack(stack.stackSize));
 						inventory[i].stackSize = inventory[i].stackSize - stack.stackSize;
-						return inventory;
+						toReturn.add(inventory);
+						toReturn.add(removedItems.toArray(removedItemsArray));
+						return toReturn;
 					} else if(inventory[i].stackSize <= missingAmount) {
 						missingAmount -= inventory[i].stackSize;
+						removedItems.add(inventory[i]);
 						inventory[i] = null;
 					}
 				}
 				if(missingAmount == 0)
-					return inventory;
+					
+					toReturn.add(inventory);
+					toReturn.add(removedItems.toArray(removedItemsArray));
+					return toReturn;
 			}
 		}
 		return null;

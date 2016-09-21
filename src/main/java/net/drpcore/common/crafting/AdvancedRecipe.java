@@ -276,6 +276,7 @@ public class AdvancedRecipe {
 		}
 		// Current Stack to check if exists
 		short currentStack = 0;
+		if(input != null)
 		for(ItemStack stack : input) {
 			int remainingAmount = stack.stackSize * multiplier;
 			boolean hasFoundMatch = true;

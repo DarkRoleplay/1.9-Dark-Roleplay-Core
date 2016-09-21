@@ -4,8 +4,10 @@ import net.drpcore.common.capabilities.entities.player.IPlayerData;
 
 public interface IMoral extends IPlayerData{
 	
-	public void setMoral(float newMoralLevel);
-	public void addMoral(float addMoralLevel);
-	public float getMoral();
+	public void setMoral(int moral);
 	
+	public int getMoral();
+	
+	public void setChangeTime(int ticks);
+	public int getChangeTime();
 }

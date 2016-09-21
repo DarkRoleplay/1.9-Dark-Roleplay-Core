@@ -487,7 +487,11 @@ public class RecipeCrafting extends GuiContainer implements ITimedGui{
 						}
 					}
 					
-					PacketHandler.sendToServer(new PacketCraft(this.recipe, primary, secondary, null, this.craftAmount));
+					if(recipe.doConditionsMet(primary, secondary, this.craftAmount, player, stationPos) != 0){
+						return;
+					}
+					
+					PacketHandler.sendToServer(new PacketCraft(this.recipe, primary, secondary, stationPos, this.craftAmount));
 					
 				}
 				break;

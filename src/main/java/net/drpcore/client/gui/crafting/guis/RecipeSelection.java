@@ -227,9 +227,9 @@ public class RecipeSelection extends DRPGuiScreen {
 			//Recipes
 			for(int a = 0; a < 3; a++ ) {
 				for(int b = 0; b < 6; b++ ) {
-					if(((currentPage - 1) * 18) + (a * 5) + b  < availableRecipes.length){
-						if(availableRecipes[((currentPage - 1) * 18) + (a * 5) + b ] != null){
-							ItemStack previewItem = availableRecipes[((currentPage - 1) * 18) + (a * 5) + b ].getPreviewItem();
+					if(((currentPage - 1) * 18) + (a * 5) + b + (a*1)  < availableRecipes.length){
+						if(availableRecipes[((currentPage - 1) * 18) + (a * 5) + b + (a*1)] != null){
+							ItemStack previewItem = availableRecipes[((currentPage - 1) * 18) + (a * 5) + b + (a*1)].getPreviewItem();
 							this.itemRender.renderItemAndEffectIntoGUI(previewItem, this.guiLeft + 16 + (b * 26), this.guiTop + 68 + (a * 26));
 
 						}

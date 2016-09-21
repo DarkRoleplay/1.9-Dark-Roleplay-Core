@@ -13,7 +13,8 @@ public class MoralStorage implements IStorage<IMoral>{
     {
         NBTTagCompound compound = new NBTTagCompound();
         
-        compound.setFloat("moralLevel", instance.getMoral());
+        compound.setInteger("moralLevel", instance.getMoral());
+        compound.setInteger("moralTimer", instance.getChangeTime());
 
         return compound;
     }
@@ -21,13 +22,14 @@ public class MoralStorage implements IStorage<IMoral>{
     @Override
     public void readNBT(Capability<IMoral> capability, IMoral instance, EnumFacing side, NBTBase nbt) 
     {
-        if (!(nbt instanceof NBTTagCompound)) throw new IllegalArgumentException("Thirst must be read from an NBTTagCompound!");
+        if (!(nbt instanceof NBTTagCompound)) throw new IllegalArgumentException("Moral must be read from an NBTTagCompound!");
         
         NBTTagCompound compound = (NBTTagCompound)nbt;
         
         if (compound.hasKey("moralLevel"))
         {
-            instance.setMoral(compound.getFloat("moralLevel"));
+            instance.setMoral(compound.getInteger("moralLevel"));
+            instance.setChangeTime(compound.getInteger("moralTimer"));
         }
 
     }

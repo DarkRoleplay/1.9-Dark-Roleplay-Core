@@ -1,55 +1,67 @@
 package net.drpcore.common.capabilities.entities.player.moral;
 
+import net.drpcore.common.capabilities.entities.player.DataHandlerBase;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.common.gameevent.TickEvent.Phase;
+import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
 
-public class MoralHandler implements IMoral{
-	
-	private float moralLevel;
-	private float prevMoralLevel;
-	
+public class MoralHandler extends DataHandlerBase implements IMoral{
+
+	private int moralLevel;
+	private int prevMoralLevel;
 	private int moralTimer;
-
+	
 	public MoralHandler(){
-		this.moralLevel = 1F;
+		
 	}
-
+	
 	@Override
 	public void update(EntityPlayer player, World world, Phase phase) {
-		if (phase == Phase.START)
-        {
-			if(moralTimer ++ >= 5000){
-				moralTimer = 0;
-				moralLevel -= 0.01F;
-			}
-			else moralTimer ++;
-        }
+
+		// TODO Auto-generated method stub
+		
 	}
 
 	@Override
 	public boolean hasChanged() {
-		return this.prevMoralLevel != this.moralLevel;
+		 return this.prevMoralLevel != this.moralLevel;
+	}
+
+	
+	@Override
+    public void onSendClientUpdate() {
+        this.prevMoralLevel = this.moralLevel;
+	}
+	
+	@Override
+	public IMessage createUpdateMessage() {
+		//NBTTagCompound data = (NBTTagCompound)TANCapabilities.THIRST.getStorage().writeNBT(TANCapabilities.THIRST, this, null);
+        //return new MessageUpdateStat(TANCapabilities.THIRST, data);
+		return null;
 	}
 
 	@Override
-	public void onSendClientUpdate() {
-		this.prevMoralLevel = this.moralLevel;
+	public void setMoral(int moral) {
+		this.moralLevel = moral;
 	}
 
 	@Override
-	public void setMoral(float newMoralLevel) {
-		this.moralLevel = newMoralLevel;
-	}
-
-	@Override
-	public void addMoral(float addMoralLevel) {
-		this.moralLevel = Math.max(this.moralLevel + addMoralLevel, 1F);
-	}
-
-	@Override
-	public float getMoral() {
+	public int getMoral() {
 		return this.moralLevel;
+	}
+
+	@Override
+	public void setChangeTime(int ticks) {
+
+		this.moralTimer = ticks;
+		
+	}
+
+	@Override
+	public int getChangeTime() {
+		return this.moralTimer;
 	}
 	
 }
