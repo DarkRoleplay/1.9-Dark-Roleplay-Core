@@ -5,11 +5,14 @@ import java.io.File;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import net.drpcore.api.blocks.AdvancedCrop;
+import net.drpcore.api.blocks.AdvancedPlant;
 import net.drpcore.client.events.ClientConnectedToServer;
 import net.drpcore.client.events.ClientDisconnectFromServer;
 import net.drpcore.client.keybinding.DRPCoreKeybindings;
 import net.drpcore.client.util.UpdateCheck;
 import net.drpcore.common.blocks.DRPCoreBlocks;
+import net.drpcore.common.blocks.tileentities.AdvancedPlantTileEntity;
 import net.drpcore.common.capabilities.entities.player.advancedInventory.AdvancedInventoryStorage;
 import net.drpcore.common.capabilities.entities.player.advancedInventory.DefaultAdvancedInventory;
 import net.drpcore.common.capabilities.entities.player.advancedInventory.IPlayerAdvancedInventory;
@@ -32,6 +35,8 @@ import net.drpcore.common.util.schematic.SchematicController;
 
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.capabilities.Capability;
@@ -104,10 +109,13 @@ public class DarkRoleplayCore {
 		schematicPath.mkdir();
 		PacketHandler.init();
 		NetworkRegistry.INSTANCE.registerGuiHandler(instance, new GuiHandler());
-		SchematicController.findSchematics();
-		SchematicController.debug();
+		
+		proxy.registerEvents();
 		
 		log.info("Initialization has been Finished!");
+		
+        GameRegistry.registerTileEntity(AdvancedPlantTileEntity.class, DarkRoleplayCore.MODID + "AdvancedCrop");
+		
 	}
 
 	@Mod.EventHandler

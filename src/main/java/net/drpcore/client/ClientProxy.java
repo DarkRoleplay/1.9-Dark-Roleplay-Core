@@ -2,6 +2,7 @@ package net.drpcore.client;
 
 import net.drpcore.client.events.ClientConnectedToServer;
 import net.drpcore.client.events.ClientDisconnectFromServer;
+import net.drpcore.client.events.GuiRenderHandler;
 import net.drpcore.client.events.OnPlayerTick;
 import net.drpcore.client.events.RenderPlayer;
 import net.drpcore.client.util.UpdateCheck;
@@ -18,7 +19,10 @@ public class ClientProxy extends CommonProxy {
 		UpdateCheck.checkForUpdate();
 	}
 
-	public void registerEvents() {}
+	public void registerEvents() {
+		
+		MinecraftForge.EVENT_BUS.register(new GuiRenderHandler());
+	}
 
 	public void registerRandom() {}
 }

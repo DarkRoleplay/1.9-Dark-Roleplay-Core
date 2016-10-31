@@ -3,6 +3,7 @@ package net.drpcore.client.keybinding;
 import org.lwjgl.input.Keyboard;
 
 import net.drpcore.api.items.equip.PurseBase;
+import net.drpcore.client.events.GuiRenderHandler;
 import net.drpcore.common.DarkRoleplayCore;
 import net.drpcore.common.crafting.CraftingController;
 import net.drpcore.common.gui.GuiHandler;
@@ -62,7 +63,8 @@ public class DRPCoreKeybindings {
 				PacketHandler.sendToServer(new PacketOpenPurse());
 			}
 		} else if(this.switchArmor.isKeyDown()) {
-			PacketHandler.sendToServer(new PacketSwitchArmor());
+			GuiRenderHandler.infGui.addMessage("This is a Test");
+			//PacketHandler.sendToServer(new PacketSwitchArmor());
 		}
 	}
 }

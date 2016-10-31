@@ -19,5 +19,7 @@ public class RenderTick {
 				gui.increaseTimer(1);;
 			}
 		}
+		
+		GuiRenderHandler.infGui.increaseTimer(1);
 	}
 }
