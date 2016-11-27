@@ -7,6 +7,7 @@ import net.drpcore.common.blocks.tileentities.AdvancedPlantTileEntity;
 import net.minecraft.block.Block;
 import net.minecraft.block.IGrowable;
 import net.minecraft.block.ITileEntityProvider;
+import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.PropertyBool;
 import net.minecraft.block.state.BlockStateContainer;
@@ -28,6 +29,13 @@ public class AdvancedPlant extends Block implements ITileEntityProvider {
 
     public static final PropertyBool IS_CROP_CONTROLLER = PropertyBool.create("is_crop_controller");
 	
+    public AdvancedPlant(int daysTillGrown){
+    	super(Material.PLANTS);
+		this.daysTillGrown = daysTillGrown;
+        this.setDefaultState(this.blockState.getBaseState().withProperty(IS_CROP_CONTROLLER, false));
+        this.setSoundType(SoundType.PLANT);
+	}
+    
 	public AdvancedPlant(String registryName, int daysTillGrown){
 		this(registryName, registryName, daysTillGrown);
         this.setDefaultState(this.blockState.getBaseState().withProperty(IS_CROP_CONTROLLER, false));
