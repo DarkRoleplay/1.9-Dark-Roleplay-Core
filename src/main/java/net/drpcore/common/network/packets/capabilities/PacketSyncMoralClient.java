@@ -1,8 +1,8 @@
 package net.drpcore.common.network.packets.capabilities;
 
 import io.netty.buffer.ByteBuf;
-import net.drpcore.common.capabilities.DRPCoreCapabilities;
-import net.drpcore.common.capabilities.entities.player.moral.MoralHandler;
+import net.drpcore.common.capabilitiesOld.DRPCoreCapabilities;
+import net.drpcore.common.capabilitiesOld.entities.player.moral.MoralHandler;
 import net.drpcore.common.network.PacketBase;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.EntityPlayerSP;

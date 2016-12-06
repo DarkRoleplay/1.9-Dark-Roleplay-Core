@@ -1,10 +1,10 @@
 package net.drpcore.common.events;
 
 import net.drpcore.common.DarkRoleplayCore;
-import net.drpcore.common.capabilities.DRPCoreCapabilities;
-import net.drpcore.common.capabilities.entities.player.CapabilityProvider;
-import net.drpcore.common.capabilities.entities.player.advancedInventory.AdvancedInventoryProvider;
-import net.drpcore.common.capabilities.entities.player.advancedInventory.DefaultAdvancedInventory;
+import net.drpcore.common.capabilitiesOld.DRPCoreCapabilities;
+import net.drpcore.common.capabilitiesOld.entities.player.CapabilityProvider;
+import net.drpcore.common.capabilitiesOld.entities.player.advancedInventory.AdvancedInventoryProvider;
+import net.drpcore.common.capabilitiesOld.entities.player.advancedInventory.DefaultAdvancedInventory;
 import net.drpcore.common.gui.inventories.AdvancedPlayerInventory;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;

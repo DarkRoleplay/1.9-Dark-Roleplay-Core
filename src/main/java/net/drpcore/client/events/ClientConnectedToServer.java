@@ -3,7 +3,7 @@ package net.drpcore.client.events;
 import net.drpcore.client.util.UpdateCheck;
 import net.drpcore.common.DarkRoleplayCore;
 import net.drpcore.common.config.ConfigurationManager;
-import net.drpcore.common.crafting.CraftingController;
+import net.drpcore.common.craftingOld.CraftingController;
 import net.minecraft.client.Minecraft;
 import net.minecraft.util.text.TextComponentString;
 import net.minecraft.util.text.TextFormatting;

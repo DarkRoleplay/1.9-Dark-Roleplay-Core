@@ -5,7 +5,7 @@ import org.lwjgl.input.Keyboard;
 import net.drpcore.api.items.equip.PurseBase;
 import net.drpcore.client.events.GuiRenderHandler;
 import net.drpcore.common.DarkRoleplayCore;
-import net.drpcore.common.crafting.CraftingController;
+import net.drpcore.common.craftingOld.CraftingController;
 import net.drpcore.common.gui.GuiHandler;
 import net.drpcore.common.gui.inventories.AdvancedPlayerInventory;
 import net.drpcore.common.network.PacketHandler;
@@ -54,6 +54,9 @@ public class DRPCoreKeybindings {
 
 		if(this.openCrafting.isKeyDown()) {
 			EntityPlayer player = Minecraft.getMinecraft().thePlayer;
+			if(player.isSneaking())
+				player.openGui(DarkRoleplayCore.instance, GuiHandler.GUI_CRAFTING, player.worldObj, player.getPosition().getX(), player.getPosition().getY(), player.getPosition().getZ());
+			else
 			player.openGui(DarkRoleplayCore.instance, GuiHandler.GUI_CRAFTING_RECIPESELECTION, player.worldObj, player.getPosition().getX(), player.getPosition().getY(), player.getPosition().getZ());
 		} else if(this.openInventory.isKeyDown()) {
 			PacketHandler.sendToServer(new PacketOpenInventory());

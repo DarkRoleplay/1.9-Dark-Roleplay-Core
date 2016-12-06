@@ -1,16 +1,15 @@
 package net.drpcore.common.gui;
 
 import net.drpcore.api.items.equip.PurseBase;
-import net.drpcore.client.gui.crafting.guis.RecipeCrafting;
-import net.drpcore.client.gui.crafting.guis.RecipeSelection;
+import net.drpcore.client.gui.craftingOld.guis.RecipeCrafting;
+import net.drpcore.client.gui.craftingOld.guis.RecipeSelection;
 import net.drpcore.client.gui.guis.AdvancedPlayerInventoryGui;
-import net.drpcore.client.gui.guis.CraftingGui;
 import net.drpcore.client.gui.guis.PurseGui;
 import net.drpcore.common.DarkRoleplayCore;
-import net.drpcore.common.capabilities.entities.player.advancedInventory.AdvancedInventoryProvider;
-import net.drpcore.common.crafting.AdvancedRecipe;
-import net.drpcore.common.crafting.CraftingController;
-import net.drpcore.common.crafting.DRPCoreCrafting;
+import net.drpcore.common.capabilitiesOld.entities.player.advancedInventory.AdvancedInventoryProvider;
+import net.drpcore.common.craftingOld.AdvancedRecipe;
+import net.drpcore.common.craftingOld.CraftingController;
+import net.drpcore.common.craftingOld.DRPCoreCrafting;
 import net.drpcore.common.gui.container.Container_Crafting;
 import net.drpcore.common.gui.container.Container_Purse;
 import net.drpcore.common.gui.container.AdvancedPlayerInventoryContainer;
@@ -47,18 +46,12 @@ public class GuiHandler implements IGuiHandler {
 		switch (ID) {
 			case GUI_INVENTORY:
 				return new AdvancedPlayerInventoryContainer(player, player.inventory, new AdvancedPlayerInventory((AdvancedPlayerInventory) player.getCapability(AdvancedInventoryProvider.ADVANCED_INVENTORY, null).getInventory(), player));
-			case GUI_CRAFTING:
-				return new Container_Crafting(player.inventory);
 			case GUI_PURSE:
 				AdvancedPlayerInventory inventory = player.getCapability(DarkRoleplayCore.DRPCORE_INV, null).getInventory();
 				if(inventory.getStackInSlot(AdvancedPlayerInventory.SLOT_PURSE) != null && inventory.getStackInSlot(AdvancedPlayerInventory.SLOT_PURSE).getItem() instanceof PurseBase) {
 					ItemStack purse = inventory.getStackInSlot(AdvancedPlayerInventory.SLOT_PURSE);
 					return new Container_Purse(player, player.inventory, new PurseInventory(purse, ((PurseBase) purse.getItem()).SlotAmount));
 				}
-				break;
-			case GUI_CRAFTING_RECIPESELECTION:
-				return null;
-			case GUI_CRAFTING_RECIPECRAFTING:
 				break;
 			default:
 				break;
@@ -73,7 +66,7 @@ public class GuiHandler implements IGuiHandler {
 			case GUI_INVENTORY:
 				return new AdvancedPlayerInventoryGui(player, player.inventory, new AdvancedPlayerInventory((AdvancedPlayerInventory) player.getCapability(AdvancedInventoryProvider.ADVANCED_INVENTORY, null).getInventory(), player));
 			case GUI_CRAFTING:
-				return new CraftingGui(new Container_Crafting(player.inventory), player, world.getBlockState(new BlockPos(x, y, z)).getBlock());
+				return new net.drpcore.client.gui.crafting.recipeSelection.RecipeSelection(new BlockPos(x,y,z), world.getBlockState(new BlockPos(x, y, z)).getBlock(), player);
 			case GUI_PURSE:
 				AdvancedPlayerInventory inventory = player.getCapability(DarkRoleplayCore.DRPCORE_INV, null).getInventory();
 				if(inventory.getStackInSlot(AdvancedPlayerInventory.SLOT_PURSE) != null && inventory.getStackInSlot(AdvancedPlayerInventory.SLOT_PURSE).getItem() instanceof PurseBase) {

@@ -1,8 +1,8 @@
 package net.drpcore.common.network.packets;
 
 import io.netty.buffer.ByteBuf;
-import net.drpcore.common.crafting.AdvancedRecipe;
-import net.drpcore.common.crafting.CraftingController;
+import net.drpcore.common.craftingOld.AdvancedRecipe;
+import net.drpcore.common.craftingOld.CraftingController;
 import net.drpcore.common.network.PacketBase;
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;

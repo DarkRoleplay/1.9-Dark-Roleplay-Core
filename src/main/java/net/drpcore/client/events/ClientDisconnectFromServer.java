@@ -1,6 +1,6 @@
 package net.drpcore.client.events;
 
-import net.drpcore.common.crafting.CraftingController;
+import net.drpcore.common.craftingOld.CraftingController;
 import net.drpcore.common.util.crafting.CraftingManager;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.network.FMLNetworkEvent.ClientConnectedToServerEvent;

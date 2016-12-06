@@ -3,7 +3,7 @@ package net.drpcore.common.events;
 import java.util.List;
 
 import net.drpcore.common.DarkRoleplayCore;
-import net.drpcore.common.capabilities.entities.player.advancedInventory.AdvancedInventoryProvider;
+import net.drpcore.common.capabilitiesOld.entities.player.advancedInventory.AdvancedInventoryProvider;
 import net.drpcore.common.gui.inventories.AdvancedPlayerInventory;
 import net.drpcore.common.network.PacketHandler;
 import net.drpcore.common.network.packets.PacketSyncAdvancedInventory;
