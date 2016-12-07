@@ -4,7 +4,7 @@ import net.minecraft.item.Item;
 
 public class DRPItem extends Item{
 
-	//Method for 
+	//Method for the Texturepath
 	private final String textures;
 	
 	public DRPItem(String textures){
