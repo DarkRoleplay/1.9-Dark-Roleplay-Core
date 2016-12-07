@@ -7,8 +7,7 @@ public class DRPItem extends Item{
 	//Method for 
 	private final String textures;
 	
-	
-	public DRPItems (){
-		
+	public DRPItem(String textures){
+		this.textures = textures;
 	}
 }
