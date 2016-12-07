@@ -1,0 +1,23 @@
+.git/*
+eclipse/*
+.gradle/*
+gradle/*
+run/*
+.settings/*
+build/*
+bin/*
+
+CREDITS-fml.txt
+gradle.properties
+gradlew
+gradlew.bat
+LICENSE-new.txt
+MinecraftForge-Credits.txt
+Paulscode IBXM Library License.txt
+Paulscode SoundSystem CodecIBXM License.txt
+README.txt
+.project
+.classpath
+Dark-Roleplay-Core_Client.launch
+Dark-Roleplay-Core_Server.launch
+
