@@ -6,7 +6,8 @@ run/*
 .settings/*
 build/*
 bin/*
-
+Dark-Rol
+.metadata/*
 CREDITS-fml.txt
 gradle.properties
 gradlew
@@ -20,4 +21,3 @@ README.txt
 .classpath
 Dark-Roleplay-Core_Client.launch
 Dark-Roleplay-Core_Server.launch
-
