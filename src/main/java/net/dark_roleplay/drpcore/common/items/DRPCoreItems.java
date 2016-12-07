@@ -1,8 +1,10 @@
 package net.dark_roleplay.drpcore.common.items;
 
+import net.dark_roleplay.drpcore.common.DarkRoleplayCore;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
+import net.minecraftforge.fml.common.registry.GameRegistry;
 
 public class DRPCoreItems {
 
@@ -42,6 +44,13 @@ public class DRPCoreItems {
 	public static final void postInit(FMLPostInitializationEvent event) {}
 
 	public static final void registerItem(DRPItem item){
+		registerItem(item,true);
+	}
+	
+	public static final void registerItem(DRPItem item, boolean registerModel){
+		GameRegistry.register(item);
 		
+		//if(registerModel)
+		//	DarkRoleplayCore.proxy.addItemToRegisterMesh(item);
 	}
 }
