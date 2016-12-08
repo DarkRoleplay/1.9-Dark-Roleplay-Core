@@ -43,14 +43,15 @@ public class DRPCoreItems {
 
 	public static final void postInit(FMLPostInitializationEvent event) {}
 
-	public static final void registerItem(DRPItem item){
-		registerItem(item,true);
+	public static final void registerItem(String modid,DRPItem item){
+		registerItem(modid,item,true);
 	}
 	
-	public static final void registerItem(DRPItem item, boolean registerModel){
+	public static final void registerItem(String modid,DRPItem item, boolean registerModel){
 		GameRegistry.register(item);
 		
-		//if(registerModel)
-		//	DarkRoleplayCore.proxy.addItemToRegisterMesh(item);
+		if(registerModel){
+			DarkRoleplayCore.proxy.registerItemMesh(modid, item);
+		}
 	}
 }

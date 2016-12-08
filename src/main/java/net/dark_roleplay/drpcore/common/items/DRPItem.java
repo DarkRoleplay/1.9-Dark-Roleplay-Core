@@ -23,7 +23,7 @@ public class DRPItem extends Item{
 		return this.subModelNames;
 	}
 	
-	private String getModelFolder(){
+	public String getModelFolder(){
 		return this.modelFolder;
 	}
 }

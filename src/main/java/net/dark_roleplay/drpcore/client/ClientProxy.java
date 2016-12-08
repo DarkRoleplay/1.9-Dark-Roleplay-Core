@@ -6,6 +6,8 @@ import java.util.Map;
 import net.dark_roleplay.drpcore.common.items.DRPItem;
 import net.dark_roleplay.drpcore.common.proxy.CommonProxy;
 import net.minecraft.client.renderer.block.model.ModelBakery;
+import net.minecraft.client.renderer.block.model.ModelResourceLocation;
+import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
@@ -28,14 +30,20 @@ public class ClientProxy extends CommonProxy{
 	
 	public void registerItemMesh(String MODID, DRPItem item) {
 		if(item.getSubModelNames() != null){
-			for(int i = 0; i < item.getSubModelNames().length; i++){
-				
+			if(item.getSubModelNames() != null){
+				ResourceLocation[] locations = new ResourceLocation[item.getSubModelNames().length];
+				for(int i = 0; i < item.getSubModelNames().length; i++){
+					locations[i] = new ResourceLocation(MODID + ":" + item.getModelFolder() + "/" + item.getSubModelNames()[i]);
+				}
+				ModelBakery.registerItemVariants(item,locations);
+				for(int i = 0; i < locations.length; i++){
+					ModelLoader.setCustomModelResourceLocation(item, 0, new ModelResourceLocation(locations[i], "inventory"));
+				}
+			}else{
+				String path = item.getModelFolder() + "/" + item.getUnlocalizedName().toString().substring(item.getUnlocalizedName().toString().indexOf(".") + 1, item.getUnlocalizedName().toString().length());
+				ModelBakery.registerItemVariants(item, new ResourceLocation(MODID + ":" + path));
+				ModelLoader.setCustomModelResourceLocation(item, 0, new ModelResourceLocation(MODID + ":" + path, "inventory"));
 			}
-			for(String name : item.getSubModelNames()){
-				
-			}
-			ModelBakery.registerItemVariants(item,new ResourceLocation(MODID + ":" + item.get));
 		}
-		ModelLoader.setCustomModelResourceLocation(item, 0, new ModelResourceLocation(DarkRoleplayMedieval.MODID + ":" + path, "inventory"));
 	}
 }
