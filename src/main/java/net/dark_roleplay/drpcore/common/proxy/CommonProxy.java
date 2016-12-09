@@ -1,6 +1,6 @@
 package net.dark_roleplay.drpcore.common.proxy;
 
-import net.dark_roleplay.drpcore.common.items.DRPItem;
+import net.dark_roleplay.drpcore.api.items.DRPItem;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;

@@ -1,5 +1,6 @@
-package net.dark_roleplay.drpcore.common.items;
+package net.dark_roleplay.drpcore.common.handler;
 
+import net.dark_roleplay.drpcore.api.items.DRPItem;
 import net.dark_roleplay.drpcore.common.DarkRoleplayCore;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
@@ -7,7 +8,8 @@ import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 
 public class DRPCoreItems {
-
+	/**---------- EXAMPLE ITEM ---------**/
+	
 	/**---------- A ----------**/
 	/**---------- B ----------**/
 	/**---------- C ----------**/
@@ -36,7 +38,11 @@ public class DRPCoreItems {
 	/**---------- Z ----------**/
 	
 	public static final void preInit(FMLPreInitializationEvent event) {
-		
+		/**---------- EXAMPLE ITEM ---------**/
+		if(DRPCoreConfigs.ENABLE_DEBUG_ITEMS){
+			//Register here all Debug Item
+			System.out.println("Debug Items are Registered Now!");
+		}
 	}
 	
 	public static final void init(FMLInitializationEvent event) {}

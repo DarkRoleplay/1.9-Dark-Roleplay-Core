@@ -3,7 +3,7 @@ package net.dark_roleplay.drpcore.client;
 import java.util.HashMap;
 import java.util.Map;
 
-import net.dark_roleplay.drpcore.common.items.DRPItem;
+import net.dark_roleplay.drpcore.api.items.DRPItem;
 import net.dark_roleplay.drpcore.common.proxy.CommonProxy;
 import net.minecraft.client.renderer.block.model.ModelBakery;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;

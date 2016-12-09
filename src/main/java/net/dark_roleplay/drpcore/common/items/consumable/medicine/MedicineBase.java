@@ -2,7 +2,7 @@ package net.dark_roleplay.drpcore.common.items.consumable.medicine;
 
 import java.util.ArrayList;
 
-import net.dark_roleplay.drpcore.common.items.DRPItem;
+import net.dark_roleplay.drpcore.api.items.DRPItem;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;

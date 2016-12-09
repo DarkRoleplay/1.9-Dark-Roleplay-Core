@@ -1,16 +1,15 @@
-[
 {
-  "modid": "examplemod",
-  "name": "Example Mod",
-  "description": "Example placeholder mod.",
-  "version": "${version}",
-  "mcversion": "${mcversion}",
-  "url": "",
-  "updateUrl": "",
-  "authorList": ["ExampleDude"],
-  "credits": "The Forge and FML guys, for making this example",
-  "logoFile": "",
-  "screenshots": [],
-  "dependencies": []
+  "modListVersion": 2,
+  "modList": [{
+    "modid": "drpcore",
+    "name": "Dark Roleplay Core",
+    "description": "An API and advanced Base for most of the Dark Roleplay Mods",
+    "url": "",
+    "updateUrl": "",
+    "authorList": [ "JTK222", "DaNeubi" ],
+    "credits": "Authored by JTK222, helped by DaNeubi",
+    "logoFile": "",
+    "screenshots": [ "", "" ],
+    "requiredMods": [ "Forge" ]
+  }]
 }
-]

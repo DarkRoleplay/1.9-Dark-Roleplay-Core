@@ -1,4 +1,4 @@
-package net.dark_roleplay.drpcore.common.items;
+package net.dark_roleplay.drpcore.api.items;
 
 import net.minecraft.item.EnumAction;
 import net.minecraft.item.Item;
