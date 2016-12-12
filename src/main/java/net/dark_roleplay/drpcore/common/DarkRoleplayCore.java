@@ -4,6 +4,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import net.dark_roleplay.drpcore.client.events.config.Event_ConfigChange;
+import net.dark_roleplay.drpcore.common.handler.DRPCoreBlocks;
 import net.dark_roleplay.drpcore.common.handler.DRPCoreConfigs;
 import net.dark_roleplay.drpcore.common.handler.DRPCoreItems;
 import net.dark_roleplay.drpcore.common.proxy.CommonProxy;
@@ -35,16 +36,23 @@ public class DarkRoleplayCore {
 		DRPCoreConfigs.loadConfig(event.getSuggestedConfigurationFile());
 		
 		DRPCoreItems.preInit(event);
+		DRPCoreBlocks.preInit(event);
+		proxy.preInit(event);
 	}
 	
 	@EventHandler
 	public void init(FMLInitializationEvent event) {
 		FMLCommonHandler.instance().bus().register(new Event_ConfigChange());
+		
 		DRPCoreItems.init(event);
+		DRPCoreBlocks.init(event);
+		proxy.init(event);
 	}
 	
 	@EventHandler
 	public void postInit(FMLPostInitializationEvent event) {
 		DRPCoreItems.postInit(event);
+		DRPCoreBlocks.postInit(event);
+		proxy.postInit(event);
 	}
 }
