@@ -20,7 +20,7 @@ public interface IRecipeController {
 	
 	public boolean isLocked(String recipeID);
 	
-	public boolean progressRecipe(String recipeID, float percantage);
+	public void progressRecipe(String recipeID, float percantage);
 	
 	public float getProgressRecipe(String recipeID);
 	
@@ -29,4 +29,10 @@ public interface IRecipeController {
 	public List<String> getUnlockedRecipes();
 	
 	public Map<String,Float> getProgressedRecipes();
+	
+	public boolean isRecipeLocked(String recipe);
+	
+	public boolean isRecipeUnlocked(String recipe);
+	
+	public boolean isRecipeProgressed(String recipe);
 }

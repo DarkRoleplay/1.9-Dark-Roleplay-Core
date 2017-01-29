@@ -8,54 +8,56 @@ import java.util.Map;
 import net.minecraft.block.Block;
 
 public class CraftingRegistry {
-
-	public static CraftingRegistry INSTANCE;
 	
-	private Map<String,SimpleRecipe> recipes = new HashMap<String,SimpleRecipe>();
-	
-	private Map<Block,Map<String,List<String>>> stationKeys = new HashMap<Block,Map<String,List<String>>>();
+	private static Map<String,SimpleRecipe> recipes = new HashMap<String,SimpleRecipe>();
+	private static Map<String,SimpleRecipe> unlockRecipes = new HashMap<String,SimpleRecipe>();
 
 	
-	public boolean registerRecipe(Block station, String category,String recipeRegistryName, SimpleRecipe recipe){
-		if(this.recipes.containsKey(recipeRegistryName))
+	private static Map<Block,Map<String,List<String>>> stationKeys = new HashMap<Block,Map<String,List<String>>>();
+
+	
+	public static boolean registerRecipe(Block station, String category, SimpleRecipe recipe, boolean requiresUnlock){
+		if(recipes.containsKey(recipe.getRegistryName()) || unlockRecipes.containsKey(recipe.getRegistryName())){
 			return false;
+		}
 		
-		this.recipes.put(recipeRegistryName, recipe);
+		if(requiresUnlock){
+			unlockRecipes.put(recipe.getRegistryName(), recipe);
+		}else{
+			recipes.put(recipe.getRegistryName(), recipe);
+		}
 		
 		Map<String,List<String>> tmpRecipeKeys;
 		List<String> tmpCategoryKeys;
 		
-		if(!this.stationKeys.containsKey(station)){
+		if(!stationKeys.containsKey(station)){
 			tmpRecipeKeys = new HashMap<String,List<String>>();
 			tmpCategoryKeys = new ArrayList<String>();
-			tmpCategoryKeys.add(recipeRegistryName);
-			tmpRecipeKeys.replace(category, tmpCategoryKeys);
-			this.stationKeys.replace(station, tmpRecipeKeys);
-			
+			tmpCategoryKeys.add(recipe.getRegistryName());
+			tmpRecipeKeys.put(category, tmpCategoryKeys);
+			stationKeys.put(station, tmpRecipeKeys);
 		}else{
-			tmpRecipeKeys = this.stationKeys.get(station);
+			tmpRecipeKeys = stationKeys.get(station);
 			if(!tmpRecipeKeys.containsKey(category)){
 				tmpCategoryKeys = new ArrayList<String>();
 			}else{
 				tmpCategoryKeys = tmpRecipeKeys.get(category);
 			}
-			tmpCategoryKeys.add(recipeRegistryName);
-			tmpRecipeKeys.replace(category, tmpCategoryKeys);
-			this.stationKeys.replace(station, tmpRecipeKeys);
+			tmpCategoryKeys.add(recipe.getRegistryName());
+			tmpRecipeKeys.put(category, tmpCategoryKeys);
+			stationKeys.replace(station, tmpRecipeKeys);
 		}
 		return true;
 	}
-	
-	public void setInstance(CraftingRegistry rg){
-		if(this.INSTANCE == null)
-			this.INSTANCE = rg;
-	}
-	
-	public Map<String,List<String>> getRecipesForStation(Block block){
+	public static Map<String,List<String>> getRecipesForStation(Block block){
 		return stationKeys.containsKey(block) ? stationKeys.get(block) : null;
 	}
 	
-	public SimpleRecipe getRecipe(String recipeName){
-		return recipes.containsKey(recipeName) ? recipes.get(recipeName) : null;
+	public static SimpleRecipe getRecipe(String recipeName){
+		return recipes.containsKey(recipeName) ? recipes.get(recipeName) : unlockRecipes.containsKey(recipeName) ? unlockRecipes.get(recipeName) : null;
+	}
+	
+	public static boolean requiresRecipeUnlock(String recipeName){
+		return unlockRecipes.containsKey(recipeName);
 	}
 }

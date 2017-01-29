@@ -10,8 +10,8 @@ buildscript {
 apply plugin: 'net.minecraftforge.gradle.forge'
 
 version = "1.0"
-group= "com.yourname.modid" // http://maven.apache.org/guides/mini/guide-naming-conventions.html
-archivesBaseName = "modid"
+group= "net.dark_roleplay.core" // http://maven.apache.org/guides/mini/guide-naming-conventions.html
+archivesBaseName = "drpcore"
 
 sourceCompatibility = targetCompatibility = "1.8"
 compileJava {
@@ -19,7 +19,7 @@ compileJava {
 }
 
 minecraft {
-    version = "1.11-13.19.1.2188"
+    version = "1.11.2-13.20.0.2224"
     runDir = "run"
 
     mappings = "snapshot_20161111"

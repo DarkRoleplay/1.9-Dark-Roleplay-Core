@@ -2,9 +2,12 @@ package net.dark_roleplay.drpcore.client;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.UUID;
 
 import net.dark_roleplay.drpcore.api.items.DRPItem;
-import net.dark_roleplay.drpcore.client.events.render.WorldRender;
+import net.dark_roleplay.drpcore.client.events.rendering.Event_ModelBaked;
+import net.dark_roleplay.drpcore.client.keybindings.DRPCoreKeybindings;
+import net.dark_roleplay.drpcore.common.handler.DRPCoreItems;
 import net.dark_roleplay.drpcore.common.proxy.CommonProxy;
 import net.minecraft.client.renderer.block.model.ModelBakery;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
@@ -14,23 +17,35 @@ import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class ClientProxy extends CommonProxy{
-
+	
 	private Map<DRPItem,String> toRegisterMeshes = new HashMap<DRPItem,String>();
 	
 	public void preInit(FMLPreInitializationEvent event) {
+		DRPCoreKeybindings.preInit(event);
+		
 		for(Map.Entry<DRPItem, String> entry : toRegisterMeshes.entrySet()) {
 			this.registerItemMesh(entry.getValue(),entry.getKey());
 		}
 		this.toRegisterMeshes = null;
+		
+		MinecraftForge.EVENT_BUS.register(Event_ModelBaked.instance);
+
+	    // model to be used for rendering this item
+	    ModelResourceLocation itemModelResourceLocation = new ModelResourceLocation("drpcore:medicine", "inventory");
+	    ModelLoader.setCustomModelResourceLocation(DRPCoreItems.MEDICINE_BASE, 0, itemModelResourceLocation);
 	}
 	
 	public void init(FMLInitializationEvent event) {
-		//MinecraftForge.EVENT_BUS.register(new WorldRender());
+		DRPCoreKeybindings.init(event);
 	}
 	
-	public void postInit(FMLPostInitializationEvent event) {}
+	public void postInit(FMLPostInitializationEvent event) {
+		DRPCoreKeybindings.postInit(event);
+	}
 	
 	public void registerItemMesh(String MODID, DRPItem item) {
 		if(item.getSubModelNames() != null){

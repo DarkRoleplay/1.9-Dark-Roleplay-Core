@@ -19,47 +19,7 @@ import net.minecraftforge.fml.common.registry.GameRegistry;
 
 public class DRPCoreItems {
 	/**---------- EXAMPLE ITEM ---------**/
-	public static MedicineBase MEDICINE_BASE = (MedicineBase) new MedicineBase("Medicine"){
-		@Override
-		public ItemStack onItemUseFinish(ItemStack stack, World worldIn, EntityLivingBase entityLiving) {
-			/*EntityPlayerMP entityplayer = entityLiving instanceof EntityPlayerMP ? (EntityPlayerMP) entityLiving : null;
-
-			entityPlayer.
-			
-			if (entityplayer == null || !entityplayer.capabilities.isCreativeMode) {
-				stack.func_190918_g(1);
-			}
-
-			if (!worldIn.isRemote) {
-				for (PotionEffect potioneffect : PotionUtils.getEffectsFromStack(stack)) {
-					if (potioneffect.getPotion().isInstant()) {
-						potioneffect.getPotion().affectEntity(entityplayer, entityplayer, entityLiving,
-								potioneffect.getAmplifier(), 1.0D);
-					} else {
-						entityLiving.addPotionEffect(new PotionEffect(potioneffect));
-					}
-				}
-			}
-
-			if (entityplayer != null) {
-				entityplayer.addStat(StatList.getObjectUseStats(this));
-			}
-
-			if (entityplayer == null || !entityplayer.capabilities.isCreativeMode) {
-				if (stack.func_190926_b()) {
-					return new ItemStack(Items.GLASS_BOTTLE);
-				}
-
-				if (entityplayer != null) {
-					entityplayer.inventory.addItemStackToInventory(new ItemStack(Items.GLASS_BOTTLE));
-				}
-			}
-*/
-			return stack;
-		}
-		
-		
-	}.setRegistryName("Medicine");
+	public static MedicineBase MEDICINE_BASE = (MedicineBase) new MedicineBase("Medicine").setRegistryName("Medicine");
 	
 	
 	/**---------- A ----------**/

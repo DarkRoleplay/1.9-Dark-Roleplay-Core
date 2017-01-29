@@ -2,6 +2,7 @@ package net.dark_roleplay.drpcore.common.crafting;
 
 import net.minecraft.block.Block;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.ResourceLocation;
 
 public class SimpleRecipe {
 
@@ -17,14 +18,14 @@ public class SimpleRecipe {
 	
 	private boolean requiresUnlock = false;
 	
-	public SimpleRecipe(String registryName, Block station, String category, ItemStack[] mainOutput, ItemStack[] mainIngredients){
+	public SimpleRecipe(ResourceLocation registryName, Block station, String category, ItemStack[] mainOutput, ItemStack[] mainIngredients){
 		this(registryName, mainOutput, mainIngredients);
 		this.station = station;
 		this.category = category;
 	}
 	
-	public SimpleRecipe(String registryName, ItemStack[] mainOutput, ItemStack[] mainIngredients){
-		this.registryName = registryName;
+	public SimpleRecipe(ResourceLocation registryName, ItemStack[] mainOutput, ItemStack[] mainIngredients){
+		this.registryName = registryName.getResourceDomain() + ":" + registryName.getResourcePath();
 		this.mainOutput = mainOutput;
 		this.mainIngredients = mainIngredients;
 	}

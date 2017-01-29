@@ -6,6 +6,8 @@ import java.util.List;
 import java.util.Map;
 
 import it.unimi.dsi.fastutil.Arrays;
+import net.minecraft.item.ItemStack;
+import net.minecraftforge.oredict.OreDictionary;
 
 public class RecipeControllerDefault implements IRecipeController{
 
@@ -15,16 +17,20 @@ public class RecipeControllerDefault implements IRecipeController{
 	
 	@Override
 	public boolean unlockRecipe(String recipeID) {
-		if(unlockedRecipes.contains(recipeID))
+		if(unlockedRecipes.contains(recipeID)){
+			unlockedRecipes.remove(recipeID);
 			return false;
+		}
 		unlockedRecipes.add(recipeID);
 		return true;
 	}
 
 	@Override
 	public boolean lockRecipe(String recipeID) {
-		if(lockedRecipes.contains(recipeID))
+		if(lockedRecipes.contains(recipeID)){
+			lockedRecipes.remove(recipeID);
 			return false;
+		}
 		lockedRecipes.add(recipeID);
 		return true;
 	}
@@ -50,21 +56,46 @@ public class RecipeControllerDefault implements IRecipeController{
 	}
 
 	@Override
-	public boolean progressRecipe(String recipeID, float percantage) {
-		// TODO Auto-generated method stub
-		return false;
+	public void progressRecipe(String recipeID, float percantage) {
+		if(!unlockedRecipes.contains(recipeID)){
+			if(progressedRecipes.containsKey(recipeID)){
+				progressedRecipes.put(recipeID, percantage + progressedRecipes.get(recipeID));
+			}else{
+				progressedRecipes.put(recipeID, percantage);
+			}
+			if(progressedRecipes.get(recipeID) >= 1F){
+				unlockRecipe(recipeID);
+				progressedRecipes.remove(recipeID);
+			}
+		}
 	}
 
 	@Override
 	public float getProgressRecipe(String recipeID) {
-		// TODO Auto-generated method stub
-		return 0;
+		if(progressedRecipes.containsKey(recipeID)){
+			return progressedRecipes.get(recipeID);
+		}
+		return 0F;
 	}
 
 	@Override
 	public Map<String, Float> getProgressedRecipes() {
-		// TODO Auto-generated method stub
-		return null;
+		return progressedRecipes;
+	}
+
+	@Override
+	public boolean isRecipeLocked(String recipe) {
+		return this.lockedRecipes.contains(recipe);
+	}
+
+	@Override
+	public boolean isRecipeUnlocked(String recipe) {
+		return this.unlockedRecipes.contains(recipe);
+	}
+
+	@Override
+	public boolean isRecipeProgressed(String recipe) {
+		return this.progressedRecipes.containsKey(recipe);
 	}
 
 }
