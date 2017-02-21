@@ -53,17 +53,14 @@ public class RecipeControllerStorage  implements IStorage<IRecipeController>{
 			
 			
 			for(int i = 0; i < lockedAmount; i++){
-				System.out.println("Debug1");
 	        	instance.lockRecipe(tag.getString("locked" + String.valueOf(i)));
 	    	}
 	
 	    	for(int i = 0; i < unlockedAmount; i++){
-	    		System.out.println("Debug2");
 	    		instance.unlockRecipe(tag.getString("unlocked" + String.valueOf(i)));
 	    	}
 	    	
 	    	for(int i = 0; i < progressedAmount; i++){
-	    		System.out.println("Debug3");
 	    		instance.progressRecipe(tag.getString("progressedKey" + String.valueOf(i)), tag.getFloat("progressedValue" + String.valueOf(i)));
 	    	}
 		}

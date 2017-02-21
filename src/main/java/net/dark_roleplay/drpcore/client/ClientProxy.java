@@ -24,6 +24,11 @@ public class ClientProxy extends CommonProxy{
 	
 	private Map<DRPItem,String> toRegisterMeshes = new HashMap<DRPItem,String>();
 	
+	public static boolean useRecipeData = false;
+	public static int recipePage = 0;
+	public static int categoryOffset = 0;
+	public static short selectedCategory = 0;
+	
 	public void preInit(FMLPreInitializationEvent event) {
 		DRPCoreKeybindings.preInit(event);
 		

@@ -14,8 +14,8 @@ public class InventoryHelper {
 			for(ItemStack invStack : remainingInv){
 				if(respectMeta[i]){
 					if(ItemStack.areItemsEqual(stack,invStack)){
-						if(invStack.func_190916_E() > stack.func_190916_E()){
-							invStack.func_190920_e(invStack.func_190916_E() - stack.func_190916_E());
+						if(invStack.getCount() > stack.getCount()){
+							invStack.shrink(stack.getCount());
 							stack = null;
 						}else{
 							invStack = null;
@@ -26,8 +26,8 @@ public class InventoryHelper {
 					}
 				}else{
 					if(ItemStack.areItemsEqualIgnoreDurability(stack, invStack)){
-						if(invStack.func_190916_E() > stack.func_190916_E()){
-							invStack.func_190920_e(invStack.func_190916_E() - stack.func_190916_E());
+						if(invStack.getCount() > stack.getCount()){
+							invStack.shrink( stack.getCount());
 							stack = null;
 						}else{
 							invStack = null;

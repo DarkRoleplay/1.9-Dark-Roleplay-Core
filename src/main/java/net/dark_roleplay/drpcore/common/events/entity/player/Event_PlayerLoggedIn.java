@@ -22,16 +22,13 @@ public class Event_PlayerLoggedIn {
 			
 			for(String recipe : rpC.getUnlockedRecipes()){
 				DRPCorePackets.sendTo(new SyncPlayerRecipeState(recipe,0,0F), player);
-				System.out.println("DRPDEBUG SYNCED UNLOCKED");
 			}
 			for(String recipe : rpC.getLockedRecipes()){
 				DRPCorePackets.sendTo(new SyncPlayerRecipeState(recipe,1,0F), player);
-				System.out.println("DRPDEBUG SYNCED LOCKED");
 			}
 			Map<String,Float> progressed = rpC.getProgressedRecipes();
 			for(String recipe : progressed.keySet()){
-				DRPCorePackets.sendTo(new SyncPlayerRecipeState(recipe,1,progressed.get(recipe)), player);
-				System.out.println("DRPDEBUG SYNCED PROGRESSED");
+				DRPCorePackets.sendTo(new SyncPlayerRecipeState(recipe,2,progressed.get(recipe)), player);
 			}
 		}
 	}

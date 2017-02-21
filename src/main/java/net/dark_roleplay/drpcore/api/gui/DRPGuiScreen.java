@@ -57,8 +57,9 @@ public abstract class DRPGuiScreen extends GuiScreen{
 		this.drawBackground(mouseX, mouseY, partialTicks);
 		
 		//Slots & Buttons
+		this.drawButtons(mouseX, mouseY, partialTicks);
     	this.drawMiddleground(mouseX, mouseY, partialTicks);
-    	this.drawButtons(mouseX, mouseY, partialTicks);
+    	
     	
     	//Hovering Stuff and other
     	this.drawForeground(mouseX, mouseY, partialTicks);
@@ -84,6 +85,7 @@ public abstract class DRPGuiScreen extends GuiScreen{
     }
     
     protected void drawButtons(int mouseX, int mouseY, float partialTicks){
+    	GL11.glDisable(GL11.GL_LIGHTING);
     	for (int i = 0; i < this.buttonList.size(); ++i){
             ((GuiButton)this.buttonList.get(i)).drawButton(this.mc, mouseX, mouseY);
         }
@@ -91,5 +93,6 @@ public abstract class DRPGuiScreen extends GuiScreen{
         for (int j = 0; j < this.labelList.size(); ++j){
             ((GuiLabel)this.labelList.get(j)).drawLabel(this.mc, mouseX, mouseY);
         }
+        GL11.glEnable(GL11.GL_LIGHTING);
     }
 }

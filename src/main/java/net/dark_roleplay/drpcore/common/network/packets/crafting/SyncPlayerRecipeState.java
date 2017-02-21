@@ -8,6 +8,8 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.PacketBuffer;
 import net.minecraftforge.fml.common.network.ByteBufUtils;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class SyncPlayerRecipeState extends PacketBase<SyncPlayerRecipeState>{
 
@@ -62,11 +64,11 @@ public class SyncPlayerRecipeState extends PacketBase<SyncPlayerRecipeState>{
 		System.out.println("Wrong Receiver");
 	}
 
+	@SideOnly(Side.CLIENT)
 	public void processMessage(SyncPlayerRecipeState message){
-		EntityPlayer player = Minecraft.getMinecraft().thePlayer;
+		EntityPlayer player = Minecraft.getMinecraft().player;
 		
-		player = Minecraft.getMinecraft().thePlayer;
-		System.out.println("DPRDEBUG RECIPE SYNC RECEIVED :" + message.type);
+		player = Minecraft.getMinecraft().player;
 		switch(message.type){
 		case 0:
 			player.getCapability(DRPCoreCapabilities.DRPCORE_RECIPE_CONTROLLER, null).unlockRecipe(message.recipeID);
@@ -77,10 +79,6 @@ public class SyncPlayerRecipeState extends PacketBase<SyncPlayerRecipeState>{
 		case 2:
 			player.getCapability(DRPCoreCapabilities.DRPCORE_RECIPE_CONTROLLER, null).progressRecipe(message.recipeID,message.percentage);
 			break;
-		}
-		
-		for(String str : player.getCapability(DRPCoreCapabilities.DRPCORE_RECIPE_CONTROLLER, null).getLockedRecipes()){
-			System.out.println(str);
 		}
 	}
 }

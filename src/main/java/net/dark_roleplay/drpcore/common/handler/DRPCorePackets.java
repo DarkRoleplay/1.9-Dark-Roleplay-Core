@@ -1,5 +1,6 @@
 package net.dark_roleplay.drpcore.common.handler;
 
+import net.dark_roleplay.drpcore.common.network.packets.crafting.Initialize_SimpleRecipe;
 import net.dark_roleplay.drpcore.common.network.packets.crafting.SyncPlayerRecipeState;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraftforge.fml.common.network.NetworkRegistry;
@@ -17,8 +18,7 @@ public class DRPCorePackets {
 		// Side.Client bzw Side.server*/)
 		int i = 0;
 		INSTANCE.registerMessage(SyncPlayerRecipeState.class, SyncPlayerRecipeState.class , i++, Side.CLIENT);
-		/*INSTANCE.registerMessage(PacketSyncAdvancedInventory.class, PacketSyncAdvancedInventory.class, i++ , Side.CLIENT);
-		INSTANCE.registerMessage(PacketOpenInventory.class, PacketOpenInventory.class, i++ , Side.SERVER);*/
+		INSTANCE.registerMessage(Initialize_SimpleRecipe.class, Initialize_SimpleRecipe.class, i++, Side.SERVER);
 	}
 
 	public static void sendTo(IMessage message, EntityPlayerMP player) {

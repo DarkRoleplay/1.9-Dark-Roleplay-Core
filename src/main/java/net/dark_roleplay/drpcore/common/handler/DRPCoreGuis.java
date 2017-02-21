@@ -4,7 +4,10 @@ import net.dark_roleplay.drpcore.client.gui.crafting.recipe_crafting.RecipeCraft
 import net.dark_roleplay.drpcore.client.gui.crafting.recipe_selection.RecipeSelection;
 import net.dark_roleplay.drpcore.client.keybindings.DRPCoreKeybindings;
 import net.dark_roleplay.drpcore.common.DarkRoleplayCore;
+import net.dark_roleplay.drpcore.common.crafting.SimpleRecipe;
+import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.client.registry.ClientRegistry;
@@ -36,9 +39,9 @@ public class DRPCoreGuis implements IGuiHandler {
 	public Object getClientGuiElement(int ID, EntityPlayer player, World world, int x, int y, int z) {
 		switch(ID){
 		case 1:
-			return new RecipeSelection();
+			return new RecipeSelection(new BlockPos(x,y,z));
 		case 2:
-			return new RecipeCrafting_SimpleRecipe();
+			return new RecipeCrafting_SimpleRecipe(new BlockPos(x,y,z));
 	}
 		return null;
 	}
