@@ -1,0 +1,15 @@
+{
+  "modListVersion": 2,
+  "modList": [{
+    "modid": "drpcore",
+    "name": "Dark Roleplay Core",
+    "description": "An API and advanced Base for most of the Dark Roleplay Mods",
+    "url": "",
+    "updateUrl": "",
+    "authorList": [ "JTK222", "DaNeubi" ],
+    "credits": "Authored by JTK222, helped by DaNeubi",
+    "logoFile": "",
+    "screenshots": [ "", "" ],
+    "requiredMods": [ "Forge" ]
+  }]
+}
