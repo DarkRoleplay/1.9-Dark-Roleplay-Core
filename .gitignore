@@ -10,7 +10,7 @@ run/*
 .classpath
 .gitignore
 .project
-build.gradle/*
+build.gradle
 
 Dark-Roleplay-Core_Client.launch
 Dark-Roleplay-Core_Server.launch

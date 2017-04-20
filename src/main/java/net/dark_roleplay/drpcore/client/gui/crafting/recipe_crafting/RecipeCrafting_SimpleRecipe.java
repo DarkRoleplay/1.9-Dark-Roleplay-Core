@@ -7,6 +7,7 @@ import net.dark_roleplay.drpcore.client.ClientProxy;
 import net.dark_roleplay.drpcore.client.gui.crafting.recipe_selection.Button_CategorySelect;
 import net.dark_roleplay.drpcore.client.gui.crafting.recipe_selection.Button_ChangeCategory;
 import net.dark_roleplay.drpcore.client.gui.crafting.recipe_selection.Button_ChangePage;
+import net.dark_roleplay.drpcore.client.keybindings.DRPCoreKeybindings;
 import net.dark_roleplay.drpcore.common.DRPCoreInfo;
 import net.dark_roleplay.drpcore.common.DarkRoleplayCore;
 import net.dark_roleplay.drpcore.common.crafting.CraftingRegistry;
@@ -110,4 +111,11 @@ public class RecipeCrafting_SimpleRecipe extends DRPGuiScreen{
 			break;
 		}
 	}
+	
+    @Override
+    protected void keyTyped(char typedChar, int keyCode) throws IOException{
+        if (keyCode == 1 || DRPCoreKeybindings.openCrafting.isActiveAndMatches(keyCode) || this.mc.gameSettings.keyBindInventory.isActiveAndMatches(keyCode)){
+            this.mc.player.closeScreen();
+        }
+    }
 }

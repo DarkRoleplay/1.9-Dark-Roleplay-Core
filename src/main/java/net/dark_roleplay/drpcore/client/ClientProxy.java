@@ -5,6 +5,7 @@ import java.util.Map;
 import java.util.UUID;
 
 import net.dark_roleplay.drpcore.api.items.DRPItem;
+import net.dark_roleplay.drpcore.client.events.player.Event_Mouse;
 import net.dark_roleplay.drpcore.client.events.rendering.Event_ModelBaked;
 import net.dark_roleplay.drpcore.client.keybindings.DRPCoreKeybindings;
 import net.dark_roleplay.drpcore.common.handler.DRPCoreItems;
@@ -37,8 +38,9 @@ public class ClientProxy extends CommonProxy{
 		}
 		this.toRegisterMeshes = null;
 		
-		MinecraftForge.EVENT_BUS.register(Event_ModelBaked.instance);
-
+		//MinecraftForge.EVENT_BUS.register(Event_ModelBaked.instance);
+		MinecraftForge.EVENT_BUS.register(new Event_Mouse());
+		
 	    // model to be used for rendering this item
 	    ModelResourceLocation itemModelResourceLocation = new ModelResourceLocation("drpcore:medicine", "inventory");
 	    ModelLoader.setCustomModelResourceLocation(DRPCoreItems.MEDICINE_BASE, 0, itemModelResourceLocation);

@@ -7,11 +7,15 @@ buildscript {
         classpath 'net.minecraftforge.gradle:ForgeGradle:2.2-SNAPSHOT'
     }
 }
-apply plugin: 'net.minecraftforge.gradle.forge'
 
-version = "1.0"
-group= "net.dark_roleplay.core" // http://maven.apache.org/guides/mini/guide-naming-conventions.html
-archivesBaseName = "drpcore"
+plugins {
+    id 'net.minecraftforge.gradle.forge' version '2.0.2'
+    id 'com.matthewprenger.cursegradle' version '1.0.8'
+}
+
+version = "0.1.9"
+group= "net.dark_roleplay.core"
+archivesBaseName = "Dark Roleplay Core Alpha"
 
 sourceCompatibility = targetCompatibility = "1.8"
 compileJava {
@@ -19,13 +23,32 @@ compileJava {
 }
 
 minecraft {
-    version = "1.11.2-13.20.0.2226"
+    version = "1.11.2-13.20.0.2282"
     runDir = "run"
 
     mappings = "snapshot_20161220"
+	makeObfSourceJar = false
 }
 
-dependencies {}
+curseforge {
+    apiKey = '16a27c65-db46-4c4f-bf33-489ba41efeb0' // This should really be in a gradle.properties file
+    project {
+        id = '235803'
+        changelog = 'Changes' //changelog = file('changelog.txt')
+        releaseType = 'beta'
+  }
+}
+
+repositories {
+    maven {
+        url = "http://dvs1.progwml6.com/files/maven"
+    }
+}
+
+dependencies {
+    deobfCompile "mezz.jei:jei_${mc_version}:${jei_version}:api"
+    runtime "mezz.jei:jei_${mc_version}:${jei_version}"
+}
 
 processResources
 {

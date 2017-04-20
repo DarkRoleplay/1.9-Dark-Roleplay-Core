@@ -20,6 +20,10 @@ import net.dark_roleplay.drpcore.common.handler.DRPCoreGuis;
 import net.dark_roleplay.drpcore.common.handler.DRPCoreItems;
 import net.dark_roleplay.drpcore.common.handler.DRPCorePackets;
 import net.dark_roleplay.drpcore.common.proxy.CommonProxy;
+import net.dark_roleplay.drpcore.common.skills.SkillItem;
+import net.dark_roleplay.drpcore.common.skills.SkillPoint;
+import net.dark_roleplay.drpcore.common.skills.SkillRegistry;
+import net.dark_roleplay.drpcore.common.skills.SkillTree;
 import net.minecraft.command.ServerCommandManager;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
@@ -90,7 +94,42 @@ public class DarkRoleplayCore {
 		DRPCoreGuis.postInit(event);
 		DRPCoreEvents.postInit(event);
 		proxy.postInit(event);
-
+		
+		SkillTree craftingTree = new SkillTree("drpcore:debug_skill_tree", "drpcore:debug_skill_tree", null);
+		SkillPoint carpenterPoint = new SkillPoint(new ResourceLocation(DRPCoreInfo.MODID, "carpenterPoint"));
+		
+		SkillItem craftSkill1 = new SkillItem(new ResourceLocation(DRPCoreInfo.MODID, "debug_skill_1"), "drpcore:debug_skill_1", Items.APPLE, carpenterPoint, 1, 1);
+		SkillItem craftSkill2 = new SkillItem(new ResourceLocation(DRPCoreInfo.MODID, "debug_skill_2"), "drpcore:debug_skill_2", Items.ARROW, carpenterPoint, 2, 1);
+		SkillItem craftSkill3 = new SkillItem(new ResourceLocation(DRPCoreInfo.MODID, "debug_skill_3"), "drpcore:debug_skill_3", Items.BAKED_POTATO, carpenterPoint, 3, 1);
+		SkillItem craftSkill4 = new SkillItem(new ResourceLocation(DRPCoreInfo.MODID, "debug_skill_4"), "drpcore:debug_skill_4", Items.BED, carpenterPoint, 1, 3);
+		SkillItem craftSkill5 = new SkillItem(new ResourceLocation(DRPCoreInfo.MODID, "debug_skill_5"), "drpcore:debug_skill_5", Items.BEEF, carpenterPoint, 2, 3);
+		SkillItem craftSkill6 = new SkillItem(new ResourceLocation(DRPCoreInfo.MODID, "debug_skill_6"), "drpcore:debug_skill_6", Items.BEETROOT, carpenterPoint, 3, 3);
+		SkillItem craftSkill7 = new SkillItem(new ResourceLocation(DRPCoreInfo.MODID, "debug_skill_7"), "drpcore:debug_skill_7", Items.BLAZE_POWDER, carpenterPoint, 1, 5);
+		SkillItem craftSkill8 = new SkillItem(new ResourceLocation(DRPCoreInfo.MODID, "debug_skill_8"), "drpcore:debug_skill_8", Items.CAKE, carpenterPoint, 2, 5);
+		SkillItem craftSkill9 = new SkillItem(new ResourceLocation(DRPCoreInfo.MODID, "debug_skill_9"), "drpcore:debug_skill_9", Items.COMPASS, carpenterPoint, 3, 5);
+		
+		craftSkill9.addParent(craftSkill8);
+		craftSkill8.addParent(craftSkill7);
+		craftSkill7.addParent(craftSkill6);
+		craftSkill6.addParent(craftSkill5);
+		craftSkill5.addParent(craftSkill4);
+		craftSkill4.addParent(craftSkill3);
+		craftSkill3.addParent(craftSkill2);
+		craftSkill2.addParent(craftSkill1);
+		
+		craftingTree.addSkill(craftSkill1);
+		craftingTree.addSkill(craftSkill2);
+		craftingTree.addSkill(craftSkill3);
+		craftingTree.addSkill(craftSkill4);
+		craftingTree.addSkill(craftSkill5);
+		craftingTree.addSkill(craftSkill6);
+		craftingTree.addSkill(craftSkill7);
+		craftingTree.addSkill(craftSkill8);
+		craftingTree.addSkill(craftSkill9);
+		
+		SkillRegistry.registerSkillTree(craftingTree);
+		
+		
 //		CraftingRegistry.registerRecipe(Blocks.AIR, "DEBUG", new SimpleRecipe(new ResourceLocation(DRPCoreInfo.MODID, "RECIPE1"),
 //				new ItemStack[]{new ItemStack(Items.APPLE)},
 //				new ItemStack[]{new ItemStack(Items.ARROW,4),

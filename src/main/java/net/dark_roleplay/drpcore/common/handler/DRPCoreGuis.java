@@ -2,6 +2,7 @@ package net.dark_roleplay.drpcore.common.handler;
 
 import net.dark_roleplay.drpcore.client.gui.crafting.recipe_crafting.RecipeCrafting_SimpleRecipe;
 import net.dark_roleplay.drpcore.client.gui.crafting.recipe_selection.RecipeSelection;
+import net.dark_roleplay.drpcore.client.gui.skills.SkillTreeOverview;
 import net.dark_roleplay.drpcore.client.keybindings.DRPCoreKeybindings;
 import net.dark_roleplay.drpcore.common.DarkRoleplayCore;
 import net.dark_roleplay.drpcore.common.crafting.SimpleRecipe;
@@ -21,16 +22,16 @@ public class DRPCoreGuis implements IGuiHandler {
 	
 	public static final int DRPCORE_GUI_CRAFTING_RECIPESELECTION = 1;
 	public static final int DRPCORE_GUI_CRAFTING_RECIPECRAFTING_SIMPLE = 2;
+	public static final int DRPCORE_GUI_SKILL_TREE_SELECTION = 3;
 	
 	//TODO GUI HANDLER
 	
 	@Override
 	public Object getServerGuiElement(int ID, EntityPlayer player, World world, int x, int y, int z){
 		switch(ID){
-			case 1:
+			default:
 				break;
-			case 2:
-				break;
+				
 		}
 		return null;
 	}
@@ -42,6 +43,8 @@ public class DRPCoreGuis implements IGuiHandler {
 			return new RecipeSelection(new BlockPos(x,y,z));
 		case 2:
 			return new RecipeCrafting_SimpleRecipe(new BlockPos(x,y,z));
+		case 3:
+			return new SkillTreeOverview();
 	}
 		return null;
 	}

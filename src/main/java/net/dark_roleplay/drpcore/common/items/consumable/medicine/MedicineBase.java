@@ -3,6 +3,7 @@ package net.dark_roleplay.drpcore.common.items.consumable.medicine;
 import java.util.ArrayList;
 
 import net.dark_roleplay.drpcore.api.items.DRPItem;
+import net.dark_roleplay.drpcore.api.items.weapons.IExtendedRange;
 import net.dark_roleplay.drpcore.common.handler.DRPCoreCapabilities;
 import net.dark_roleplay.drpcore.common.structure.Structure;
 import net.minecraft.block.state.BlockStateContainer;
@@ -21,7 +22,7 @@ import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
-public class MedicineBase extends DRPItem {
+public class MedicineBase extends DRPItem implements IExtendedRange{
 	public MedicineBase(String textures) {
 		super(textures);
 	}
@@ -33,5 +34,10 @@ public class MedicineBase extends DRPItem {
 		//str.writeStructure("ThisIsATest", world, pos, pos.add(2,2,2));
         return EnumActionResult.PASS;
     }
+
+	@Override
+	public float getRange() {
+		return 1f;
+	}
 	
 }

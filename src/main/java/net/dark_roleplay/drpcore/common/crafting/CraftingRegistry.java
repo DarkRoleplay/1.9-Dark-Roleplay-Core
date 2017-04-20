@@ -1,6 +1,7 @@
 package net.dark_roleplay.drpcore.common.crafting;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -17,6 +18,7 @@ public class CraftingRegistry {
 
 	
 	public static boolean registerRecipe(Block station, String category, SimpleRecipe recipe, boolean requiresUnlock){
+		recipe.setStation(station);
 		if(recipes.containsKey(recipe.getRegistryName()) || unlockRecipes.containsKey(recipe.getRegistryName())){
 			return false;
 		}
@@ -60,4 +62,9 @@ public class CraftingRegistry {
 	public static boolean requiresRecipeUnlock(String recipeName){
 		return unlockRecipes.containsKey(recipeName);
 	}
+	
+	public static List<Block> getRecipeStations(){
+		return new ArrayList<Block>(stationKeys.keySet());
+	}
+	
 }

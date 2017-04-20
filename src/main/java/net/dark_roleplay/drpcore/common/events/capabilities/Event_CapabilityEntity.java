@@ -19,6 +19,7 @@ public class Event_CapabilityEntity {
         if (!(event.getEntity() instanceof EntityPlayer)) return;
 
         event.addCapability(new ResourceLocation(DRPCoreInfo.MODID, "recipe_controller"), new CapabilityProvider(DRPCoreCapabilities.DRPCORE_RECIPE_CONTROLLER));
+        event.addCapability(new ResourceLocation(DRPCoreInfo.MODID, "skill_controller"), new CapabilityProvider(DRPCoreCapabilities.DRPCORE_SKILL_CONTROLLER));
     }
 	
 }

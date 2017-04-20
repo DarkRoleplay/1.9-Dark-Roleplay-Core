@@ -1,12 +1,19 @@
 package net.dark_roleplay.drpcore.api.gui;
 
+import java.io.IOException;
+
 import org.lwjgl.opengl.GL11;
 
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiLabel;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.RenderHelper;
+import net.minecraft.client.renderer.Tessellator;
+import net.minecraft.client.renderer.VertexBuffer;
+import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
+import net.minecraft.inventory.ClickType;
 import net.minecraft.util.ResourceLocation;
 
 public abstract class DRPGuiScreen extends GuiScreen{
@@ -80,7 +87,7 @@ public abstract class DRPGuiScreen extends GuiScreen{
     	GL11.glDisable(GL11.GL_LIGHTING);
     	this.drawDefaultBackground();
 		this.mc.renderEngine.bindTexture(this.bgTexture);
-		drawTexturedModalRect(this.guiLeft, this.guiTop, this.bgOffsetX, this.bgOffsetY, this.bgWidth, this.bgHeight);
+		this.drawTexturedModalRect(this.guiLeft, this.guiTop, this.bgOffsetX, this.bgOffsetY, this.bgWidth, this.bgHeight);
     	GL11.glEnable(GL11.GL_LIGHTING);
     }
     
@@ -94,5 +101,29 @@ public abstract class DRPGuiScreen extends GuiScreen{
             ((GuiLabel)this.labelList.get(j)).drawLabel(this.mc, mouseX, mouseY);
         }
         GL11.glEnable(GL11.GL_LIGHTING);
+    }
+    
+    public static void drawLine(int x1, int y1, int x2, int y2, int color){
+
+        float f3 = (float)(color >> 24 & 255) / 255.0F;
+        float f = (float)(color >> 16 & 255) / 255.0F;
+        float f1 = (float)(color >> 8 & 255) / 255.0F;
+        float f2 = (float)(color & 255) / 255.0F;
+        Tessellator tessellator = Tessellator.getInstance();
+        VertexBuffer vertexbuffer = tessellator.getBuffer();
+        GlStateManager.enableBlend();
+        GlStateManager.disableTexture2D();
+        GlStateManager.tryBlendFuncSeparate(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA, GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ZERO);
+        GlStateManager.color(f, f1, f2, f3);
+        
+        vertexbuffer.begin(7, DefaultVertexFormats.POSITION);
+        vertexbuffer.pos((double)x1 + (y1 < y2 ? -0.5D : 0.5D), (double)y1 + (x1 < x2 ? +0.5D : -0.5D), 0.0D).endVertex();
+        vertexbuffer.pos((double)x2 + (y1 < y2 ? -0.5D : 0.5D), (double)y2 + (x1 < x2 ? +0.5D : -0.5D), 0.0D).endVertex();
+        vertexbuffer.pos((double)x2 + (y1 > y2 ? -0.5D : 0.5D), (double)y2 + (x1 > x2 ? +0.5D : -0.5D), 0.0D).endVertex();
+        vertexbuffer.pos((double)x1 + (y1 > y2 ? -0.5D : 0.5D), (double)y1 + (x1 > x2 ? +0.5D : -0.5D), 0.0D).endVertex();
+        
+        tessellator.draw();
+        GlStateManager.enableTexture2D();
+        GlStateManager.disableBlend();
     }
 }
