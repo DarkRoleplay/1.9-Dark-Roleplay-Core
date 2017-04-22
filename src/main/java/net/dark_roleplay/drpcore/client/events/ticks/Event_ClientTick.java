@@ -13,7 +13,7 @@ public class Event_ClientTick {
 		if(event.phase == TickEvent.Phase.START) {
 			if(Minecraft.getMinecraft().currentScreen instanceof ITimedGui) {
 				ITimedGui gui = (ITimedGui) Minecraft.getMinecraft().currentScreen;
-				gui.increaseTimer(1);;
+				gui.tick();;
 			}
 		}
 	

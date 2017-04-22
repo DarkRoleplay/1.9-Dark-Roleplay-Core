@@ -1,8 +1,10 @@
 package net.dark_roleplay.drpcore.client.gui.crafting.recipe_crafting;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import net.dark_roleplay.drpcore.api.gui.DRPGuiScreen;
+import net.dark_roleplay.drpcore.api.gui.ITimedGui;
 import net.dark_roleplay.drpcore.client.ClientProxy;
 import net.dark_roleplay.drpcore.client.gui.crafting.recipe_selection.Button_CategorySelect;
 import net.dark_roleplay.drpcore.client.gui.crafting.recipe_selection.Button_ChangeCategory;
@@ -17,13 +19,15 @@ import net.dark_roleplay.drpcore.common.handler.DRPCoreGuis;
 import net.dark_roleplay.drpcore.common.handler.DRPCorePackets;
 import net.dark_roleplay.drpcore.common.network.packets.crafting.Initialize_SimpleRecipe;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.NonNullList;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 
-public class RecipeCrafting_SimpleRecipe extends DRPGuiScreen{
+public class RecipeCrafting_SimpleRecipe extends DRPGuiScreen implements ITimedGui{
 
 	private static ResourceLocation bg = new ResourceLocation(DRPCoreInfo.MODID, "textures/guis/recipe_crafting_simple.png");
 	
@@ -34,8 +38,18 @@ public class RecipeCrafting_SimpleRecipe extends DRPGuiScreen{
 	private int currentIngredientOffset = 0;
 
 	private Button_Craft craft;
+	private GuiButton retBack;
+	
+	private Button_ScrollIngredients ingScrollLeft;
+	private Button_ScrollIngredients ingScrollRight;
 	
 	private BlockPos pos;
+
+	private GhostSlot[] outputSlots = new GhostSlot[7];
+	
+	private GhostSlot[] ingredientSlots = new GhostSlot[9];
+	
+	private GhostSlot[] inventorySlots = new GhostSlot[36];
 	
 	public RecipeCrafting_SimpleRecipe(BlockPos pos) {
 		super(bg, 178, 161);
@@ -49,47 +63,102 @@ public class RecipeCrafting_SimpleRecipe extends DRPGuiScreen{
 		short buttonID = 0;
 		this.craft = new Button_Craft(buttonID++,this.guiLeft + 150, this.guiTop + 9);
 		this.buttonList.add(this.craft);
-		GuiButton retBack = new GuiButton(5, this.guiLeft - 52, this.guiTop, 50, 12, "Return");
-		this.buttonList.add(retBack);
+		
+		this.ingScrollLeft = new Button_ScrollIngredients(buttonID++, this.guiLeft + 8, this.guiTop + 60, false);
+		this.buttonList.add(this.ingScrollLeft);
+		this.ingScrollRight = new Button_ScrollIngredients(buttonID++, this.guiLeft + 163, this.guiTop + 60, true);
+		this.buttonList.add(this.ingScrollRight);
+		
+		this.retBack = new GuiButton(buttonID++, this.guiLeft - 52, this.guiTop, 50, 12, "Return");
+		this.buttonList.add(this.retBack);
+		
+		ItemStack[] outputs = recipe.getMainOutput();
+		ItemStack[] inputs = recipe.getMainIngredients();
+		NonNullList<ItemStack> inv = Minecraft.getMinecraft().player.inventory.mainInventory;
+		
+		outputSlots[0] = new GhostSlot(outputs[0], this.guiLeft + 10, this.guiTop + 10, 16, 16);
+		for(int i = 1; i < 7; i++){
+			outputSlots[i] = new GhostSlot(outputs.length >= i + 1 ? outputs[i] : null, this.guiLeft + 30, this.guiTop + 10, 16, 16);
+		}
+		
+		for(int i = 0; i < 9; i++){
+			ingredientSlots[i] = new GhostSlot(inputs.length >= i + 1 ? inputs[i] : null, this.guiLeft + 9 + (i * 18), this.guiTop + 41, 16, 16);
+		}
+		
+		for(int i = 0; i < 9; i++){
+			inventorySlots[i] = new GhostSlot(inv.size() >= i + 1 ? inv.get(i) : null,  this.guiLeft + 9 + (i * 18), this.guiTop + 140, 16, 16);
+		}
+		
+		for(int i = 9; i < 36; i++){
+			inventorySlots[i] = new GhostSlot(inv.size() >= i + 1 ? inv.get(i) : null, this.guiLeft + 9 + ((i % 9) * 18), this.guiTop + 83 + (((i - 9) /9) * 18), 16, 16);
+		}
 	}
 	
 	@Override
 	protected void drawForeground(int mouseX, int mouseY, float partialTicks) {
 		inventory = Minecraft.getMinecraft().player.inventory;
 		
-
-		ItemStack s = recipe.getMainOutput()[0];
+		ItemStack[] inputs = recipe.getMainIngredients();
 		
 		/**-------- Output ---------**/
-		this.itemRender.renderItemIntoGUI(s, this.guiLeft + 10, this.guiTop + 10);
-		this.itemRender.renderItemOverlayIntoGUI(this.fontRendererObj, s, this.guiLeft + 10, this.guiTop + 10, s.getCount() == 1 ? null : String.valueOf(s.getCount()));
+		for(GhostSlot slot : outputSlots){
+			if(slot.getStack() != null){
+				this.itemRender.renderItemIntoGUI(slot.getStack(), slot.getPosX(), slot.getPosY());
+				this.itemRender.renderItemOverlayIntoGUI(this.fontRendererObj, slot.getStack(), slot.getPosX(), slot.getPosY(), slot.getStack().getCount() == 1 ? null : String.valueOf(slot.getStack().getCount()));
+			}
+		}
 		
 		
 		/**-------- Input ---------**/
+		//Update Ingredient Offset
 		for(int i = 0; i < 9; i++){
-			if(i + currentIngredientOffset >= recipe.getMainIngredients().length)
-				break;
-			s = recipe.getMainIngredients()[i + currentIngredientOffset];
-			this.itemRender.renderItemIntoGUI(s, this.guiLeft + 9 + (i * 18), this.guiTop + 41);
-			this.itemRender.renderItemOverlayIntoGUI(this.fontRendererObj, s, this.guiLeft + 9 + (i * 18), this.guiTop + 41, s.getCount() == 1 ? null : String.valueOf(s.getCount()));
+			if(i + currentIngredientOffset >= inputs.length)
+				ingredientSlots[i].setStack(i + currentIngredientOffset >= inputs.length ? null : inputs[i + currentIngredientOffset]);
+		}
+		
+		for(GhostSlot slot : ingredientSlots){
+			if(slot.getStack() != null){
+				this.itemRender.renderItemIntoGUI(slot.getStack(), slot.getPosX(), slot.getPosY());
+				this.itemRender.renderItemOverlayIntoGUI(this.fontRendererObj, slot.getStack(), slot.getPosX(), slot.getPosY(), slot.getStack().getCount() == 1 ? null : String.valueOf(slot.getStack().getCount()));
+			}
 		}
 		
 		/**-------- Inventory ---------**/
-		for(int i = 0; i < 9; i++){
-			s = inventory.mainInventory.get(i);
-			if(s != null){
-				this.itemRender.renderItemIntoGUI(inventory.mainInventory.get(i), this.guiLeft + 9 + (i * 18), this.guiTop + 140);
-				this.itemRender.renderItemOverlayIntoGUI(this.fontRendererObj, s, this.guiLeft + 9 + (i * 18), this.guiTop + 140, s.getCount() == 1 ? null : String.valueOf(s.getCount()));
-			}
-		}
-		
-		for(int i = 9; i < 36; i++){
-			s = inventory.mainInventory.get(i);
-			if(s != null){
-				this.itemRender.renderItemAndEffectIntoGUI(inventory.mainInventory.get(i), this.guiLeft + 9 + ((i % 9) * 18), this.guiTop + 83 + (((i - 9) /9) * 18));
-				this.itemRender.renderItemOverlayIntoGUI(this.fontRendererObj, s, this.guiLeft + 9 + ((i % 9) * 18), this.guiTop + 83 + (((i - 9) /9) * 18), s.getCount() == 1 ? null : String.valueOf(s.getCount()));
-			}
-		}
+		//Update Inventory
+				for(int i = 0; i < 36; i++){
+					inventorySlots[i].setStack(inventory.mainInventory.get(i));
+				}
+				
+				for(GhostSlot slot : inventorySlots){
+					if(slot.getStack() != null && !slot.getStack().isEmpty()){
+						this.itemRender.renderItemIntoGUI(slot.getStack(), slot.getPosX(), slot.getPosY());
+						this.itemRender.renderItemOverlayIntoGUI(this.fontRendererObj, slot.getStack(), slot.getPosX(), slot.getPosY(), slot.getStack().getCount() == 1 ? null : String.valueOf(slot.getStack().getCount()));
+					}
+				}
+				
+				/**-------- Hover Info ---------**/
+				for(GhostSlot slot : outputSlots){
+					if(slot.isMouseOver(mouseX, mouseY) && slot.getStack() != null && !slot.getStack().isEmpty()){
+						this.renderToolTip(slot.getStack(), mouseX, mouseY);
+					}
+				}
+				
+				for(GhostSlot slot : ingredientSlots){
+					if(slot.isMouseOver(mouseX, mouseY) && slot.getStack() != null && !slot.getStack().isEmpty()){
+						this.renderToolTip(slot.getStack(), mouseX, mouseY);
+					}
+				}
+				
+				for(GhostSlot slot : inventorySlots){
+					if(slot.isMouseOver(mouseX, mouseY) && slot.getStack() != null && !slot.getStack().isEmpty()){
+						this.renderToolTip(slot.getStack(), mouseX, mouseY);
+					}
+				}
+				
+				if(craft.isMouseOver()){
+			        FontRenderer font = Minecraft.getMinecraft().fontRendererObj;
+					this.drawHoveringText(new ArrayList<String>(){{add("Click to Craft,"); add("hold to Craft multiple");}}, mouseX, mouseY, (font == null ? fontRendererObj : font));
+				}
 		
 	}
 	
@@ -101,14 +170,18 @@ public class RecipeCrafting_SimpleRecipe extends DRPGuiScreen{
 	@Override
 	protected void actionPerformed(GuiButton button) throws IOException {
 
-		switch (button.id) {
-		case 0:
+		if(button.id == this.craft.id){
 			DRPCorePackets.sendToServer(new Initialize_SimpleRecipe(this.recipe.getRegistryName()));
-			break;
-		case 5:
+			this.craftButtonHold = 1;
+		}else if(button.id == this.ingScrollLeft.id){
+			if(this.currentIngredientOffset - 1 >= 0)
+				this.currentIngredientOffset --;
+		}else if(button.id == this.ingScrollRight.id){
+			if(this.currentIngredientOffset + 9 < this.recipe.getMainIngredients().length)
+				this.currentIngredientOffset ++;
+		}else if(button.id == this.retBack.id){
 			ClientProxy.useRecipeData = true;
-			Minecraft.getMinecraft().player.openGui(DarkRoleplayCore.instance, DRPCoreGuis.DRPCORE_GUI_CRAFTING_RECIPESELECTION, Minecraft.getMinecraft().world, this.pos.getX(), this.pos.getY(), this.pos.getZ());
-			break;
+			Minecraft.getMinecraft().player.openGui(DarkRoleplayCore.instance, DRPCoreGuis.DRPCORE_GUI_CRAFTING_RECIPESELECTION, Minecraft.getMinecraft().world, this.pos.getX(), this.pos.getY(), this.pos.getZ());	
 		}
 	}
 	
@@ -118,4 +191,50 @@ public class RecipeCrafting_SimpleRecipe extends DRPGuiScreen{
             this.mc.player.closeScreen();
         }
     }
+    
+    private int craftButtonHold = 0;
+    private int ticksTillCraft = 0;
+    
+	@Override
+	public void tick() {
+		if(craftButtonHold > 0 && craft.isMouseOver()){
+			this.craftButtonHold++;
+			if(craftButtonHold >= 20){
+				ticksTillCraft--;
+				if(ticksTillCraft <= 0){
+					ticksTillCraft = 3;
+					DRPCorePackets.sendToServer(new Initialize_SimpleRecipe(this.recipe.getRegistryName()));
+				}
+			}
+		}else if(this.craftButtonHold > 0){
+			this.craftButtonHold = 0;
+		}
+	}
+	
+	@Override
+	protected void mouseReleased(int mouseX, int mouseY, int state){
+        if (this.selectedButton != null && state == 0){
+            this.selectedButton.mouseReleased(mouseX, mouseY);
+            this.selectedButton = null;
+        }
+        this.craftButtonHold = 0;
+    }
+	
+	private void refreshSlots(){
+		ItemStack[] outputs = recipe.getMainOutput();
+		ItemStack[] inputs = recipe.getMainIngredients();
+		NonNullList<ItemStack> inv = Minecraft.getMinecraft().player.inventory.mainInventory;
+		
+		for(int i = 1; i < 7; i++){
+			outputSlots[i] = new GhostSlot(outputs.length >= i + 1 ? outputs[i] : null, this.guiLeft + 30, this.guiTop + 10, 16, 16);
+		}
+		
+		for(int i = 0; i < 9; i++){
+			ingredientSlots[i] = new GhostSlot(inputs.length >= i + 1 ? inputs[i] : null, this.guiLeft + 9 + (i * 18), this.guiTop + 41, 16, 16);
+		}
+		
+		for(int i = 0; i < 9; i++){
+			inventorySlots[i] = new GhostSlot(inputs.length >= i + 1 ? inputs[i] : null, this.guiLeft + 9 + (i * 18), this.guiTop + 41, 16, 16);
+		}
+	}
 }

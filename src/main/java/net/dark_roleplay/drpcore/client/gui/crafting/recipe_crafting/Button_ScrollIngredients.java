@@ -3,20 +3,27 @@ package net.dark_roleplay.drpcore.client.gui.crafting.recipe_crafting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
 
-public class Button_Craft extends GuiButton {
+public class Button_ScrollIngredients extends GuiButton {
 	
-	public Button_Craft(int buttonID, int x, int y) {
+	
+	private boolean flip;
+	
+	public Button_ScrollIngredients(int buttonID, int x, int y, boolean flip) {
 		super(buttonID, x, y, "");
-		this.width = 19;
-		this.height = 19;
+		this.width = 7;
+		this.height = 7;
+		this.flip = flip;
 	}
 
 	@Override
 	public void drawButton(Minecraft mc, int mouseX, int mouseY) {
 		this.hovered = mouseX >= this.xPosition && mouseY >= this.yPosition && mouseX < this.xPosition + this.width && mouseY < this.yPosition + this.height;
-		int x = 237;
+		int x = 210;
 		int y = 0;
 			
+
+		if(flip)
+			x += this.width;
 		if(this.enabled) {
 			if(!this.hovered) {
 				y += this.height;
