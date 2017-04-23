@@ -3,6 +3,7 @@ package net.dark_roleplay.drpcore.common.handler;
 import java.io.File;
 
 import net.dark_roleplay.drpcore.client.events.config.Event_ConfigChange;
+import net.dark_roleplay.drpcore.common.config.SyncedConfigRegistry;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.config.Configuration;
 import net.minecraftforge.common.config.Property;
@@ -17,6 +18,8 @@ public class DRPCoreConfigs {
 	public static boolean ENABLE_DEBUG_BLOCKS = false;
 	
 	/**-------------------- CRAFTING STUFF --------------------**/
+	
+	//Syncable Recipes
 	
 	//Recipe Gui
 	public static boolean HIDE_LOCKED_RECIPES = false;
@@ -51,6 +54,10 @@ public class DRPCoreConfigs {
 		prop = config.get("gui.crafting.selection","Hide locked recipes", HIDE_LOCKED_RECIPES);
 		prop.setComment("Used to hide/show locked recipes from recipe selection");
 		HIDE_LOCKED_RECIPES = prop.getBoolean();
+		
+		prop = config.get("gui.crafting.crafting", "enable_craft_multiplicator", false);
+		prop.setComment("Set this to true if you want to enable the Craft Multiplicator");
+		SyncedConfigRegistry.initBoolean("enable_craft_multiplicator", prop.getBoolean());
 		
 		if(config.hasChanged())
 			config.save();

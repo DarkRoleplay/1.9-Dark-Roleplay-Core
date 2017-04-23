@@ -14,7 +14,7 @@ import net.minecraft.util.text.TextComponentTranslation;
 
 public class SimpleCrafter {
 
-	public void initializeCrafting(EntityPlayer player, SimpleRecipe recipe) {
+	public void initializeCrafting(EntityPlayer player, SimpleRecipe recipe, int multiplier) {
 
 		List<ItemStack> inv = player.inventory.mainInventory;
 
@@ -23,7 +23,7 @@ public class SimpleCrafter {
 		for (int i = 0; i < inv.size(); i++) {
 			invCopy.set(i, inv.get(i).copy());
 		}
-		boolean[] missingStacks = hasMaterials(invCopy, ingredients.clone(), recipe.getIgnoreMeta());
+		boolean[] missingStacks = hasMaterials(invCopy, ingredients.clone(), recipe.getIgnoreMeta(), multiplier);
 
 		for (int i = 0; i < missingStacks.length; i++) {
 			if (!missingStacks[i]) {
@@ -32,19 +32,37 @@ public class SimpleCrafter {
 			}
 		}
 
-		consumeMaterials(player, ingredients.clone(), recipe.getIgnoreMeta());
+		consumeMaterials(player, ingredients.clone(), recipe.getIgnoreMeta(), multiplier);
 		ItemStack[] outs = recipe.getMainOutput();
-		for (ItemStack s : outs) {
-			if (!player.inventory.addItemStackToInventory(s.copy())) {
-				player.world.spawnEntity(new EntityItem(player.world, player.posX, player.posY, player.posZ, s.copy()));
+		for(int i = 0; i < multiplier; i++){
+			for (ItemStack s : outs) {
+				if (!player.inventory.addItemStackToInventory(s.copy())) {
+					player.world.spawnEntity(new EntityItem(player.world, player.posX, player.posY, player.posZ, s.copy()));
+				}
 			}
 		}
 		player.openContainer.detectAndSendChanges();
 	}
 
-	public static void consumeMaterials(EntityPlayer player, ItemStack[] ingredients, boolean[] respectMeta) {
+	public static void consumeMaterials(EntityPlayer player, ItemStack[] ingredientsMain, boolean[] respectMetaMain, int multiplier) {
 
 		List<ItemStack> containerItems = new ArrayList<ItemStack>();
+		
+		ItemStack[] ingredients = new ItemStack[ingredientsMain.length * multiplier];
+		
+		for(int j = 0; j < multiplier; j++){
+			for(int i = 0; i < ingredientsMain.length; i++){
+				ingredients[i + (j * ingredientsMain.length)] = ingredientsMain[i].copy();
+			}
+		}
+		
+		boolean[] respectMeta = new boolean[respectMetaMain.length * multiplier];
+		
+		for(int j = 0; j < multiplier; j++){
+			for(int i = 0; i < respectMetaMain.length; i++){
+				respectMeta[i + (j * respectMetaMain.length)] = respectMetaMain[i];
+			}
+		}
 
 		InventoryPlayer inv = player.inventory;
 
@@ -82,26 +100,26 @@ public class SimpleCrafter {
 		}
 	}
 
-	private static int getSlotFor(InventoryPlayer inv, ItemStack stack) {
-		for (int i = 0; i < inv.mainInventory.size(); ++i) {
-			if (!((ItemStack) inv.mainInventory.get(i)).isEmpty()
-					&& stackEqualExact(stack, (ItemStack) inv.mainInventory.get(i))) {
-				return i;
+	public static boolean[] hasMaterials(List<ItemStack> inventory, ItemStack[] comparedMain, boolean[] respectMetaMain, int multiplier) {
+		ItemStack[] remainingInv = inventory.toArray(new ItemStack[inventory.size()]);
+		boolean[] hasStack = new boolean[comparedMain.length];
+
+		ItemStack[] compared = new ItemStack[comparedMain.length * multiplier];
+		
+		for(int j = 0; j < multiplier; j++){
+			for(int i = 0; i < comparedMain.length; i++){
+				compared[i + (j * comparedMain.length)] = comparedMain[i].copy();
 			}
 		}
-		return -1;
-	}
-
-	private static boolean stackEqualExact(ItemStack stack1, ItemStack stack2) {
-		return stack1.getItem() == stack2.getItem()
-				&& (!stack1.getHasSubtypes() || stack1.getMetadata() == stack2.getMetadata())
-				&& ItemStack.areItemStackTagsEqual(stack1, stack2);
-	}
-
-	public static boolean[] hasMaterials(List<ItemStack> inventory, ItemStack[] compared, boolean[] respectMeta) {
-		ItemStack[] remainingInv = inventory.toArray(new ItemStack[inventory.size()]);
-		boolean[] hasStack = new boolean[compared.length];
-
+		
+		boolean[] respectMeta = new boolean[respectMetaMain.length * multiplier];
+		
+		for(int j = 0; j < multiplier; j++){
+			for(int i = 0; i < respectMetaMain.length; i++){
+				respectMeta[i + (j * respectMetaMain.length)] = respectMetaMain[i];
+			}
+		}
+		
 		outerLoop: for (int i = 0; i < compared.length; i++) {
 			ItemStack stack = compared[i].copy();
 			if (stack == null)
@@ -113,7 +131,7 @@ public class SimpleCrafter {
 					if (invStack.getCount() >= stack.getCount()) {
 						invStack.shrink(stack.getCount());
 						stack = null;
-						hasStack[i] = true;
+						hasStack[(i % comparedMain.length)] = true;
 						continue outerLoop;
 					} else {
 						stack.shrink(invStack.getCount());
@@ -121,7 +139,7 @@ public class SimpleCrafter {
 					}
 				}
 			}
-			hasStack[i] = false;
+			hasStack[(i % comparedMain.length)] = false;
 		}
 		return hasStack;
 	}

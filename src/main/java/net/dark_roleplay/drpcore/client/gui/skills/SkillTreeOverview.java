@@ -91,7 +91,7 @@ public class SkillTreeOverview extends DRPGuiScreen implements ITimedGui{
 	}
 
 	@Override
-	public void increaseTimer(int time) {
+	public void tick() {
 		hoveringOverUnlock++;
 	}
 

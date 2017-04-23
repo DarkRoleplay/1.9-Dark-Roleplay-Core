@@ -5,6 +5,7 @@ import java.util.Map;
 import java.util.UUID;
 
 import net.dark_roleplay.drpcore.api.items.DRPItem;
+import net.dark_roleplay.drpcore.client.events.network.Event_ConnectServer;
 import net.dark_roleplay.drpcore.client.events.player.Event_Mouse;
 import net.dark_roleplay.drpcore.client.events.rendering.Event_ModelBaked;
 import net.dark_roleplay.drpcore.client.keybindings.DRPCoreKeybindings;
@@ -15,6 +16,7 @@ import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.fml.common.FMLCommonHandler;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
@@ -48,6 +50,7 @@ public class ClientProxy extends CommonProxy{
 	
 	public void init(FMLInitializationEvent event) {
 		DRPCoreKeybindings.init(event);
+		FMLCommonHandler.instance().bus().register(new Event_ConnectServer());
 	}
 	
 	public void postInit(FMLPostInitializationEvent event) {

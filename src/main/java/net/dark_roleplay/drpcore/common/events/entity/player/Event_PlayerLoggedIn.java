@@ -3,9 +3,12 @@ package net.dark_roleplay.drpcore.common.events.entity.player;
 import java.util.Map;
 
 import net.dark_roleplay.drpcore.common.capabilities.player.crafting.IRecipeController;
+import net.dark_roleplay.drpcore.common.config.SyncedConfigRegistry;
 import net.dark_roleplay.drpcore.common.handler.DRPCoreCapabilities;
 import net.dark_roleplay.drpcore.common.handler.DRPCorePackets;
 import net.dark_roleplay.drpcore.common.network.packets.crafting.SyncPlayerRecipeState;
+import net.minecraft.client.entity.EntityPlayerSP;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
@@ -30,6 +33,8 @@ public class Event_PlayerLoggedIn {
 			for(String recipe : progressed.keySet()){
 				DRPCorePackets.sendTo(new SyncPlayerRecipeState(recipe,2,progressed.get(recipe)), player);
 			}
+			
+			SyncedConfigRegistry.sendConfigTo((EntityPlayer) event.getEntity());
 		}
 	}
 	
