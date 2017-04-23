@@ -74,12 +74,11 @@ public class SimpleCrafter {
 
 			for (int j = 0; j < inv.mainInventory.size(); j++) {
 				ItemStack invStack = inv.mainInventory.get(j);
-				if (invStack != null && ((!respectMeta[i] && ItemStack.areItemsEqualIgnoreDurability(stack, invStack))
-						|| (respectMeta[i] && ItemStack.areItemsEqual(stack, invStack)))) {
+				if (invStack != null && ((!respectMeta[i] && ItemStack.areItemsEqualIgnoreDurability(stack, invStack)) || (respectMeta[i] && ItemStack.areItemsEqual(stack, invStack)))) {
 					if (invStack.getCount() >= stack.getCount()) {
-						if (stack.getItem().hasContainerItem(stack)) {
+						if (invStack.getItem().hasContainerItem(invStack)) {
 							ItemStack correctStack = invStack.copy();
-							correctStack.shrink(stack.getCount());
+							correctStack.setCount(stack.getCount());
 							containerItems.add(correctStack.getItem().getContainerItem(correctStack));
 						}
 						inv.decrStackSize(j, stack.getCount());
@@ -87,6 +86,10 @@ public class SimpleCrafter {
 						continue outerLoop;
 					} else {
 						stack.shrink(invStack.getCount());
+						if (invStack.getItem().hasContainerItem(invStack)) {
+							ItemStack correctStack = invStack.copy();
+							containerItems.add(correctStack.getItem().getContainerItem(correctStack));
+						}
 						inv.removeStackFromSlot(j);
 					}
 				}
@@ -94,7 +97,7 @@ public class SimpleCrafter {
 		}
 		
 		for(ItemStack stack : containerItems){
-			if(player.inventory.addItemStackToInventory(stack.copy())){
+			if(!player.inventory.addItemStackToInventory(stack.copy())){
 				player.world.spawnEntity(new EntityItem(player.world, player.posX,player.posY, player.posZ, stack));
 			}
 		}

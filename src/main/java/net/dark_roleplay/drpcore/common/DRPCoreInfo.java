@@ -4,7 +4,7 @@ public class DRPCoreInfo {
 
 	public static final String MODID = "drpcore";
 	public static final String NAME = "Dark Roleplay Core";
-	public static final String VERSION = "0.2.0";
+	public static final String VERSION = "0.2.0b";
 	public static final String ACCEPTEDVERSIONS = "[1.11.2,)";
 	public static final String UPDATECHECK = "https://raw.githubusercontent.com/DarkRoleplay/Dark-Roleplay-Core/master/DarkRoleplayCore.json";
 

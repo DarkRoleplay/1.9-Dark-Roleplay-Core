@@ -7,8 +7,8 @@
     "1.10-recomended" : "0.1.7",
 	"1.10.2-latest"     : "0.1.7",
     "1.10.2-recomended" : "0.1.7",
-	"1.11.2-latest" : "0.2.0",
-	"1.11.2-recomended" : "0.2.0"
+	"1.11.2-latest" : "0.2.0b",
+	"1.11.2-recomended" : "0.2.0b"
   },
   "1.9" : {
     "0.1.4-PRE" : "Firstly Implemented the Forge Update Checker",
@@ -24,11 +24,7 @@
   },
   "1.11.2" : {
 	"0.1.8" : "",
-    "0.2.0" : "+ Added Just Enough Items Support\n
-	+ Added auto craft when craft button hold\n
-	+ Added hovering information for crafting GUI\n
-	+ Added craft multiplier (needs activation in config)\n
-	+ Added ability to scroll craft ingredients when there are mor than 9\n
-	* Fixed crafting a little bit (you no longer need to restack your items)"
+    "0.2.0" : "+ Added Just Enough Items Support\n+ Added auto craft when craft button hold\n+ Added hovering information for crafting GUI\n+ Added craft multiplier (needs activation in config)\n+ Added ability to scroll craft ingredients when there are mor than 9\n* Fixed crafting a little bit (you no longer need to restack your items)",
+	"0.2.0b" : "* Fixed a bug that caused los of container Items when used in Crafting"
   }
 }
