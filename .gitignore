@@ -1,6 +1,5 @@
 .git/**
 .gitignore
-*.bin
 Dark-Roleplay-Core_Client.launch
 Dark-Roleplay-Core_Server.launch
 gradlew.bat
@@ -15,6 +14,9 @@ build/**
 eclipse/**
 gradle/**
 run/**
+.gradle/**
+gradlew
+.settings/**
 
 .classpath
 .project
