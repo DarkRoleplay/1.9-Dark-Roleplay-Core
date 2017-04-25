@@ -1,24 +1,8 @@
 .git/*
-.gradle/*
-.settings/*
-bin/*
-build/*
-eclipse/*
-gradle/*
-run/*
-
-.classpath
 .gitignore
-.project
-build.gradle
-
 Dark-Roleplay-Core_Client.launch
 Dark-Roleplay-Core_Server.launch
-Forge Latest_Client.launch
-Forge Latest_Server.launch
-gradle.properties
-gradlew
-greadle.bat
+gradlew.bat
 script_buildCOMP.cmd
 script_buildDECOMP.cmd
 script_setupWorkspace.cmd
