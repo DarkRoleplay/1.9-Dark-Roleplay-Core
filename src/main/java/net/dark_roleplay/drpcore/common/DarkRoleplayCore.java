@@ -98,6 +98,8 @@ public class DarkRoleplayCore {
 		DRPCoreEvents.postInit(event);
 		proxy.postInit(event);
 		
+//		CraftingRegistry.registerRecipe(Blocks.AIR, "test", new SimpleRecipe(new ResourceLocation(DRPCoreInfo.MODID, "test"), new ItemStack[]{new ItemStack(Items.APPLE)}, new ItemStack[]{new ItemStack(Items.ARROW)}), false);
+		
 //		SkillTree craftingTree = new SkillTree("drpcore:debug_skill_tree", "drpcore:debug_skill_tree", null);
 //		SkillPoint carpenterPoint = new SkillPoint(new ResourceLocation(DRPCoreInfo.MODID, "carpenterPoint"));
 //		

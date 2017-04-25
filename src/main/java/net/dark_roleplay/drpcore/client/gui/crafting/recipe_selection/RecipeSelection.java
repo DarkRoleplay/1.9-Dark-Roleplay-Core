@@ -68,7 +68,7 @@ public class RecipeSelection extends DRPGuiScreen{
 	public RecipeSelection(BlockPos pos) {
 		super(bg, 190, 133);
 		this.pos = pos;
-		Block b = Minecraft.getMinecraft().world.getBlockState(pos).getBlock();
+		Block b = Minecraft.getMinecraft().theWorld.getBlockState(pos).getBlock();
 		this.categorizedRecipes = CraftingRegistry.getRecipesForStation(b);
 		if(categorizedRecipes == null){
 			categorizedRecipes = CraftingRegistry.getRecipesForStation(Blocks.AIR);
@@ -104,9 +104,9 @@ public class RecipeSelection extends DRPGuiScreen{
 			this.buttonList.add(recipeButtons[i]);
 		}	
 		
-		this.lockedRecipes = Minecraft.getMinecraft().player.getCapability(DRPCoreCapabilities.DRPCORE_RECIPE_CONTROLLER, null).getLockedRecipes();
-		this.progressedRecipes = Minecraft.getMinecraft().player.getCapability(DRPCoreCapabilities.DRPCORE_RECIPE_CONTROLLER, null).getProgressedRecipes();
-		this.unlockedRecipes = Minecraft.getMinecraft().player.getCapability(DRPCoreCapabilities.DRPCORE_RECIPE_CONTROLLER, null).getUnlockedRecipes();
+		this.lockedRecipes = Minecraft.getMinecraft().thePlayer.getCapability(DRPCoreCapabilities.DRPCORE_RECIPE_CONTROLLER, null).getLockedRecipes();
+		this.progressedRecipes = Minecraft.getMinecraft().thePlayer.getCapability(DRPCoreCapabilities.DRPCORE_RECIPE_CONTROLLER, null).getProgressedRecipes();
+		this.unlockedRecipes = Minecraft.getMinecraft().thePlayer.getCapability(DRPCoreCapabilities.DRPCORE_RECIPE_CONTROLLER, null).getUnlockedRecipes();
 		
 		updateRecipes();
 		
@@ -239,14 +239,14 @@ public class RecipeSelection extends DRPGuiScreen{
 		case 26:
 		case 27:
 		case 28:
-			EntityPlayer player = Minecraft.getMinecraft().player;
+			EntityPlayer player = Minecraft.getMinecraft().thePlayer;
 			int recipeID = button.id - 11 + (this.recipePage * 18);
 			if(recipeID < this.recipes.size() && !this.lockedRecipes.contains(this.recipes.get(recipeID)) && !this.unlockRecipes.contains(this.recipes.get(recipeID))){
 				RecipeCrafting_SimpleRecipe.setRecipe(CraftingRegistry.getRecipe(this.recipes.get(recipeID)));
 				ClientProxy.recipePage = this.recipePage;
 				ClientProxy.selectedCategory = this.selectedCategory;
 				ClientProxy.categoryOffset = this.categoryOffset;
-				player.openGui(DarkRoleplayCore.instance, DRPCoreGuis.DRPCORE_GUI_CRAFTING_RECIPECRAFTING_SIMPLE, player.world, pos.getX(), pos.getY(), pos.getZ());
+				player.openGui(DarkRoleplayCore.instance, DRPCoreGuis.DRPCORE_GUI_CRAFTING_RECIPECRAFTING_SIMPLE, player.getEntityWorld(), pos.getX(), pos.getY(), pos.getZ());
 			}
 			break;
 		}
@@ -297,7 +297,7 @@ public class RecipeSelection extends DRPGuiScreen{
     @Override
     protected void keyTyped(char typedChar, int keyCode) throws IOException{
         if (keyCode == 1 || DRPCoreKeybindings.openCrafting.isActiveAndMatches(keyCode) || this.mc.gameSettings.keyBindInventory.isActiveAndMatches(keyCode)){
-            this.mc.player.closeScreen();
+            this.mc.thePlayer.closeScreen();
         }
     }
 }

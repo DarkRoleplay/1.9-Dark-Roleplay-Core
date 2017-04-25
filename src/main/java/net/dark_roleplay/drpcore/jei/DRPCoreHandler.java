@@ -29,4 +29,9 @@ public class DRPCoreHandler implements IRecipeHandler<DRPCoreJEIRecipe> {
 		return true;
 	}
 
+	@Override
+	public String getRecipeCategoryUid() {
+		return DRPCoreJEIAddon.DRPCoreCategory;
+	}
+
 }

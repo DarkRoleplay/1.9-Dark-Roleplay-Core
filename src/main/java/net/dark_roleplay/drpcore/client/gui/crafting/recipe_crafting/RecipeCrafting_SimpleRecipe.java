@@ -26,7 +26,6 @@ import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.NonNullList;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 
@@ -101,7 +100,7 @@ public class RecipeCrafting_SimpleRecipe extends DRPGuiScreen implements ITimedG
 		
 		outputs = recipe.getMainOutput();
 		inputs = recipe.getMainIngredients();
-		NonNullList<ItemStack> inv = Minecraft.getMinecraft().player.inventory.mainInventory;
+		ItemStack[] inv = Minecraft.getMinecraft().thePlayer.inventory.mainInventory;
 
 		outputSlots[0] = new GhostSlot(outputs[0], this.guiLeft + 10, this.guiTop + 10, 16, 16);
 		for (int i = 1; i < 7; i++) {
@@ -115,19 +114,19 @@ public class RecipeCrafting_SimpleRecipe extends DRPGuiScreen implements ITimedG
 		}
 
 		for (int i = 0; i < 9; i++) {
-			inventorySlots[i] = new GhostSlot(inv.size() >= i + 1 ? inv.get(i) : null, this.guiLeft + 9 + (i * 18),
+			inventorySlots[i] = new GhostSlot(inv.length >= i + 1 ? inv[i] : null, this.guiLeft + 9 + (i * 18),
 					this.guiTop + 140, 16, 16);
 		}
 
 		for (int i = 9; i < 36; i++) {
-			inventorySlots[i] = new GhostSlot(inv.size() >= i + 1 ? inv.get(i) : null,
+			inventorySlots[i] = new GhostSlot(inv.length >= i + 1 ? inv[i] : null,
 					this.guiLeft + 9 + ((i % 9) * 18), this.guiTop + 83 + (((i - 9) / 9) * 18), 16, 16);
 		}
 	}
 
 	@Override
 	protected void drawForeground(int mouseX, int mouseY, float partialTicks) {
-		inventory = Minecraft.getMinecraft().player.inventory;
+		inventory = Minecraft.getMinecraft().thePlayer.inventory;
 		
 		FontRenderer font = Minecraft.getMinecraft().fontRendererObj;
 		
@@ -140,7 +139,7 @@ public class RecipeCrafting_SimpleRecipe extends DRPGuiScreen implements ITimedG
 		for (int i = 0; i < 7; i++) {
 			ItemStack out = i >= outputs.length ? null : outputs[i].copy();
 			if (out != null)
-				out.grow(out.getCount() * (this.multiplier - 1));
+				out.stackSize += out.stackSize * (this.multiplier - 1);
 			outputSlots[i].setStack(out);
 		}
 
@@ -149,7 +148,7 @@ public class RecipeCrafting_SimpleRecipe extends DRPGuiScreen implements ITimedG
 				this.itemRender.renderItemIntoGUI(slot.getStack(), slot.getPosX(), slot.getPosY());
 				this.itemRender.renderItemOverlayIntoGUI(this.fontRendererObj, slot.getStack(), slot.getPosX(),
 						slot.getPosY(),
-						slot.getStack().getCount() == 1 ? null : String.valueOf(slot.getStack().getCount()));
+						slot.getStack().stackSize == 1 ? null : String.valueOf(slot.getStack().stackSize));
 			}
 		}
 
@@ -159,7 +158,7 @@ public class RecipeCrafting_SimpleRecipe extends DRPGuiScreen implements ITimedG
 			if (i + currentIngredientOffset < inputs.length) {
 				ItemStack ing = i + currentIngredientOffset >= inputs.length ? null : inputs[i + currentIngredientOffset].copy();
 				if (ing != null)
-					ing.grow(ing.getCount() * (this.multiplier - 1));
+					ing.stackSize += ing.stackSize * (this.multiplier - 1);
 				ingredientSlots[i].setStack(ing);
 			}
 		}
@@ -169,40 +168,40 @@ public class RecipeCrafting_SimpleRecipe extends DRPGuiScreen implements ITimedG
 				this.itemRender.renderItemIntoGUI(slot.getStack(), slot.getPosX(), slot.getPosY());
 				this.itemRender.renderItemOverlayIntoGUI(this.fontRendererObj, slot.getStack(), slot.getPosX(),
 						slot.getPosY(),
-						slot.getStack().getCount() == 1 ? null : String.valueOf(slot.getStack().getCount()));
+						slot.getStack().stackSize == 1 ? null : String.valueOf(slot.getStack().stackSize));
 			}
 		}
 
 		/** -------- Inventory --------- **/
 		// Update Inventory
 		for (int i = 0; i < 36; i++) {
-			inventorySlots[i].setStack(inventory.mainInventory.get(i));
+			inventorySlots[i].setStack(inventory.mainInventory[i]);
 		}
 
 		for (GhostSlot slot : inventorySlots) {
-			if (slot.getStack() != null && !slot.getStack().isEmpty()) {
+			if (slot.getStack() != null && slot.getStack() != null) {
 				this.itemRender.renderItemIntoGUI(slot.getStack(), slot.getPosX(), slot.getPosY());
 				this.itemRender.renderItemOverlayIntoGUI(this.fontRendererObj, slot.getStack(), slot.getPosX(),
 						slot.getPosY(),
-						slot.getStack().getCount() == 1 ? null : String.valueOf(slot.getStack().getCount()));
+						slot.getStack().stackSize == 1 ? null : String.valueOf(slot.getStack().stackSize));
 			}
 		}
 
 		/** -------- Hover Info --------- **/
 		for (GhostSlot slot : outputSlots) {
-			if (slot.isMouseOver(mouseX, mouseY) && slot.getStack() != null && !slot.getStack().isEmpty()) {
+			if (slot.isMouseOver(mouseX, mouseY) && slot.getStack() != null && slot.getStack() != null) {
 				this.renderToolTip(slot.getStack(), mouseX, mouseY);
 			}
 		}
 
 		for (GhostSlot slot : ingredientSlots) {
-			if (slot.isMouseOver(mouseX, mouseY) && slot.getStack() != null && !slot.getStack().isEmpty()) {
+			if (slot.isMouseOver(mouseX, mouseY) && slot.getStack() != null && slot.getStack() != null) {
 				this.renderToolTip(slot.getStack(), mouseX, mouseY);
 			}
 		}
 
 		for (GhostSlot slot : inventorySlots) {
-			if (slot.isMouseOver(mouseX, mouseY) && slot.getStack() != null && !slot.getStack().isEmpty()) {
+			if (slot.isMouseOver(mouseX, mouseY) && slot.getStack() != null && slot.getStack() != null) {
 				this.renderToolTip(slot.getStack(), mouseX, mouseY);
 			}
 		}
@@ -254,8 +253,8 @@ public class RecipeCrafting_SimpleRecipe extends DRPGuiScreen implements ITimedG
 				this.multiplier++;
 		}else if (button.id == this.retBack.id) {
 			ClientProxy.useRecipeData = true;
-			Minecraft.getMinecraft().player.openGui(DarkRoleplayCore.instance,
-					DRPCoreGuis.DRPCORE_GUI_CRAFTING_RECIPESELECTION, Minecraft.getMinecraft().world, this.pos.getX(),
+			Minecraft.getMinecraft().thePlayer.openGui(DarkRoleplayCore.instance,
+					DRPCoreGuis.DRPCORE_GUI_CRAFTING_RECIPESELECTION, Minecraft.getMinecraft().theWorld, this.pos.getX(),
 					this.pos.getY(), this.pos.getZ());
 		}
 	}
@@ -264,7 +263,7 @@ public class RecipeCrafting_SimpleRecipe extends DRPGuiScreen implements ITimedG
 	protected void keyTyped(char typedChar, int keyCode) throws IOException {
 		if (keyCode == 1 || DRPCoreKeybindings.openCrafting.isActiveAndMatches(keyCode)
 				|| this.mc.gameSettings.keyBindInventory.isActiveAndMatches(keyCode)) {
-			this.mc.player.closeScreen();
+			this.mc.thePlayer.closeScreen();
 		}
 	}
 
@@ -299,7 +298,7 @@ public class RecipeCrafting_SimpleRecipe extends DRPGuiScreen implements ITimedG
 	private void refreshSlots() {
 		ItemStack[] outputs = recipe.getMainOutput();
 		ItemStack[] inputs = recipe.getMainIngredients();
-		NonNullList<ItemStack> inv = Minecraft.getMinecraft().player.inventory.mainInventory;
+		ItemStack[] inv = Minecraft.getMinecraft().thePlayer.inventory.mainInventory;
 
 		for (int i = 1; i < 7; i++) {
 			outputSlots[i] = new GhostSlot(outputs.length >= i + 1 ? outputs[i] : null, this.guiLeft + 30,

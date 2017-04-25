@@ -45,7 +45,7 @@ public class DRPCoreCategory extends BlankRecipeCategory<DRPCoreWrapper> {
 		IGuiItemStackGroup guiItemStacks = recipeLayout.getItemStacks();
 
 		List<List<ItemStack>> inputs = ingredients.getInputs(ItemStack.class);
-		List<List<ItemStack>> outputs = ingredients.getOutputs(ItemStack.class);
+		List<ItemStack> outputs = ingredients.getOutputs(ItemStack.class);
 
 		guiItemStacks.init(0, true, 46, 18);
 
@@ -65,7 +65,7 @@ public class DRPCoreCategory extends BlankRecipeCategory<DRPCoreWrapper> {
 		}
 
 		for (int i = 0; i < outputs.size() && i < 9; i++) {
-			List<ItemStack> output = outputs.get(i);
+			ItemStack output = outputs.get(i);
 			if (output != null) {
 				guiItemStacks.set(i + 10, output);
 			}

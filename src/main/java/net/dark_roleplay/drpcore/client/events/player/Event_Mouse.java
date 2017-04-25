@@ -28,7 +28,7 @@ public class Event_Mouse {
 		if (event.getButton() == 0 && event.isButtonstate()) {
 
 			Minecraft mc =  FMLClientHandler.instance().getClient();
-			EntityPlayer player = mc.player;
+			EntityPlayer player = mc.thePlayer;
 			if (player != null) {
 
 				ItemStack itemstack = player.getHeldItemMainhand();
@@ -61,7 +61,7 @@ public class Event_Mouse {
 		Entity theRenderViewEntity = mc.getRenderViewEntity();
 		AxisAlignedBB theViewBoundingBox = new AxisAlignedBB(theRenderViewEntity.posX - 0.5D, theRenderViewEntity.posY - 0.0D, theRenderViewEntity.posZ - 0.5D, theRenderViewEntity.posX + 0.5D, theRenderViewEntity.posY + 1.5D, theRenderViewEntity.posZ + 0.5D);
 		RayTraceResult returnMOP = null;
-		if (mc.world != null) {
+		if (mc.theWorld != null) {
 			double var2 = dist;
 			returnMOP = theRenderViewEntity.rayTrace(var2, 0);
 			double calcdist = var2;
@@ -76,7 +76,7 @@ public class Event_Mouse {
 			Entity pointedEntity = null;
 			float var9 = 1.0F;
 			@SuppressWarnings("unchecked")
-			List<Entity> list = mc.world.getEntitiesWithinAABBExcludingEntity(theRenderViewEntity,
+			List<Entity> list = mc.theWorld.getEntitiesWithinAABBExcludingEntity(theRenderViewEntity,
 					theViewBoundingBox.addCoord(lookvec.xCoord * var2, lookvec.yCoord * var2, lookvec.zCoord * var2)
 							.expand(var9, var9, var9));
 			double d = calcdist;

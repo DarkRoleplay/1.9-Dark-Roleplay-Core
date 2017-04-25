@@ -30,21 +30,6 @@ public class Command_Recipe extends DRPCommand{
 	}
 
 	@Override
-	public String getName() {
-		return "recipe";
-	}
-
-	@Override
-	public String getUsage(ICommandSender sender) {
-		return "recipe <lock/unlock/progress/list> <recipe name> [progress value] [player]";
-	}
-
-	@Override
-	public List<String> getAliases() {
-		 return new ArrayList<String>();
-	}
-
-	@Override
 	public void execute(MinecraftServer server, ICommandSender sender, String[] args) throws CommandException{
 		
         if (!sender.getEntityWorld().isRemote){
@@ -68,9 +53,9 @@ public class Command_Recipe extends DRPCommand{
         			cap.lockRecipe(args[1]);
         			DRPCorePackets.sendTo(new SyncPlayerRecipeState(recipe,1,0F), player);
         			if(!cap.isLocked(recipe)){
-                        sender.sendMessage(new TextComponentString("Recipe \"" + recipe + "\" has been removed from locked recipes for " + player.getDisplayNameString())); 
+                        sender.addChatMessage(new TextComponentString("Recipe \"" + recipe + "\" has been removed from locked recipes for " + player.getDisplayNameString())); 
         			}else{
-                        sender.sendMessage(new TextComponentString("Recipe \"" + recipe + "\" has been added to locked recipes for " + player.getDisplayNameString())); 
+                        sender.addChatMessage(new TextComponentString("Recipe \"" + recipe + "\" has been added to locked recipes for " + player.getDisplayNameString())); 
         			}
         			break;
         			
@@ -78,30 +63,30 @@ public class Command_Recipe extends DRPCommand{
         			cap.unlockRecipe(args[1]);
     				DRPCorePackets.sendTo(new SyncPlayerRecipeState(recipe,0,0F), player);
     				if(!cap.isUnlocked(recipe)){
-                        sender.sendMessage(new TextComponentString("Recipe \"" + recipe + "\" has been removed from unlocked recipes for " + player.getDisplayNameString())); 
+                        sender.addChatMessage(new TextComponentString("Recipe \"" + recipe + "\" has been removed from unlocked recipes for " + player.getDisplayNameString())); 
         			}else{
-                        sender.sendMessage(new TextComponentString("Recipe \"" + recipe + "\" has been added to unlocked recipes for " + player.getDisplayNameString())); 
+                        sender.addChatMessage(new TextComponentString("Recipe \"" + recipe + "\" has been added to unlocked recipes for " + player.getDisplayNameString())); 
         			}
         			break;
         			
         		case "progress":
         			if(cap.isUnlocked(recipe)){
-                        sender.sendMessage(new TextComponentString("Recipe \"" + recipe + "\" couldn't be progressed as it has already been unlocked for " + player.getDisplayNameString())); 
+                        sender.addChatMessage(new TextComponentString("Recipe \"" + recipe + "\" couldn't be progressed as it has already been unlocked for " + player.getDisplayNameString())); 
                         return;
         			}else if(progress == 0){
-            			player.sendMessage(new TextComponentString("Progress mode requires an amount value! (0-100)"));
+            			player.addChatComponentMessage(new TextComponentString("Progress mode requires an amount value! (0-100)"));
         			}
         			
         			cap.progressRecipe(args[1],Float.valueOf(progress) / 100);
     				DRPCorePackets.sendTo(new SyncPlayerRecipeState(recipe,2,Float.valueOf(progress) / 100), player);
     				
     				if(cap.isUnlocked(recipe)){
-                        sender.sendMessage(new TextComponentString("Recipe \"" + recipe + "\" has been unlocked for " + player.getDisplayNameString() + " as it was progressed by 100%")); 
+                        sender.addChatMessage(new TextComponentString("Recipe \"" + recipe + "\" has been unlocked for " + player.getDisplayNameString() + " as it was progressed by 100%")); 
                         return;
         			}else{
-                        sender.sendMessage(new TextComponentString("Recipe \"" + recipe + "\" has been progressed for for " + player.getDisplayNameString() + " by "  + progress + "%, total progress: " + cap.getProgressRecipe(recipe) * 100 + "%")); 
+                        sender.addChatMessage(new TextComponentString("Recipe \"" + recipe + "\" has been progressed for for " + player.getDisplayNameString() + " by "  + progress + "%, total progress: " + cap.getProgressRecipe(recipe) * 100 + "%")); 
         			}
-                    sender.sendMessage(new TextComponentString("Progressed: [" + recipe + "] by [" + progress + "%]")); 
+                    sender.addChatMessage(new TextComponentString("Progressed: [" + recipe + "] by [" + progress + "%]")); 
                     break;
                     
         		case "list":
@@ -113,18 +98,18 @@ public class Command_Recipe extends DRPCommand{
         			String combinedRecipes = "";
         			
         			if(locked.size() > 0){
-	        			player.sendMessage(new TextComponentString("Locked Recipes:"));
+	        			player.addChatComponentMessage(new TextComponentString("Locked Recipes:"));
 	        			for(String str : locked){
 	        				combinedRecipes = combinedRecipes + "," + str;
 	        				currentRecipe ++;
 	        				if(currentRecipe == 5){
-	        					player.sendMessage(new TextComponentString(combinedRecipes));
+	        					player.addChatComponentMessage(new TextComponentString(combinedRecipes));
 	        					combinedRecipes = "";
 	        					currentRecipe = 0;
 	        				}
 	        			}
 	        			if(currentRecipe != 0){
-	        				player.sendMessage(new TextComponentString(combinedRecipes));
+	        				player.addChatComponentMessage(new TextComponentString(combinedRecipes));
         					combinedRecipes = "";
         					currentRecipe = 0;
 	        			}
@@ -132,18 +117,18 @@ public class Command_Recipe extends DRPCommand{
         			}
         			
         			if(unlocked.size() > 0){
-	        			player.sendMessage(new TextComponentString("Unlocked Recipes:"));
+	        			player.addChatComponentMessage(new TextComponentString("Unlocked Recipes:"));
 	        			for(String str : unlocked){
 	        				combinedRecipes = combinedRecipes + "," + str;
 	        				currentRecipe ++;
 	        				if(currentRecipe == 5){
-	        					player.sendMessage(new TextComponentString(combinedRecipes));
+	        					player.addChatComponentMessage(new TextComponentString(combinedRecipes));
 	        					combinedRecipes = "";
 	        					currentRecipe = 0;
 	        				}
 	        			}
 	        			if(currentRecipe != 0){
-	        				player.sendMessage(new TextComponentString(combinedRecipes));
+	        				player.addChatComponentMessage(new TextComponentString(combinedRecipes));
         					combinedRecipes = "";
         					currentRecipe = 0;
 	        			}
@@ -151,18 +136,18 @@ public class Command_Recipe extends DRPCommand{
         			}
         			
         			if(progressed.size() > 0){
-	        			player.sendMessage(new TextComponentString("Progressed Recipes:"));
+	        			player.addChatComponentMessage(new TextComponentString("Progressed Recipes:"));
 	        			for(String str : progressed.keySet()){
 	        				combinedRecipes = combinedRecipes + "," + str + "->" + progressed.get(str);
 	        				currentRecipe ++;
 	        				if(currentRecipe == 5){
-	        					player.sendMessage(new TextComponentString(combinedRecipes));
+	        					player.addChatComponentMessage(new TextComponentString(combinedRecipes));
 	        					combinedRecipes = "";
 	        					currentRecipe = 0;
 	        				}
 	        			}
 	        			if(currentRecipe != 0){
-	        				player.sendMessage(new TextComponentString(combinedRecipes));
+	        				player.addChatComponentMessage(new TextComponentString(combinedRecipes));
         					combinedRecipes = "";
         					currentRecipe = 0;
 	        			}
@@ -172,7 +157,8 @@ public class Command_Recipe extends DRPCommand{
         			break;
         			
         		default:
-        			player.sendMessage(new TextComponentString("Unknown mode! Available: lock, unlock, progress, list"));
+        			player.addChatComponentMessage(new TextComponentString("Unknown mode! Available: lock, unlock, progress, list"));
+        			//player.sendMessage(new TextComponentString("Unknown mode! Available: lock, unlock, progress, list"));
         			break;
         	}
         }
@@ -183,14 +169,29 @@ public class Command_Recipe extends DRPCommand{
 		return true;
 	}
 
-
-	@Override
-	public List<String> getTabCompletions(MinecraftServer server, ICommandSender sender, String[] args, BlockPos targetPos) {
-		return null;
-	}
-
 	@Override
 	public boolean isUsernameIndex(String[] args, int index) {
 		return false;
+	}
+
+	@Override
+	public String getCommandName() {
+
+		return "recipe";
+	}
+
+	@Override
+	public String getCommandUsage(ICommandSender sender) {
+		return "recipe <lock/unlock/progress/list> <recipe name> [progress value] [player]";
+	}
+
+	@Override
+	public List<String> getCommandAliases() {
+		 return new ArrayList<String>();
+	}
+
+	@Override
+	public List<String> getTabCompletionOptions(MinecraftServer server, ICommandSender sender, String[] args,BlockPos pos) {
+		return null;
 	}
 }

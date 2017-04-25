@@ -66,9 +66,9 @@ public class SyncPlayerRecipeState extends PacketBase<SyncPlayerRecipeState>{
 
 	@SideOnly(Side.CLIENT)
 	public void processMessage(SyncPlayerRecipeState message){
-		EntityPlayer player = Minecraft.getMinecraft().player;
+		EntityPlayer player = Minecraft.getMinecraft().thePlayer;
 		
-		player = Minecraft.getMinecraft().player;
+		player = Minecraft.getMinecraft().thePlayer;
 		switch(message.type){
 		case 0:
 			player.getCapability(DRPCoreCapabilities.DRPCORE_RECIPE_CONTROLLER, null).unlockRecipe(message.recipeID);

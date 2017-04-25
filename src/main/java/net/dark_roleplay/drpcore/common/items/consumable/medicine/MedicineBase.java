@@ -27,13 +27,13 @@ public class MedicineBase extends DRPItem implements IExtendedRange{
 		super(textures);
 	}
 	
-	@Override
-	public EnumActionResult onItemUseFirst(EntityPlayer player, World world, BlockPos pos, EnumFacing side, float hitX, float hitY, float hitZ, EnumHand hand){
-		player.getCapability(DRPCoreCapabilities.DRPCORE_RECIPE_CONTROLLER, null).progressRecipe("RECIPE12", 0.36f);
-		//Structure str = new Structure();
-		//str.writeStructure("ThisIsATest", world, pos, pos.add(2,2,2));
-        return EnumActionResult.PASS;
-    }
+//	@Override
+//	public EnumActionResult onItemUseFirst(EntityPlayer player, World world, BlockPos pos, EnumFacing side, float hitX, float hitY, float hitZ, EnumHand hand){
+//		player.getCapability(DRPCoreCapabilities.DRPCORE_RECIPE_CONTROLLER, null).progressRecipe("RECIPE12", 0.36f);
+//		//Structure str = new Structure();
+//		//str.writeStructure("ThisIsATest", world, pos, pos.add(2,2,2));
+//        return EnumActionResult.PASS;
+//    }
 
 	@Override
 	public float getRange() {

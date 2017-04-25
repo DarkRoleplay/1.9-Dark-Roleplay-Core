@@ -14,8 +14,8 @@ public class InventoryHelper {
 			for(ItemStack invStack : remainingInv){
 				if(respectMeta[i]){
 					if(ItemStack.areItemsEqual(stack,invStack)){
-						if(invStack.getCount() > stack.getCount()){
-							invStack.shrink(stack.getCount());
+						if(invStack.stackSize > stack.stackSize){
+							invStack.stackSize -= stack.stackSize;
 							stack = null;
 						}else{
 							invStack = null;
@@ -26,8 +26,8 @@ public class InventoryHelper {
 					}
 				}else{
 					if(ItemStack.areItemsEqualIgnoreDurability(stack, invStack)){
-						if(invStack.getCount() > stack.getCount()){
-							invStack.shrink( stack.getCount());
+						if(invStack.stackSize > stack.stackSize){
+							invStack.stackSize -= stack.stackSize;
 							stack = null;
 						}else{
 							invStack = null;

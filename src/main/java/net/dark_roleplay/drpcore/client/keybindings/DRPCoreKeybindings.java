@@ -49,8 +49,8 @@ public class DRPCoreKeybindings {
 	public void KeyInput(KeyInputEvent event) {
 
 		if(this.openCrafting.isKeyDown()) {
-			EntityPlayer player = Minecraft.getMinecraft().player;
-			player.openGui(DarkRoleplayCore.instance, DRPCoreGuis.DRPCORE_GUI_CRAFTING_RECIPESELECTION, player.world, player.getPosition().getX(), player.getPosition().getY(), player.getPosition().getZ());
+			EntityPlayer player = Minecraft.getMinecraft().thePlayer;
+			player.openGui(DarkRoleplayCore.instance, DRPCoreGuis.DRPCORE_GUI_CRAFTING_RECIPESELECTION, player.getEntityWorld(), player.getPosition().getX(), player.getPosition().getY(), player.getPosition().getZ());
 		}
 		
 		if(this.debugging.isKeyDown()) {
