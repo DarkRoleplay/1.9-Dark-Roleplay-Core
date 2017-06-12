@@ -19,7 +19,7 @@ import net.minecraftforge.fml.common.registry.GameRegistry;
 
 public class DRPCoreItems {
 	/**---------- EXAMPLE ITEM ---------**/
-	public static MedicineBase MEDICINE_BASE = (MedicineBase) new MedicineBase("Medicine").setRegistryName("Medicine");
+	public static MedicineBase MEDICINE_BASE = (MedicineBase) new MedicineBase("Medicine");
 	
 	
 	/**---------- A ----------**/

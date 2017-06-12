@@ -1,5 +1,6 @@
 package net.dark_roleplay.drpcore.api.gui;
 
+import java.awt.Color;
 import java.io.IOException;
 
 import org.lwjgl.opengl.GL11;
@@ -33,6 +34,9 @@ public abstract class DRPGuiScreen extends GuiScreen{
 
 	protected int startButtonID = 0;
 	protected int startInfoFieldID = 50;
+	
+	protected static final int COLOR_WHITE = new Color(255,255,255).getRGB();
+	protected static final int COLOR_DARK_GRAY = new Color(55,55,55).getRGB();
 	
 	protected GuiButton selectedButton;
 
@@ -105,8 +109,12 @@ public abstract class DRPGuiScreen extends GuiScreen{
 		}
 		GL11.glEnable(GL11.GL_LIGHTING);
 	}
+	
+	protected boolean isMouseBetween(int mouseX, int mouseY, int posX1, int posY1, int posX2, int posY2){
+		return mouseX > posX1 && mouseX < posX2 && mouseY > posY1 && mouseY < posY2;
+	}
 
-	public static void drawLine(int x1, int y1, int x2, int y2, int color) {
+	protected static void drawLine(int x1, int y1, int x2, int y2, int color) {
 
 		float f3 = (float) (color >> 24 & 255) / 255.0F;
 		float f = (float) (color >> 16 & 255) / 255.0F;

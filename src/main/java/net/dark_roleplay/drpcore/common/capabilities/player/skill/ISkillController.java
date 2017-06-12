@@ -5,16 +5,17 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import net.dark_roleplay.drpcore.common.skills.SkillItem;
-import net.dark_roleplay.drpcore.common.skills.SkillPoint;
+import com.google.common.collect.Lists;
+
+import net.dark_roleplay.drpcore.api.skills.Skill;
+import net.dark_roleplay.drpcore.api.skills.SkillPoint;
+import net.dark_roleplay.drpcore.common.skills.SkillPointData;
 
 public interface ISkillController {
 
 	// Saving unspend Skill Points for different skill trees
-	Map<SkillPoint, Integer> skillPoints = new HashMap<SkillPoint, Integer>();
-	Map<SkillPoint, Integer> skillPointLevel = new HashMap<SkillPoint, Integer>();
-	Map<SkillPoint, Integer> skillPointXP = new HashMap<SkillPoint, Integer>();
-	List<SkillItem> unlockedSkills = new ArrayList<SkillItem>();
+	List<SkillPointData> skillPoints = Lists.newArrayList();
+	List<Skill> unlockedSkills = new ArrayList<Skill>();
 
 	public default void addSkillPoint(SkillPoint skillPoint) {
 		addSkillPoint(skillPoint, 1);
@@ -28,24 +29,28 @@ public interface ISkillController {
 
 	public boolean consumeSkillPoint(SkillPoint skillPoint, int amount);
 
-	public boolean unlockSkill(SkillItem item);
+	public boolean unlockSkill(Skill item);
 
-	public boolean hasSkill(SkillItem item);
+	public boolean hasSkill(Skill item);
 
-	public Map<SkillPoint, Integer> getSkillPoints();
+	public List<SkillPointData> getSkillPoints();
 
-	public List<SkillItem> getUnlockedSkills();
-
-	public Map<SkillPoint, Integer> getSkillXP();
+	public List<Skill> getUnlockedSkills();
 	
 	public void increaseSkillXP(SkillPoint point, int amount);
-	
-	public Map<SkillPoint, Integer> getSkillLevel();
 	
 	public default void increaseSkillLevel(SkillPoint point){
 		increaseSkillLevel(point, 1);
 	}
 	
 	public void increaseSkillLevel(SkillPoint point, int amount);
+	
+	public SkillPointData getSkillPointData(SkillPoint point);
+	
+	public void unlockSkills(List<Skill> skills);
+	
+	public void addPoints(List<SkillPointData> datas);
+	
+	public void setSkillPointData(SkillPointData data);
 	
 }

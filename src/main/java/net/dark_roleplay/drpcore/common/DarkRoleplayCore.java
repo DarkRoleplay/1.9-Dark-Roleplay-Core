@@ -7,6 +7,7 @@ import org.apache.logging.log4j.Logger;
 
 import net.dark_roleplay.drpcore.client.events.config.Event_ConfigChange;
 import net.dark_roleplay.drpcore.common.commands.crafting.Command_Recipe;
+import net.dark_roleplay.drpcore.common.commands.skills.Command_Skill;
 import net.dark_roleplay.drpcore.common.config.SyncedConfigRegistry;
 import net.dark_roleplay.drpcore.common.crafting.CraftingRegistry;
 import net.dark_roleplay.drpcore.common.crafting.SimpleRecipe;
@@ -20,11 +21,9 @@ import net.dark_roleplay.drpcore.common.handler.DRPCoreEvents;
 import net.dark_roleplay.drpcore.common.handler.DRPCoreGuis;
 import net.dark_roleplay.drpcore.common.handler.DRPCoreItems;
 import net.dark_roleplay.drpcore.common.handler.DRPCorePackets;
+import net.dark_roleplay.drpcore.common.handler.DRPCoreSkills;
 import net.dark_roleplay.drpcore.common.proxy.CommonProxy;
-import net.dark_roleplay.drpcore.common.skills.SkillItem;
-import net.dark_roleplay.drpcore.common.skills.SkillPoint;
 import net.dark_roleplay.drpcore.common.skills.SkillRegistry;
-import net.dark_roleplay.drpcore.common.skills.SkillTree;
 import net.minecraft.command.ServerCommandManager;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
@@ -69,6 +68,7 @@ public class DarkRoleplayCore {
 		DRPCoreCapabilities.preInit(event);
 		DRPCoreGuis.preInit(event);
 		DRPCoreEvents.preInit(event);
+		DRPCoreSkills.preInit(event);
 		proxy.preInit(event);
 	}
 	
@@ -86,6 +86,7 @@ public class DarkRoleplayCore {
 		DRPCoreGuis.init(event);
 		DRPCorePackets.init();
 		DRPCoreEvents.init(event);
+		DRPCoreSkills.init(event);
 		proxy.init(event);
 	}
 	
@@ -95,6 +96,7 @@ public class DarkRoleplayCore {
 		DRPCoreBlocks.postInit(event);
 		DRPCoreCapabilities.postInit(event);
 		DRPCoreGuis.postInit(event);
+		DRPCoreEvents.postInit(event);
 		DRPCoreEvents.postInit(event);
 		proxy.postInit(event);
 		
@@ -136,5 +138,6 @@ public class DarkRoleplayCore {
 	@EventHandler
 	public void serverLoad(FMLServerStartingEvent event){
 		event.registerServerCommand(new Command_Recipe());
+		event.registerServerCommand(new Command_Skill());
 	}
 }

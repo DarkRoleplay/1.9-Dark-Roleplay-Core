@@ -11,3 +11,6 @@ drpcore.update.openChangelog=or here to take first a look at the Changelog.
 
 drpcore.crafting.freeCrafting=Free Crafting
 crafting.defaultCategory.name=Default Category
+
+drpcore.skill.required_skill_points=Required Skill Points
+drpcore.skill.required=Amount

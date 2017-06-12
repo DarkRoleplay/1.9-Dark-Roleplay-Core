@@ -9,7 +9,9 @@ import net.dark_roleplay.drpcore.common.DRPCoreInfo;
 import net.dark_roleplay.drpcore.common.DarkRoleplayCore;
 import net.dark_roleplay.drpcore.common.crafting.CraftingRegistry;
 import net.dark_roleplay.drpcore.common.crafting.SimpleRecipe;
+import net.dark_roleplay.drpcore.common.crafting.json.SimpleRecipeLoader;
 import net.dark_roleplay.drpcore.common.handler.DRPCoreGuis;
+import net.dark_roleplay.drpcore.common.skills.SkillRegistry;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.ImageBufferDownload;
 import net.minecraft.client.renderer.ThreadDownloadImageData;
@@ -29,8 +31,8 @@ import net.minecraftforge.fml.common.gameevent.InputEvent.KeyInputEvent;
 
 public class DRPCoreKeybindings {
 
-	public static KeyBinding openCrafting = new KeyBinding("keyBinding.openCrafting", Keyboard.KEY_C,
-			"Dark Roleplay Core");
+	public static KeyBinding openCrafting = new KeyBinding("keyBinding.openCrafting", Keyboard.KEY_C,"Dark Roleplay Core");
+	public static KeyBinding openSkill = new KeyBinding("keyBinding.openSkill", Keyboard.KEY_K, "Dark Roleplay Core");
 	public static KeyBinding debugging = new KeyBinding("keyBinding.debuging", Keyboard.KEY_B, "Dark Roleplay Core");
 
 	public static void preInit(FMLPreInitializationEvent event) {
@@ -38,6 +40,7 @@ public class DRPCoreKeybindings {
 
 	public static void init(FMLInitializationEvent event) {
 		ClientRegistry.registerKeyBinding(openCrafting);
+		ClientRegistry.registerKeyBinding(openSkill);
 		ClientRegistry.registerKeyBinding(debugging);
 		MinecraftForge.EVENT_BUS.register(new DRPCoreKeybindings());
 	}
@@ -53,22 +56,19 @@ public class DRPCoreKeybindings {
 			player.openGui(DarkRoleplayCore.instance, DRPCoreGuis.DRPCORE_GUI_CRAFTING_RECIPESELECTION, player.world, player.getPosition().getX(), player.getPosition().getY(), player.getPosition().getZ());
 		}
 		
+		if(this.openSkill.isKeyDown()){
+			EntityPlayer player = Minecraft.getMinecraft().player;
+			player.openGui(DarkRoleplayCore.instance, DRPCoreGuis.DRPCORE_GUI_SKILL_POINT_OVERVIEW, player.world, player.getPosition().getX(), player.getPosition().getY(), player.getPosition().getZ());
+		}
+		
 		if(this.debugging.isKeyDown()) {
-			String textureName = "test.png";
-			File textureFile = null;
-			try { textureFile = new File(Minecraft.getMinecraft().mcDataDir.getCanonicalPath(), textureName); } catch (Exception ex) {}
+		//	if(SkillRegistry.hasSkills()){
 			
-				if (textureFile != null && textureFile.exists()) {
-					ResourceLocation MODEL_TEXTURE = new ResourceLocation("minecraft:textures/blocks/diamond_block.png");
+			SimpleRecipeLoader.loadRecipe();
+			
+			//Skill Overview
 
-					TextureManager texturemanager = Minecraft.getMinecraft().getTextureManager();
-					texturemanager.deleteTexture(MODEL_TEXTURE);
-					Object object = new ThreadDownloadImageData(textureFile, null, MODEL_TEXTURE, new ImageBufferDownload());
-					texturemanager.loadTexture(MODEL_TEXTURE, (ITextureObject)object);
-				}
-				
-//			EntityPlayer player = Minecraft.getMinecraft().player;
-//			player.openGui(DarkRoleplayCore.instance, DRPCoreGuis.DRPCORE_GUI_SKILL_TREE_SELECTION, player.world, player.getPosition().getX(), player.getPosition().getY(), player.getPosition().getZ());
+		//	}
 		}
 	}
 	

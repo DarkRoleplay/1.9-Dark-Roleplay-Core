@@ -24,7 +24,7 @@ import net.minecraft.world.World;
 
 public class MedicineBase extends DRPItem implements IExtendedRange{
 	public MedicineBase(String textures) {
-		super(textures);
+		super("medicine", textures, 1);
 	}
 	
 	@Override

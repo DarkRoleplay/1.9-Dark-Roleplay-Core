@@ -31,12 +31,12 @@ public class Command_Recipe extends DRPCommand{
 
 	@Override
 	public String getName() {
-		return "recipe";
+		return "drprecipe";
 	}
 
 	@Override
 	public String getUsage(ICommandSender sender) {
-		return "recipe <lock/unlock/progress/list> <recipe name> [progress value] [player]";
+		return "drprecipe <lock/unlock/progress/list> <recipe name> [progress value] [player]";
 	}
 
 	@Override

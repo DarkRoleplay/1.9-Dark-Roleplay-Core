@@ -23,7 +23,7 @@ import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 
-@JEIPlugin
+//@JEIPlugin
 public class DRPCoreJEIAddon implements IModPlugin{
 
 	public static final String DRPCoreCategory = "drpcore.general";

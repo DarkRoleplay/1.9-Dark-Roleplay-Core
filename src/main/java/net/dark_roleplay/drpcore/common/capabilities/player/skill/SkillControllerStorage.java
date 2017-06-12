@@ -6,8 +6,10 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import net.dark_roleplay.drpcore.common.skills.SkillItem;
-import net.dark_roleplay.drpcore.common.skills.SkillPoint;
+import net.dark_roleplay.drpcore.api.skills.Skill;
+import net.dark_roleplay.drpcore.api.skills.SkillPoint;
+import net.dark_roleplay.drpcore.common.handler.DRPCoreSkills;
+import net.dark_roleplay.drpcore.common.skills.SkillPointData;
 import net.dark_roleplay.drpcore.common.skills.SkillRegistry;
 import net.minecraft.nbt.NBTBase;
 import net.minecraft.nbt.NBTTagCompound;
@@ -21,15 +23,13 @@ public class SkillControllerStorage implements IStorage<ISkillController>{
     public NBTTagCompound writeNBT(Capability<ISkillController> capability, ISkillController instance, EnumFacing side) {
     	NBTTagCompound tag = new NBTTagCompound();
     	
-    	Map<SkillPoint, Integer> skillPoints = instance.getSkillPoints();
-    	Map<SkillPoint, Integer> skillLevel = instance.getSkillLevel();
-    	Map<SkillPoint, Integer> skillXP = instance.getSkillXP();
-    	List<SkillItem> unlockedSkills = instance.getUnlockedSkills();
+    	List<SkillPointData> skillPointDatas = instance.getSkillPoints();
+    	List<Skill> unlockedSkills = instance.getUnlockedSkills();
     	
     	
     	NBTTagCompound skills = new NBTTagCompound();
     	int i = 0;
-    	for(SkillItem item : unlockedSkills){
+    	for(Skill item : unlockedSkills){
     		skills.setString("skill_" + i, item.getRegistryName());
     		i++;
     	}
@@ -39,19 +39,16 @@ public class SkillControllerStorage implements IStorage<ISkillController>{
     	
     	NBTTagCompound points = new NBTTagCompound();
     	i = 0;
-    	Set<SkillPoint> requiredPoints = skillPoints.keySet();
-    	requiredPoints.addAll(skillLevel.keySet());
-    	requiredPoints.addAll(skillXP.keySet());
-    	for(SkillPoint item : requiredPoints){
-    		skills.setString("point_" + i, item.getRegistryName());
-    		skills.setInteger("point_amount_" + i, skillPoints.containsKey(item) ? skillPoints.get(item) : 0);
-    		skills.setInteger("points_level_" + i, skillLevel.containsKey(item) ? skillLevel.get(item) : 0);
-    		skills.setInteger("points_xp_" + i, skillXP.containsKey(item) ? skillXP.get(item) : 0);
+    	for(SkillPointData data : skillPointDatas){
+    		points.setString("point_" + i, data.getPoint().getRegistryName());
+    		points.setInteger("point_amount_" + i, data.getAmount());
+    		points.setInteger("points_level_" + i, data.getLevel());
+    		points.setInteger("points_xp_" + i, data.getXP());
     		i++;
     	}
     	
-    	tag.setInteger("skill_points", i);
-    	tag.setTag("skills", skills);
+    	tag.setInteger("skill_point_amount", i);
+    	tag.setTag("skill_points", points);
     	
         return tag;
     }
@@ -61,11 +58,30 @@ public class SkillControllerStorage implements IStorage<ISkillController>{
 		NBTTagCompound tag = (NBTTagCompound) nbt;
 		
 		NBTTagCompound skills = (NBTTagCompound) tag.getTag("skills");
+		if(!(tag.getTag("skill_points") instanceof NBTTagCompound))
+			return;
+		NBTTagCompound skillPoints = (NBTTagCompound) tag.getTag("skill_points");
+
 		int skillAmount = tag.getInteger("skill_amount");
+		int skillPointAmount = tag.getInteger("skill_point_amount");
 		
 		for(int i = 0; i < skillAmount; i ++){
 			String name = skills.getString("skill_" + i);
-			instance.unlockSkill(SkillRegistry.getSkillByName(name));
+			if(SkillRegistry.getSkillByName(name) != null)
+				instance.unlockSkill(SkillRegistry.getSkillByName(name));
+		}
+		
+		for(int i = 0; i < skillPointAmount; i++){
+			String name = skillPoints.getString("point_" + i);
+			int amount = skillPoints.getInteger("point_amount_" + i);
+			int level = skillPoints.getInteger("points_level_" + i);
+			int xp = skillPoints.getInteger("points_xp_" + i);
+			if(SkillRegistry.getSkillPointByName(name) != null){
+				SkillPoint point = SkillRegistry.getSkillPointByName(name);
+				instance.addSkillPoint(point, amount);
+				instance.increaseSkillLevel(point, level);
+				instance.increaseSkillXP(point, xp);
+			}
 		}
 	}
 }

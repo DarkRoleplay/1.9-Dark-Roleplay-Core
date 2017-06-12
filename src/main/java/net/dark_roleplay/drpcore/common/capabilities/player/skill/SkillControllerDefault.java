@@ -5,36 +5,45 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import net.dark_roleplay.drpcore.common.skills.SkillItem;
-import net.dark_roleplay.drpcore.common.skills.SkillPoint;
+import com.google.common.collect.Lists;
+import com.google.common.collect.Maps;
+
+import net.dark_roleplay.drpcore.api.skills.Skill;
+import net.dark_roleplay.drpcore.api.skills.SkillPoint;
+import net.dark_roleplay.drpcore.common.handler.DRPCorePackets;
+import net.dark_roleplay.drpcore.common.network.packets.skills.SyncPacket_SkillPoint;
+import net.dark_roleplay.drpcore.common.skills.SkillPointData;
 
 public class SkillControllerDefault implements ISkillController{
 
-	private Map<SkillPoint, Integer> skillPoints = new HashMap<SkillPoint, Integer>();
-	private Map<SkillPoint, Integer> skillPointLevel = new HashMap<SkillPoint, Integer>();
-	private Map<SkillPoint, Integer> skillPointXP = new HashMap<SkillPoint, Integer>();
-	private List<SkillItem> unlockedSkills = new ArrayList<SkillItem>();
-
+	private Map<SkillPoint, SkillPointData> skillPointDataKeys = Maps.newHashMap();
+	private List<Skill> unlockedSkills = Lists.newArrayList();
 
 	@Override
 	public void addSkillPoint(SkillPoint skillPoint, int amount) {
-		if(skillPoints.containsKey(skillPoint)){
-			int oldAmount = skillPoints.get(skillPoint);
-			skillPoints.replace(skillPoint, oldAmount + amount);
+		SkillPointData data;
+		if(skillPointDataKeys.containsKey(skillPoint)){
+			data = skillPointDataKeys.get(skillPoint);
+			data.setAmount(data.getAmount() + amount);
+			skillPointDataKeys.replace(skillPoint, data);
 		}else{
-			skillPoints.put(skillPoint, amount);
+			data = new SkillPointData(skillPoint, amount);
+			skillPointDataKeys.put(skillPoint, data);
 		}
 	}
 	
 	@Override
 	public boolean consumeSkillPoint(SkillPoint skillPoint, int amount) {
-		if(skillPoints.containsKey(skillPoint)){
-			int oldAmount = skillPoints.get(skillPoint);
-			if(oldAmount > amount){
-				skillPoints.replace(skillPoint, oldAmount - amount);
+		if(skillPointDataKeys.containsKey(skillPoint)){
+			SkillPointData data = skillPointDataKeys.get(skillPoint);
+			if((data.getAmount() - amount) < 0){
+				return false;
+			}else if(data.getAmount() - amount == 0){
+				skillPointDataKeys.remove(skillPoint);
 				return true;
-			}else if( oldAmount == amount){
-				skillPoints.remove(skillPoint);
+			}else{
+				data.setAmount(data.getAmount() - amount);
+				skillPointDataKeys.replace(skillPoint, data);
 				return true;
 			}
 		}
@@ -42,7 +51,7 @@ public class SkillControllerDefault implements ISkillController{
 	}
 
 	@Override
-	public boolean unlockSkill(SkillItem item) {
+	public boolean unlockSkill(Skill item) {
 		if(unlockedSkills.contains(item)){
 			return false;
 		}else{
@@ -52,7 +61,7 @@ public class SkillControllerDefault implements ISkillController{
 	}
 
 	@Override
-	public boolean hasSkill(SkillItem item) {
+	public boolean hasSkill(Skill item) {
 		if(unlockedSkills.contains(item)){
 			return true;
 		}else{
@@ -61,43 +70,70 @@ public class SkillControllerDefault implements ISkillController{
 	}
 
 	@Override
-	public Map<SkillPoint, Integer> getSkillPoints() {
-		return skillPoints;
+	public List<SkillPointData> getSkillPoints() {
+		return new ArrayList<SkillPointData>(skillPointDataKeys.values());
 	}
 
 	@Override
-	public List<SkillItem> getUnlockedSkills() {
+	public List<Skill> getUnlockedSkills() {
 		return unlockedSkills;
 	}
 
 	@Override
-	public Map<SkillPoint, Integer> getSkillXP() {
-		return skillPointXP;
-	}
-
-	@Override
 	public void increaseSkillXP(SkillPoint point, int amount) {
-		if(skillPointXP.containsKey(point)){
-			int oldAmount = skillPoints.get(point);
-			skillPointXP.replace(point, oldAmount + amount);
+		SkillPointData data;
+		if(skillPointDataKeys.containsKey(point)){
+			data = skillPointDataKeys.get(point);
+			data.setXP(data.getXP() + amount);
 		}else{
-			skillPointXP.put(point, amount);
+			data = new SkillPointData(point, 0, 0, amount);
 		}
-	}
-
-	@Override
-	public Map<SkillPoint, Integer> getSkillLevel() {
-		return skillPointLevel;
+		if(data.getXP() > point.getRequiredXP(data.getLevel() + 1) && point.getMaxLevel() <= data.getLevel() + 1){
+			data.setLevel(data.getLevel() + 1);
+			data.setXP(data.getXP() - point.getRequiredXP(data.getLevel() + 1));
+		}
+		skillPointDataKeys.put(point, data);
 	}
 
 	@Override
 	public void increaseSkillLevel(SkillPoint point, int amount) {
-		if(skillPointLevel.containsKey(point)){
-			int oldAmount = skillPoints.get(point);
-			skillPointLevel.replace(point, oldAmount + amount);
+		SkillPointData data;
+		if(skillPointDataKeys.containsKey(point)){
+			data = skillPointDataKeys.get(point);
+			data.setLevel(data.getLevel() + amount);
+			if(point.getMaxLevel() > data.getLevel()){
+				data.setLevel(point.getMaxLevel());
+			}
 		}else{
-			skillPointLevel.put(point, amount);
+			data = new SkillPointData(point, 0, amount, 0);
 		}
+		skillPointDataKeys.put(point, data);
+	}
+
+	@Override
+	public SkillPointData getSkillPointData(SkillPoint point) {
+		if(skillPointDataKeys.containsKey(point)){
+			return skillPointDataKeys.get(point);
+		}else{
+			return new SkillPointData(point);
+		}
+	}
+
+	@Override
+	public void unlockSkills(List<Skill> skills) {
+		this.unlockedSkills.addAll(skills);
+		
+	}
+
+	@Override
+	public void addPoints(List<SkillPointData> datas) {
+		for(SkillPointData data : datas)
+			this.skillPointDataKeys.put(data.getPoint(), data);	
+	}
+
+	@Override
+	public void setSkillPointData(SkillPointData data) {
+		this.skillPointDataKeys.put(data.getPoint(), data);	
 	}
 
 

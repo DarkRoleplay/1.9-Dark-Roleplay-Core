@@ -1,6 +1,7 @@
 package net.dark_roleplay.drpcore.client.events.ticks;
 
 import net.dark_roleplay.drpcore.api.gui.ITimedGui;
+import net.dark_roleplay.drpcore.client.ClientProxy;
 import net.minecraft.client.Minecraft;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent;
@@ -15,6 +16,10 @@ public class Event_ClientTick {
 				ITimedGui gui = (ITimedGui) Minecraft.getMinecraft().currentScreen;
 				gui.tick();;
 			}
+		}
+		
+		if(ClientProxy.currentTick ++ > 20){
+			ClientProxy.currentTick = 1;
 		}
 	
 		//TODO ADD INFORMATION GUI

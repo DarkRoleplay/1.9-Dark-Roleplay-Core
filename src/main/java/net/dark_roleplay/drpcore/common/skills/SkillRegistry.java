@@ -5,29 +5,39 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.google.common.collect.Lists;
+import com.google.common.collect.Maps;
+
+import net.dark_roleplay.drpcore.api.skills.Skill;
+import net.dark_roleplay.drpcore.api.skills.SkillPoint;
+import net.dark_roleplay.drpcore.api.skills.SkillTree;
+
 public class SkillRegistry {
 	
-	private static List<SkillTree> skillTrees = new ArrayList<SkillTree>();
+	private static List<SkillTree> skillTrees = Lists.newArrayList();
 	
-	private static Map<String, SkillItem> skills = new HashMap<String, SkillItem>();
+	private static List<SkillPoint> skillPoints = Lists.newArrayList();
 	
-	private static Map<String, SkillPoint> skillPoints = new HashMap<String, SkillPoint>();
+	private static Map<String, Skill> skillKeys = Maps.newHashMap();
 	
-	private static void registerSkillPoint(SkillPoint point){
+	private static Map<String, SkillPoint> skillPointKeys = Maps.newHashMap();
+
+	
+	public static void registerSkillPoint(SkillPoint point){
 		if(point != null){
-			if(!skillPoints.containsKey(point.getRegistryName())){
-				skillPoints.put(point.getRegistryName(), point);
-			}
+			skillPoints.add(point);
+			skillPointKeys.put(point.getRegistryName(), point);
 		}
 	}
 	
 	public static void registerSkillTree(SkillTree tree){
 		if(tree != null){
 			skillTrees.add(tree);
-			List<SkillItem> items = tree.getSkills();
-			for(SkillItem item : items){
-				skills.put(item.getRegistryName(), item);
-				registerSkillPoint(item.getRequiredPoint());
+			
+			for(Skill skill : tree.getSkills()){
+				if(!skillKeys.containsKey(skill.getRegistryName())){
+					skillKeys.put(skill.getRegistryName(), skill);
+				}
 			}
 		}
 	}
@@ -36,17 +46,19 @@ public class SkillRegistry {
 		return skillTrees.get(pos);
 	}
 	
-	public static SkillItem getSkillByName(String registryName){
-		if(skills.containsKey(registryName)){
-			return skills.get(registryName);
-		}
-		return null;
+	public static List<SkillTree> getSkillTrees(){
+		return skillTrees;
+	}
+	
+	public static Skill getSkillByName(String registryName){
+		return skillKeys.containsKey(registryName) ? skillKeys.get(registryName) : null;
 	}
 	
 	public static SkillPoint getSkillPointByName(String registryName){
-		if(skillPoints.containsKey(registryName)){
-			return skillPoints.get(registryName);
-		}
-		return null;
+		return skillPointKeys.containsKey(registryName) ? skillPointKeys.get(registryName) : null;
+	}
+	
+	public static List<SkillPoint> getSkillPoints(){
+		return skillPoints;
 	}
 }

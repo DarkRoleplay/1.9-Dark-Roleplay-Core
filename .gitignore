@@ -20,3 +20,4 @@ gradle.properties
 gradlew
 greadle.bat
 *.launch
+.metadata/
