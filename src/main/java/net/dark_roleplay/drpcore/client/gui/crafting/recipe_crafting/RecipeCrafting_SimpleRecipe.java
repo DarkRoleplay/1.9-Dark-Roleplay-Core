@@ -15,11 +15,11 @@ import net.dark_roleplay.drpcore.common.DRPCoreInfo;
 import net.dark_roleplay.drpcore.common.DarkRoleplayCore;
 import net.dark_roleplay.drpcore.common.config.SyncedConfigRegistry;
 import net.dark_roleplay.drpcore.common.crafting.CraftingRegistry;
-import net.dark_roleplay.drpcore.common.crafting.SimpleRecipe;
+import net.dark_roleplay.drpcore.common.crafting.simple_recipe.SimpleRecipe;
 import net.dark_roleplay.drpcore.common.handler.DRPCoreCapabilities;
 import net.dark_roleplay.drpcore.common.handler.DRPCoreGuis;
 import net.dark_roleplay.drpcore.common.handler.DRPCorePackets;
-import net.dark_roleplay.drpcore.common.network.packets.crafting.Initialize_SimpleRecipe;
+import net.dark_roleplay.drpcore.common.network.packets.crafting.Packet_InitSimpleRecipe;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.GuiButton;
@@ -129,7 +129,7 @@ public class RecipeCrafting_SimpleRecipe extends DRPGuiScreen implements ITimedG
 	protected void drawForeground(int mouseX, int mouseY, float partialTicks) {
 		inventory = Minecraft.getMinecraft().player.inventory;
 		
-		FontRenderer font = Minecraft.getMinecraft().fontRendererObj;
+		FontRenderer font = Minecraft.getMinecraft().fontRenderer;
 		
 //		this.outputs = recipe.getMainOutput().clone();
 //		this.inputs = recipe.getMainIngredients().clone();
@@ -147,7 +147,7 @@ public class RecipeCrafting_SimpleRecipe extends DRPGuiScreen implements ITimedG
 		for (GhostSlot slot : outputSlots) {
 			if (slot.getStack() != null) {
 				this.itemRender.renderItemIntoGUI(slot.getStack(), slot.getPosX(), slot.getPosY());
-				this.itemRender.renderItemOverlayIntoGUI(this.fontRendererObj, slot.getStack(), slot.getPosX(),
+				this.itemRender.renderItemOverlayIntoGUI(this.fontRenderer, slot.getStack(), slot.getPosX(),
 						slot.getPosY(),
 						slot.getStack().getCount() == 1 ? null : String.valueOf(slot.getStack().getCount()));
 			}
@@ -167,7 +167,7 @@ public class RecipeCrafting_SimpleRecipe extends DRPGuiScreen implements ITimedG
 		for (GhostSlot slot : ingredientSlots) {
 			if (slot.getStack() != null) {
 				this.itemRender.renderItemIntoGUI(slot.getStack(), slot.getPosX(), slot.getPosY());
-				this.itemRender.renderItemOverlayIntoGUI(this.fontRendererObj, slot.getStack(), slot.getPosX(),
+				this.itemRender.renderItemOverlayIntoGUI(this.fontRenderer, slot.getStack(), slot.getPosX(),
 						slot.getPosY(),
 						slot.getStack().getCount() == 1 ? null : String.valueOf(slot.getStack().getCount()));
 			}
@@ -182,7 +182,7 @@ public class RecipeCrafting_SimpleRecipe extends DRPGuiScreen implements ITimedG
 		for (GhostSlot slot : inventorySlots) {
 			if (slot.getStack() != null && !slot.getStack().isEmpty()) {
 				this.itemRender.renderItemIntoGUI(slot.getStack(), slot.getPosX(), slot.getPosY());
-				this.itemRender.renderItemOverlayIntoGUI(this.fontRendererObj, slot.getStack(), slot.getPosX(),
+				this.itemRender.renderItemOverlayIntoGUI(this.fontRenderer, slot.getStack(), slot.getPosX(),
 						slot.getPosY(),
 						slot.getStack().getCount() == 1 ? null : String.valueOf(slot.getStack().getCount()));
 			}
@@ -214,7 +214,7 @@ public class RecipeCrafting_SimpleRecipe extends DRPGuiScreen implements ITimedG
 					if(multiplier == 1)
 					add("and Hold to craft mutliple");
 				}
-			}, mouseX, mouseY, (font == null ? fontRendererObj : font));
+			}, mouseX, mouseY, (font == null ? fontRenderer : font));
 		}
 		
 		if(!this.enableMultiplier && (incMultiplier.isMouseOver() || decMultiplier.isMouseOver())){
@@ -224,7 +224,7 @@ public class RecipeCrafting_SimpleRecipe extends DRPGuiScreen implements ITimedG
 					add("You can enable it in the configs.");
 					add("(Needs to be enabled on servers too)");
 				}
-			}, mouseX, mouseY, (font == null ? fontRendererObj : font));
+			}, mouseX, mouseY, (font == null ? fontRenderer : font));
 		}
 
 	}
@@ -237,7 +237,7 @@ public class RecipeCrafting_SimpleRecipe extends DRPGuiScreen implements ITimedG
 	protected void actionPerformed(GuiButton button) throws IOException {
 
 		if (button.id == this.craft.id) {
-			DRPCorePackets.sendToServer(new Initialize_SimpleRecipe(this.recipe.getRegistryName(), this.multiplier));
+			DRPCorePackets.sendToServer(new Packet_InitSimpleRecipe(this.recipe.getRegistryName(), this.multiplier));
 			if(this.multiplier == 1)
 				this.craftButtonHold = 1;
 		} else if (button.id == this.ingScrollLeft.id) {
@@ -279,7 +279,7 @@ public class RecipeCrafting_SimpleRecipe extends DRPGuiScreen implements ITimedG
 				ticksTillCraft--;
 				if (ticksTillCraft <= 0) {
 					ticksTillCraft = 3;
-					DRPCorePackets.sendToServer(new Initialize_SimpleRecipe(this.recipe.getRegistryName(), this.multiplier));
+					DRPCorePackets.sendToServer(new Packet_InitSimpleRecipe(this.recipe.getRegistryName(), this.multiplier));
 				}
 			}
 		} else if (this.craftButtonHold > 0) {

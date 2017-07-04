@@ -3,22 +3,22 @@ package net.dark_roleplay.drpcore.common.network.packets.config;
 import io.netty.buffer.ByteBuf;
 import net.dark_roleplay.drpcore.common.config.SyncedConfigRegistry;
 import net.dark_roleplay.drpcore.common.network.PacketBase;
-import net.dark_roleplay.drpcore.common.network.packets.crafting.Initialize_SimpleRecipe;
+import net.dark_roleplay.drpcore.common.network.packets.crafting.Packet_InitSimpleRecipe;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraftforge.fml.common.network.ByteBufUtils;
 
-public class Packet_SyncBoolean extends PacketBase<Packet_SyncBoolean>{
+public class SyncPacket_Boolean extends PacketBase<SyncPacket_Boolean>{
 
 	private String key;
 	
 	private boolean value;
 
-	public Packet_SyncBoolean(){
+	public SyncPacket_Boolean(){
 		this.key = null;
 		this.value = false;
 	}
 	
-	public Packet_SyncBoolean(String key, boolean value){
+	public SyncPacket_Boolean(String key, boolean value){
 		this.key = key;
 		this.value = value;
 	}
@@ -36,10 +36,10 @@ public class Packet_SyncBoolean extends PacketBase<Packet_SyncBoolean>{
 	}
 
 	@Override
-	public void handleClientSide(Packet_SyncBoolean message, EntityPlayer player) {
+	public void handleClientSide(SyncPacket_Boolean message, EntityPlayer player) {
 		SyncedConfigRegistry.addBooleanValue(message.key, message.value, true);
 	}
 
 	@Override
-	public void handleServerSide(Packet_SyncBoolean message, EntityPlayer player) {}
+	public void handleServerSide(SyncPacket_Boolean message, EntityPlayer player) {}
 }

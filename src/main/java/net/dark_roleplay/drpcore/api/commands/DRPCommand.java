@@ -15,7 +15,12 @@ import net.minecraft.util.ResourceLocation;
 
 public abstract class DRPCommand implements ICommand{
 
-	
+	/**
+	 * Trys to get the Sender as a Player
+	 * @param sender
+	 * @return EntityPlayerMP
+	 * @throws PlayerNotFoundException
+	 */
 	public static EntityPlayerMP getCommandSenderAsPlayer(ICommandSender sender) throws PlayerNotFoundException{
         if (sender instanceof EntityPlayerMP){
             return (EntityPlayerMP)sender;
@@ -24,6 +29,13 @@ public abstract class DRPCommand implements ICommand{
         }
     }
 	
+	/**
+	 * Returns an Item by it's registry name
+	 * @param sender
+	 * @param id
+	 * @return Item
+	 * @throws NumberInvalidException
+	 */
 	public static Item getItemByText(ICommandSender sender, String id) throws NumberInvalidException{
         ResourceLocation resourcelocation = new ResourceLocation(id);
         Item item = (Item)Item.REGISTRY.getObject(resourcelocation);
@@ -35,9 +47,18 @@ public abstract class DRPCommand implements ICommand{
         }
     }
 	
+	/**
+	 * Trys to get a Player Object by the Players name
+	 * @param server
+	 * @param sender
+	 * @param target
+	 * @return
+	 * @throws PlayerNotFoundException
+	 * @throws CommandException
+	 */
 	public static EntityPlayerMP getPlayer(MinecraftServer server, ICommandSender sender, String target) throws PlayerNotFoundException, CommandException{
         EntityPlayerMP entityplayermp = EntitySelector.matchOnePlayer(sender, target);
-
+        
         if (entityplayermp == null){
             try{
                 entityplayermp = server.getPlayerList().getPlayerByUUID(UUID.fromString(target));

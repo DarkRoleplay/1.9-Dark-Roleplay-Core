@@ -158,11 +158,11 @@ public class RecipeSelection extends DRPGuiScreen{
 	@Override
 	protected void drawForeground(int mouseX, int mouseY, float partialTicks) {
 		//"Labels"
-		String toPrint = this.fontRendererObj.trimStringToWidth(I18n.translateToLocal("crafting.category." + this.categorys.get(this.selectedCategory + this.categoryOffset) + ".name"), 156);
-		this.fontRendererObj.drawString(toPrint, this.guiLeft + 95 - (this.fontRendererObj.getStringWidth(toPrint)/2), this.guiTop + 29, 16777215, true);
+		String toPrint = this.fontRenderer.trimStringToWidth(I18n.translateToLocal("crafting.category." + this.categorys.get(this.selectedCategory + this.categoryOffset) + ".name"), 156);
+		this.fontRenderer.drawString(toPrint, this.guiLeft + 95 - (this.fontRenderer.getStringWidth(toPrint)/2), this.guiTop + 29, 16777215, true);
 		
-		toPrint = this.fontRendererObj.trimStringToWidth("Page " + String.valueOf(this.recipePage + 1) + "/" + String.valueOf(this.maxRecipePages + 1), 136);
-		this.fontRendererObj.drawString(toPrint, this.guiLeft + 95 - (this.fontRendererObj.getStringWidth(toPrint)/2), this.guiTop + 119, 16777215, true);
+		toPrint = this.fontRenderer.trimStringToWidth("Page " + String.valueOf(this.recipePage + 1) + "/" + String.valueOf(this.maxRecipePages + 1), 136);
+		this.fontRenderer.drawString(toPrint, this.guiLeft + 95 - (this.fontRenderer.getStringWidth(toPrint)/2), this.guiTop + 119, 16777215, true);
 
 		for (int i = 0; i < 18; ++i){
 			if (this.isMouseOverButton(recipeButtons[i], mouseX, mouseY)){
@@ -175,7 +175,7 @@ public class RecipeSelection extends DRPGuiScreen{
 	}
 	
 	private boolean isMouseOverButton(Button_RecipeSelection btn, int mouseX, int mouseY){
-        return this.isPointInRegion(btn.xPosition, btn.yPosition, btn.width, btn.height, mouseX, mouseY);
+        return this.isPointInRegion(btn.x, btn.y, btn.width, btn.height, mouseX, mouseY);
     }
 	
 	protected boolean isPointInRegion(int rectX, int rectY, int rectWidth, int rectHeight, int pointX, int pointY){

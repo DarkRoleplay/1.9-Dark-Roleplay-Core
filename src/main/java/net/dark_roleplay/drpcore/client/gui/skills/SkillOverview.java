@@ -32,7 +32,7 @@ import net.dark_roleplay.drpcore.common.capabilities.player.skill.ISkillControll
 import net.dark_roleplay.drpcore.common.handler.DRPCoreCapabilities;
 import net.dark_roleplay.drpcore.common.handler.DRPCoreGuis;
 import net.dark_roleplay.drpcore.common.handler.DRPCorePackets;
-import net.dark_roleplay.drpcore.common.network.packets.crafting.Initialize_SimpleRecipe;
+import net.dark_roleplay.drpcore.common.network.packets.crafting.Packet_InitSimpleRecipe;
 import net.dark_roleplay.drpcore.common.network.packets.skills.Packet_UnlockSkill;
 import net.dark_roleplay.drpcore.common.skills.SkillPointData;
 import net.dark_roleplay.drpcore.common.skills.SkillRegistry;
@@ -41,7 +41,6 @@ import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.client.renderer.Tessellator;
-import net.minecraft.client.renderer.VertexBuffer;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.translation.I18n;
@@ -77,6 +76,12 @@ public class SkillOverview extends DRPGuiScreen {
 	private ISkillController skillCap;
 	
 	private Button_UnlockSkill unlockSkill;
+	private Button_Change skillTreePrev;
+	private Button_Change skillTreeNext;
+
+	private Button_Change skillPointPrev;
+	private Button_Change skillPointNext;
+
 	
 	public SkillOverview() {
 		super(bg, 1000, 500);
@@ -97,8 +102,28 @@ public class SkillOverview extends DRPGuiScreen {
 		short buttonID = 0;
 		int framePosX = 120 + 7;
 		int framePosY = this.height - 101 + 7;
-		unlockSkill = new Button_UnlockSkill(0, framePosX + this.width - 268, framePosY + 63);
+
+		int i = 0;
+		
+		unlockSkill = new Button_UnlockSkill(i++, framePosX + this.width - 268, framePosY + 63);
 		this.buttonList.add(unlockSkill);
+		
+		framePosX = 125;
+		framePosY = 6;
+		
+		skillTreePrev = new Button_Change(i++, framePosX + 2, framePosY + this.height - 127, false);
+		skillTreeNext = new Button_Change(i++, this.width - 18, framePosY + this.height - 127, true);
+		this.buttonList.add(skillTreePrev);
+		this.buttonList.add(skillTreeNext);
+		
+		framePosX = 7;
+		framePosY = 7;
+		
+		skillPointPrev = new Button_Change(i++, framePosX + 1, framePosY + this.height - 26, false);
+		skillPointNext = new Button_Change(i++, framePosX + 94, framePosY + this.height - 26, true);
+		this.buttonList.add(skillPointPrev);
+		this.buttonList.add(skillPointNext);
+		
 	}
 	
 	protected void drawBackground(int mouseX, int mouseY, float partialTicks) {
@@ -166,7 +191,7 @@ public class SkillOverview extends DRPGuiScreen {
 		
 		//Skills
 		
-		/** SKILL WINDOW**/
+		/** SKILL TREE WINDOW**/
 		framePosX = 125;
 		framePosY = 6;
 		
@@ -220,16 +245,16 @@ public class SkillOverview extends DRPGuiScreen {
 			String localizedName = I18n.translateToLocal(this.hoveredSkill.getUnlocalizedName());
 			String localizedDesc = I18n.translateToLocal(this.hoveredSkill.getUnlocalizedDesc());
 			SkillRequirements points = this.hoveredSkill.getRequirements();
-			int lineHeight = this.fontRendererObj.getWordWrappedHeight(localizedDesc, 101) / 8;
+			int lineHeight = this.fontRenderer.getWordWrappedHeight(localizedDesc, 101) / 8;
 
 			//Desc
 			this.itemRender.renderItemIntoGUI(hoveredSkill.getDisplayTexture(), framePosX + 2, framePosY + 2);
 			
-			this.fontRendererObj.drawStringWithShadow(localizedName, framePosX + 25, framePosY + 5, COLOR_WHITE);
+			this.fontRenderer.drawStringWithShadow(localizedName, framePosX + 25, framePosY + 5, COLOR_WHITE);
 			
-			this.fontRendererObj.drawSplitString(localizedDesc, framePosX + 3, framePosY + 26, this.width - 248, (COLOR_WHITE & 16579836) >> 2);
+			this.fontRenderer.drawSplitString(localizedDesc, framePosX + 3, framePosY + 26, this.width - 248, (COLOR_WHITE & 16579836) >> 2);
 
-			this.fontRendererObj.drawSplitString(localizedDesc, framePosX + 2, framePosY + 25, this.width - 248, COLOR_WHITE);
+			this.fontRenderer.drawSplitString(localizedDesc, framePosX + 2, framePosY + 25, this.width - 248, COLOR_WHITE);
 
 			int i = 0;
 
@@ -242,8 +267,8 @@ public class SkillOverview extends DRPGuiScreen {
 				this.mc.renderEngine.bindTexture(this.bgTexture);
 				this.drawTexturedModalRect(pointX, pointY, 0, 234,  105, 22);
 				this.itemRender.renderItemIntoGUI(point.getDisplayStack(), pointX + 3, pointY + 3);
-				this.fontRendererObj.drawString(I18n.translateToLocal(point.getUnlocalizedName()), pointX + 21, pointY + 2, COLOR_DARK_GRAY);
-				this.fontRendererObj.drawString(I18n.translateToLocal("drpcore.skill.required") + ": " + points.getRequiredAmount(point), pointX + 21, pointY + 11, COLOR_DARK_GRAY);
+				this.fontRenderer.drawString(I18n.translateToLocal(point.getUnlocalizedName()), pointX + 21, pointY + 2, COLOR_DARK_GRAY);
+				this.fontRenderer.drawString(I18n.translateToLocal("drpcore.skill.required") + ": " + points.getRequiredAmount(point), pointX + 21, pointY + 11, COLOR_DARK_GRAY);
 				i++;
 			}
 		}
@@ -253,16 +278,16 @@ public class SkillOverview extends DRPGuiScreen {
 			String localizedName = I18n.translateToLocal(this.selectedSkill.getUnlocalizedName());
 			String localizedDesc = I18n.translateToLocal(this.selectedSkill.getUnlocalizedDesc());
 			SkillRequirements points = this.selectedSkill.getRequirements();
-			int lineHeight = this.fontRendererObj.getWordWrappedHeight(localizedDesc, 101) / 8;
+			int lineHeight = this.fontRenderer.getWordWrappedHeight(localizedDesc, 101) / 8;
 
 			//Desc
 			this.itemRender.renderItemIntoGUI(selectedSkill.getDisplayTexture(), framePosX + 2, framePosY + 2);
 			
-			this.fontRendererObj.drawStringWithShadow(localizedName, framePosX + 25, framePosY + 5, COLOR_WHITE);
+			this.fontRenderer.drawStringWithShadow(localizedName, framePosX + 25, framePosY + 5, COLOR_WHITE);
 			
-			this.fontRendererObj.drawSplitString(localizedDesc, framePosX + 3, framePosY + 26, this.width - 248, (COLOR_WHITE & 16579836) >> 2);
+			this.fontRenderer.drawSplitString(localizedDesc, framePosX + 3, framePosY + 26, this.width - 248, (COLOR_WHITE & 16579836) >> 2);
 
-			this.fontRendererObj.drawSplitString(localizedDesc, framePosX + 2, framePosY + 25, this.width - 248, COLOR_WHITE);
+			this.fontRenderer.drawSplitString(localizedDesc, framePosX + 2, framePosY + 25, this.width - 248, COLOR_WHITE);
 
 			int i = 0;
 
@@ -275,8 +300,8 @@ public class SkillOverview extends DRPGuiScreen {
 				this.mc.renderEngine.bindTexture(this.bgTexture);
 				this.drawTexturedModalRect(pointX, pointY, 0, 234,  105, 22);
 				this.itemRender.renderItemIntoGUI(point.getDisplayStack(), pointX + 3, pointY + 3);
-				this.fontRendererObj.drawString(I18n.translateToLocal(point.getUnlocalizedName()), pointX + 21, pointY + 2, COLOR_DARK_GRAY);
-				this.fontRendererObj.drawString(I18n.translateToLocal("drpcore.skill.required") + ": " + points.getRequiredAmount(point), pointX + 21, pointY + 11, COLOR_DARK_GRAY);
+				this.fontRenderer.drawString(I18n.translateToLocal(point.getUnlocalizedName()), pointX + 21, pointY + 2, COLOR_DARK_GRAY);
+				this.fontRenderer.drawString(I18n.translateToLocal("drpcore.skill.required") + ": " + points.getRequiredAmount(point), pointX + 21, pointY + 11, COLOR_DARK_GRAY);
 				i++;
 			}
 		}
@@ -297,11 +322,11 @@ public class SkillOverview extends DRPGuiScreen {
 			this.drawTexturedModalRect(framePosX, framePosY + (i * 27), 105, 229, 105, 27);
 
 			this.itemRender.renderItemIntoGUI(data.getPoint().getDisplayStack(), framePosX + 3, framePosY + (i * 27) + 3);
- 			this.itemRender.renderItemOverlayIntoGUI(this.fontRendererObj, data.getPoint().getDisplayStack(), framePosX + 3, framePosY + (i * 27) + 3, String.valueOf(data.getAmount()));
+ 			this.itemRender.renderItemOverlayIntoGUI(this.fontRenderer, data.getPoint().getDisplayStack(), framePosX + 3, framePosY + (i * 27) + 3, String.valueOf(data.getAmount()));
             GlStateManager.disableLighting();
-			this.fontRendererObj.drawStringWithShadow(I18n.translateToLocal(data.getPoint().getUnlocalizedName()), framePosX + 21, framePosY + (i * 27) + 2, COLOR_WHITE);
+			this.fontRenderer.drawStringWithShadow(I18n.translateToLocal(data.getPoint().getUnlocalizedName()), framePosX + 21, framePosY + (i * 27) + 2, COLOR_WHITE);
 
-			this.fontRendererObj.drawStringWithShadow("LvL: " + data.getLevel(), framePosX + 21, framePosY + (i * 27) + 10, COLOR_WHITE);
+			this.fontRenderer.drawStringWithShadow("LvL: " + data.getLevel(), framePosX + 21, framePosY + (i * 27) + 10, COLOR_WHITE);
 			this.mc.renderEngine.bindTexture(this.bgTexture);
 			this.drawTexturedModalRect(framePosX + 3, framePosY + (i * 27) + 21, 108, 226, (int)(99 * (((float) data.getXP())/ (data.getPoint().getRequiredXP(data.getLevel()) + 1f))), 3);
 		}
@@ -367,7 +392,7 @@ public class SkillOverview extends DRPGuiScreen {
 	@Override
 	protected void actionPerformed(GuiButton button) throws IOException {
 
-		if (button.id == 0) {
+		if (button.id == unlockSkill.id) {
 			if(this.selectedSkill != null){
 				if(!this.skillCap.hasSkill(this.selectedSkill)){
 					SkillRequirements req = this.selectedSkill.getRequirements();
@@ -390,6 +415,20 @@ public class SkillOverview extends DRPGuiScreen {
 					this.selectedSkill.unlock(Minecraft.getMinecraft().player);
 				}
 			}
+		}else if(button.id == skillTreePrev.id){
+			pixelXOffset = 0;  pixelYOffset = 0;
+			skillTree--;
+			if(skillTree < 0){
+				 skillTree = skillTrees.size();
+			}
+			skills = skillTrees.get(skillTree).getSkills();
+		}else if(button.id == skillTreeNext.id){
+			pixelXOffset = 0;  pixelYOffset = 0;
+			skillTree++;
+			if(skillTree >= skillTrees.size()){
+				skillTree = 0;
+			}
+			skills = skillTrees.get(skillTree).getSkills();
 		}
 	}
 }

@@ -9,11 +9,12 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiLabel;
 import net.minecraft.client.gui.GuiScreen;
+import net.minecraft.client.renderer.BufferBuilder;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.client.renderer.Tessellator;
-import net.minecraft.client.renderer.VertexBuffer;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
+import net.minecraft.client.renderer.vertex.VertexBuffer;
 import net.minecraft.inventory.ClickType;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.event.GuiScreenEvent;
@@ -101,7 +102,7 @@ public abstract class DRPGuiScreen extends GuiScreen{
 	protected void drawButtons(int mouseX, int mouseY, float partialTicks) {
 		GL11.glDisable(GL11.GL_LIGHTING);
 		for (int i = 0; i < this.buttonList.size(); ++i) {
-			((GuiButton) this.buttonList.get(i)).drawButton(this.mc, mouseX, mouseY);
+			((GuiButton) this.buttonList.get(i)).drawButton(this.mc, mouseX, mouseY, partialTicks);
 		}
 
 		for (int j = 0; j < this.labelList.size(); ++j) {
@@ -121,7 +122,7 @@ public abstract class DRPGuiScreen extends GuiScreen{
 		float f1 = (float) (color >> 8 & 255) / 255.0F;
 		float f2 = (float) (color & 255) / 255.0F;
 		Tessellator tessellator = Tessellator.getInstance();
-		VertexBuffer vertexbuffer = tessellator.getBuffer();
+		BufferBuilder vertexbuffer = tessellator.getBuffer();
 		GlStateManager.enableBlend();
 		GlStateManager.disableTexture2D();
 		GlStateManager.tryBlendFuncSeparate(GlStateManager.SourceFactor.SRC_ALPHA,

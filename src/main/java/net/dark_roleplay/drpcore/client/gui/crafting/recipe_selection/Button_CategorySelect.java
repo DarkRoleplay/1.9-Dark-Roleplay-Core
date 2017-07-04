@@ -14,10 +14,10 @@ public class Button_CategorySelect extends GuiButton {
 	}
 
 	@Override
-	public void drawButton(Minecraft mc, int mouseX, int mouseY) {
-		this.hovered = mouseX >= this.xPosition && mouseY >= this.yPosition && mouseX < this.xPosition + this.width && mouseY < this.yPosition + this.height;
+	public void drawButton(Minecraft mc, int mouseX, int mouseY, float partialTicks) {
+		this.hovered = mouseX >= this.x && mouseY >= this.y && mouseX < this.x + this.width && mouseY < this.y + this.height;
 		if(this.hovered) {
-			this.drawGradientRect(this.xPosition, this.yPosition, this.xPosition + this.width,this.yPosition + this.height, 0x80FFFFFF, 0x80FFFFFF);
+			this.drawGradientRect(this.x, this.y, this.x + this.width,this.y + this.height, 0x80FFFFFF, 0x80FFFFFF);
 		}
 	}
 }

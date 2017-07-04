@@ -11,7 +11,7 @@ import net.dark_roleplay.drpcore.common.capabilities.player.skill.ISkillControll
 import net.dark_roleplay.drpcore.common.config.SyncedConfigRegistry;
 import net.dark_roleplay.drpcore.common.handler.DRPCoreCapabilities;
 import net.dark_roleplay.drpcore.common.handler.DRPCorePackets;
-import net.dark_roleplay.drpcore.common.network.packets.crafting.SyncPlayerRecipeState;
+import net.dark_roleplay.drpcore.common.network.packets.crafting.SyncPacket_PlayerRecipeState;
 import net.dark_roleplay.drpcore.common.network.packets.skills.SyncPacket_Skill;
 import net.dark_roleplay.drpcore.common.network.packets.skills.SyncPacket_SkillPoint;
 import net.dark_roleplay.drpcore.common.skills.SkillPointData;
@@ -33,14 +33,14 @@ public class Event_PlayerLoggedIn {
 			ISkillController slC = player.getCapability(DRPCoreCapabilities.DRPCORE_SKILL_CONTROLLER, null);
 			
 			for(String recipe : rpC.getUnlockedRecipes()){
-				DRPCorePackets.sendTo(new SyncPlayerRecipeState(recipe,0,0F), player);
+				DRPCorePackets.sendTo(new SyncPacket_PlayerRecipeState(recipe,0,0F), player);
 			}
 			for(String recipe : rpC.getLockedRecipes()){
-				DRPCorePackets.sendTo(new SyncPlayerRecipeState(recipe,1,0F), player);
+				DRPCorePackets.sendTo(new SyncPacket_PlayerRecipeState(recipe,1,0F), player);
 			}
 			Map<String,Float> progressed = rpC.getProgressedRecipes();
 			for(String recipe : progressed.keySet()){
-				DRPCorePackets.sendTo(new SyncPlayerRecipeState(recipe,2,progressed.get(recipe)), player);
+				DRPCorePackets.sendTo(new SyncPacket_PlayerRecipeState(recipe,2,progressed.get(recipe)), player);
 			}
 			
 			for(SkillPointData data : slC.getSkillPoints()){

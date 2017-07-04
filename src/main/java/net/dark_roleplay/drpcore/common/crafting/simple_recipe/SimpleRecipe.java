@@ -1,5 +1,6 @@
-package net.dark_roleplay.drpcore.common.crafting;
+package net.dark_roleplay.drpcore.common.crafting.simple_recipe;
 
+import net.dark_roleplay.drpcore.common.crafting.CraftingRegistry;
 import net.minecraft.block.Block;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
@@ -26,7 +27,7 @@ public class SimpleRecipe {
 		this(registryName, mainOutput, mainIngredients);
 		this.station = station;
 		this.category = category;
-		this.crafter = new SimpleCrafter();
+		this.crafter = CraftingRegistry.SIMPLE_CRAFTER_INSTANCE;
 	}
 	
 	public SimpleRecipe(ResourceLocation registryName, ItemStack[] mainOutput, ItemStack[] mainIngredients){

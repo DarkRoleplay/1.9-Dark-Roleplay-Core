@@ -6,7 +6,7 @@ import java.util.List;
 
 import mezz.jei.api.ingredients.IIngredients;
 import mezz.jei.api.recipe.BlankRecipeWrapper;
-import net.dark_roleplay.drpcore.common.crafting.SimpleRecipe;
+import net.dark_roleplay.drpcore.common.crafting.simple_recipe.SimpleRecipe;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;

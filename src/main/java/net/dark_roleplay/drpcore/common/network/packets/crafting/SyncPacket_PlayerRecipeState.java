@@ -11,13 +11,13 @@ import net.minecraftforge.fml.common.network.ByteBufUtils;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-public class SyncPlayerRecipeState extends PacketBase<SyncPlayerRecipeState>{
+public class SyncPacket_PlayerRecipeState extends PacketBase<SyncPacket_PlayerRecipeState>{
 
 	private String recipeID;
 	private int type = 0;
 	private float percentage = 0F;
 	
-	public SyncPlayerRecipeState(){
+	public SyncPacket_PlayerRecipeState(){
 		this.recipeID = null;
 		this.type = 3;
 		this.percentage = 0F;
@@ -29,7 +29,7 @@ public class SyncPlayerRecipeState extends PacketBase<SyncPlayerRecipeState>{
 	 * @param type Type 0 = unlocked, 1 = locked, 2 = progressed (requires percentage)
 	 * @param percentage Unlock progress for type 2
 	 */
-	public SyncPlayerRecipeState(String recipe, int type, float percentage){
+	public SyncPacket_PlayerRecipeState(String recipe, int type, float percentage){
 		this.recipeID = recipe;
 		this.type = type;
 		if(this.type == 2)
@@ -51,7 +51,7 @@ public class SyncPlayerRecipeState extends PacketBase<SyncPlayerRecipeState>{
 	}
 
 	@Override
-	public void handleClientSide(SyncPlayerRecipeState message, EntityPlayer player) {
+	public void handleClientSide(SyncPacket_PlayerRecipeState message, EntityPlayer player) {
 		Minecraft.getMinecraft().addScheduledTask(new Runnable(){
 		  public void run() {
 		    processMessage(message);
@@ -60,12 +60,12 @@ public class SyncPlayerRecipeState extends PacketBase<SyncPlayerRecipeState>{
 	} 
 
 	@Override
-	public void handleServerSide(SyncPlayerRecipeState message, EntityPlayer player) {
+	public void handleServerSide(SyncPacket_PlayerRecipeState message, EntityPlayer player) {
 		System.out.println("Wrong Receiver");
 	}
 
 	@SideOnly(Side.CLIENT)
-	public void processMessage(SyncPlayerRecipeState message){
+	public void processMessage(SyncPacket_PlayerRecipeState message){
 		EntityPlayer player = Minecraft.getMinecraft().player;
 		switch(message.type){
 		case 0:

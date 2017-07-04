@@ -1,8 +1,10 @@
-package net.dark_roleplay.drpcore.common.crafting;
+package net.dark_roleplay.drpcore.common.crafting.simple_recipe;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import net.dark_roleplay.drpcore.api.DarkRoleplayCore;
+import net.dark_roleplay.drpcore.api.events.player.Event_PlayerCraft;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
@@ -41,6 +43,7 @@ public class SimpleCrafter {
 				}
 			}
 		}
+		DarkRoleplayCore.EVENT_BUS.post(new Event_PlayerCraft(player, recipe));
 		player.openContainer.detectAndSendChanges();
 	}
 

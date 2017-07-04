@@ -13,12 +13,14 @@ import net.dark_roleplay.drpcore.api.items.DRPItem;
 import net.dark_roleplay.drpcore.api.items.ItemApi;
 import net.dark_roleplay.drpcore.client.events.network.Event_ConnectServer;
 import net.dark_roleplay.drpcore.client.events.player.Event_Mouse;
-import net.dark_roleplay.drpcore.client.events.rendering.BlockHighlightEvent;
+import net.dark_roleplay.drpcore.client.events.rendering.Event_BlockHighlight;
 import net.dark_roleplay.drpcore.client.events.rendering.Event_ModelBaked;
 import net.dark_roleplay.drpcore.client.keybindings.DRPCoreKeybindings;
+import net.dark_roleplay.drpcore.client.renderer.tileentities.Renderer_StructureController;
 import net.dark_roleplay.drpcore.common.DRPCoreInfo;
 import net.dark_roleplay.drpcore.common.handler.DRPCoreItems;
 import net.dark_roleplay.drpcore.common.proxy.CommonProxy;
+import net.dark_roleplay.drpcore.common.tileentities.TileEntity_StructureController;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.block.model.ModelBakery;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
@@ -30,6 +32,7 @@ import net.minecraft.client.resources.data.TextureMetadataSectionSerializer;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.fml.client.registry.ClientRegistry;
 import net.minecraftforge.fml.common.FMLCommonHandler;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
@@ -58,13 +61,14 @@ public class ClientProxy extends CommonProxy{
 		
 		//MinecraftForge.EVENT_BUS.register(Event_ModelBaked.instance);
 		MinecraftForge.EVENT_BUS.register(new Event_Mouse());
-		MinecraftForge.EVENT_BUS.register(new BlockHighlightEvent());
+		MinecraftForge.EVENT_BUS.register(new Event_BlockHighlight());
 		
 	    // model to be used for rendering this item
 	    ModelResourceLocation itemModelResourceLocation = new ModelResourceLocation("drpcore:medicine", "inventory");
-	    ModelLoader.setCustomModelResourceLocation(DRPCoreItems.MEDICINE_BASE, 0, itemModelResourceLocation);
 
 		ItemApi.registerItemMeshs();
+		
+		ClientRegistry.bindTileEntitySpecialRenderer(TileEntity_StructureController.class, new Renderer_StructureController());
 	}
 	
 	public void init(FMLInitializationEvent event) {

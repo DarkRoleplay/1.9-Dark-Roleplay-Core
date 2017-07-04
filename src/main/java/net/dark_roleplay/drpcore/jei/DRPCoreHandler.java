@@ -4,7 +4,7 @@ import java.util.List;
 
 import mezz.jei.api.recipe.IRecipeHandler;
 import mezz.jei.api.recipe.IRecipeWrapper;
-import net.dark_roleplay.drpcore.common.crafting.SimpleRecipe;
+import net.dark_roleplay.drpcore.common.crafting.simple_recipe.SimpleRecipe;
 import net.minecraft.item.ItemStack;
 
 public class DRPCoreHandler implements IRecipeHandler<DRPCoreJEIRecipe> {

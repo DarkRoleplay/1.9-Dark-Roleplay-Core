@@ -2,20 +2,20 @@ package net.dark_roleplay.drpcore.common.network.packets.crafting;
 
 import io.netty.buffer.ByteBuf;
 import net.dark_roleplay.drpcore.common.crafting.CraftingRegistry;
-import net.dark_roleplay.drpcore.common.crafting.SimpleRecipe;
+import net.dark_roleplay.drpcore.common.crafting.simple_recipe.SimpleRecipe;
 import net.dark_roleplay.drpcore.common.network.PacketBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraftforge.fml.common.network.ByteBufUtils;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-public class Initialize_SimpleRecipe extends PacketBase<Initialize_SimpleRecipe> {
+public class Packet_InitSimpleRecipe extends PacketBase<Packet_InitSimpleRecipe> {
 
 	private String recipeID;
 
 	private int multiplier;
 
-	public Initialize_SimpleRecipe() {
+	public Packet_InitSimpleRecipe() {
 		this.recipeID = null;
 		this.multiplier = 1;
 	}
@@ -26,7 +26,7 @@ public class Initialize_SimpleRecipe extends PacketBase<Initialize_SimpleRecipe>
 	 * @param recipe
 	 *            registryName of Recipe
 	 */
-	public Initialize_SimpleRecipe(String recipe, int multiplier) {
+	public Packet_InitSimpleRecipe(String recipe, int multiplier) {
 		this.recipeID = recipe;
 		this.multiplier = multiplier;
 	}
@@ -44,12 +44,12 @@ public class Initialize_SimpleRecipe extends PacketBase<Initialize_SimpleRecipe>
 	}
 
 	@Override
-	public void handleClientSide(Initialize_SimpleRecipe message, EntityPlayer player) {
+	public void handleClientSide(Packet_InitSimpleRecipe message, EntityPlayer player) {
 
 	}
 
 	@Override
-	public void handleServerSide(Initialize_SimpleRecipe message, EntityPlayer player) {
+	public void handleServerSide(Packet_InitSimpleRecipe message, EntityPlayer player) {
 		player.getServer().addScheduledTask(
 			new Runnable() {
 				public void run() {

@@ -10,7 +10,7 @@ import net.dark_roleplay.drpcore.common.capabilities.player.crafting.IRecipeCont
 import net.dark_roleplay.drpcore.common.capabilities.player.skill.ISkillController;
 import net.dark_roleplay.drpcore.common.handler.DRPCoreCapabilities;
 import net.dark_roleplay.drpcore.common.handler.DRPCorePackets;
-import net.dark_roleplay.drpcore.common.network.packets.crafting.SyncPlayerRecipeState;
+import net.dark_roleplay.drpcore.common.network.packets.crafting.SyncPacket_PlayerRecipeState;
 import net.dark_roleplay.drpcore.common.network.packets.skills.SyncPacket_SkillPoint;
 import net.dark_roleplay.drpcore.common.skills.SkillPointData;
 import net.dark_roleplay.drpcore.common.skills.SkillRegistry;
@@ -21,6 +21,7 @@ import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.TextComponentString;
+import scala.actors.threadpool.Arrays;
 
 public class Command_Skill extends DRPCommand{
 	
@@ -52,6 +53,7 @@ public class Command_Skill extends DRPCommand{
         	if(args.length < 1){
         		return;
         	}else if(!args[0].equals("list") && args.length < 3){
+				sender.sendMessage(new TextComponentString(this.getUsage(sender)));
         		return;
         	}
             String type = args.length >= 1 ? args[0] : "";
@@ -130,12 +132,27 @@ public class Command_Skill extends DRPCommand{
 
 	@Override
 	public boolean checkPermission(MinecraftServer server, ICommandSender sender) {
-		return true;
+		return sender.canUseCommand(4, "drp.command.skill.point");
 	}
 
 
+	private static final ArrayList<String> args0 = new ArrayList<String>(){{add("xp"); add("point"); add("list");}};
+	private static final ArrayList<String> args2 = new ArrayList<String>(){{add("add"); add("remove");}};
+	
 	@Override
 	public List<String> getTabCompletions(MinecraftServer server, ICommandSender sender, String[] args, BlockPos targetPos) {
+//		return "drpskillpoint <xp/point/list> <point_name> <add/remove> [amount(default 1)] [player]";
+		
+		if(args.length == 1){
+			return args0;
+		}else if(args.length == 2){
+			return SkillRegistry.getSkillPointNames();
+		}else if(args.length == 3){
+			return args2;
+		}else if(args.length == 4){
+			return Arrays.asList(server.getOnlinePlayerNames());
+		}
+		
 		return null;
 	}
 

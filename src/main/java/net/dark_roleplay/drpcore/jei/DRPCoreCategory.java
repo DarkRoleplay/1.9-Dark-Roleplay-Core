@@ -73,4 +73,9 @@ public class DRPCoreCategory extends BlankRecipeCategory<DRPCoreWrapper> {
 
 	}
 
+	@Override
+	public String getModName() {
+		return DRPCoreInfo.NAME;
+	}
+
 }

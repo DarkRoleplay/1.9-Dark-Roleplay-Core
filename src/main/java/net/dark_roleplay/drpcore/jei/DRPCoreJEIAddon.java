@@ -16,7 +16,7 @@ import mezz.jei.api.ISubtypeRegistry;
 import mezz.jei.api.JEIPlugin;
 import mezz.jei.api.ingredients.IModIngredientRegistration;
 import net.dark_roleplay.drpcore.common.crafting.CraftingRegistry;
-import net.dark_roleplay.drpcore.common.crafting.SimpleRecipe;
+import net.dark_roleplay.drpcore.common.crafting.simple_recipe.SimpleRecipe;
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;

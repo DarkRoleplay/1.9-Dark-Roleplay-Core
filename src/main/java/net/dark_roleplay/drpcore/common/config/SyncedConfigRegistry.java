@@ -4,7 +4,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 
 import net.dark_roleplay.drpcore.common.handler.DRPCorePackets;
-import net.dark_roleplay.drpcore.common.network.packets.config.Packet_SyncBoolean;
+import net.dark_roleplay.drpcore.common.network.packets.config.SyncPacket_Boolean;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraftforge.fml.relauncher.Side;
@@ -66,7 +66,7 @@ public class SyncedConfigRegistry {
 			Iterator<String> bools = serverBooleans.keySet().iterator();
 			while(bools.hasNext()){
 				String key = bools.next();
-				DRPCorePackets.sendTo(new Packet_SyncBoolean(key, serverBooleans.get(key)), (EntityPlayerMP) player);
+				DRPCorePackets.sendTo(new SyncPacket_Boolean(key, serverBooleans.get(key)), (EntityPlayerMP) player);
 			}
 		}
 	}

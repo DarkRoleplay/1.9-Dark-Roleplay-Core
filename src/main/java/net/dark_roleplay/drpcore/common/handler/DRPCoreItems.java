@@ -3,24 +3,28 @@ package net.dark_roleplay.drpcore.common.handler;
 import net.dark_roleplay.drpcore.api.items.DRPItem;
 import net.dark_roleplay.drpcore.common.DRPCoreInfo;
 import net.dark_roleplay.drpcore.common.DarkRoleplayCore;
-import net.dark_roleplay.drpcore.common.items.consumable.medicine.MedicineBase;
+import net.minecraft.block.Block;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.potion.PotionUtils;
 import net.minecraft.stats.StatList;
 import net.minecraft.world.World;
+import net.minecraftforge.event.RegistryEvent;
+import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.registry.GameRegistry;
+import net.minecraftforge.registries.IForgeRegistry;
 
+@Mod.EventBusSubscriber
 public class DRPCoreItems {
-	/**---------- EXAMPLE ITEM ---------**/
-	public static MedicineBase MEDICINE_BASE = (MedicineBase) new MedicineBase("Medicine");
-	
+	/**---------- EXAMPLE ITEM ---------**/	
 	
 	/**---------- A ----------**/
 	/**---------- B ----------**/
@@ -49,21 +53,17 @@ public class DRPCoreItems {
 	/**---------- Y ----------**/
 	/**---------- Z ----------**/
 	
-	public static final void preInit(FMLPreInitializationEvent event) {
-		/**---------- EXAMPLE ITEM ---------**/
-		if(DRPCoreConfigs.ENABLE_DEBUG_ITEMS){
+	@SubscribeEvent
+	public static final void registerEvent(RegistryEvent.Register<Item> event) {
+//		if(DRPCoreConfigs.ENABLE_DEBUG_ITEMS){
 			//Register here all Debug Item
-			registerItem(DRPCoreInfo.MODID, MEDICINE_BASE);
-		}
+//		}
+		
+	}
+
+	public static final void register(IForgeRegistry<Item> registry, DRPItem item){
+		registry.register(item);
+		DarkRoleplayCore.proxy.registerItemMesh(item.getRegistryName().getResourceDomain(), item);
 	}
 	
-	public static final void init(FMLInitializationEvent event) {}
-
-	public static final void postInit(FMLPostInitializationEvent event) {}
-
-	public static final void registerItem(String modid,DRPItem item){
-		GameRegistry.register(item);
-
-		DarkRoleplayCore.proxy.registerItemMesh(modid, item);
-	}
 }

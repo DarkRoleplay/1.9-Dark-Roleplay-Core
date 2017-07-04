@@ -5,7 +5,7 @@ import net.dark_roleplay.drpcore.api.skills.SkillPoint;
 import net.dark_roleplay.drpcore.common.capabilities.player.skill.ISkillController;
 import net.dark_roleplay.drpcore.common.handler.DRPCoreCapabilities;
 import net.dark_roleplay.drpcore.common.network.PacketBase;
-import net.dark_roleplay.drpcore.common.network.packets.crafting.SyncPlayerRecipeState;
+import net.dark_roleplay.drpcore.common.network.packets.crafting.SyncPacket_PlayerRecipeState;
 import net.dark_roleplay.drpcore.common.skills.SkillPointData;
 import net.dark_roleplay.drpcore.common.skills.SkillRegistry;
 import net.minecraft.client.Minecraft;

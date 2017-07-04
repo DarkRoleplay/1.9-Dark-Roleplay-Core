@@ -61,4 +61,8 @@ public class SkillRegistry {
 	public static List<SkillPoint> getSkillPoints(){
 		return skillPoints;
 	}
+	
+	public static List<String> getSkillPointNames(){
+		return new ArrayList<String>(){{addAll(skillPointKeys.keySet());}};
+	}
 }

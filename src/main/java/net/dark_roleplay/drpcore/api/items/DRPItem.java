@@ -43,7 +43,7 @@ public class DRPItem extends Item{
 	
 	@Override
 	@SideOnly(Side.CLIENT)
-	public void getSubItems(Item item, CreativeTabs tab, NonNullList<ItemStack> list){
+	public void getSubItems(CreativeTabs tab, NonNullList<ItemStack> list){
 		if(getSubNames()!=null){
 			for(int i=0;i<getSubNames().length;i++){
 				list.add(new ItemStack(this,1,i));
@@ -57,8 +57,8 @@ public class DRPItem extends Item{
 	@Override
 	public String getUnlocalizedName(ItemStack stack){
 		if(getSubNames()!=null){
-			String subName = stack.getItemDamage() < getSubNames().length ? getSubNames()[stack.getItemDamage()] : "";
-			return this.getUnlocalizedName() + "." + subName;
+			String subName = stack.getItemDamage() < getSubNames().length ? "." + getSubNames()[stack.getItemDamage()] : "";
+			return this.getUnlocalizedName() + subName;
 		}
 		return this.getUnlocalizedName();
 	}

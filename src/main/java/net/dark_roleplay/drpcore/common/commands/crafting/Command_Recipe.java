@@ -4,11 +4,15 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import com.mojang.realmsclient.gui.ChatFormatting;
+
 import net.dark_roleplay.drpcore.api.commands.DRPCommand;
 import net.dark_roleplay.drpcore.common.capabilities.player.crafting.IRecipeController;
+import net.dark_roleplay.drpcore.common.crafting.CraftingRegistry;
 import net.dark_roleplay.drpcore.common.handler.DRPCoreCapabilities;
 import net.dark_roleplay.drpcore.common.handler.DRPCorePackets;
-import net.dark_roleplay.drpcore.common.network.packets.crafting.SyncPlayerRecipeState;
+import net.dark_roleplay.drpcore.common.network.packets.crafting.SyncPacket_PlayerRecipeState;
+import net.dark_roleplay.drpcore.common.skills.SkillRegistry;
 import net.minecraft.command.CommandException;
 import net.minecraft.command.ICommand;
 import net.minecraft.command.ICommandSender;
@@ -21,6 +25,7 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.TextComponentString;
 import net.minecraft.world.World;
+import scala.actors.threadpool.Arrays;
 
 public class Command_Recipe extends DRPCommand{
 	
@@ -66,7 +71,7 @@ public class Command_Recipe extends DRPCommand{
         	switch(args[0]){
         		case "lock":
         			cap.lockRecipe(args[1]);
-        			DRPCorePackets.sendTo(new SyncPlayerRecipeState(recipe,1,0F), player);
+        			DRPCorePackets.sendTo(new SyncPacket_PlayerRecipeState(recipe,1,0F), player);
         			if(!cap.isLocked(recipe)){
                         sender.sendMessage(new TextComponentString("Recipe \"" + recipe + "\" has been removed from locked recipes for " + player.getDisplayNameString())); 
         			}else{
@@ -76,7 +81,7 @@ public class Command_Recipe extends DRPCommand{
         			
         		case "unlock":
         			cap.unlockRecipe(args[1]);
-    				DRPCorePackets.sendTo(new SyncPlayerRecipeState(recipe,0,0F), player);
+    				DRPCorePackets.sendTo(new SyncPacket_PlayerRecipeState(recipe,0,0F), player);
     				if(!cap.isUnlocked(recipe)){
                         sender.sendMessage(new TextComponentString("Recipe \"" + recipe + "\" has been removed from unlocked recipes for " + player.getDisplayNameString())); 
         			}else{
@@ -93,7 +98,7 @@ public class Command_Recipe extends DRPCommand{
         			}
         			
         			cap.progressRecipe(args[1],Float.valueOf(progress) / 100);
-    				DRPCorePackets.sendTo(new SyncPlayerRecipeState(recipe,2,Float.valueOf(progress) / 100), player);
+    				DRPCorePackets.sendTo(new SyncPacket_PlayerRecipeState(recipe,2,Float.valueOf(progress) / 100), player);
     				
     				if(cap.isUnlocked(recipe)){
                         sender.sendMessage(new TextComponentString("Recipe \"" + recipe + "\" has been unlocked for " + player.getDisplayNameString() + " as it was progressed by 100%")); 
@@ -111,6 +116,8 @@ public class Command_Recipe extends DRPCommand{
         			
         			byte currentRecipe = 0;
         			String combinedRecipes = "";
+        			
+        			player.interactionManager.getGameType();
         			
         			if(locked.size() > 0){
 	        			player.sendMessage(new TextComponentString("Locked Recipes:"));
@@ -180,12 +187,29 @@ public class Command_Recipe extends DRPCommand{
 
 	@Override
 	public boolean checkPermission(MinecraftServer server, ICommandSender sender) {
-		return true;
+		return sender.canUseCommand(4, "drp.command.recipe");
 	}
 
 
+	private static final ArrayList<String> args0 = new ArrayList<String>(){{add("lock"); add("unlock"); add("progress"); add("list");}};
+	private static final ArrayList<String> args2 = new ArrayList<String>(){{add("add"); add("remove");}};
+	
 	@Override
 	public List<String> getTabCompletions(MinecraftServer server, ICommandSender sender, String[] args, BlockPos targetPos) {
+//		return "drprecipe <lock/unlock/progress/list> <recipe name> [progress value] [player]";
+
+		if(args.length == 1){
+			return args0;
+		}else if(args.length == 2 && !args[0].equals("list")){
+			return CraftingRegistry.getRecipeNames();
+		}else if(args.length == 2 && args[0].equals("list")){
+			return Arrays.asList(server.getOnlinePlayerNames());
+		}else if(args.length == 3 && args[0].equals("progress")){
+			return null;
+		}else if(args.length == 3 || (args.length == 4 && !args[2].equals("progress"))){
+			return Arrays.asList(server.getOnlinePlayerNames());
+		}
+		
 		return null;
 	}
 

@@ -1,4 +1,4 @@
-package net.dark_roleplay.drpcore.common.crafting.json;
+package net.dark_roleplay.drpcore.common.crafting.simple_recipe;
 
 import java.io.InputStreamReader;
 import java.io.Reader;
@@ -8,6 +8,7 @@ import com.google.gson.GsonBuilder;
 
 import net.minecraft.block.Block;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.JsonToNBT;
 import net.minecraft.nbt.NBTTagCompound;
 
 public class SimpleRecipeLoader {
