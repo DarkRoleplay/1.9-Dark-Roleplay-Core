@@ -1,22 +1,32 @@
 package net.dark_roleplay.drpcore.common.crafting;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import net.dark_roleplay.drpcore.common.crafting.simple_recipe.SimpleCrafter;
+import net.dark_roleplay.drpcore.common.crafting.simple_recipe.SimpleRecipe;
 import net.minecraft.block.Block;
 
 public class CraftingRegistry {
 	
 	private static Map<String,SimpleRecipe> recipes = new HashMap<String,SimpleRecipe>();
 	private static Map<String,SimpleRecipe> unlockRecipes = new HashMap<String,SimpleRecipe>();
-
 	
 	private static Map<Block,Map<String,List<String>>> stationKeys = new HashMap<Block,Map<String,List<String>>>();
 
+	public static SimpleCrafter SIMPLE_CRAFTER_INSTANCE;
+	
+	static{
+		
+		SIMPLE_CRAFTER_INSTANCE = new SimpleCrafter();
+		
+	}
 	
 	public static boolean registerRecipe(Block station, String category, SimpleRecipe recipe, boolean requiresUnlock){
+		recipe.setStation(station);
 		if(recipes.containsKey(recipe.getRegistryName()) || unlockRecipes.containsKey(recipe.getRegistryName())){
 			return false;
 		}
@@ -60,4 +70,13 @@ public class CraftingRegistry {
 	public static boolean requiresRecipeUnlock(String recipeName){
 		return unlockRecipes.containsKey(recipeName);
 	}
+	
+	public static List<Block> getRecipeStations(){
+		return new ArrayList<Block>(stationKeys.keySet());
+	}
+	
+	public static List<String> getRecipeNames(){
+		return new ArrayList<String>(){{addAll(recipes.keySet());}};
+	}
+	
 }

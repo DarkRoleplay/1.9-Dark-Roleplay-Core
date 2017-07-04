@@ -41,6 +41,7 @@ public class Gui_Config  extends GuiConfig {
     private static IConfigElement categoryGuiElement(String category, String name, String tooltip_key) {
     	List<IConfigElement> list = new ArrayList<IConfigElement>();
     	list.add(categoryElement("gui.crafting.selection", "Crafting Gui Recipe Selection", "drpcore.configgui.ctgy.gui.crafting.selection"));
+    	list.add(categoryElement("gui.crafting.crafting", "Crafting Gui Recipe Crafting", "drpcore.configgui.ctgy.gui.crafting.craftomg"));
         return new DummyConfigElement.DummyCategoryElement(name, tooltip_key,
         		list);
     }

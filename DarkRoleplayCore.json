@@ -1,24 +1,15 @@
 {
   "homepage": "http://minecraft.curseforge.com/projects/dark-roleplay-core",
   "promos": {
-    "1.9-latest"     : "0.1.7",
-    "1.9-recomended" : "0.1.7",
-	"1.10-latest"     : "0.1.7",
-    "1.10-recomended" : "0.1.7",
-	"1.10.2-latest"     : "0.1.7",
-    "1.10.2-recomended" : "0.1.7",
-	"1.11.2-latest"		: "0.1.8"
-  },
-  "1.9" : {
-    "0.1.4-PRE" : "Firstly Implemented the Forge Update Checker",
-	"0.1.6b" : "A few fixes for crafting"
-  },
-  "1.10" : {
-    "0.1.4-PRE" : "Firstly Implemented the Forge Update Checker",
-	"0.1.6b" : "A few fixes for crafting"
-  },
-  "1.10.2" : {
-    "0.1.4-PRE" : "Firstly Implemented the Forge Update Checker",
-	"0.1.6b" : "A few fixes for crafting"
+    "1.9-latest"     : "0.2.0b",
+    "1.9-recomended" : "0.2.0b",
+	"1.10-latest"     : "0.2.0b",
+    "1.10-recomended" : "0.2.0b",
+	"1.10.2-latest"     : "0.2.0b",
+    "1.10.2-recomended" : "0.2.0b",
+	"1.11.2-latest" : "0.3.0",
+	"1.11.2-recomended" : "0.3.0",
+	"1.12-latest" : "0.3.1",
+	"1.12-recomended" : "0.3.1"
   }
 }

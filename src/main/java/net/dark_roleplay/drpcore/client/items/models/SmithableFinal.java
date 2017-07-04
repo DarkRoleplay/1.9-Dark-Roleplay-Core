@@ -6,7 +6,6 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.block.model.*;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.util.EnumFacing;
-import net.minecraftforge.client.model.IPerspectiveAwareModel;
 import net.minecraftforge.common.model.TRSRTransformation;
 import org.apache.commons.lang3.tuple.Pair;
 
@@ -16,7 +15,7 @@ import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SmithableFinal implements IPerspectiveAwareModel {
+public class SmithableFinal implements IBakedModel {
 
 	public SmithableFinal(IBakedModel i_parentModel, int i_numberOfChessPieces) {
 		parentModel = i_parentModel;
@@ -50,22 +49,22 @@ public class SmithableFinal implements IPerspectiveAwareModel {
 	@Override
 	public ItemCameraTransforms getItemCameraTransforms() {return parentModel.getItemCameraTransforms();}
 
-	@Override
-	public Pair<? extends IBakedModel, Matrix4f> handlePerspective(ItemCameraTransforms.TransformType cameraTransformType) {
-		if (parentModel instanceof IPerspectiveAwareModel) {
-			Matrix4f matrix4f = ((IPerspectiveAwareModel) parentModel).handlePerspective(cameraTransformType).getRight();
-			return Pair.of(this, matrix4f);
-		} else {
-			ItemCameraTransforms itemCameraTransforms = parentModel.getItemCameraTransforms();
-			ItemTransformVec3f itemTransformVec3f = itemCameraTransforms.getTransform(cameraTransformType);
-			TRSRTransformation tr = new TRSRTransformation(itemTransformVec3f);
-			Matrix4f mat = null;
-			if (tr != null) { // && tr != TRSRTransformation.identity()) {
-				mat = tr.getMatrix();
-			}
-			return Pair.of(this, mat);
-		}
-	}
+//	@Override
+//	public Pair<? extends IBakedModel, Matrix4f> handlePerspective(ItemCameraTransforms.TransformType cameraTransformType) {
+//		if (parentModel instanceof IPerspectiveAwareModel) {
+//			Matrix4f matrix4f = ((IPerspectiveAwareModel) parentModel).handlePerspective(cameraTransformType).getRight();
+//			return Pair.of(this, matrix4f);
+//		} else {
+//			ItemCameraTransforms itemCameraTransforms = parentModel.getItemCameraTransforms();
+//			ItemTransformVec3f itemTransformVec3f = itemCameraTransforms.getTransform(cameraTransformType);
+//			TRSRTransformation tr = new TRSRTransformation(itemTransformVec3f);
+//			Matrix4f mat = null;
+//			if (tr != null) { // && tr != TRSRTransformation.identity()) {
+//				mat = tr.getMatrix();
+//			}
+//			return Pair.of(this, mat);
+//		}
+//	}
 
 	@Override
 	public ItemOverrideList getOverrides() {throw new UnsupportedOperationException("The finalised model does not have an override list.");}

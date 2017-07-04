@@ -1,29 +1,76 @@
 package net.dark_roleplay.drpcore.api.items;
 
+import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.EnumAction;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
+import net.minecraft.util.NonNullList;
+import net.minecraftforge.fml.common.FMLContainer;
+import net.minecraftforge.fml.common.InjectedModContainer;
+import net.minecraftforge.fml.common.Loader;
+import net.minecraftforge.fml.common.ModContainer;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class DRPItem extends Item{
 
-	//Method for 
-	private final String modelFolder;
+	public String itemName;
+	protected String[] subNames;
+	protected String itemFolder;
 	
-	private String[] subModelNames;
-	
-	public DRPItem(String modelFolder){
-		this.modelFolder = modelFolder;
+	public DRPItem(String name, int stackSize, String... subNames){
+		this(name, null, stackSize, subNames);
 	}
 	
-	public DRPItem setSubModelNames(String[] subModelNames){
-		this.subModelNames = subModelNames;
-		return this;
+	public DRPItem(String name, String itemFolder, int stackSize, String... subNames){
+		ModContainer mc = Loader.instance().activeModContainer();
+        String modid = (mc == null) || ((mc instanceof InjectedModContainer) && (((InjectedModContainer)mc).wrappedContainer instanceof FMLContainer)) ? "minecraft" : mc.getModId().toLowerCase();
+		
+        this.setUnlocalizedName(name);
+		this.setRegistryName(modid + ":" + name);
+		
+		this.setMaxStackSize(stackSize);
+		this.itemName = name;
+		this.subNames = subNames!=null&&subNames.length>0?subNames:null;
+		this.itemFolder = itemFolder;
+	
+		ItemApi.toRegister.add(this);
 	}
 	
-	public String[] getSubModelNames(){
-		return this.subModelNames;
+	public String[] getSubNames(){
+		return subNames;
 	}
 	
-	public String getModelFolder(){
-		return this.modelFolder;
+	@Override
+	@SideOnly(Side.CLIENT)
+	public void getSubItems(CreativeTabs tab, NonNullList<ItemStack> list){
+		if(getSubNames()!=null){
+			for(int i=0;i<getSubNames().length;i++){
+				list.add(new ItemStack(this,1,i));
+			}
+		}
+		else{
+			list.add(new ItemStack(this));
+		}
 	}
+	
+	@Override
+	public String getUnlocalizedName(ItemStack stack){
+		if(getSubNames()!=null){
+			String subName = stack.getItemDamage() < getSubNames().length ? "." + getSubNames()[stack.getItemDamage()] : "";
+			return this.getUnlocalizedName() + subName;
+		}
+		return this.getUnlocalizedName();
+	}
+
+	public String getItemName() {
+		return itemName;
+	}
+
+	public String getItemFolder() {
+		return itemFolder;
+	}
+	
+	
+
 }

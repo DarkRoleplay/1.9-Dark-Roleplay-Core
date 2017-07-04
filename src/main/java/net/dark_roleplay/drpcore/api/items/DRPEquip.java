@@ -14,8 +14,12 @@ public class DRPEquip extends DRPItem{
 	 */
 	private int storageSpace;
 	
-	public DRPEquip(String modelFolder, DRPEquip_TYPE type){
-		super(modelFolder);
+	public DRPEquip(String name, DRPEquip_TYPE type){
+		this(name, null, type);
+	}
+	
+	public DRPEquip(String name, String modelFolder, DRPEquip_TYPE type){
+		super(name, modelFolder, 1);
 		this.type = type;
 	}
 	

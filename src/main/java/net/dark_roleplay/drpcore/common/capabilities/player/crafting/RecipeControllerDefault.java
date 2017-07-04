@@ -13,7 +13,7 @@ public class RecipeControllerDefault implements IRecipeController{
 
 	private List<String> lockedRecipes = new ArrayList<String>();
 	private List<String> unlockedRecipes = new ArrayList<String>();
-	Map<String,Float> progressedRecipes = new HashMap<String,Float>();
+	private Map<String,Float> progressedRecipes = new HashMap<String,Float>();
 	
 	@Override
 	public boolean unlockRecipe(String recipeID) {

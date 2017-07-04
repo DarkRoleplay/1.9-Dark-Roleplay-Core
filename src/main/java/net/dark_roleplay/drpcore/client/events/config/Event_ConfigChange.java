@@ -12,5 +12,4 @@ public class Event_ConfigChange {
 		if(event.getModID().equals(DRPCoreInfo.MODID))
 			DRPCoreConfigs.load();
 	}
-	
 }

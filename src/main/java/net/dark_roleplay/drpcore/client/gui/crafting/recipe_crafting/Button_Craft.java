@@ -3,7 +3,7 @@ package net.dark_roleplay.drpcore.client.gui.crafting.recipe_crafting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
 
-public class Button_Craft  extends GuiButton {
+public class Button_Craft extends GuiButton {
 	
 	public Button_Craft(int buttonID, int x, int y) {
 		super(buttonID, x, y, "");
@@ -12,8 +12,8 @@ public class Button_Craft  extends GuiButton {
 	}
 
 	@Override
-	public void drawButton(Minecraft mc, int mouseX, int mouseY) {
-		this.hovered = mouseX >= this.xPosition && mouseY >= this.yPosition && mouseX < this.xPosition + this.width && mouseY < this.yPosition + this.height;
+	public void drawButton(Minecraft mc, int mouseX, int mouseY, float partialTicks) {
+		this.hovered = mouseX >= this.x && mouseY >= this.y && mouseX < this.x + this.width && mouseY < this.y + this.height;
 		int x = 237;
 		int y = 0;
 			
@@ -24,6 +24,6 @@ public class Button_Craft  extends GuiButton {
 				y += (this.height * 2);
 			}
 		}
-		this.drawTexturedModalRect(this.xPosition, this.yPosition, x, y, this.width, this.height);
+		this.drawTexturedModalRect(this.x, this.y, x, y, this.width, this.height);
 	}
 }

@@ -15,7 +15,7 @@ public abstract class PacketBase<REQ extends IMessage> implements IMessage, IMes
 	public REQ onMessage(REQ message, MessageContext ctx) {
 
 		if(ctx.side == Side.SERVER) {
-			handleServerSide(message, ctx.getServerHandler().playerEntity);
+			handleServerSide(message, ctx.getServerHandler().player);
 		} else {
 			handleClientSide(message, null);
 		}

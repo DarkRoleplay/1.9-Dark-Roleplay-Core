@@ -1,24 +1,25 @@
-.git/*
-.gradle/*
-.settings/*
-bin/*
-build/*
-eclipse/*
-gradle/*
-run/*
-
+# eclipse
+bin
+*.launch
+.settings
+.metadata
 .classpath
-.gitignore
 .project
-build.gradle/*
 
-Dark-Roleplay-Core_Client.launch
-Dark-Roleplay-Core_Server.launch
-Forge Latest_Client.launch
-Forge Latest_Server.launch
+# idea
+out
+*.ipr
+*.iws
+*.iml
+.idea
+
+# gradle
+build
+.gradle
+
+# other
+eclipse
+run
 gradle.properties
 gradlew
-greadle.bat
-script_buildCOMP.cmd
-script_buildDECOMP.cmd
-script_setupWorkspace.cmd
+gradle/

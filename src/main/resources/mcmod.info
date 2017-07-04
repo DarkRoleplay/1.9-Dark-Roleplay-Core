@@ -6,8 +6,7 @@
     "description": "An API and advanced Base for most of the Dark Roleplay Mods",
     "url": "",
     "updateUrl": "",
-    "authorList": [ "JTK222", "DaNeubi" ],
-    "credits": "Authored by JTK222, helped by DaNeubi",
+    "authorList": [ "JTK222" ],
     "logoFile": "",
     "screenshots": [ "", "" ],
     "requiredMods": [ "Forge" ]
