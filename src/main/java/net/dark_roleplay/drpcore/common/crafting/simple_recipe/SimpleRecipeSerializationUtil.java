@@ -8,6 +8,7 @@ import java.io.PrintWriter;
 import java.nio.file.Files;
 import java.util.ArrayList;
 
+import net.dark_roleplay.drpcore.api.crafting.simple_recipe.SimpleRecipe;
 import net.dark_roleplay.drpcore.api.schematic.Schematic;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompressedStreamTools;
@@ -19,9 +20,7 @@ public class SimpleRecipeSerializationUtil {
 	public static NBTTagCompound recipeToNBT(SimpleRecipe recipe){
 		NBTTagCompound tag = new NBTTagCompound();
 		
-		tag.setString("registry_name", recipe.getRegistryName());
-		tag.setString("crafting_station", recipe.getStation().getRegistryName().toString());
-		tag.setString("category", recipe.getCategory());
+		tag.setString("registry_name", recipe.getRegistryString());
 		tag.setBoolean("requires_unlock", recipe.requiresUnlock());
 		
 		//Ingredients

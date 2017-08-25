@@ -4,18 +4,18 @@ import java.awt.Color;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import net.dark_roleplay.drpcore.api.crafting.simple_recipe.SimpleRecipe;
 import net.dark_roleplay.drpcore.api.gui.DRPGuiScreen;
 import net.dark_roleplay.drpcore.api.gui.ITimedGui;
 import net.dark_roleplay.drpcore.client.ClientProxy;
 import net.dark_roleplay.drpcore.client.gui.crafting.recipe_selection.Button_CategorySelect;
 import net.dark_roleplay.drpcore.client.gui.crafting.recipe_selection.Button_ChangeCategory;
 import net.dark_roleplay.drpcore.client.gui.crafting.recipe_selection.Button_ChangePage;
+import net.dark_roleplay.drpcore.client.gui.crafting.recipe_selection.RecipeSelection;
 import net.dark_roleplay.drpcore.client.keybindings.DRPCoreKeybindings;
 import net.dark_roleplay.drpcore.common.DRPCoreInfo;
 import net.dark_roleplay.drpcore.common.DarkRoleplayCore;
 import net.dark_roleplay.drpcore.common.config.SyncedConfigRegistry;
-import net.dark_roleplay.drpcore.common.crafting.CraftingRegistry;
-import net.dark_roleplay.drpcore.common.crafting.simple_recipe.SimpleRecipe;
 import net.dark_roleplay.drpcore.common.handler.DRPCoreCapabilities;
 import net.dark_roleplay.drpcore.common.handler.DRPCoreGuis;
 import net.dark_roleplay.drpcore.common.handler.DRPCorePackets;
@@ -52,8 +52,6 @@ public class RecipeCrafting_SimpleRecipe extends DRPGuiScreen implements ITimedG
 	private Button_IncAmount incMultiplier;
 	private Button_IncAmount decMultiplier;
 	
-	private BlockPos pos;
-
 	private GhostSlot[] outputSlots = new GhostSlot[7];
 
 	private GhostSlot[] ingredientSlots = new GhostSlot[9];
@@ -63,11 +61,14 @@ public class RecipeCrafting_SimpleRecipe extends DRPGuiScreen implements ITimedG
 	private ItemStack[] outputs;
 	private ItemStack[] inputs;
 	
+	private RecipeSelection parent;
+	
 	private boolean enableMultiplier;
 	
-	public RecipeCrafting_SimpleRecipe(BlockPos pos) {
+	public RecipeCrafting_SimpleRecipe(SimpleRecipe recipe, RecipeSelection parent) {
 		super(bg, 178, 161);
-		this.pos = pos;
+		this.recipe = recipe;
+		this.parent = parent;
 	}
 
 	@Override
@@ -229,15 +230,11 @@ public class RecipeCrafting_SimpleRecipe extends DRPGuiScreen implements ITimedG
 
 	}
 
-	public static void setRecipe(SimpleRecipe recipe) {
-		RecipeCrafting_SimpleRecipe.recipe = recipe;
-	}
-
 	@Override
 	protected void actionPerformed(GuiButton button) throws IOException {
 
 		if (button.id == this.craft.id) {
-			DRPCorePackets.sendToServer(new Packet_InitSimpleRecipe(this.recipe.getRegistryName(), this.multiplier));
+			DRPCorePackets.sendToServer(new Packet_InitSimpleRecipe(this.recipe.getRegistryString(), this.multiplier));
 			if(this.multiplier == 1)
 				this.craftButtonHold = 1;
 		} else if (button.id == this.ingScrollLeft.id) {
@@ -254,17 +251,14 @@ public class RecipeCrafting_SimpleRecipe extends DRPGuiScreen implements ITimedG
 				this.multiplier++;
 		}else if (button.id == this.retBack.id) {
 			ClientProxy.useRecipeData = true;
-			Minecraft.getMinecraft().player.openGui(DarkRoleplayCore.instance,
-					DRPCoreGuis.DRPCORE_GUI_CRAFTING_RECIPESELECTION, Minecraft.getMinecraft().world, this.pos.getX(),
-					this.pos.getY(), this.pos.getZ());
+			Minecraft.getMinecraft().displayGuiScreen(parent);
 		}
 	}
 
 	@Override
 	protected void keyTyped(char typedChar, int keyCode) throws IOException {
-		if (keyCode == 1 || DRPCoreKeybindings.openCrafting.isActiveAndMatches(keyCode)
-				|| this.mc.gameSettings.keyBindInventory.isActiveAndMatches(keyCode)) {
-			this.mc.player.closeScreen();
+		if (keyCode == 1 || DRPCoreKeybindings.openCrafting.isActiveAndMatches(keyCode) || this.mc.gameSettings.keyBindInventory.isActiveAndMatches(keyCode)) {
+			Minecraft.getMinecraft().displayGuiScreen(null);
 		}
 	}
 
@@ -279,7 +273,7 @@ public class RecipeCrafting_SimpleRecipe extends DRPGuiScreen implements ITimedG
 				ticksTillCraft--;
 				if (ticksTillCraft <= 0) {
 					ticksTillCraft = 3;
-					DRPCorePackets.sendToServer(new Packet_InitSimpleRecipe(this.recipe.getRegistryName(), this.multiplier));
+					DRPCorePackets.sendToServer(new Packet_InitSimpleRecipe(this.recipe.getRegistryString(), this.multiplier));
 				}
 			}
 		} else if (this.craftButtonHold > 0) {

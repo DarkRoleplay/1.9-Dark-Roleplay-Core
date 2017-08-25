@@ -1,6 +1,6 @@
 package net.dark_roleplay.drpcore.api.events.player;
 
-import net.dark_roleplay.drpcore.common.crafting.simple_recipe.SimpleRecipe;
+import net.dark_roleplay.drpcore.api.crafting.simple_recipe.SimpleRecipe;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraftforge.fml.common.eventhandler.Event;
 

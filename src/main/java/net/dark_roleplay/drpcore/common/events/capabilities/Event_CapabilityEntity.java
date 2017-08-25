@@ -12,6 +12,7 @@ import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.ICapabilityProvider;
 import net.minecraftforge.event.AttachCapabilitiesEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.items.CapabilityItemHandler;
 
 public class Event_CapabilityEntity {
 
@@ -21,6 +22,7 @@ public class Event_CapabilityEntity {
 
         event.addCapability(new ResourceLocation(DRPCoreInfo.MODID, "recipe_controller"), new CapabilityProvider(DRPCoreCapabilities.DRPCORE_RECIPE_CONTROLLER));
         event.addCapability(new ResourceLocation(DRPCoreInfo.MODID, "skill_controller"), new CapabilityProvider(DRPCoreCapabilities.DRPCORE_SKILL_CONTROLLER));
+        event.addCapability(new ResourceLocation(DRPCoreInfo.MODID, "extended_inv"), new CapabilityProvider(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY));
     }
 	
 }

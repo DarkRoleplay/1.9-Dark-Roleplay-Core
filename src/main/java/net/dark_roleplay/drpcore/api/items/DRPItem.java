@@ -44,13 +44,15 @@ public class DRPItem extends Item{
 	@Override
 	@SideOnly(Side.CLIENT)
 	public void getSubItems(CreativeTabs tab, NonNullList<ItemStack> list){
-		if(getSubNames()!=null){
-			for(int i=0;i<getSubNames().length;i++){
-				list.add(new ItemStack(this,1,i));
+		if(this.isInCreativeTab(tab)){
+			if(getSubNames()!=null){
+				for(int i=0;i<getSubNames().length;i++){
+					list.add(new ItemStack(this,1,i));
+				}
 			}
-		}
-		else{
-			list.add(new ItemStack(this));
+			else{
+				list.add(new ItemStack(this));
+			}
 		}
 	}
 	

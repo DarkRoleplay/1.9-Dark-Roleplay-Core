@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.io.IOException;
 
 import org.lwjgl.opengl.GL11;
+import org.lwjgl.util.Point;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
@@ -49,7 +50,6 @@ public abstract class DRPGuiScreen extends GuiScreen{
 		this.bgTexture = bgTexture;
 		this.bgWidth = bgWidth;
 		this.bgHeight = bgHeight;
-		this.reAdjust();
 	}
 
 	protected void reAdjust() {
@@ -125,23 +125,36 @@ public abstract class DRPGuiScreen extends GuiScreen{
 		BufferBuilder vertexbuffer = tessellator.getBuffer();
 		GlStateManager.enableBlend();
 		GlStateManager.disableTexture2D();
-		GlStateManager.tryBlendFuncSeparate(GlStateManager.SourceFactor.SRC_ALPHA,
-				GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA, GlStateManager.SourceFactor.ONE,
-				GlStateManager.DestFactor.ZERO);
+		GlStateManager.tryBlendFuncSeparate(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA, GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ZERO);
 		GlStateManager.color(f, f1, f2, f3);
 
-		vertexbuffer.begin(7, DefaultVertexFormats.POSITION);
-		vertexbuffer.pos((double) x1 + (y1 < y2 ? -0.5D : 0.5D), (double) y1 + (x1 < x2 ? +0.5D : -0.5D), 0.0D)
-				.endVertex();
-		vertexbuffer.pos((double) x2 + (y1 < y2 ? -0.5D : 0.5D), (double) y2 + (x1 < x2 ? +0.5D : -0.5D), 0.0D)
-				.endVertex();
-		vertexbuffer.pos((double) x2 + (y1 > y2 ? -0.5D : 0.5D), (double) y2 + (x1 > x2 ? +0.5D : -0.5D), 0.0D)
-				.endVertex();
-		vertexbuffer.pos((double) x1 + (y1 > y2 ? -0.5D : 0.5D), (double) y1 + (x1 > x2 ? +0.5D : -0.5D), 0.0D)
-				.endVertex();
+		float angle = getAngleRad(new Point(x1,y1), new Point(x2,y2));
+		
+		double halfPi = Math.PI / 2;
+		
+		float a1 = (float) (x1 + 0.5F * Math.cos(angle + halfPi)), a2 = (float) (y1 + 0.5F * Math.sin(angle + halfPi));
+		float b1 = (float) (x2 + 0.5F * Math.cos(angle + halfPi)), b2 = (float) (y2 + 0.5F * Math.sin(angle + halfPi));
+		float c1 = (float) (x2 + 0.5F * Math.cos(angle - halfPi)), c2 = (float) (y2 + 0.5F * Math.sin(angle - halfPi));
+		float d1 = (float) (x1 + 0.5F * Math.cos(angle - halfPi)), d2 = (float) (y1 + 0.5F * Math.sin(angle - halfPi));
 
+		
+		vertexbuffer.begin(7, DefaultVertexFormats.POSITION);
+		//new
+		vertexbuffer.pos(a1, a2, 0.0D).endVertex();
+		vertexbuffer.pos(b1, b2, 0.0D).endVertex();
+		vertexbuffer.pos(c1, c2, 0.0D).endVertex();
+		vertexbuffer.pos(d1, d2, 0.0D).endVertex();
 		tessellator.draw();
 		GlStateManager.enableTexture2D();
 		GlStateManager.disableBlend();
+	}
+	
+	private static float getAngleRad(Point a, Point b){
+		Point vec = new Point(b.getX() - a.getX(), b.getY() - a.getY());
+		return (float) (Math.acos(vec.getX() / (Math.sqrt(Math.pow(vec.getX(), 2) + Math.pow(vec.getY(), 2)))));
+	}
+	
+	private static float getAngle(Point a, Point b){
+		return (float) (getAngleRad(a, b) * 180 / Math.PI);
 	}
 }

@@ -1,8 +1,14 @@
 package net.dark_roleplay.drpcore.common.events.entity.player;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 import net.dark_roleplay.drpcore.api.skills.Skill;
 import net.dark_roleplay.drpcore.api.skills.SkillPoint;
@@ -24,6 +30,8 @@ import net.minecraftforge.fml.common.gameevent.PlayerEvent.PlayerLoggedInEvent;
 
 public class Event_PlayerLoggedIn {
 
+	public static List<EntityPlayerMP> premiums = new ArrayList<EntityPlayerMP>();
+	
 	@SubscribeEvent
 	public void handleEvent(EntityJoinWorldEvent event) {
 		
@@ -52,6 +60,23 @@ public class Event_PlayerLoggedIn {
 			}
 			
 			SyncedConfigRegistry.sendConfigTo((EntityPlayer) event.getEntity());
+			
+			
+			try {
+				InputStream input = new URL("http://dark-roleplay.bplaced.net/premium_check.php?uuid=" + player.getUniqueID().toString()).openStream();
+				byte[] value = new byte[4];
+				input.read(value, 0, 4);
+				
+				String s = new String(value);
+				if(s.equals("true")){
+					premiums.add(player);
+				}
+			} catch (MalformedURLException e) {
+				e.printStackTrace();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			
 		}
 	}
 	

@@ -16,9 +16,11 @@ import net.dark_roleplay.drpcore.common.skills.SkillPointData;
 
 public class SkillControllerDefault implements ISkillController{
 
-	private Map<SkillPoint, SkillPointData> skillPointDataKeys = Maps.newHashMap();
+	private Map<SkillPoint, SkillPointData> skillPointDataKeys = Maps.<SkillPoint, SkillPointData>newHashMap();
 	private List<Skill> unlockedSkills = Lists.newArrayList();
-
+	private Map<String, Integer> skillVersions = Maps.<String, Integer>newHashMap();
+	
+	
 	@Override
 	public void addSkillPoint(SkillPoint skillPoint, int amount) {
 		SkillPointData data;
@@ -134,6 +136,24 @@ public class SkillControllerDefault implements ISkillController{
 	@Override
 	public void setSkillPointData(SkillPointData data) {
 		this.skillPointDataKeys.put(data.getPoint(), data);	
+	}
+
+	@Override
+	public int getSkillVersion(String key) {
+		if(this.skillVersions.containsKey(key)){
+			return this.skillVersions.get(key);
+		}
+		return 0;
+	}
+
+	@Override
+	public void setSkillVersion(String key, int version) {
+		this.skillVersions.put(key, version);
+	}
+
+	@Override
+	public Map<String, Integer> getVersionKeys() {
+		return this.skillVersions;
 	}
 
 

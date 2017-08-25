@@ -53,4 +53,9 @@ public interface ISkillController {
 	
 	public void setSkillPointData(SkillPointData data);
 	
+	public int getSkillVersion(String key);
+	
+	public void setSkillVersion(String key, int version);
+	
+	public Map<String, Integer> getVersionKeys();
 }

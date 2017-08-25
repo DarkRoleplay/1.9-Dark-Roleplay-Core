@@ -15,8 +15,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
 public class Renderer_StructureController extends TileEntitySpecialRenderer<TileEntity_StructureController> {
-	public void render(TileEntity_StructureController te, double x, double y, double z, float partialTicks,
-			int destroyStage, float alpha) {
+	public void render(TileEntity_StructureController te, double x, double y, double z, float partialTicks, int destroyStage, float alpha) {
 		if (Minecraft.getMinecraft().player.canUseCommandBlock() || Minecraft.getMinecraft().player.isSpectator()) {
 			super.render(te, x, y, z, partialTicks, destroyStage, alpha);
 			BlockPos blockpos = te.getPosition();

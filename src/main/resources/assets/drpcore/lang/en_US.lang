@@ -14,3 +14,5 @@ crafting.defaultCategory.name=Default Category
 
 drpcore.skill.required_skill_points=Required Skill Points
 drpcore.skill.required=Amount
+
+config.drpcore:general_placement_preview=JUST DEBUGGING

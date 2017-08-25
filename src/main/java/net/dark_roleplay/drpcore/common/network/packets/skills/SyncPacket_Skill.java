@@ -51,8 +51,6 @@ public class SyncPacket_Skill extends PacketBase<SyncPacket_Skill>{
 	public void processMessage(SyncPacket_Skill message){
 		EntityPlayer player = Minecraft.getMinecraft().player;
 		
-		System.out.println("Skil Sync Packet Received! " + message.skill);
-		
 		player = Minecraft.getMinecraft().player;
 		Skill skillToUnlock = SkillRegistry.getSkillByName(message.skill);
 		if(skillToUnlock == null)

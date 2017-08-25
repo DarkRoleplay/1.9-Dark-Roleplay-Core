@@ -6,11 +6,12 @@ import java.util.List;
 import java.util.Map;
 
 import it.unimi.dsi.fastutil.Arrays;
+import net.dark_roleplay.drpcore.common.util.toasts.ToastController;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.oredict.OreDictionary;
 
 public class RecipeControllerDefault implements IRecipeController{
-
+	
 	private List<String> lockedRecipes = new ArrayList<String>();
 	private List<String> unlockedRecipes = new ArrayList<String>();
 	private Map<String,Float> progressedRecipes = new HashMap<String,Float>();
@@ -29,9 +30,11 @@ public class RecipeControllerDefault implements IRecipeController{
 	public boolean lockRecipe(String recipeID) {
 		if(lockedRecipes.contains(recipeID)){
 			lockedRecipes.remove(recipeID);
+//			ToastController.displayInfoToast("Unlocked recipe", recipeID);
 			return false;
 		}
 		lockedRecipes.add(recipeID);
+//		ToastController.displayInfoToast("Locked recipe", recipeID);
 		return true;
 	}
 
