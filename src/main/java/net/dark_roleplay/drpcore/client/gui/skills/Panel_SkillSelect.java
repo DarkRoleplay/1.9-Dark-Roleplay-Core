@@ -4,7 +4,7 @@ import java.awt.Color;
 import java.awt.Point;
 import java.util.Random;
 
-import net.dark_roleplay.drpcore.api.gui.DRPPanel;
+import net.dark_roleplay.drpcore.api.gui.advanced.Gui_Panel;
 import net.dark_roleplay.drpcore.api.gui.utility.dynamic.ModularBackground;
 import net.dark_roleplay.drpcore.api.skills.Skill;
 import net.dark_roleplay.drpcore.api.skills.SkillPoint;
@@ -15,7 +15,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.translation.I18n;
 
-public class Panel_SkillSelect extends DRPPanel{
+public class Panel_SkillSelect extends Gui_Panel{
 
 	private static final ResourceLocation skillBG = new ResourceLocation(DRPCoreInfo.MODID, "textures/guis/skill/skill_point_overview.png");
 	

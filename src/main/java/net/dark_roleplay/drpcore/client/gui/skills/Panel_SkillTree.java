@@ -8,14 +8,14 @@ import java.util.Random;
 
 import org.lwjgl.input.Mouse;
 
-import net.dark_roleplay.drpcore.api.gui.DRPPanel;
+import net.dark_roleplay.drpcore.api.gui.advanced.Gui_Panel;
 import net.dark_roleplay.drpcore.api.gui.utility.dynamic.ModularBackground;
 import net.dark_roleplay.drpcore.api.skills.Skill;
 import net.dark_roleplay.drpcore.common.DRPCoreInfo;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.util.ResourceLocation;
 
-public class Panel_SkillTree extends DRPPanel{
+public class Panel_SkillTree extends Gui_Panel{
 
 	private static final ResourceLocation skillBG = new ResourceLocation(DRPCoreInfo.MODID, "textures/guis/skill/skill_point_overview.png");
 	

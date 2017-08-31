@@ -10,10 +10,10 @@ import org.lwjgl.input.Keyboard;
 
 import com.mojang.authlib.properties.Property;
 
+import net.dark_roleplay.drpcore.api.blueprints.Blueprint;
+import net.dark_roleplay.drpcore.api.blueprints.BlueprintUtil;
 import net.dark_roleplay.drpcore.api.crafting.Crafting_Util;
 import net.dark_roleplay.drpcore.api.crafting.simple_recipe.SimpleRecipe;
-import net.dark_roleplay.drpcore.api.schematic.Schematic;
-import net.dark_roleplay.drpcore.api.schematic.SchematicUtil;
 import net.dark_roleplay.drpcore.api.skills.Skill_Util;
 import net.dark_roleplay.drpcore.client.gui.crafting.recipe_crafting.RecipeCrafting_SimpleRecipe;
 import net.dark_roleplay.drpcore.client.gui.crafting.recipe_selection.RecipeSelection;

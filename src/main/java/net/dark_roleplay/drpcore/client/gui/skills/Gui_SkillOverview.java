@@ -5,8 +5,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import net.dark_roleplay.drpcore.api.gui.DRPPanel;
 import net.dark_roleplay.drpcore.api.gui.DRPGuiScreen;
+import net.dark_roleplay.drpcore.api.gui.advanced.Gui_Panel;
 import net.dark_roleplay.drpcore.api.gui.utility.dynamic.ModularBackground;
 import net.dark_roleplay.drpcore.api.skills.Skill;
 import net.dark_roleplay.drpcore.api.skills.SkillPoint;

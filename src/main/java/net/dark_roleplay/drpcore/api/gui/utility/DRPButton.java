@@ -3,7 +3,7 @@ package net.dark_roleplay.drpcore.api.gui.utility;
 import java.io.IOException;
 import java.util.List;
 
-import net.dark_roleplay.drpcore.api.gui.IGuiElement;
+import net.dark_roleplay.drpcore.api.gui.advanced.IGuiElement;
 
 public class DRPButton extends IGuiElement.IMPL{
 

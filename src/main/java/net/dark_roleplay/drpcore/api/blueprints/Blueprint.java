@@ -1,4 +1,4 @@
-package net.dark_roleplay.drpcore.api.schematic;
+package net.dark_roleplay.drpcore.api.blueprints;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,7 +13,7 @@ import net.minecraft.world.World;
 /**
  * @author JTK222 
  */
-public class Schematic {
+public class Blueprint {
 
 	private List<String> requiredMods;
 	private short sizeX, sizeY, sizeZ;
@@ -25,7 +25,7 @@ public class Schematic {
 	private short[][][] structure;
 	private NBTTagCompound[] tileEntities;
 	
-	public Schematic(short sizeX, short sizeY, short sizeZ, short palleteSize, IBlockState[] pallete, short[][][] structure, NBTTagCompound[] tileEntities, List<String> requiredMods){
+	public Blueprint(short sizeX, short sizeY, short sizeZ, short palleteSize, IBlockState[] pallete, short[][][] structure, NBTTagCompound[] tileEntities, List<String> requiredMods){
 		this.sizeX = sizeX;
 		this.sizeY = sizeY;
 		this.sizeZ = sizeZ;
@@ -35,7 +35,6 @@ public class Schematic {
 		this.tileEntities = tileEntities;
 		this.requiredMods = requiredMods;
 	}
-	
 	
 	public void build(World world, BlockPos pos){
 		IBlockState[] pallete = this.getPallete();

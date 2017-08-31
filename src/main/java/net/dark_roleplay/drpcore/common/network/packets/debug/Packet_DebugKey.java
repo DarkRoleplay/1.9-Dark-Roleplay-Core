@@ -7,9 +7,9 @@ import java.io.FileOutputStream;
 import java.io.OutputStream;
 
 import io.netty.buffer.ByteBuf;
+import net.dark_roleplay.drpcore.api.blueprints.Blueprint;
+import net.dark_roleplay.drpcore.api.blueprints.BlueprintUtil;
 import net.dark_roleplay.drpcore.api.crafting.simple_recipe.SimpleRecipe;
-import net.dark_roleplay.drpcore.api.schematic.Schematic;
-import net.dark_roleplay.drpcore.api.schematic.SchematicUtil;
 import net.dark_roleplay.drpcore.common.DarkRoleplayCore;
 import net.dark_roleplay.drpcore.common.config.SyncedConfigRegistry;
 import net.dark_roleplay.drpcore.common.crafting.simple_recipe.SimpleRecipeSerializationUtil;

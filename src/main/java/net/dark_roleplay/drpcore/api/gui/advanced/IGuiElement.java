@@ -1,4 +1,4 @@
-package net.dark_roleplay.drpcore.api.gui;
+package net.dark_roleplay.drpcore.api.gui.advanced;
 
 import java.io.IOException;
 import java.util.ArrayList;

@@ -19,8 +19,8 @@ import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.sun.jna.platform.win32.WinUser.POINT;
 
-import net.dark_roleplay.drpcore.api.gui.DRPPanel;
 import net.dark_roleplay.drpcore.api.gui.DRPGuiScreen;
+import net.dark_roleplay.drpcore.api.gui.advanced.Gui_Panel;
 import net.dark_roleplay.drpcore.api.gui.utility.dynamic.ModularBackground;
 import net.dark_roleplay.drpcore.api.skills.Skill;
 import net.dark_roleplay.drpcore.api.skills.SkillPoint;
@@ -83,7 +83,7 @@ public class SkillOverview extends DRPGuiScreen {
 	private Button_Change skillPointPrev;
 	private Button_Change skillPointNext;
 
-	private DRPPanel skillTreePanel;
+	private Gui_Panel skillTreePanel;
 	
 	public SkillOverview() {
 		super(bg, 1000, 500);

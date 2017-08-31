@@ -3,6 +3,8 @@ package net.dark_roleplay.drpcore.api.gui;
 import java.io.IOException;
 import java.util.List;
 
+import net.dark_roleplay.drpcore.api.gui.advanced.IGuiElement;
+
 public abstract class DRPAbstractGuiElement implements IGuiElement{
 
 	protected int posX, posY;

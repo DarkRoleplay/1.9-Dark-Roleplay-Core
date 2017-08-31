@@ -1,21 +1,23 @@
-package net.dark_roleplay.drpcore.api.gui;
+package net.dark_roleplay.drpcore.api.gui.advanced;
 
 import java.awt.Color;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import net.dark_roleplay.drpcore.api.gui.DRPGuiScreen;
+import net.dark_roleplay.drpcore.api.gui.advanced.IGuiElement.IMPL;
 import net.minecraft.client.gui.Gui;
 import net.minecraft.client.renderer.BufferBuilder;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 
-public abstract class DRPPanel extends IGuiElement.IMPL{
+public abstract class Gui_Panel extends IGuiElement.IMPL{
 
 	protected DRPGuiScreen parent;
 	
-	public DRPPanel(int posX, int posY, int width, int height){
+	public Gui_Panel(int posX, int posY, int width, int height){
 		this.posX = posX;
 		this.posY = posY;
 		this.width = width;
@@ -103,5 +105,23 @@ public abstract class DRPPanel extends IGuiElement.IMPL{
 		tessellator.draw();
 		GlStateManager.enableTexture2D();
 		GlStateManager.disableBlend();
+	}
+	
+	public static class IMPL extends Gui_Panel{
+
+		public IMPL(int posX, int posY, int width, int height) {
+			super(posX, posY, width, height);
+		}
+
+		@Override
+		public void drawBackground(int mouseX, int mouseY, float partialTick) {
+			
+		}
+
+		@Override
+		public void drawForeground(int mouseX, int mouseY, float partialTick) {
+			
+		}
+		
 	}
 }

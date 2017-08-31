@@ -1,4 +1,4 @@
-package net.dark_roleplay.drpcore.api.schematic;
+package net.dark_roleplay.drpcore.api.blueprints;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -22,16 +22,13 @@ import net.minecraftforge.fml.common.Loader;
 /**
  * @author JTK222
  */
-public class SchematicUtil {
-	
-	
-	
-	public static Schematic createSchematic(World world, BlockPos pos, short sizeX, short sizeY, short sizeZ){
+public class BlueprintUtil {
+
+	public static Blueprint createSchematic(World world, BlockPos pos, short sizeX, short sizeY, short sizeZ){
 		return createSchematic(world, pos, sizeX, sizeY, sizeZ, null);
 	}
 	
-	public static Schematic createSchematic(World world, BlockPos pos, short sizeX, short sizeY, short sizeZ, String name, String... architects){
-	
+	public static Blueprint createSchematic(World world, BlockPos pos, short sizeX, short sizeY, short sizeZ, String name, String... architects){
 		List<IBlockState> pallete = new ArrayList<IBlockState>();
 		short[][][] structure = new short[sizeY][sizeZ][sizeX];
 		
@@ -68,7 +65,7 @@ public class SchematicUtil {
 		NBTTagCompound[] tes = new NBTTagCompound[tileEntities.size()];
 		tes = tileEntities.toArray(tes);
 		
-		Schematic schem = new Schematic(sizeX, sizeY, sizeZ, (byte)pallete.size(), states, structure, tes, requiredMods);
+		Blueprint schem = new Blueprint(sizeX, sizeY, sizeZ, (byte)pallete.size(), states, structure, tes, requiredMods);
 		
 		if(name != null)
 			schem.setName(name);
@@ -79,7 +76,7 @@ public class SchematicUtil {
 		return schem;
 	}
 	
-	public static NBTTagCompound writeSchematicToNBT(Schematic schem){
+	public static NBTTagCompound writeSchematicToNBT(Blueprint schem){
 		NBTTagCompound tag = new NBTTagCompound();
 		//Set Schematic Version
 		tag.setByte("version", (byte)1);
@@ -137,7 +134,7 @@ public class SchematicUtil {
 	}
 	
 
-	public static Schematic readSchematicFromNBT(NBTTagCompound tag){
+	public static Blueprint readSchematicFromNBT(NBTTagCompound tag){
 		byte version = tag.getByte("version");
 		if(version == 1){
 			short sizeX = tag.getShort("size_x"), sizeY = tag.getShort("size_y"), sizeZ = tag.getShort("size_z");
@@ -173,7 +170,7 @@ public class SchematicUtil {
 				tileEntities[i] = teTag.getCompoundTagAt(i);
 			}
 
-			Schematic schem = new Schematic(sizeX, sizeY, sizeZ, palleteSize, pallete, blocks, tileEntities, requiredMods);
+			Blueprint schem = new Blueprint(sizeX, sizeY, sizeZ, palleteSize, pallete, blocks, tileEntities, requiredMods);
 			
 			if(tag.hasKey("name")){
 				schem.setName(tag.getString("name"));
@@ -192,7 +189,7 @@ public class SchematicUtil {
 		return null;
 	}
 	
-	public static void writeToFile(OutputStream os, Schematic schem){
+	public static void writeToFile(OutputStream os, Blueprint schem){
 		try {
 			CompressedStreamTools.writeCompressed(writeSchematicToNBT(schem), os);
 		} catch (IOException e) {
@@ -200,7 +197,7 @@ public class SchematicUtil {
 		}
 	}
 	
-	public static Schematic readFromFile(InputStream is){
+	public static Blueprint readFromFile(InputStream is){
 		NBTTagCompound tag;
 		try {
 			tag = CompressedStreamTools.readCompressed(is);
