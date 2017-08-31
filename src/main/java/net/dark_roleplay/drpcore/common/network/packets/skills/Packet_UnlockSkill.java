@@ -48,21 +48,13 @@ public class Packet_UnlockSkill extends PacketBase<Packet_UnlockSkill>{
 					ISkillController controller = (ISkillController) player.getCapability(DRPCoreCapabilities.DRPCORE_SKILL_CONTROLLER, null);
 					Skill skill = SkillRegistry.getSkillByName(message.skill);
 	
-					System.out.println("Debug0");
-					
-					System.err.println("Sending Skill Packets! " + controller.getUnlockedSkills());
-	
 					if(skill != null && !controller.hasSkill(skill)){
 	
-						System.out.println("Debug1");
 						SkillRequirements req = skill.getRequirements();
 						for(SkillPoint point : req.getRequiredPoints()){
 	
-							System.out.println("Debug2");
 							SkillPointData data = controller.getSkillPointData(point);
 							if(data == null || data.getAmount() < req.getRequiredAmount(point)){
-	
-								System.out.println("Debug3");
 								return;
 							}
 						}
@@ -72,7 +64,6 @@ public class Packet_UnlockSkill extends PacketBase<Packet_UnlockSkill>{
 							}
 						}
 						for(SkillPoint point : req.getRequiredPoints()){
-							System.out.println("Debug5");
 							controller.consumeSkillPoint(point, req.getRequiredAmount(point));
 						}
 						controller.unlockSkill(skill);

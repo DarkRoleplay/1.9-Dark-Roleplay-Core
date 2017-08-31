@@ -1,22 +1,24 @@
 package net.dark_roleplay.drpcore.common;
 
 import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.MalformedURLException;
+import java.net.URL;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import net.dark_roleplay.drpcore.api.crafting.simple_recipe.SimpleRecipe;
 import net.dark_roleplay.drpcore.client.events.config.Event_ConfigChange;
-import net.dark_roleplay.drpcore.common.commands.crafting.Command_Recipe;
-import net.dark_roleplay.drpcore.common.commands.skills.Command_Skill;
 import net.dark_roleplay.drpcore.common.config.SyncedConfigRegistry;
-import net.dark_roleplay.drpcore.common.crafting.CraftingRegistry;
-import net.dark_roleplay.drpcore.common.crafting.simple_recipe.SimpleRecipe;
 import net.dark_roleplay.drpcore.common.events.capabilities.Event_CapabilityEntity;
 import net.dark_roleplay.drpcore.common.events.entity.player.Event_PlayerClone;
 import net.dark_roleplay.drpcore.common.events.entity.player.Event_PlayerLoggedIn;
 import net.dark_roleplay.drpcore.common.handler.DRPCoreBlocks;
 import net.dark_roleplay.drpcore.common.handler.DRPCoreCapabilities;
 import net.dark_roleplay.drpcore.common.handler.DRPCoreConfigs;
+import net.dark_roleplay.drpcore.common.handler.DRPCoreCrafting;
 import net.dark_roleplay.drpcore.common.handler.DRPCoreEvents;
 import net.dark_roleplay.drpcore.common.handler.DRPCoreGuis;
 import net.dark_roleplay.drpcore.common.handler.DRPCoreItems;
@@ -25,6 +27,9 @@ import net.dark_roleplay.drpcore.common.handler.DRPCoreSkills;
 import net.dark_roleplay.drpcore.common.proxy.CommonProxy;
 import net.dark_roleplay.drpcore.common.skills.SkillRegistry;
 import net.dark_roleplay.drpcore.common.tileentities.TileEntity_StructureController;
+import net.dark_roleplay.drpcore.server.commands.crafting.Command_Recipe;
+import net.dark_roleplay.drpcore.server.commands.skills.Command_Skill;
+import net.minecraft.client.Minecraft;
 import net.minecraft.command.ServerCommandManager;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
@@ -48,30 +53,36 @@ import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLServerStartingEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.registry.GameRegistry;
+import net.minecraftforge.registries.RegistryBuilder;
 
-@Mod(modid = DRPCoreInfo.MODID, version = DRPCoreInfo.VERSION, name = DRPCoreInfo.NAME, acceptedMinecraftVersions = DRPCoreInfo.ACCEPTEDVERSIONS, updateJSON = DRPCoreInfo.UPDATECHECK, guiFactory = DRPCoreInfo.CONFIG_GUI_FACTORY)
+@Mod(modid = DRPCoreInfo.MODID, version = DRPCoreInfo.VERSION, name = DRPCoreInfo.NAME, acceptedMinecraftVersions = DRPCoreInfo.ACCEPTEDVERSIONS, updateJSON = DRPCoreInfo.UPDATECHECK)
 public class DarkRoleplayCore {
-
-	public static File configDir;
 	
-	public static final Logger LOGGER = LogManager.getLogger(DRPCoreInfo.MODID);
-
 	public static boolean isServerSide = false;
-	
-	public static Status versionStatus;
 	
 	@SidedProxy(serverSide = "net.dark_roleplay.drpcore.common.proxy.CommonProxy", clientSide = "net.dark_roleplay.drpcore.client.ClientProxy")
 	public static CommonProxy proxy;
 	
-	@net.minecraftforge.fml.common.Mod.Instance(DRPCoreInfo.MODID)
+	@Mod.Instance(DRPCoreInfo.MODID)
 	public static DarkRoleplayCore instance;
 
 	@EventHandler
 	public void preInit(FMLPreInitializationEvent event){
+		DRPCoreInfo.LOGGER = LogManager.getLogger(DRPCoreInfo.MODID);
 		SyncedConfigRegistry.setSide(event.getSide());
 		
-		configDir = event.getSuggestedConfigurationFile();
-		DRPCoreConfigs.loadConfig(event.getSuggestedConfigurationFile());
+		DRPCoreInfo.SIDE = event.getSide();
+		DRPCoreInfo.DARK_ROLEPLAY_CORE_FOLDER = event.getModConfigurationDirectory().getParentFile();
+		
+//		RegistryBuilder rb = new RegistryBuilder();
+//		rb.setType(SimpleRecipe.class)
+//		.allowModification()
+//		.setName(new ResourceLocation("drpcore:recipes"))
+//		.create();
+		
+		
+//		configDir = event.getSuggestedConfigurationFile();
+//		DRPCoreConfigs.loadConfig(event.getSuggestedConfigurationFile());
 
 		DRPCoreCapabilities.preInit(event);
 		DRPCoreGuis.preInit(event);
@@ -86,7 +97,7 @@ public class DarkRoleplayCore {
 	
 	@EventHandler
 	public void init(FMLInitializationEvent event) {
-		FMLCommonHandler.instance().bus().register(new Event_ConfigChange());
+		MinecraftForge.EVENT_BUS.register(new Event_ConfigChange());
 		MinecraftForge.EVENT_BUS.register(new Event_PlayerClone());
 		MinecraftForge.EVENT_BUS.register(new Event_CapabilityEntity());
 		MinecraftForge.EVENT_BUS.register(new Event_PlayerLoggedIn());
@@ -106,14 +117,15 @@ public class DarkRoleplayCore {
 		DRPCoreEvents.postInit(event);
 		DRPCoreEvents.postInit(event);
 		proxy.postInit(event);
+		DRPCoreCrafting.postInit(event);
 		
 		ModContainer mod = Loader.instance().activeModContainer();
-		for(int i = 0; i < 100; i++)
-			System.out.println("DEBUG");
 		if(mod.getModId().equals(DRPCoreInfo.MODID)){
-			versionStatus = ForgeVersion.getResult(mod).status;
+			DRPCoreInfo.VERSION_STATUS = ForgeVersion.getResult(mod);
 		}
 	}
+	
+	
 	
 	@EventHandler
 	public void serverLoad(FMLServerStartingEvent event){

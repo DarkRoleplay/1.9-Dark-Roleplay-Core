@@ -1,73 +1,77 @@
 package net.dark_roleplay.drpcore.common.handler;
 
 import java.io.File;
+import java.lang.invoke.MethodHandle;
 
 import net.dark_roleplay.drpcore.client.events.config.Event_ConfigChange;
+import net.dark_roleplay.drpcore.common.DRPCoreInfo;
 import net.dark_roleplay.drpcore.common.config.SyncedConfigRegistry;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.common.config.Config;
 import net.minecraftforge.common.config.Configuration;
 import net.minecraftforge.common.config.Property;
 import net.minecraftforge.fml.common.FMLCommonHandler;
+import net.minecraftforge.fml.common.Mod;
 
+@Config(modid = DRPCoreInfo.MODID, name = "Dark Roleplay Core/Dark Roleplay Core", category = "drpcore")
 public class DRPCoreConfigs {
 
-	public static Configuration config;
+	@Config.LangKey("config.key")
+	@Config.Comment("This category contains everything that affects the mod but not any of it's features.")
+	public static General GENERAL = new General();
 	
-	/**-------------------- DEBUG STUFF --------------------**/
-	public static boolean ENABLE_DEBUG_ITEMS = false;
-	public static boolean ENABLE_DEBUG_BLOCKS = false;
+	@Config.Comment("This category contains everything that deals with crafting.")
+	public static Crafting CRAFTING = new Crafting();
 	
-	/**-------------------- GENERAL STUFF --------------------**/
-	
-	public static boolean ENABLE_PLACEMENT_PREVIEW = true;
+	@Config.Comment("This category is mainly for modders that want to have some example and test stuff.")
+	public static Debug DEBUG = new Debug();
 
 	
-	/**-------------------- CRAFTING STUFF --------------------**/
-	
-	//Recipe Gui
-	public static boolean HIDE_LOCKED_RECIPES = false;
-	public static boolean HIDE_UNKOWN_RECIPES = false;
-	
-	public static void loadConfig(File configFile) {
-		config = new Configuration(configFile);
-
-		config.load();
-		load();
-
-		//MinecraftForge.EVENT_BUS.register(new Event_ConfigChange());
+	public static class General{
+		
+		@Config.Name("Enable Placement Preview")
+		@Config.Comment("Show a preview of how the block that you are holding would be placed. \nAllowed values: true, false")
+		public boolean PLACEMENT_PREVIEW = true;
+		
+		@Config.Name("Enable Update Info")
+		@Config.Comment("Shows informational screen if a new update is available. \nAllowed values: true, false")
+		public boolean UPDATE_GUI = true;
+		
+		@Config.Name("Fist Installed")
+		@Config.Comment("Shows informational screen when this value is set to true, automaticly sets to false. \nAllowed values: true, false")
+		public boolean FIRST_INSTALL = true;
 	}
 	
-	public static void load() {
-		Property prop;
+	public static class Crafting{
 		
-		prop = config.get("general","Show Block Placement Preview on Sneak", ENABLE_DEBUG_ITEMS);
-		prop.setComment("Set this to true when you want to enable a placment preview while you sneak.");
-		prop.setRequiresMcRestart(false);
-		ENABLE_PLACEMENT_PREVIEW = prop.getBoolean(ENABLE_PLACEMENT_PREVIEW);
+		@Config.Name("Hide Locked Crafting Recipes")
+		@Config.Comment("If set to true recipes that were locked wont be shown in the crafting screen. \nAllowed values: true, false")
+		public boolean HIDE_LOCKED_RECIPES = false;
 		
-		prop = config.get("debug","Enable debug items", ENABLE_DEBUG_ITEMS);
-		prop.setComment("Set this to true when you want to enable debug items added by Dark Roleplay Core");
-		prop.setRequiresMcRestart(true);
-		ENABLE_DEBUG_ITEMS = prop.getBoolean(ENABLE_DEBUG_ITEMS);
-
-		prop = config.get("debug","Enable debug blocks", ENABLE_DEBUG_ITEMS);
-		prop.setComment("Set this to true when you want to enable debug blocks added by Dark Roleplay Core");
-		prop.setRequiresMcRestart(true);
-		ENABLE_DEBUG_BLOCKS = prop.getBoolean(ENABLE_DEBUG_BLOCKS);
+		@Config.Name("Hide Unknown Crafting Recipes")
+		@Config.Comment("If set to true recipes that you haven't unlocked wont be shown in the crafting screen. \nAllowed values: true, false")
+		public boolean HIDE_UNKNOWN_RECIPES = false;
+	}
+	
+	public static class Debug{
 		
-		prop = config.get("gui.crafting.selection","Hide unknown recipes", HIDE_UNKOWN_RECIPES);
-		prop.setComment("Used to hide/show unknown recipes from recipe selection");
-		HIDE_UNKOWN_RECIPES = prop.getBoolean(HIDE_UNKOWN_RECIPES);
-
-		prop = config.get("gui.crafting.selection","Hide locked recipes", HIDE_LOCKED_RECIPES);
-		prop.setComment("Used to hide/show locked recipes from recipe selection");
-		HIDE_LOCKED_RECIPES = prop.getBoolean(HIDE_LOCKED_RECIPES);
+		@Config.Name("Enable Debug Items")
+		@Config.Comment("Enables debug items ingame. \nAllowed values: true, false")
+		@Config.RequiresMcRestart
+		public boolean DEBUG_ITEMS = false;
 		
-		prop = config.get("gui.crafting.crafting", "enable_craft_multiplicator", false);
-		prop.setComment("Set this to true if you want to enable the Craft Multiplicator");
-		SyncedConfigRegistry.initBoolean("enable_craft_multiplicator", prop.getBoolean());
+		@Config.Name("Enable Debug Blocks")
+		@Config.Comment("Enables debug blocks ingame. \nAllowed values: true, false")
+		@Config.RequiresMcRestart
+		public boolean DEBUG_BLOCKS = false;
 		
-		if(config.hasChanged())
-			config.save();
+		@Config.Name("Enable Debug Key")
+		@Config.Comment("Enables debug keybinds ingame. \nAllowed values: true, false")
+		@Config.RequiresMcRestart
+		public boolean DEBUG_KEY = false;
+		
+		@Config.Name("Display recipe names")
+		@Config.Comment("Display Recipe Names in Crafting GUI's. \nAllowed values: true, false")
+		public boolean DEBUG_RECIPE_NAMES = false;
 	}
 }

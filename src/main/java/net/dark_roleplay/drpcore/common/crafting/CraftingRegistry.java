@@ -1,21 +1,32 @@
 package net.dark_roleplay.drpcore.common.crafting;
 
 import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.Collection;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
 
-import net.dark_roleplay.drpcore.common.crafting.simple_recipe.SimpleCrafter;
-import net.dark_roleplay.drpcore.common.crafting.simple_recipe.SimpleRecipe;
+import com.google.common.collect.BiMap;
+import com.google.common.collect.HashBiMap;
+
+import net.dark_roleplay.drpcore.api.crafting.simple_recipe.IRecipe;
+import net.dark_roleplay.drpcore.api.crafting.simple_recipe.RecipeCategory;
+import net.dark_roleplay.drpcore.api.crafting.simple_recipe.SimpleCrafter;
 import net.minecraft.block.Block;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.NBTTagList;
+import net.minecraft.nbt.NBTTagString;
+import net.minecraft.util.ResourceLocation;
 
 public class CraftingRegistry {
+
+	private static HashMap<ResourceLocation, IRecipe> recipes = new HashMap<ResourceLocation, IRecipe>();
+	private static HashMap<Block, List<RecipeCategory>> categorys = new HashMap<Block, List<RecipeCategory>>();
 	
-	private static Map<String,SimpleRecipe> recipes = new HashMap<String,SimpleRecipe>();
-	private static Map<String,SimpleRecipe> unlockRecipes = new HashMap<String,SimpleRecipe>();
-	
-	private static Map<Block,Map<String,List<String>>> stationKeys = new HashMap<Block,Map<String,List<String>>>();
+	//ID Sync
+	private static BiMap<Integer, ResourceLocation> biMap = HashBiMap.create();
+	private static int registrySize;
+
 
 	public static SimpleCrafter SIMPLE_CRAFTER_INSTANCE;
 	
@@ -25,58 +36,86 @@ public class CraftingRegistry {
 		
 	}
 	
-	public static boolean registerRecipe(Block station, String category, SimpleRecipe recipe, boolean requiresUnlock){
-		recipe.setStation(station);
-		if(recipes.containsKey(recipe.getRegistryName()) || unlockRecipes.containsKey(recipe.getRegistryName())){
-			return false;
-		}
-		
-		if(requiresUnlock){
-			unlockRecipes.put(recipe.getRegistryName(), recipe);
-		}else{
+	public static void createIdMap(){
+		Iterator<ResourceLocation> it = recipes.keySet().iterator();
+		int id = 0;
+		while(it.hasNext()){
+			biMap.put(id, it.next());
+		};
+	}
+	
+	public static void register(RecipeCategory category){
+		if(categorys.containsKey(category.getCraftingStation())){
+			List<RecipeCategory> cats = categorys.get(category.getCraftingStation());
+			cats.add(category);
+			categorys.replace(category.getCraftingStation(), cats);
+		}else
+			categorys.put(category.getCraftingStation(), new ArrayList<RecipeCategory>(){{add(category);}});
+		for(IRecipe recipe : category.getRecipes()){
 			recipes.put(recipe.getRegistryName(), recipe);
 		}
-		
-		Map<String,List<String>> tmpRecipeKeys;
-		List<String> tmpCategoryKeys;
-		
-		if(!stationKeys.containsKey(station)){
-			tmpRecipeKeys = new HashMap<String,List<String>>();
-			tmpCategoryKeys = new ArrayList<String>();
-			tmpCategoryKeys.add(recipe.getRegistryName());
-			tmpRecipeKeys.put(category, tmpCategoryKeys);
-			stationKeys.put(station, tmpRecipeKeys);
-		}else{
-			tmpRecipeKeys = stationKeys.get(station);
-			if(!tmpRecipeKeys.containsKey(category)){
-				tmpCategoryKeys = new ArrayList<String>();
-			}else{
-				tmpCategoryKeys = tmpRecipeKeys.get(category);
-			}
-			tmpCategoryKeys.add(recipe.getRegistryName());
-			tmpRecipeKeys.put(category, tmpCategoryKeys);
-			stationKeys.replace(station, tmpRecipeKeys);
+	}
+	
+	//---------------------------- UTILITY ----------------------------//
+	
+	public static List<RecipeCategory> getCategorysForBlocks(Block station){
+		if(categorys.containsKey(station)){
+			return categorys.get(station);
 		}
-		return true;
-	}
-	public static Map<String,List<String>> getRecipesForStation(Block block){
-		return stationKeys.containsKey(block) ? stationKeys.get(block) : null;
+		return null;
 	}
 	
-	public static SimpleRecipe getRecipe(String recipeName){
-		return recipes.containsKey(recipeName) ? recipes.get(recipeName) : unlockRecipes.containsKey(recipeName) ? unlockRecipes.get(recipeName) : null;
+    //---------------------------- ID Map (De-)/Serialization ----------------------------//
+	public static void readIdMap(NBTTagCompound tag){
+		NBTTagList list = (NBTTagList) tag.getTag("id_map");
+		int size = list.tagCount();
+		registrySize = size;
+		for(int i = 0; i < size; i++){
+			biMap.put(i, new ResourceLocation(list.getStringTagAt(i)));
+		}
+		
+		if(registrySize < recipes.size()){
+			Iterator<ResourceLocation> it = recipes.keySet().iterator();
+			while(it.hasNext()){
+				ResourceLocation rs = it.next();
+				if(!biMap.containsValue(rs)){
+					biMap.put(registrySize + 1, rs);
+					registrySize++;
+				}
+			};
+		}
 	}
 	
-	public static boolean requiresRecipeUnlock(String recipeName){
-		return unlockRecipes.containsKey(recipeName);
+	public static NBTTagCompound writeIdMap(){
+		NBTTagCompound tag = new NBTTagCompound();
+		NBTTagList list = new NBTTagList();
+		for(int i = 0; i < biMap.size(); i++){
+			list.appendTag(new NBTTagString(biMap.get(i).toString()));
+		}
+		tag.setTag("id_map", list);
+		
+		return tag;
 	}
 	
-	public static List<Block> getRecipeStations(){
-		return new ArrayList<Block>(stationKeys.keySet());
+	public static Collection<IRecipe> getRecipes(){
+		return recipes.values();
+	}
+	
+	public static IRecipe getRecipe(String registryString){
+		if(recipes.containsKey(new ResourceLocation(registryString))){
+			return recipes.get(new ResourceLocation(registryString));
+		}else{
+			return null;
+		}
 	}
 	
 	public static List<String> getRecipeNames(){
-		return new ArrayList<String>(){{addAll(recipes.keySet());}};
+		Iterator<IRecipe> recipes = getRecipes().iterator();
+		List<String> rec = new ArrayList<String>();
+		
+		while(recipes.hasNext()){
+			rec.add(recipes.next().getRegistryString());
+		}
+		return rec;
 	}
-	
 }

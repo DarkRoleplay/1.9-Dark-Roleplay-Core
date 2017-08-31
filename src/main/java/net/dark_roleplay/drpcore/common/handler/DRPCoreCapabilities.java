@@ -6,12 +6,19 @@ import net.dark_roleplay.drpcore.common.capabilities.player.crafting.RecipeContr
 import net.dark_roleplay.drpcore.common.capabilities.player.skill.ISkillController;
 import net.dark_roleplay.drpcore.common.capabilities.player.skill.SkillControllerFactory;
 import net.dark_roleplay.drpcore.common.capabilities.player.skill.SkillControllerStorage;
+import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTBase;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.NBTTagList;
+import net.minecraft.util.EnumFacing;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.CapabilityInject;
 import net.minecraftforge.common.capabilities.CapabilityManager;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
+import net.minecraftforge.items.IItemHandler;
+import net.minecraftforge.items.IItemHandlerModifiable;
 
 public class DRPCoreCapabilities {
 
@@ -20,7 +27,6 @@ public class DRPCoreCapabilities {
 	
 	@CapabilityInject(ISkillController.class)
 	public static final Capability<ISkillController> DRPCORE_SKILL_CONTROLLER = null;
-	
 	
 	public static void preInit(){
 	}

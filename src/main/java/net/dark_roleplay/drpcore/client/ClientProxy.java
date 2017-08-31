@@ -17,6 +17,7 @@ import net.dark_roleplay.drpcore.client.events.rendering.Event_BlockHighlight;
 import net.dark_roleplay.drpcore.client.events.rendering.Event_ModelBaked;
 import net.dark_roleplay.drpcore.client.keybindings.DRPCoreKeybindings;
 import net.dark_roleplay.drpcore.client.renderer.tileentities.Renderer_StructureController;
+import net.dark_roleplay.drpcore.client.resources.ModularGui_Handler;
 import net.dark_roleplay.drpcore.common.DRPCoreInfo;
 import net.dark_roleplay.drpcore.common.handler.DRPCoreItems;
 import net.dark_roleplay.drpcore.common.proxy.CommonProxy;
@@ -24,6 +25,7 @@ import net.dark_roleplay.drpcore.common.tileentities.TileEntity_StructureControl
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.block.model.ModelBakery;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
+import net.minecraft.client.resources.IReloadableResourceManager;
 import net.minecraft.client.resources.IResource;
 import net.minecraft.client.resources.IResourceManager;
 import net.minecraft.client.resources.SimpleReloadableResourceManager;
@@ -50,10 +52,14 @@ public class ClientProxy extends CommonProxy{
 	public static short selectedCategory = 0;
 	public static byte currentTick = 0;
 	
+	public static List<ModularGui_Template> modularGuis = new ArrayList<ModularGui_Template>();
+	
+	public static ModularGui_Template currentGui;
 	
 	public void preInit(FMLPreInitializationEvent event) {
 		DRPCoreKeybindings.preInit(event);
-		
+		ItemApi.registerItemMeshs();
+
 		for(Map.Entry<DRPItem, String> entry : toRegisterMeshes.entrySet()) {
 			this.registerItemMesh(entry.getValue(),entry.getKey());
 		}
@@ -66,14 +72,19 @@ public class ClientProxy extends CommonProxy{
 	    // model to be used for rendering this item
 	    ModelResourceLocation itemModelResourceLocation = new ModelResourceLocation("drpcore:medicine", "inventory");
 
-		ItemApi.registerItemMeshs();
 		
 		ClientRegistry.bindTileEntitySpecialRenderer(TileEntity_StructureController.class, new Renderer_StructureController());
+//		Minecraft.getMinecraft().getResourceManager().
 	}
 	
 	public void init(FMLInitializationEvent event) {
 		DRPCoreKeybindings.init(event);
 		FMLCommonHandler.instance().bus().register(new Event_ConnectServer());
+		
+		IResourceManager manager = Minecraft.getMinecraft().getResourceManager();
+		if(manager instanceof IReloadableResourceManager) {
+		    ((IReloadableResourceManager)manager).registerReloadListener(new ModularGui_Handler());
+		}
 	}
 	
 	public void postInit(FMLPostInitializationEvent event) {

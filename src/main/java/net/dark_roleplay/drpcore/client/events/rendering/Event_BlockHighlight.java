@@ -10,6 +10,7 @@ import net.minecraft.client.renderer.BlockModelRenderer;
 import net.minecraft.client.renderer.BlockRendererDispatcher;
 import net.minecraft.client.renderer.BufferBuilder;
 import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.client.renderer.OpenGlHelper;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
@@ -31,7 +32,7 @@ public class Event_BlockHighlight {
 	 */
 	@SubscribeEvent
 	public void highlightGhostBlock(DrawBlockHighlightEvent event){
-		if(!DRPCoreConfigs.ENABLE_PLACEMENT_PREVIEW || event.getTarget().getBlockPos() == null || event.getPlayer().getEntityWorld().isAirBlock(event.getTarget().getBlockPos()))
+		if(!DRPCoreConfigs.GENERAL.PLACEMENT_PREVIEW || event.getTarget().getBlockPos() == null || event.getPlayer().getEntityWorld().isAirBlock(event.getTarget().getBlockPos()))
 			return;
 		
 		EntityPlayer player = event.getPlayer();
@@ -43,35 +44,66 @@ public class Event_BlockHighlight {
 		if (!(stack.getItem() instanceof ItemBlock))
 			return;
 		
-		BlockPos position = event.getTarget().getBlockPos().offset(event.getTarget().sideHit);
-
+		BlockPos position = event.getTarget().getBlockPos();
+		World world = player.getEntityWorld();
+		
+		position = player.getEntityWorld().getBlockState(position).getBlock().isReplaceable(world, position) ? position : event.getTarget().getBlockPos().offset(event.getTarget().sideHit);
+		
+		if(!((ItemBlock)stack.getItem()).getBlock().canPlaceBlockOnSide(player.getEntityWorld(), position, event.getTarget().sideHit))
+			return;
+		
 		IBlockState stateToRender = ((ItemBlock)stack.getItem()).getBlock().getStateForPlacement(event.getPlayer().getEntityWorld(), position, event.getTarget().sideHit, (float)event.getTarget().hitVec.x, (float)event.getTarget().hitVec.y,  (float)event.getTarget().hitVec.z, event.getPlayer().getHeldItemMainhand().getMetadata(), event.getPlayer(), EnumHand.MAIN_HAND);
 		if(stateToRender == null)
 			return;
 	
 		Minecraft.getMinecraft().renderEngine.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
-				
-		GlStateManager.pushMatrix();
-		GlStateManager.enableAlpha();
-		GlStateManager.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
 	           
 	    Tessellator tessellator = Tessellator.getInstance();
 	    BufferBuilder vertexbuffer = tessellator.getBuffer();
 	    vertexbuffer.begin(7, DefaultVertexFormats.BLOCK);
-	            
-	    double playerX = event.getPlayer().prevPosX + (event.getPlayer().posX - event.getPlayer().prevPosX) * event.getPartialTicks();
-	    double playerY = event.getPlayer().prevPosY + (event.getPlayer().posY - event.getPlayer().prevPosY) * event.getPartialTicks();
-	    double playerZ = event.getPlayer().prevPosZ + (event.getPlayer().posZ - event.getPlayer().prevPosZ) * event.getPartialTicks();
-	            
-	    GL11.glTranslated(-playerX, -playerY, -playerZ);
-	           
+        
+	    double playerX = player.prevPosX + (player.posX - player.prevPosX) * event.getPartialTicks();
+	    double playerY = player.prevPosY + (player.posY - player.prevPosY) * event.getPartialTicks();
+	    double playerZ = player.prevPosZ + (player.posZ - player.prevPosZ) * event.getPartialTicks();
+	            	           
 	    BlockRendererDispatcher blockrendererdispatcher = Minecraft.getMinecraft().getBlockRendererDispatcher();
 	    BlockModelRenderer renderer = blockrendererdispatcher.getBlockModelRenderer();
-	
-	    renderer.renderModel(event.getPlayer().getEntityWorld(), blockrendererdispatcher.getModelForState(stateToRender), stateToRender, position, vertexbuffer, false,0l/* MathHelper.getPositionRandom(position)*/);
-	
+		
+	    renderer.renderModel(event.getPlayer().getEntityWorld(), blockrendererdispatcher.getModelForState(stateToRender), stateToRender, position, vertexbuffer, true, MathHelper.getPositionRandom(position));
+    	
+		GlStateManager.pushMatrix();
+
+
+		GlStateManager.disableFog();
+		GlStateManager.disableLighting();
+		
+		GlStateManager.enableAlpha();
+		GlStateManager.enableBlend();
+
+        GlStateManager.setActiveTexture(OpenGlHelper.lightmapTexUnit);
+        GlStateManager.disableTexture2D();
+        GlStateManager.setActiveTexture(OpenGlHelper.defaultTexUnit);
+
+        GlStateManager.tryBlendFuncSeparate(GlStateManager.SourceFactor.SRC_ALPHA,
+				GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA, GlStateManager.SourceFactor.ONE,
+				GlStateManager.DestFactor.ZERO);
+        
+		GL11.glColor4f(1f, 1f, 1f, 0.5f);
+	    
+	    GL11.glTranslated(-playerX, -playerY, -playerZ);
+
 	    tessellator.draw();
+	    
+        GlStateManager.setActiveTexture(OpenGlHelper.lightmapTexUnit);
+        GlStateManager.enableTexture2D();
+        GlStateManager.setActiveTexture(OpenGlHelper.defaultTexUnit);
+
 	    GlStateManager.disableAlpha();
+	    GlStateManager.disableBlend();
+
+	    GlStateManager.enableFog();
+	    GlStateManager.enableLighting();
+	    
 	    GlStateManager.popMatrix();
 	}
 	

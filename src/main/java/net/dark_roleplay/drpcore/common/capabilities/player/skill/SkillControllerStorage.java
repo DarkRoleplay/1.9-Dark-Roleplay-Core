@@ -25,7 +25,8 @@ public class SkillControllerStorage implements IStorage<ISkillController>{
     	
     	List<SkillPointData> skillPointDatas = instance.getSkillPoints();
     	List<Skill> unlockedSkills = instance.getUnlockedSkills();
-    	
+    	Map<String, Integer> skillVersion = instance.getVersionKeys();
+    	List<String> versionKeys = new ArrayList<String>(skillVersion.keySet());
     	
     	NBTTagCompound skills = new NBTTagCompound();
     	int i = 0;
@@ -50,6 +51,18 @@ public class SkillControllerStorage implements IStorage<ISkillController>{
     	tag.setInteger("skill_point_amount", i);
     	tag.setTag("skill_points", points);
     	
+		NBTTagCompound versionKeysTag = new NBTTagCompound();
+		versionKeysTag.setInteger("key_amount", versionKeys.size());
+		
+		i = 0;
+    	for(String key : versionKeys){
+    		versionKeysTag.setString("key_" + i, key);
+    		versionKeysTag.setInteger("value_" + i, skillVersion.get(key));
+    		i++;
+    	}
+    	
+    	tag.setTag("version_keys", versionKeysTag);
+    	
         return tag;
     }
 
@@ -61,9 +74,11 @@ public class SkillControllerStorage implements IStorage<ISkillController>{
 		if(!(tag.getTag("skill_points") instanceof NBTTagCompound))
 			return;
 		NBTTagCompound skillPoints = (NBTTagCompound) tag.getTag("skill_points");
-
+		NBTTagCompound versionKeysTag = (NBTTagCompound) tag.getTag("version_keys");
+		
 		int skillAmount = tag.getInteger("skill_amount");
 		int skillPointAmount = tag.getInteger("skill_point_amount");
+		int versionKeyAmount = versionKeysTag == null ? 0 : versionKeysTag.getInteger("key_amount");
 		
 		for(int i = 0; i < skillAmount; i ++){
 			String name = skills.getString("skill_" + i);
@@ -82,6 +97,12 @@ public class SkillControllerStorage implements IStorage<ISkillController>{
 				instance.increaseSkillLevel(point, level);
 				instance.increaseSkillXP(point, xp);
 			}
+		}
+
+		for(int i = 0; i < versionKeyAmount; i++){
+			String key = versionKeysTag.getString("key_" + i);
+			int version = versionKeysTag.getInteger("value_" + i);
+			instance.setSkillVersion(key, version);
 		}
 	}
 }

@@ -2,7 +2,7 @@ package net.dark_roleplay.drpcore.api.items;
 
 public class DRPEquip extends DRPItem{
 
-	private DRPEquip_TYPE type;
+	private TYPE type;
 	
 	//TODO ADD DRPEQUI INVENTORY
 	/**
@@ -14,28 +14,28 @@ public class DRPEquip extends DRPItem{
 	 */
 	private int storageSpace;
 	
-	public DRPEquip(String name, DRPEquip_TYPE type){
+	public DRPEquip(String name, TYPE type){
 		this(name, null, type);
 	}
 	
-	public DRPEquip(String name, String modelFolder, DRPEquip_TYPE type){
+	public DRPEquip(String name, String modelFolder, TYPE type){
 		super(name, modelFolder, 1);
 		this.type = type;
 	}
 	
 	/** -------------------------------------------------- GETTERS -------------------------------------------------- **/
 	
-	public DRPEquip_TYPE getType() {return type;}
+	public TYPE getType() {return type;}
 
 	public int getStorageSpace() {return storageSpace;}
 
 	/** -------------------------------------------------- SETTERS -------------------------------------------------- **/
 	
-	public void setType(DRPEquip_TYPE type) {this.type = type;}
+	public void setType(TYPE type) {this.type = type;}
 
 	public void setStorageSpace(int storageSpace) {this.storageSpace = storageSpace;}
 	
-	protected enum DRPEquip_TYPE{
+	public enum TYPE{
 		
 		TYPE_AMMO_STORAGE,
 		TYPE_MONEY_STORAGE,
@@ -43,10 +43,6 @@ public class DRPEquip extends DRPItem{
 		TYPE_BELT,
 		TYPE_RING,
 		TYPE_NECKLACE;
-		
-		
-		DRPEquip_TYPE(){
-			
-		}
+
 	}
 }

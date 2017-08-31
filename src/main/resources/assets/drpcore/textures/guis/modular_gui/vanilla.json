@@ -1,0 +1,12 @@
+{
+	"version" : "1",
+	"name" : "Vanilla",
+	"background" : {
+		"path" : "drpcore:textures/guis/modular_gui/vanilla_normal.png",
+		"path_hollow" : "drpcore:textures/guis/modular_gui/vanilla_hollow.png",
+		"left" : 6,
+		"top" : 6,
+		"right" : 26,
+		"bottom" : 26
+	}
+}
