@@ -42,7 +42,7 @@ public class Blueprint {
 		for(short y = 0; y < this.getSizeY(); y ++){
 			for(short z = 0; z < this.getSizeZ(); z++){
 				for(short x = 0; x < this.getSizeX(); x++){
-					IBlockState state = pallete[structure[y][z][x]];
+					IBlockState state = pallete[structure[y][z][x] & 0xFFFF];
 					if(state.getBlock() == Blocks.STRUCTURE_VOID)
 						continue;
 					if(state.isFullCube())
@@ -123,6 +123,4 @@ public class Blueprint {
 	public void setArchitects(String[] architects) {
 		this.architects = architects;
 	}
-	
-	
 }

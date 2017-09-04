@@ -1,20 +1,43 @@
 package net.dark_roleplay.drpcore.client.gui.structure;
 
+import java.awt.Color;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.util.List;
 
 import org.lwjgl.input.Keyboard;
 
 import com.google.common.collect.Lists;
 
+import net.dark_roleplay.drpcore.api.blueprints.Blueprint;
+import net.dark_roleplay.drpcore.api.blueprints.BlueprintUtil;
 import net.dark_roleplay.drpcore.api.gui.DRPGuiScreen;
+import net.dark_roleplay.drpcore.api.gui.advanced.Gui_Frame;
+import net.dark_roleplay.drpcore.api.gui.advanced.Gui_Screen;
+import net.dark_roleplay.drpcore.api.gui.advanced.Gui_Textfield;
+import net.dark_roleplay.drpcore.api.gui.advanced.IGuiElement;
+import net.dark_roleplay.drpcore.api.gui.advanced.buttons.Button_ChangeBool;
+import net.dark_roleplay.drpcore.api.gui.advanced.buttons.Button_ChangeInt;
+import net.dark_roleplay.drpcore.api.gui.utility.wrappers.Variable_Boolean;
+import net.dark_roleplay.drpcore.api.gui.utility.wrappers.Variable_Int;
+import net.dark_roleplay.drpcore.client.gui.advanced.buttons.blueprint_controll.Button_ChangeMode;
+import net.dark_roleplay.drpcore.client.gui.advanced.buttons.blueprint_controll.Button_SaveLoad;
 import net.dark_roleplay.drpcore.common.DRPCoreInfo;
-import net.dark_roleplay.drpcore.common.tileentities.TileEntity_StructureController;
+import net.dark_roleplay.drpcore.common.handler.DRPCorePackets;
+import net.dark_roleplay.drpcore.common.network.packets.blocks.Packet_SaveBlueprint;
+import net.dark_roleplay.drpcore.common.network.packets.blocks.SyncPacket_BlueprintBlock;
+import net.dark_roleplay.drpcore.common.tile_entities.blueprint_controller.TE_BlueprintController;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.audio.PositionedSoundRecord;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.gui.GuiTextField;
 import net.minecraft.client.resources.I18n;
+import net.minecraft.init.SoundEvents;
 import net.minecraft.tileentity.TileEntityStructure;
 import net.minecraft.util.ChatAllowedCharacters;
 import net.minecraft.util.Mirror;
@@ -22,290 +45,273 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.Rotation;
 import net.minecraft.util.math.BlockPos;
 
-public class Gui_StructureControll extends DRPGuiScreen {
+public class Gui_StructureControll extends Gui_Screen {
 
-	private static ResourceLocation bg = new ResourceLocation(DRPCoreInfo.MODID,
-			"textures/guis/recipe_crafting_simple.png");
+	private static ResourceLocation bg = new ResourceLocation(DRPCoreInfo.MODID,"textures/guis/recipe_crafting_simple.png");
 
-	private final TileEntity_StructureController tileStructure;
+	private TE_BlueprintController te;
 
-	private static final int[] LEGAL_KEY_CODES = new int[] { 203, 205, 14, 211, 199, 207 };
-
-	private GuiTextField nameEdit;
-	private GuiTextField posXEdit;
-	private GuiTextField posYEdit;
-	private GuiTextField posZEdit;
-	private GuiTextField sizeXEdit;
-	private GuiTextField sizeYEdit;
-	private GuiTextField sizeZEdit;
-
-	private GuiButton showAirButton;
-	private GuiButton showBoundingBoxButton;
-
-	private GuiButton applyButton;
-	private Mirror mirror = Mirror.NONE;
-	private Rotation rotation = Rotation.NONE;
-	private TileEntityStructure.Mode mode = TileEntityStructure.Mode.DATA;
-	private boolean showAir;
-	private boolean showBoundingBox;
-	private GuiButton cancelButton;
-	private GuiButton saveButton;
-	private GuiButton loadButton;
-	private GuiButton modeButton;
-	private final List<GuiTextField> tabOrder = Lists.<GuiTextField>newArrayList();
-
-	public Gui_StructureControll(TileEntity_StructureController te) {
-		super(bg, 178, 161);
-		this.tileStructure = te;
-	}
-
-	public void onGuiClosed() {
-		Keyboard.enableRepeatEvents(false);
-	}
-
-	public void initGui() {
-		Keyboard.enableRepeatEvents(true);
-		this.buttonList.clear();
-		byte buttonID = 0;
-
-		this.showAirButton = this.addButton(new GuiButton(buttonID++, this.width / 2 + 4 + 100, 80, 50, 20, "SHOWAIR"));
-		this.showBoundingBoxButton = this
-				.addButton(new GuiButton(buttonID++, this.width / 2 + 4 + 100, 80, 50, 20, "SHOWBB"));
-		this.applyButton = this
-				.addButton(new GuiButton(buttonID++, this.width / 2 - 4 - 150, 210, 150, 20, I18n.format("gui.apply")));
-		this.modeButton = this.addButton(new GuiButton(buttonID++, this.width / 2 - 4 - 150, 185, 50, 20, "MODE"));
-
-		this.cancelButton = this.addButton(new GuiButton(1, this.width / 2 + 4, 210, 150, 20, I18n.format("gui.cancel")));
-		this.saveButton = this.addButton(new GuiButton(9, this.width / 2 + 4 + 100, 185, 50, 20, I18n.format("structure_block.button.save")));
-		this.loadButton = this.addButton(new GuiButton(10, this.width / 2 + 4 + 100, 185, 50, 20, I18n.format("structure_block.button.load")));
+	private Variable_Int offsetX;
+	private Variable_Int offsetY;
+	private Variable_Int offsetZ;
+	
+	private Variable_Int sizeX;
+	private Variable_Int sizeY;
+	private Variable_Int sizeZ;
+	
+	private Variable_Boolean showBoundingBox;
+	private Variable_Boolean showAir;
+	
+	private TE_BlueprintController.Mode mode;
+	
+	private String name = "";
+	private String architects = "";
+	
+	
+	private int posX;
+	private int posY;
+	
+	private Gui_Frame mainFrame;
+	
+	private Button_ChangeInt decOffsetX;
+	private Button_ChangeInt incOffsetX;
+	private Button_ChangeInt decOffsetY;
+	private Button_ChangeInt incOffsetY;
+	private Button_ChangeInt decOffsetZ;
+	private Button_ChangeInt incOffsetZ;
+	
+	private Button_ChangeInt decSizeX;
+	private Button_ChangeInt incSizeX;
+	private Button_ChangeInt decSizeY;
+	private Button_ChangeInt incSizeY;
+	private Button_ChangeInt decSizeZ;
+	private Button_ChangeInt incSizeZ;
+	
+	private Button_ChangeBool boundingBox;
+	private Button_ChangeBool air;
+	
+	private Button_ChangeMode changeMode;
+	
+	private Button_SaveLoad saveLoad;
+	
+	private Gui_Textfield nameField;
+	
+	private int nameEditPosX, nameEditPosY, nameEditSizeX, nameEditSizeY;
+    private GuiTextField nameEdit;
+	
+    private int architectsPosX, architectsPosY, architectsSizeX, architectsSizeY;
+    private GuiTextField architectsEdit;
+    
+    private GuiTextField focused;
+    
+	private boolean initialized = false;
+	
+	public Gui_StructureControll(TE_BlueprintController te){
+		this.te = te;
+		BlockPos offset = te.getOffset();
+		this.offsetX = new Variable_Int(offset.getX());
+		this.offsetY = new Variable_Int(offset.getY());
+		this.offsetZ = new Variable_Int(offset.getZ());
 		
-		this.nameEdit = new GuiTextField(2, this.fontRenderer, this.width / 2 - 152, 40, 300, 20);
-		this.nameEdit.setMaxStringLength(64);
-		this.nameEdit.setText(this.tileStructure.getName());
-		// this.tabOrder.add(this.nameEdit);
-		BlockPos blockpos = this.tileStructure.getPosition();
-		this.posXEdit = new GuiTextField(3, this.fontRenderer, this.width / 2 - 152, 80, 80, 20);
-		this.posXEdit.setMaxStringLength(15);
-		this.posXEdit.setText(Integer.toString(blockpos.getX()));
-		// this.tabOrder.add(this.posXEdit);
-		this.posYEdit = new GuiTextField(4, this.fontRenderer, this.width / 2 - 72, 80, 80, 20);
-		this.posYEdit.setMaxStringLength(15);
-		this.posYEdit.setText(Integer.toString(blockpos.getY()));
-		// this.tabOrder.add(this.posYEdit);
-		this.posZEdit = new GuiTextField(5, this.fontRenderer, this.width / 2 + 8, 80, 80, 20);
-		this.posZEdit.setMaxStringLength(15);
-		this.posZEdit.setText(Integer.toString(blockpos.getZ()));
-		// this.tabOrder.add(this.posZEdit);
-		BlockPos blockpos1 = this.tileStructure.getStructureSize();
-		this.sizeXEdit = new GuiTextField(6, this.fontRenderer, this.width / 2 - 152, 120, 80, 20);
-		this.sizeXEdit.setMaxStringLength(15);
-		this.sizeXEdit.setText(Integer.toString(blockpos1.getX()));
-		// this.tabOrder.add(this.sizeXEdit);
-		this.sizeYEdit = new GuiTextField(7, this.fontRenderer, this.width / 2 - 72, 120, 80, 20);
-		this.sizeYEdit.setMaxStringLength(15);
-		this.sizeYEdit.setText(Integer.toString(blockpos1.getY()));
-		// this.tabOrder.add(this.sizeYEdit);
-		this.sizeZEdit = new GuiTextField(8, this.fontRenderer, this.width / 2 + 8, 120, 80, 20);
-		this.sizeZEdit.setMaxStringLength(15);
-		this.sizeZEdit.setText(Integer.toString(blockpos1.getZ()));
-		// this.tabOrder.add(this.sizeZEdit);
+		BlockPos size = te.getSize();
+		this.sizeX = new Variable_Int(size.getX());
+		this.sizeY = new Variable_Int(size.getY());
+		this.sizeZ = new Variable_Int(size.getZ());
 		
-		this.showAir = this.tileStructure.showsAir();
-		this.updateToggleAirButton();
-		this.showBoundingBox = this.tileStructure.showsBoundingBox();
-		this.updateToggleBoundingBox();
+		this.name = te.getName();
+		this.architects = te.getArchitects();
+		System.out.println("name" + this.name);
+		System.out.println("architects" + this.architects);
+		
+		this.showBoundingBox = new Variable_Boolean(te.showBoundingBox());
+		this.showAir = new Variable_Boolean(te.showAir());
+		
+		this.mode = te.getMode();
 	}
-
+	
 	@Override
-	protected void drawForeground(int mouseX, int mouseY, float partialTicks) {
+	public void updateScreen(){
+		this.nameEdit.updateCursorCounter();
+		this.architectsEdit.updateCursorCounter();
+	}
+	
+	public void update(){
+		this.te.setOffset(new BlockPos(this.offsetX.get(), this.offsetY.get(), this.offsetZ.get()));
+		this.te.setSize(new BlockPos(this.sizeX.get(), this.sizeY.get(), this.sizeZ.get()));
+		this.te.setShowBoundingBox(this.showBoundingBox.get());
+		this.te.setShowAir(this.showAir.get());
+		this.te.setMode(this.mode);
+		this.te.setName(this.name);
+		this.te.setArchitects(this.architects);
+	}
+	
+	@Override
+	public void initGui(){
+        Keyboard.enableRepeatEvents(true);
 
-		if (this.tileStructure.getMode() == TileEntity_StructureController.Mode.SAVE) {
-			this.nameEdit.drawTextBox();
-			this.posXEdit.drawTextBox();
-			this.posYEdit.drawTextBox();
-			this.posZEdit.drawTextBox();
-			this.sizeXEdit.drawTextBox();
-			this.sizeYEdit.drawTextBox();
-			this.sizeZEdit.drawTextBox();
+		this.posX = (this.width / 2) - 150;
+		this.posY = (this.height / 2) - 100;
+		
+		int btnOffsetY = 70;
+		
+		if(!this.initialized){
+			this.mainFrame = new Gui_Frame(this, this.posX, this.posY, 300, 200);
+			
+			this.mainFrame.addChild(this.decOffsetX = new Button_ChangeInt(this.offsetX, 	-1, 	5, 		5 + btnOffsetY, 10, 15));
+			this.mainFrame.addChild(this.incOffsetX = new Button_ChangeInt(this.offsetX, 	1, 		40, 	5 + btnOffsetY, 10, 15));
+			this.mainFrame.addChild(this.decOffsetY = new Button_ChangeInt(this.offsetY, 	-1,		60,		5 + btnOffsetY, 10, 15));
+			this.mainFrame.addChild(this.incOffsetY = new Button_ChangeInt(this.offsetY, 	1, 		95, 	5 + btnOffsetY, 10, 15));
+			this.mainFrame.addChild(this.decOffsetZ = new Button_ChangeInt(this.offsetZ, 	-1, 	115,	5 + btnOffsetY, 10, 15));
+			this.mainFrame.addChild(this.incOffsetZ = new Button_ChangeInt(this.offsetZ, 	1, 		150, 	5 + btnOffsetY, 10, 15));
+			
+			this.mainFrame.addChild(this.decSizeX = new Button_ChangeInt(this.sizeX, 	-1, 	5, 		25 + btnOffsetY, 10, 15));
+			this.mainFrame.addChild(this.incSizeX = new Button_ChangeInt(this.sizeX, 	1, 		40, 	25 + btnOffsetY, 10, 15));
+			this.mainFrame.addChild(this.decSizeY = new Button_ChangeInt(this.sizeY, 	-1,		60,		25 + btnOffsetY, 10, 15));
+			this.mainFrame.addChild(this.incSizeY = new Button_ChangeInt(this.sizeY, 	1, 		95, 	25 + btnOffsetY, 10, 15));
+			this.mainFrame.addChild(this.decSizeZ = new Button_ChangeInt(this.sizeZ, 	-1, 	115,	25 + btnOffsetY, 10, 15));
+			this.mainFrame.addChild(this.incSizeZ = new Button_ChangeInt(this.sizeZ, 	1, 		150, 	25 + btnOffsetY, 10, 15));
+			
+			this.mainFrame.addChild(this.boundingBox = new Button_ChangeBool(this.showBoundingBox, 5, 45 + btnOffsetY, 40, 20));
+			
+			this.mainFrame.addChild(this.air = new Button_ChangeBool(this.showAir, 50, 45 + btnOffsetY, 40, 20));
+			
+			this.mainFrame.addChild(this.changeMode = new Button_ChangeMode(this.mode, 95, 45 + btnOffsetY, 50, 20));
+			
+			this.mainFrame.addChild(this.saveLoad = new Button_SaveLoad(this, this.mode == TE_BlueprintController.Mode.SAVE ? true : false, 150, 45 + btnOffsetY, 40, 20));
+			
+			
+//			this.mainFrame.addChild(this.nameField = new Gui_Textfield());
+			
+			this.addElement(this.mainFrame);
+			this.initialized = true;
 		}
+		
+		this.mainFrame.setPos(this.posX, this.posY);
+		this.nameEdit = new GuiTextField(0, this.fontRenderer,(this.nameEditPosX = this.posX + 5), (this.nameEditPosY = this.posY + 18), (this.nameEditSizeX = 290), (this.nameEditSizeY = 20));
+        this.nameEdit.setMaxStringLength(64);
+        this.nameEdit.setText(this.name);
+        
+        this.architectsEdit = new GuiTextField(1, this.fontRenderer,(this.architectsPosX = this.posX + 5), (this.architectsPosY = this.posY + 55), (this.architectsSizeX = 290), (this.architectsSizeY = 20));
+        this.architectsEdit.setMaxStringLength(256);
+        this.architectsEdit.setText(this.architects);
+    }
+	
+	@Override
+	public void onGuiClosed(){
+		this.update();
+		
+		DRPCorePackets.sendToServer(new SyncPacket_BlueprintBlock(this.te));
+        Keyboard.enableRepeatEvents(false);
+	}
+	
+	@Override
+	public void drawScreen(int mouseX, int mouseY, float partialTicks){
+		this.drawDefaultBackground();
+		super.drawScreen(mouseX, mouseY, partialTicks);
+		//Offset X
+		this.drawString(this.fontRenderer,String.valueOf(this.offsetX.get()), 5, 5, new Color(255,255,255).getRGB());
+		//Offset Y
+		this.drawString(this.fontRenderer,String.valueOf(this.offsetY.get()), 5, 25, new Color(255,255,255).getRGB());
+		//Offset Z
+		this.drawString(this.fontRenderer,String.valueOf(this.offsetZ.get()), 5, 45, new Color(255,255,255).getRGB());
+		
 
+		//Size X
+		this.drawString(this.fontRenderer,String.valueOf(this.sizeX.get()), 5, 65, new Color(255,255,255).getRGB());
+		//Size Y
+		this.drawString(this.fontRenderer,String.valueOf(this.sizeY.get()), 5, 85, new Color(255,255,255).getRGB());
+		//Size Z
+		this.drawString(this.fontRenderer,String.valueOf(this.sizeZ.get()), 5, 105, new Color(255,255,255).getRGB());
+		
+		//Bounding Box
+		this.drawString(this.fontRenderer,String.valueOf(this.showBoundingBox.get()), 5, 125, new Color(255,255,255).getRGB());
+		//Air
+		this.drawString(this.fontRenderer,String.valueOf(this.showAir.get()), 5, 145, new Color(255,255,255).getRGB());
+		//Mode
+		this.drawString(this.fontRenderer,this.mode.getName(), 5, 165, new Color(255,255,255).getRGB());
+		
+        this.nameEdit.drawTextBox();
+        this.architectsEdit.drawTextBox();
+	}
+	
+	@Override
+	protected void keyTyped(char typedChar, int keyCode) throws IOException{
+        if (this.nameEdit.getVisible() && this.nameEdit.isFocused() && isValidCharacterForName(typedChar, keyCode)){
+            this.nameEdit.textboxKeyTyped(typedChar, keyCode);
+            this.name = this.nameEdit.getText();
+        }else if (this.architectsEdit.getVisible() && this.architectsEdit.isFocused() && isValidCharacterForName(typedChar, keyCode)){
+            this.architectsEdit.textboxKeyTyped(typedChar, keyCode);
+            this.architects = this.architectsEdit.getText();
+        }
+        
+        if(keyCode == 1){
+        	if(this.focused == null){
+        		this.mc.displayGuiScreen(null);
+        	}else{
+        		this.focused.setFocused(false);
+        		this.focused = null;
+        	}
+        }
+        this.update();
+    }
+	
+	private void setFocused(GuiTextField field){
+		if(this.focused != null)
+			this.focused.setFocused(false);
+		this.focused = field;
+		if(field != null)
+			field.setFocused(true);
+	}
+	
+	@Override
+	protected void mouseClicked(int mouseX, int mouseY, int mouseButton) throws IOException{
+        if (mouseButton == 0){
+			if((mouseX > this.nameEditPosX && mouseX < nameEditPosX + nameEditSizeX) && (mouseY > this.nameEditPosY && mouseY < nameEditPosY + nameEditSizeY)){
+				this.setFocused(this.nameEdit);
+				return;
+			}else if((mouseX > this.architectsPosX && mouseX < architectsPosX + architectsSizeX) && (mouseY > this.architectsPosY && mouseY < architectsPosY + architectsSizeY)){
+				this.setFocused(this.architectsEdit);
+				return;
+			}else{
+				this.setFocused(null);
+			}
+        	
+        	for(int i = 0; i < this.elements.size(); ++i){
+    			IGuiElement element = this.elements.get(i);
+    			if((mouseX > element.getPosX() && mouseX < element.getPosX() + element.getWidth()) && (mouseY > element.getPosY() && mouseY < element.getPosY() + element.getHeight())){
+					if(element.mouseClicked(mouseX - element.getPosX(), mouseY - element.getPosY(), mouseButton)){
+						this.mc.getSoundHandler().playSound(PositionedSoundRecord.getMasterRecord(SoundEvents.UI_BUTTON_CLICK, 1.0F));
+					}
+				}
+    		}
+        }
+		this.update();
+    }
+	
+	public void save(){
+		this.update();
+		DRPCorePackets.sendToServer(new Packet_SaveBlueprint(this.te));
 	}
 
-	protected void actionPerformed(GuiButton button) throws IOException {
-		if (button.enabled) {
-			if (button.id == this.showAirButton.id) {
-				this.tileStructure.setShowAir(!this.tileStructure.showsAir());
-			} else if (button.id == this.showAirButton.id) {
-				this.tileStructure.setShowBoundingBox(!this.tileStructure.showsBoundingBox());
-			} else if (button.id == this.modeButton.id) {
-				this.tileStructure.nextMode();
-				this.updateMode();
-			}
-		}
+	public void load(){
+		
 	}
-
-	protected void mouseClicked(int mouseX, int mouseY, int mouseButton) throws IOException {
-		super.mouseClicked(mouseX, mouseY, mouseButton);
-
-		if (this.tileStructure.getMode() == TileEntity_StructureController.Mode.SAVE) {
-
-			if (this.nameEdit.getVisible()) {
-				this.nameEdit.mouseClicked(mouseX, mouseY, mouseButton);
-			}
-
-			if (this.posXEdit.getVisible()) {
-				this.posXEdit.mouseClicked(mouseX, mouseY, mouseButton);
-			}
-
-			if (this.posYEdit.getVisible()) {
-				this.posYEdit.mouseClicked(mouseX, mouseY, mouseButton);
-			}
-
-			if (this.posZEdit.getVisible()) {
-				this.posZEdit.mouseClicked(mouseX, mouseY, mouseButton);
-			}
-
-			if (this.sizeXEdit.getVisible()) {
-				this.sizeXEdit.mouseClicked(mouseX, mouseY, mouseButton);
-			}
-
-			if (this.sizeYEdit.getVisible()) {
-				this.sizeYEdit.mouseClicked(mouseX, mouseY, mouseButton);
-			}
-
-			if (this.sizeZEdit.getVisible()) {
-				this.sizeZEdit.mouseClicked(mouseX, mouseY, mouseButton);
-			}
-
-		}
-
-	}
-
-	private void updateMode() {
-		this.nameEdit.setFocused(false);
-		this.posXEdit.setFocused(false);
-		this.posYEdit.setFocused(false);
-		this.posZEdit.setFocused(false);
-		this.sizeXEdit.setFocused(false);
-		this.sizeYEdit.setFocused(false);
-		this.sizeZEdit.setFocused(false);
-		this.nameEdit.setVisible(false);
-		this.nameEdit.setFocused(false);
-		this.posXEdit.setVisible(false);
-		this.posYEdit.setVisible(false);
-		this.posZEdit.setVisible(false);
-		this.sizeXEdit.setVisible(false);
-		this.sizeYEdit.setVisible(false);
-		this.sizeZEdit.setVisible(false);
-		this.saveButton.visible = false;
-		this.loadButton.visible = false;
-		this.showAirButton.visible = false;
-		this.showBoundingBoxButton.visible = false;
-
-		switch (this.tileStructure.getMode()) {
-			case SAVE:
-				this.nameEdit.setVisible(true);
-				this.nameEdit.setFocused(true);
-				this.posXEdit.setVisible(true);
-				this.posYEdit.setVisible(true);
-				this.posZEdit.setVisible(true);
-				this.sizeXEdit.setVisible(true);
-				this.sizeYEdit.setVisible(true);
-				this.sizeZEdit.setVisible(true);
-				this.saveButton.visible = true;
-				this.showAirButton.visible = true;
-				break;
-			case LOAD:
-				this.nameEdit.setVisible(true);
-				this.nameEdit.setFocused(true);
-				this.posXEdit.setVisible(true);
-				this.posYEdit.setVisible(true);
-				this.posZEdit.setVisible(true);
-				this.loadButton.visible = true;
-				this.showBoundingBoxButton.visible = true;
-				break;
-			case CORNER:
-				this.nameEdit.setVisible(true);
-				this.nameEdit.setFocused(true);
-				break;
-		}
-
-		this.modeButton.displayString = I18n.format("structure_block.mode." + this.tileStructure.getMode().getName());
-	}
-
-	private void updateToggleAirButton() {
-		boolean flag = this.tileStructure.showsAir();
-
-		if (flag) {
-			this.showAirButton.displayString = I18n.format("options.on");
-		} else {
-			this.showAirButton.displayString = I18n.format("options.off");
-		}
-	}
-
-	private void updateToggleBoundingBox() {
-		boolean flag = this.tileStructure.showsBoundingBox();
-
-		if (flag) {
-			this.showBoundingBoxButton.displayString = I18n.format("options.on");
-		} else {
-			this.showBoundingBoxButton.displayString = I18n.format("options.off");
-		}
-	}
-
-	protected void keyTyped(char typedChar, int keyCode) throws IOException {
-
-		if (keyCode == 1) {
-			this.mc.displayGuiScreen((GuiScreen) null);
-		}
-
-		if (this.tileStructure.getMode() == TileEntity_StructureController.Mode.SAVE) {
-			if (this.nameEdit.getVisible() && isValidCharacterForName(typedChar, keyCode)) {
-				this.nameEdit.textboxKeyTyped(typedChar, keyCode);
-			}
-
-			if (this.posXEdit.getVisible()) {
-				this.posXEdit.textboxKeyTyped(typedChar, keyCode);
-			}
-
-			if (this.posYEdit.getVisible()) {
-				this.posYEdit.textboxKeyTyped(typedChar, keyCode);
-			}
-
-			if (this.posZEdit.getVisible()) {
-				this.posZEdit.textboxKeyTyped(typedChar, keyCode);
-			}
-
-			if (this.sizeXEdit.getVisible()) {
-				this.sizeXEdit.textboxKeyTyped(typedChar, keyCode);
-			}
-
-			if (this.sizeYEdit.getVisible()) {
-				this.sizeYEdit.textboxKeyTyped(typedChar, keyCode);
-			}
-
-			if (this.sizeZEdit.getVisible()) {
-				this.sizeZEdit.textboxKeyTyped(typedChar, keyCode);
-			}
-		}
-	}
-
-	private static boolean isValidCharacterForName(char c, int keyCode) {
-		boolean flag = true;
-
-		for (int i : LEGAL_KEY_CODES) {
-			if (i == keyCode) {
-				return true;
-			}
-		}
-
-		for (char c0 : ChatAllowedCharacters.ILLEGAL_STRUCTURE_CHARACTERS) {
-			if (c0 == c) {
-				flag = false;
-				break;
-			}
-		}
-
-		return flag;
-	}
+	
+    public static final char[] ILLEGAL_CHARACTERS = new char[] {'/', '.', '\n', '\r', '\t', '\u0000', '\f', '`', '?', '*', '\\', '<', '>', '|', '"', ':', ','};															
+    public static final int[] LEGAL_KEY_CODES = new int[] {203, 205, 14, 211, 199, 207};
+	private static boolean isValidCharacterForName(char c, int keyCode){
+        boolean flag = true;
+        for (int i : LEGAL_KEY_CODES){
+            if (i == keyCode) {
+                return true;
+            }
+        }
+        for (char c0 : Gui_StructureControll.ILLEGAL_CHARACTERS){
+            if (c0 == c){
+                flag = false;
+                break;
+            }
+        }
+        return flag;
+    }
 }

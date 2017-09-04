@@ -26,7 +26,7 @@ public class TextureCombiner {
 			Graphics gfx = texture1.getGraphics();
 			gfx.drawImage(texture2, 0, 0, null);
 
-			File newFile = new File(DRPCoreInfo.DARK_ROLEPLAY_CORE_FOLDER.toString() + "generated_resources/" + newLoc.getResourceDomain() + "/" + newLoc.getResourcePath());
+			File newFile = new File(DRPCoreInfo.DARK_ROLEPLAY_FOLDER.toString() + "generated_resources/" + newLoc.getResourceDomain() + "/" + newLoc.getResourcePath());
 			newFile.createNewFile();
 			ImageIO.write(texture1, "png", newFile);
 		} catch (IOException e) {

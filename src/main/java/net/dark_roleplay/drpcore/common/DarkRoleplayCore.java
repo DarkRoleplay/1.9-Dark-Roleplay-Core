@@ -26,7 +26,7 @@ import net.dark_roleplay.drpcore.common.handler.DRPCorePackets;
 import net.dark_roleplay.drpcore.common.handler.DRPCoreSkills;
 import net.dark_roleplay.drpcore.common.proxy.CommonProxy;
 import net.dark_roleplay.drpcore.common.skills.SkillRegistry;
-import net.dark_roleplay.drpcore.common.tileentities.TileEntity_StructureController;
+import net.dark_roleplay.drpcore.common.tile_entities.blueprint_controller.TE_BlueprintController;
 import net.dark_roleplay.drpcore.server.commands.crafting.Command_Recipe;
 import net.dark_roleplay.drpcore.server.commands.skills.Command_Skill;
 import net.minecraft.client.Minecraft;
@@ -72,25 +72,20 @@ public class DarkRoleplayCore {
 		SyncedConfigRegistry.setSide(event.getSide());
 		
 		DRPCoreInfo.SIDE = event.getSide();
-		DRPCoreInfo.DARK_ROLEPLAY_CORE_FOLDER = event.getModConfigurationDirectory().getParentFile();
+		DRPCoreInfo.DARK_ROLEPLAY_FOLDER = new File(event.getModConfigurationDirectory().getParentFile().getPath() + "/dark roleplay/");
+		DRPCoreInfo.DARK_ROLEPLAY_FOLDER.mkdirs();
+		DRPCoreInfo.DARK_ROLEPLAY_BLUEPRINTS_FOLDER = new File(DRPCoreInfo.DARK_ROLEPLAY_FOLDER.getPath() + "/blueprints/");
+		DRPCoreInfo.DARK_ROLEPLAY_BLUEPRINTS_FOLDER.mkdirs();
+		DRPCoreInfo.DARK_ROLEPLAY_RECIPES_FOLDER = new File(DRPCoreInfo.DARK_ROLEPLAY_FOLDER.getPath() + "/recipes/");
+		DRPCoreInfo.DARK_ROLEPLAY_RECIPES_FOLDER.mkdirs();
 		
-//		RegistryBuilder rb = new RegistryBuilder();
-//		rb.setType(SimpleRecipe.class)
-//		.allowModification()
-//		.setName(new ResourceLocation("drpcore:recipes"))
-//		.create();
-		
-		
-//		configDir = event.getSuggestedConfigurationFile();
-//		DRPCoreConfigs.loadConfig(event.getSuggestedConfigurationFile());
-
 		DRPCoreCapabilities.preInit(event);
 		DRPCoreGuis.preInit(event);
 		DRPCoreEvents.preInit(event);
 		DRPCoreSkills.preInit(event);
 		
 		
-		GameRegistry.registerTileEntity(TileEntity_StructureController.class, DRPCoreInfo.MODID + ":" + "tileentity_structure_controller");
+		GameRegistry.registerTileEntity(TE_BlueprintController.class, DRPCoreInfo.MODID + ":" + "tileentity_structure_controller");
 
 		proxy.preInit(event);
 	}

@@ -7,6 +7,7 @@ import java.util.List;
 
 import net.dark_roleplay.drpcore.api.gui.DRPGuiScreen;
 import net.dark_roleplay.drpcore.api.gui.advanced.IGuiElement.IMPL;
+import net.dark_roleplay.drpcore.api.gui.utility.modulars.ModularBackground;
 import net.minecraft.client.gui.Gui;
 import net.minecraft.client.renderer.BufferBuilder;
 import net.minecraft.client.renderer.GlStateManager;
@@ -61,6 +62,8 @@ public abstract class Gui_Panel extends IGuiElement.IMPL{
 		
 	    GlStateManager.color(1F, 1F, 1F);
 	    
+	    ModularBackground.drawModularCenter(this.parent, 0, 0, this.width, this.height, false);
+	    
 	    this.drawBackground(mouseX, mouseY, partialTick);
 	    this.drawMiddleground(mouseX, mouseY, partialTick);
 	    this.drawForeground(mouseX, mouseY, partialTick);
@@ -74,7 +77,8 @@ public abstract class Gui_Panel extends IGuiElement.IMPL{
 	
 	public void drawMiddleground(int mouseX, int mouseY, float partialTick){
 		for(IGuiElement child : this.children){
-			child.draw(mouseX, mouseY, partialTick);
+			if(child.isVisible())
+				child.draw(mouseX, mouseY, partialTick);
 		}
 	}
 	

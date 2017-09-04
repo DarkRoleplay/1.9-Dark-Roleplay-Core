@@ -5,7 +5,7 @@ import java.awt.Point;
 import java.util.Random;
 
 import net.dark_roleplay.drpcore.api.gui.advanced.Gui_Panel;
-import net.dark_roleplay.drpcore.api.gui.utility.dynamic.ModularBackground;
+import net.dark_roleplay.drpcore.api.gui.utility.modulars.ModularBackground;
 import net.dark_roleplay.drpcore.api.skills.Skill;
 import net.dark_roleplay.drpcore.api.skills.SkillPoint;
 import net.dark_roleplay.drpcore.api.skills.SkillRequirements;
@@ -41,7 +41,7 @@ public class Panel_SkillSelect extends Gui_Panel{
 	public void drawBackground(int mouseX, int mouseY, float partialTick) {
 		GlStateManager.disableLighting();
 
-		ModularBackground.drawModularCenter(this, 0, 0, this.width, this.height, 6, 22, 6, 22, 28, 28, true);
+		ModularBackground.drawModularCenter(this, 0, 0, this.width, this.height, true);
 		parent.mc.renderEngine.bindTexture(skillBG);
 	}
 

@@ -11,7 +11,7 @@ import net.dark_roleplay.drpcore.client.gui.structure.Gui_StructureControll;
 import net.dark_roleplay.drpcore.client.keybindings.DRPCoreKeybindings;
 import net.dark_roleplay.drpcore.common.DarkRoleplayCore;
 import net.dark_roleplay.drpcore.common.containers.Container_ExtendedInventory;
-import net.dark_roleplay.drpcore.common.tileentities.TileEntity_StructureController;
+import net.dark_roleplay.drpcore.common.tile_entities.blueprint_controller.TE_BlueprintController;
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.EntityPlayer;
@@ -59,8 +59,8 @@ public class DRPCoreGuis implements IGuiHandler {
 		case DRPCORE_GUI_CRAFTING_RECIPECREATION:
 			return new Gui_RecipeCreation(new Container_RecipeCreation(player.inventory));
 		case DRPCORE_GUI_STRUCTURE_CONTROLLER:
-			if(world.getTileEntity(new BlockPos(x, y, z)) instanceof TileEntity_StructureController){
-				return new Gui_StructureControll((TileEntity_StructureController) world.getTileEntity(new BlockPos(x, y, z)));
+			if(world.getTileEntity(new BlockPos(x, y, z)) instanceof TE_BlueprintController){
+				return new Gui_StructureControll((TE_BlueprintController) world.getTileEntity(new BlockPos(x, y, z)));
 			}
 			return null;
 		case DRPCORE_GUI_EXTENDED_INVENTORY:

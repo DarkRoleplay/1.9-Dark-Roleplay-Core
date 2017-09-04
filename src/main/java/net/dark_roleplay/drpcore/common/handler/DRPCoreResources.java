@@ -1,6 +1,6 @@
 package net.dark_roleplay.drpcore.common.handler;
 
-import net.dark_roleplay.drpcore.common.blocks.SchematicController;
+import net.dark_roleplay.drpcore.common.blocks.blueprint_controller.BlueprintController;
 import net.minecraft.block.Block;
 import net.minecraft.client.resources.IResourcePack;
 import net.minecraftforge.event.RegistryEvent;

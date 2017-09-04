@@ -2,9 +2,9 @@ package net.dark_roleplay.drpcore.client.gui.skills;
 
 import java.io.IOException;
 
-import net.dark_roleplay.drpcore.api.gui.utility.DRPButton;
+import net.dark_roleplay.drpcore.api.gui.advanced.Gui_Button;
 
-public class Button_UnlockSkill extends DRPButton{
+public class Button_UnlockSkill extends Gui_Button{
 
 	private Gui_SkillOverview parent;
 	
@@ -35,9 +35,10 @@ public class Button_UnlockSkill extends DRPButton{
 	}
 	
 	@Override
-	public void mouseClicked(int mouseX, int mouseY, int mouseButton) throws IOException {
+	public boolean mouseClicked(int mouseX, int mouseY, int mouseButton) throws IOException {
 		if(!parent.isUnlocked(parent.selectedSkill)){
 			System.out.println(parent.tryUnlock(parent.selectedSkill));
 		}
+		return true;
 	}
 }

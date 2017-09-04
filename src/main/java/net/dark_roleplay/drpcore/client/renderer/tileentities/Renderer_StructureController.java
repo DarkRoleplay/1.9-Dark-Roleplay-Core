@@ -1,6 +1,6 @@
 package net.dark_roleplay.drpcore.client.renderer.tileentities;
 
-import net.dark_roleplay.drpcore.common.tileentities.TileEntity_StructureController;
+import net.dark_roleplay.drpcore.common.tile_entities.blueprint_controller.TE_BlueprintController;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.BufferBuilder;
@@ -14,16 +14,15 @@ import net.minecraft.tileentity.TileEntityStructure;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
-public class Renderer_StructureController extends TileEntitySpecialRenderer<TileEntity_StructureController> {
-	public void render(TileEntity_StructureController te, double x, double y, double z, float partialTicks, int destroyStage, float alpha) {
+public class Renderer_StructureController extends TileEntitySpecialRenderer<TE_BlueprintController> {
+	public void render(TE_BlueprintController te, double x, double y, double z, float partialTicks, int destroyStage, float alpha) {
 		if (Minecraft.getMinecraft().player.canUseCommandBlock() || Minecraft.getMinecraft().player.isSpectator()) {
 			super.render(te, x, y, z, partialTicks, destroyStage, alpha);
-			BlockPos blockpos = te.getPosition();
-			BlockPos blockpos1 = te.getStructureSize();
+			BlockPos blockpos = te.getOffset();
+			BlockPos blockpos1 = te.getSize();
 
 			if (blockpos1.getX() >= 1 && blockpos1.getY() >= 1 && blockpos1.getZ() >= 1) {
-				if (te.getMode() == TileEntity_StructureController.Mode.SAVE
-						|| te.getMode() == TileEntity_StructureController.Mode.LOAD) {
+				if (te.getMode() == TE_BlueprintController.Mode.SAVE || te.getMode() == TE_BlueprintController.Mode.LOAD) {
 					double d0 = 0.01D;
 					double d1 = (double) blockpos.getX();
 					double d2 = (double) blockpos.getZ();
@@ -31,51 +30,19 @@ public class Renderer_StructureController extends TileEntitySpecialRenderer<Tile
 					double d9 = d6 + (double) blockpos1.getY() + 0.02D;
 					double d3;
 					double d4;
-
-//					switch (te.getMirror()) {
-//					case LEFT_RIGHT:
-//						d3 = (double) blockpos1.getX() + 0.02D;
-//						d4 = -((double) blockpos1.getZ() + 0.02D);
-//						break;
-//					case FRONT_BACK:
-//						d3 = -((double) blockpos1.getX() + 0.02D);
-//						d4 = (double) blockpos1.getZ() + 0.02D;
-//						break;
-//					default:
-						d3 = (double) blockpos1.getX() + 0.02D;
+						
+					d3 = (double) blockpos1.getX() + 0.02D;
 						d4 = (double) blockpos1.getZ() + 0.02D;
-//					}
 
 					double d5;
 					double d7;
 					double d8;
 					double d10;
 
-//					switch (te.getRotation()) {
-//					case CLOCKWISE_90:
-//						d5 = x + (d4 < 0.0D ? d1 - 0.01D : d1 + 1.0D + 0.01D);
-//						d7 = z + (d3 < 0.0D ? d2 + 1.0D + 0.01D : d2 - 0.01D);
-//						d8 = d5 - d4;
-//						d10 = d7 + d3;
-//						break;
-//					case CLOCKWISE_180:
-//						d5 = x + (d3 < 0.0D ? d1 - 0.01D : d1 + 1.0D + 0.01D);
-//						d7 = z + (d4 < 0.0D ? d2 - 0.01D : d2 + 1.0D + 0.01D);
-//						d8 = d5 - d3;
-//						d10 = d7 - d4;
-//						break;
-//					case COUNTERCLOCKWISE_90:
-//						d5 = x + (d4 < 0.0D ? d1 + 1.0D + 0.01D : d1 - 0.01D);
-//						d7 = z + (d3 < 0.0D ? d2 - 0.01D : d2 + 1.0D + 0.01D);
-//						d8 = d5 + d4;
-//						d10 = d7 - d3;
-//						break;
-//					default:
-						d5 = x + (d3 < 0.0D ? d1 + 1.0D + 0.01D : d1 - 0.01D);
-						d7 = z + (d4 < 0.0D ? d2 + 1.0D + 0.01D : d2 - 0.01D);
-						d8 = d5 + d3;
-						d10 = d7 + d4;
-//					}
+					d5 = x + (d3 < 0.0D ? d1 + 1.0D + 0.01D : d1 - 0.01D);
+					d7 = z + (d4 < 0.0D ? d2 + 1.0D + 0.01D : d2 - 0.01D);
+					d8 = d5 + d3;
+					d10 = d7 + d4;
 
 					int i = 255;
 					int j = 223;
@@ -86,16 +53,14 @@ public class Renderer_StructureController extends TileEntitySpecialRenderer<Tile
 					GlStateManager.disableLighting();
 					GlStateManager.disableTexture2D();
 					GlStateManager.enableBlend();
-					GlStateManager.tryBlendFuncSeparate(GlStateManager.SourceFactor.SRC_ALPHA,
-							GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA, GlStateManager.SourceFactor.ONE,
-							GlStateManager.DestFactor.ZERO);
+					GlStateManager.tryBlendFuncSeparate(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA, GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ZERO);
 					this.setLightmapDisabled(true);
 
-					if (te.getMode() == TileEntity_StructureController.Mode.SAVE || te.showsBoundingBox()) {
+					if (/**te.getMode() == TE_BlueprintController.Mode.SAVE || **/te.showBoundingBox()) {
 						this.renderBox(tessellator, bufferbuilder, d5, d6, d7, d8, d9, d10, 255, 223, 0);
 					}
 
-					if (te.getMode() == TileEntity_StructureController.Mode.SAVE && te.showsAir()) {
+					if (te.getMode() == TE_BlueprintController.Mode.SAVE && te.showAir()) {
 						this.renderInvisibleBlocks(te, x, y, z, blockpos, tessellator, bufferbuilder, true);
 						this.renderInvisibleBlocks(te, x, y, z, blockpos, tessellator, bufferbuilder, false);
 					}
@@ -112,85 +77,62 @@ public class Renderer_StructureController extends TileEntitySpecialRenderer<Tile
 		}
 	}
 
-	private void renderInvisibleBlocks(TileEntity_StructureController p_190054_1_, double p_190054_2_,
-			double p_190054_4_, double p_190054_6_, BlockPos p_190054_8_, Tessellator p_190054_9_,
-			BufferBuilder p_190054_10_, boolean p_190054_11_) {
-		GlStateManager.glLineWidth(p_190054_11_ ? 3.0F : 1.0F);
-		p_190054_10_.begin(3, DefaultVertexFormats.POSITION_COLOR);
-		World world = p_190054_1_.getWorld();
-		BlockPos blockpos = p_190054_1_.getPos();
-		BlockPos blockpos1 = blockpos.add(p_190054_8_);
+	private void renderInvisibleBlocks(TE_BlueprintController te, double sizeX, double sizeY, double sizeZ, BlockPos pos, Tessellator tes, BufferBuilder bufBuilder, boolean inside) {
+		GlStateManager.glLineWidth(inside ? 3.0F : 1.0F);
+		bufBuilder.begin(3, DefaultVertexFormats.POSITION_COLOR);
+		World world = te.getWorld();
+		BlockPos blockpos = te.getPos();
+		BlockPos blockpos1 = blockpos.add(pos);
 
-		for (BlockPos blockpos2 : BlockPos.getAllInBox(blockpos1,
-				blockpos1.add(p_190054_1_.getStructureSize()).add(-1, -1, -1))) {
+		for (BlockPos blockpos2 : BlockPos.getAllInBox(blockpos1, blockpos1.add(te.getSize()).add(-1, -1, -1))) {
 			IBlockState iblockstate = world.getBlockState(blockpos2);
 			boolean flag = iblockstate == Blocks.AIR.getDefaultState();
 			boolean flag1 = iblockstate == Blocks.STRUCTURE_VOID.getDefaultState();
 
 			if (flag || flag1) {
 				float f = flag ? 0.05F : 0.0F;
-				double d0 = (double) ((float) (blockpos2.getX() - blockpos.getX()) + 0.45F) + p_190054_2_ - (double) f;
-				double d1 = (double) ((float) (blockpos2.getY() - blockpos.getY()) + 0.45F) + p_190054_4_ - (double) f;
-				double d2 = (double) ((float) (blockpos2.getZ() - blockpos.getZ()) + 0.45F) + p_190054_6_ - (double) f;
-				double d3 = (double) ((float) (blockpos2.getX() - blockpos.getX()) + 0.55F) + p_190054_2_ + (double) f;
-				double d4 = (double) ((float) (blockpos2.getY() - blockpos.getY()) + 0.55F) + p_190054_4_ + (double) f;
-				double d5 = (double) ((float) (blockpos2.getZ() - blockpos.getZ()) + 0.55F) + p_190054_6_ + (double) f;
+				double d0 = (double) ((float) (blockpos2.getX() - blockpos.getX()) + 0.45F) + sizeX - (double) f;
+				double d1 = (double) ((float) (blockpos2.getY() - blockpos.getY()) + 0.45F) + sizeY - (double) f;
+				double d2 = (double) ((float) (blockpos2.getZ() - blockpos.getZ()) + 0.45F) + sizeZ - (double) f;
+				double d3 = (double) ((float) (blockpos2.getX() - blockpos.getX()) + 0.55F) + sizeX + (double) f;
+				double d4 = (double) ((float) (blockpos2.getY() - blockpos.getY()) + 0.55F) + sizeY + (double) f;
+				double d5 = (double) ((float) (blockpos2.getZ() - blockpos.getZ()) + 0.55F) + sizeZ + (double) f;
 
-				if (p_190054_11_) {
-					RenderGlobal.drawBoundingBox(p_190054_10_, d0, d1, d2, d3, d4, d5, 0.0F, 0.0F, 0.0F, 0.5F);
+				if (inside) {
+					RenderGlobal.drawBoundingBox(bufBuilder, d0, d1, d2, d3, d4, d5, 0.0F, 0.0F, 0.0F, 0.5F);
 				} else if (flag) {
-					RenderGlobal.drawBoundingBox(p_190054_10_, d0, d1, d2, d3, d4, d5, 0.5F, 0.5F, 1.0F, 0.5F);
+					RenderGlobal.drawBoundingBox(bufBuilder, d0, d1, d2, d3, d4, d5, 0.5F, 0.5F, 1.0F, 0.5F);
 				} else {
-					RenderGlobal.drawBoundingBox(p_190054_10_, d0, d1, d2, d3, d4, d5, 1.0F, 0F, 0F, 0.5F);
+					RenderGlobal.drawBoundingBox(bufBuilder, d0, d1, d2, d3, d4, d5, 1.0F, 0F, 0F, 0.5F);
 				}
 			}
 		}
 
-		p_190054_9_.draw();
+		tes.draw();
 	}
 
-	private void renderBox(Tessellator p_190055_1_, BufferBuilder p_190055_2_, double p_190055_3_, double p_190055_5_,
-			double p_190055_7_, double p_190055_9_, double p_190055_11_, double p_190055_13_, int p_190055_15_,
-			int p_190055_16_, int p_190055_17_) {
+	private void renderBox(Tessellator tes, BufferBuilder bufBuilder, double minX, double minY, double minZ, double maxX, double maxY, double maxZ, int alpha, int bright, int dark) {
 		GlStateManager.glLineWidth(2.0F);
-		p_190055_2_.begin(3, DefaultVertexFormats.POSITION_COLOR);
-		p_190055_2_.pos(p_190055_3_, p_190055_5_, p_190055_7_)
-				.color((float) p_190055_16_, (float) p_190055_16_, (float) p_190055_16_, 0.0F).endVertex();
-		p_190055_2_.pos(p_190055_3_, p_190055_5_, p_190055_7_)
-				.color(p_190055_16_, p_190055_16_, p_190055_16_, p_190055_15_).endVertex();
-		p_190055_2_.pos(p_190055_9_, p_190055_5_, p_190055_7_)
-				.color(p_190055_16_, p_190055_17_, p_190055_17_, p_190055_15_).endVertex();
-		p_190055_2_.pos(p_190055_9_, p_190055_5_, p_190055_13_)
-				.color(p_190055_16_, p_190055_16_, p_190055_16_, p_190055_15_).endVertex();
-		p_190055_2_.pos(p_190055_3_, p_190055_5_, p_190055_13_)
-				.color(p_190055_16_, p_190055_16_, p_190055_16_, p_190055_15_).endVertex();
-		p_190055_2_.pos(p_190055_3_, p_190055_5_, p_190055_7_)
-				.color(p_190055_17_, p_190055_17_, p_190055_16_, p_190055_15_).endVertex();
-		p_190055_2_.pos(p_190055_3_, p_190055_11_, p_190055_7_)
-				.color(p_190055_17_, p_190055_16_, p_190055_17_, p_190055_15_).endVertex();
-		p_190055_2_.pos(p_190055_9_, p_190055_11_, p_190055_7_)
-				.color(p_190055_16_, p_190055_16_, p_190055_16_, p_190055_15_).endVertex();
-		p_190055_2_.pos(p_190055_9_, p_190055_11_, p_190055_13_)
-				.color(p_190055_16_, p_190055_16_, p_190055_16_, p_190055_15_).endVertex();
-		p_190055_2_.pos(p_190055_3_, p_190055_11_, p_190055_13_)
-				.color(p_190055_16_, p_190055_16_, p_190055_16_, p_190055_15_).endVertex();
-		p_190055_2_.pos(p_190055_3_, p_190055_11_, p_190055_7_)
-				.color(p_190055_16_, p_190055_16_, p_190055_16_, p_190055_15_).endVertex();
-		p_190055_2_.pos(p_190055_3_, p_190055_11_, p_190055_13_)
-				.color(p_190055_16_, p_190055_16_, p_190055_16_, p_190055_15_).endVertex();
-		p_190055_2_.pos(p_190055_3_, p_190055_5_, p_190055_13_)
-				.color(p_190055_16_, p_190055_16_, p_190055_16_, p_190055_15_).endVertex();
-		p_190055_2_.pos(p_190055_9_, p_190055_5_, p_190055_13_)
-				.color(p_190055_16_, p_190055_16_, p_190055_16_, p_190055_15_).endVertex();
-		p_190055_2_.pos(p_190055_9_, p_190055_11_, p_190055_13_)
-				.color(p_190055_16_, p_190055_16_, p_190055_16_, p_190055_15_).endVertex();
-		p_190055_2_.pos(p_190055_9_, p_190055_11_, p_190055_7_)
-				.color(p_190055_16_, p_190055_16_, p_190055_16_, p_190055_15_).endVertex();
-		p_190055_2_.pos(p_190055_9_, p_190055_5_, p_190055_7_)
-				.color(p_190055_16_, p_190055_16_, p_190055_16_, p_190055_15_).endVertex();
-		p_190055_2_.pos(p_190055_9_, p_190055_5_, p_190055_7_)
-				.color((float) p_190055_16_, (float) p_190055_16_, (float) p_190055_16_, 0.0F).endVertex();
-		p_190055_1_.draw();
+		bufBuilder.begin(3, DefaultVertexFormats.POSITION_COLOR);
+		bufBuilder.pos(minX, minY, minZ).color((float) bright, (float) bright, (float) bright, 0.0F).endVertex();
+		bufBuilder.pos(minX, minY, minZ).color(bright, bright, bright, alpha).endVertex();
+		bufBuilder.pos(maxX, minY, minZ).color(bright, dark, dark, alpha).endVertex();
+		bufBuilder.pos(maxX, minY, maxZ).color(bright, bright, bright, alpha).endVertex();
+		bufBuilder.pos(minX, minY, maxZ).color(bright, bright, bright, alpha).endVertex();
+		bufBuilder.pos(minX, minY, minZ).color(dark, dark, bright, alpha).endVertex();
+		bufBuilder.pos(minX, maxY, minZ).color(dark, bright, dark, alpha).endVertex();
+		bufBuilder.pos(maxX, maxY, minZ).color(bright, bright, bright, alpha).endVertex();
+		bufBuilder.pos(maxX, maxY, maxZ).color(bright, bright, bright, alpha).endVertex();
+		bufBuilder.pos(minX, maxY, maxZ).color(bright, bright, bright, alpha).endVertex();
+		bufBuilder.pos(minX, maxY, minZ).color(bright, bright, bright, alpha).endVertex();
+		bufBuilder.pos(minX, maxY, maxZ).color(bright, bright, bright, alpha).endVertex();
+		bufBuilder.pos(minX, minY, maxZ).color(bright, bright, bright, alpha).endVertex();
+		bufBuilder.pos(maxX, minY, maxZ).color(bright, bright, bright, alpha).endVertex();
+		bufBuilder.pos(maxX, maxY, maxZ).color(bright, bright, bright, alpha).endVertex();
+		bufBuilder.pos(maxX, maxY, minZ).color(bright, bright, bright, alpha).endVertex();
+		bufBuilder.pos(maxX, minY, minZ).color(bright, bright, bright, alpha).endVertex();
+		bufBuilder.pos(maxX, minY, minZ).color((float) bright, (float) bright, (float) bright, 0.0F).endVertex();
+		tes.draw();
 		GlStateManager.glLineWidth(1.0F);
 	}
 

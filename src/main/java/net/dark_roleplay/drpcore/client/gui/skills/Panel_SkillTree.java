@@ -9,7 +9,7 @@ import java.util.Random;
 import org.lwjgl.input.Mouse;
 
 import net.dark_roleplay.drpcore.api.gui.advanced.Gui_Panel;
-import net.dark_roleplay.drpcore.api.gui.utility.dynamic.ModularBackground;
+import net.dark_roleplay.drpcore.api.gui.utility.modulars.ModularBackground;
 import net.dark_roleplay.drpcore.api.skills.Skill;
 import net.dark_roleplay.drpcore.common.DRPCoreInfo;
 import net.minecraft.client.renderer.GlStateManager;
@@ -56,7 +56,7 @@ public class Panel_SkillTree extends Gui_Panel{
 		GlStateManager.disableLighting();
 
 		parent.mc.renderEngine.bindTexture(skillBG);
-		ModularBackground.drawModularCenter(this, 0, 0, this.width, this.height, 6, 22, 6, 22, 28, 28, true);
+		ModularBackground.drawModularCenter(this, 0, 0, this.width, this.height, true);
 		
         GlStateManager.disableLighting();
                 
@@ -79,7 +79,7 @@ public class Panel_SkillTree extends Gui_Panel{
 		}
 	}
 	
-	public void mouseClicked(int mouseX, int mouseY, int mouseButton) throws IOException{
+	public boolean mouseClicked(int mouseX, int mouseY, int mouseButton) throws IOException{
 		for(Skill skill : parent.skills){
 			int posX = 24 * skill.getPosX() + this.width / 2  + offsetX;
 			int posY = 24 * skill.getPosY() + this.height / 2  + offsetY;
@@ -89,6 +89,7 @@ public class Panel_SkillTree extends Gui_Panel{
 	        }
 		}
 		super.mouseClicked(mouseX, mouseY, mouseButton);
+		return true;
     }
 
 	@Override

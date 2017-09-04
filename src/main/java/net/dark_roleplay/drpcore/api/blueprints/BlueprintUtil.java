@@ -24,11 +24,11 @@ import net.minecraftforge.fml.common.Loader;
  */
 public class BlueprintUtil {
 
-	public static Blueprint createSchematic(World world, BlockPos pos, short sizeX, short sizeY, short sizeZ){
-		return createSchematic(world, pos, sizeX, sizeY, sizeZ, null);
+	public static Blueprint createBlueprint(World world, BlockPos pos, short sizeX, short sizeY, short sizeZ){
+		return createBlueprint(world, pos, sizeX, sizeY, sizeZ, null);
 	}
 	
-	public static Blueprint createSchematic(World world, BlockPos pos, short sizeX, short sizeY, short sizeZ, String name, String... architects){
+	public static Blueprint createBlueprint(World world, BlockPos pos, short sizeX, short sizeY, short sizeZ, String name, String... architects){
 		List<IBlockState> pallete = new ArrayList<IBlockState>();
 		short[][][] structure = new short[sizeY][sizeZ][sizeX];
 		
@@ -76,24 +76,24 @@ public class BlueprintUtil {
 		return schem;
 	}
 	
-	public static NBTTagCompound writeSchematicToNBT(Blueprint schem){
+	public static NBTTagCompound writeBlueprintToNBT(Blueprint schem){
 		NBTTagCompound tag = new NBTTagCompound();
-		//Set Schematic Version
+		//Set Blueprint Version
 		tag.setByte("version", (byte)1);
-		//Set Schematic Size
+		//Set Blueprint Size
 		tag.setShort("size_x", schem.getSizeX());
 		tag.setShort("size_y", schem.getSizeY());
 		tag.setShort("size_z", schem.getSizeZ());
 		
 		//Create Pallete
-		IBlockState[] pallete = schem.getPallete();
-		NBTTagList palleteTag = new NBTTagList();
+		IBlockState[] palette = schem.getPallete();
+		NBTTagList paletteTag = new NBTTagList();
 		for(short i = 0; i < schem.getPalleteSize(); i++){
 			NBTTagCompound state = new NBTTagCompound();
-			NBTUtil.writeBlockState(state, pallete[i]);
-			palleteTag.appendTag(state);
+			NBTUtil.writeBlockState(state, palette[i]);
+			paletteTag.appendTag(state);
 		}
-		tag.setTag("pallete", palleteTag);
+		tag.setTag("palette", paletteTag);
 
 		//Adding blocks
 		int[] blockInt = convertBlocksToSaveData(schem.getStructure(), schem.getSizeX(), schem.getSizeY(), schem.getSizeZ());
@@ -134,7 +134,7 @@ public class BlueprintUtil {
 	}
 	
 
-	public static Blueprint readSchematicFromNBT(NBTTagCompound tag){
+	public static Blueprint readBlueprintFromNBT(NBTTagCompound tag){
 		byte version = tag.getByte("version");
 		if(version == 1){
 			short sizeX = tag.getShort("size_x"), sizeY = tag.getShort("size_y"), sizeZ = tag.getShort("size_z");
@@ -147,17 +147,17 @@ public class BlueprintUtil {
 			for(int i = 0; i < modListSize; i++){
 				requiredMods.add(((NBTTagString)modsList.get(i)).getString());
 				if(!Loader.isModLoaded(requiredMods.get(i))){
-					Logger.getGlobal().log(Level.WARNING, "Couldn't load Schematic, the following mod is missing: " + requiredMods.get(i));
+					Logger.getGlobal().log(Level.WARNING, "Couldn't load Blueprint, the following mod is missing: " + requiredMods.get(i));
 					return null;
 				}
 			}
 			
 			//Reading Pallete
-			NBTTagList palleteTag = (NBTTagList) tag.getTag("pallete");
-			short palleteSize = (short) palleteTag.tagCount();
-			IBlockState[] pallete = new IBlockState[palleteSize];
-			for(short i = 0; i < pallete.length; i++){
-				pallete[i] = NBTUtil.readBlockState(palleteTag.getCompoundTagAt(i));
+			NBTTagList paletteTag = (NBTTagList) tag.getTag("palette");
+			short paletteSize = (short) paletteTag.tagCount();
+			IBlockState[] palette = new IBlockState[paletteSize];
+			for(short i = 0; i < palette.length; i++){
+				palette[i] = NBTUtil.readBlockState(paletteTag.getCompoundTagAt(i));
 			}
 			
 			//Reading Blocks
@@ -170,7 +170,7 @@ public class BlueprintUtil {
 				tileEntities[i] = teTag.getCompoundTagAt(i);
 			}
 
-			Blueprint schem = new Blueprint(sizeX, sizeY, sizeZ, palleteSize, pallete, blocks, tileEntities, requiredMods);
+			Blueprint schem = new Blueprint(sizeX, sizeY, sizeZ, paletteSize, palette, blocks, tileEntities, requiredMods);
 			
 			if(tag.hasKey("name")){
 				schem.setName(tag.getString("name"));
@@ -191,7 +191,7 @@ public class BlueprintUtil {
 	
 	public static void writeToFile(OutputStream os, Blueprint schem){
 		try {
-			CompressedStreamTools.writeCompressed(writeSchematicToNBT(schem), os);
+			CompressedStreamTools.writeCompressed(writeBlueprintToNBT(schem), os);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -201,7 +201,7 @@ public class BlueprintUtil {
 		NBTTagCompound tag;
 		try {
 			tag = CompressedStreamTools.readCompressed(is);
-			return readSchematicFromNBT(tag);
+			return readBlueprintFromNBT(tag);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -225,11 +225,15 @@ public class BlueprintUtil {
 		int[] ints = new int[(int) Math.ceil(oneDimArray.length / 2f)];
 		
 		int currentInt = 0;
-		for(int i = 1; i <= oneDimArray.length; i += 2){
+		for(int i = 1; i < oneDimArray.length; i += 2){
 			currentInt = oneDimArray[i-1];
 			currentInt = currentInt << 16 | oneDimArray[i];
 			ints[(int) Math.ceil(i/ 2f) - 1] = currentInt;
 			currentInt = 0;
+		}
+		if(oneDimArray.length % 2 == 1){
+			currentInt = oneDimArray[oneDimArray.length-1] << 16;
+			ints[ints.length - 1] = currentInt;
 		}
 		return ints;
 	}

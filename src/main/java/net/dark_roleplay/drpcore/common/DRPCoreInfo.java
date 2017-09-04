@@ -15,7 +15,9 @@ public class DRPCoreInfo {
 	public static final String VERSION = "0.3.2";
 	public static final String ACCEPTEDVERSIONS = "[1.12, 1.12.1]";
 	public static final String UPDATECHECK = "http://dark-roleplay.net/version_files/DarkRoleplayCore.json";
-	public static File DARK_ROLEPLAY_CORE_FOLDER;
+	public static File DARK_ROLEPLAY_FOLDER;
+	public static File DARK_ROLEPLAY_BLUEPRINTS_FOLDER;
+	public static File DARK_ROLEPLAY_RECIPES_FOLDER;
 	public static Logger LOGGER;
 	
 	

@@ -2,7 +2,7 @@ package net.dark_roleplay.drpcore.common.handler;
 
 import net.dark_roleplay.drpcore.api.items.DRPItem;
 import net.dark_roleplay.drpcore.common.DarkRoleplayCore;
-import net.dark_roleplay.drpcore.common.blocks.SchematicController;
+import net.dark_roleplay.drpcore.common.blocks.blueprint_controller.BlueprintController;
 import net.minecraft.block.Block;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.event.RegistryEvent;
@@ -44,7 +44,7 @@ public class DRPCoreBlocks  {
 	/**---------- Y ----------**/
 	/**---------- Z ----------**/
 	
-	public static SchematicController schem;
+	public static BlueprintController schem;
 	
 	@SubscribeEvent
 	public static final void register(RegistryEvent.Register<Block> event) {
@@ -52,7 +52,7 @@ public class DRPCoreBlocks  {
 		/**---------- EXAMPLE Blocks ---------**/
 //		if(DRPCoreConfigs.ENABLE_DEBUG_BLOCKS){
 			//Register here all Debug Blocks
-			event.getRegistry().register((schem = (SchematicController) new SchematicController().setRegistryName("schematic_controller")));
+			event.getRegistry().register((schem = (BlueprintController) new BlueprintController().setRegistryName("schematic_controller")));
 //		}
 	}
 	

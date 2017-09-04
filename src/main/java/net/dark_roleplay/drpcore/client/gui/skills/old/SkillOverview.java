@@ -21,7 +21,7 @@ import com.sun.jna.platform.win32.WinUser.POINT;
 
 import net.dark_roleplay.drpcore.api.gui.DRPGuiScreen;
 import net.dark_roleplay.drpcore.api.gui.advanced.Gui_Panel;
-import net.dark_roleplay.drpcore.api.gui.utility.dynamic.ModularBackground;
+import net.dark_roleplay.drpcore.api.gui.utility.modulars.ModularBackground;
 import net.dark_roleplay.drpcore.api.skills.Skill;
 import net.dark_roleplay.drpcore.api.skills.SkillPoint;
 import net.dark_roleplay.drpcore.api.skills.SkillRequirements;

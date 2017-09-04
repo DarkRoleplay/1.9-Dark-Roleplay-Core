@@ -21,7 +21,7 @@ import net.dark_roleplay.drpcore.client.resources.ModularGui_Handler;
 import net.dark_roleplay.drpcore.common.DRPCoreInfo;
 import net.dark_roleplay.drpcore.common.handler.DRPCoreItems;
 import net.dark_roleplay.drpcore.common.proxy.CommonProxy;
-import net.dark_roleplay.drpcore.common.tileentities.TileEntity_StructureController;
+import net.dark_roleplay.drpcore.common.tile_entities.blueprint_controller.TE_BlueprintController;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.block.model.ModelBakery;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
@@ -73,7 +73,7 @@ public class ClientProxy extends CommonProxy{
 	    ModelResourceLocation itemModelResourceLocation = new ModelResourceLocation("drpcore:medicine", "inventory");
 
 		
-		ClientRegistry.bindTileEntitySpecialRenderer(TileEntity_StructureController.class, new Renderer_StructureController());
+		ClientRegistry.bindTileEntitySpecialRenderer(TE_BlueprintController.class, new Renderer_StructureController());
 //		Minecraft.getMinecraft().getResourceManager().
 	}
 	

@@ -27,9 +27,9 @@ public interface IGuiElement {
 	
 	public List<IGuiElement> getChildren();
 	
-	public void draw(int mouseX, int mouseY, float partialTick);
+	public void draw(int mouseX, int mouseY, float partialTicks);
 	
-	public void mouseClicked(int mouseX, int mouseY, int mouseButton) throws IOException;
+	public boolean mouseClicked(int mouseX, int mouseY, int mouseButton) throws IOException;
 	
 	public int getPosX();
 	public int getPosY();
@@ -39,10 +39,14 @@ public interface IGuiElement {
 	public int getHeight();
 	public void setPos(int posX, int posY);
 	
+	public boolean isVisible();
+	public void setVsisible(boolean visible);
+	
 	public abstract class IMPL extends Gui implements IGuiElement{
 
 		protected int posX, posY;
 		protected int width, height;
+		private boolean visible = true;
 		
 		protected List<IGuiElement> children = new ArrayList<IGuiElement>();
 		
@@ -94,14 +98,27 @@ public interface IGuiElement {
 		}
 
 		@Override
-		public void mouseClicked(int mouseX, int mouseY, int mouseButton) throws IOException {
+		public boolean mouseClicked(int mouseX, int mouseY, int mouseButton) throws IOException {
 			if(this.children != null){
 				for(IGuiElement element : this.children){
-					if((mouseX > element.getPosX() && mouseX < element.getPosX() + element.getWidth()) && (mouseY > element.getPosY() && mouseY < element.getPosY() + element.getHeight())){
-						element.mouseClicked(mouseX - element.getPosX(), mouseY - element.getPosY(), mouseButton);
+					if(element.isVisible() && (mouseX > element.getPosX() && mouseX < element.getPosX() + element.getWidth()) && (mouseY > element.getPosY() && mouseY < element.getPosY() + element.getHeight())){
+						if(element.mouseClicked(mouseX - element.getPosX(), mouseY - element.getPosY(), mouseButton)){
+							return true;
+						}
 					}
 				}
 			}
+			return false;
+		}
+		
+		@Override
+		public boolean isVisible(){
+			return this.visible;
+		}
+		
+		@Override
+		public void setVsisible(boolean visible){
+			this.visible = visible;
 		}
 		
 		protected static void drawLine(int x1, int y1, int x2, int y2, int color) {

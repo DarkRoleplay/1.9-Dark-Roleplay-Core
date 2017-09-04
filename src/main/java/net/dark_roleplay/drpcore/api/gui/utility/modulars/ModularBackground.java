@@ -1,4 +1,4 @@
-package net.dark_roleplay.drpcore.api.gui.utility.dynamic;
+package net.dark_roleplay.drpcore.api.gui.utility.modulars;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -60,11 +60,14 @@ public class ModularBackground {
 		}
 	}
 	
-	public static void drawModularCenter(Gui gui, int posX, int posY, int width, int height, int leftLine1, int leftLine2, int topLine1, int topLine2, int textureHeight, int textureWidth, boolean isHollow) {
+	public static void drawModularCenter(Gui gui, int posX, int posY, int width, int height, boolean isHollow) {
 		if(!isHollow)
 			Minecraft.getMinecraft().renderEngine.bindTexture(ClientProxy.currentGui.getBackground());
 		else
 			Minecraft.getMinecraft().renderEngine.bindTexture(ClientProxy.currentGui.getBackgroundHollow());
+		
+		int leftLine1 = ClientProxy.currentGui.getLeft(), leftLine2 = ClientProxy.currentGui.getRight(), topLine1 = ClientProxy.currentGui.getTop(), topLine2 = ClientProxy.currentGui.getBottom(), textureHeight = 32, textureWidth = 32;
+
 		
 		int lineWidth = (leftLine2 - leftLine1);
 		int lineHeight = (topLine2 - topLine1);

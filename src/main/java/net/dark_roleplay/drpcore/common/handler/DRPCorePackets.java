@@ -1,5 +1,7 @@
 package net.dark_roleplay.drpcore.common.handler;
 
+import net.dark_roleplay.drpcore.common.network.packets.blocks.Packet_SaveBlueprint;
+import net.dark_roleplay.drpcore.common.network.packets.blocks.SyncPacket_BlueprintBlock;
 import net.dark_roleplay.drpcore.common.network.packets.config.SyncPacket_Boolean;
 import net.dark_roleplay.drpcore.common.network.packets.crafting.Packet_InitSimpleRecipe;
 import net.dark_roleplay.drpcore.common.network.packets.crafting.SyncPacket_PlayerRecipeState;
@@ -31,6 +33,8 @@ public class DRPCorePackets {
 		INSTANCE.registerMessage(Packet_UnlockSkill.class, Packet_UnlockSkill.class, i++, Side.SERVER);
 		INSTANCE.registerMessage(SyncPacket_Skill.class, SyncPacket_Skill.class, i++, Side.CLIENT);
 		INSTANCE.registerMessage(Packet_DebugKey.class, Packet_DebugKey.class, i++, Side.SERVER);
+		INSTANCE.registerMessage(SyncPacket_BlueprintBlock.class, SyncPacket_BlueprintBlock.class, i++, Side.SERVER);
+		INSTANCE.registerMessage(Packet_SaveBlueprint.class, Packet_SaveBlueprint.class, i++, Side.SERVER);
 	}
 
 	public static void sendTo(IMessage message, EntityPlayerMP player) {
