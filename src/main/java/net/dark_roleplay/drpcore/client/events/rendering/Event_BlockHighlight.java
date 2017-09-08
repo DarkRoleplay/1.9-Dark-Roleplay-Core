@@ -58,9 +58,6 @@ public class Event_BlockHighlight {
 	
 		Minecraft.getMinecraft().renderEngine.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
 	           
-	    Tessellator tessellator = Tessellator.getInstance();
-	    BufferBuilder vertexbuffer = tessellator.getBuffer();
-	    vertexbuffer.begin(7, DefaultVertexFormats.BLOCK);
         
 	    double playerX = player.prevPosX + (player.posX - player.prevPosX) * event.getPartialTicks();
 	    double playerY = player.prevPosY + (player.posY - player.prevPosY) * event.getPartialTicks();
@@ -68,42 +65,30 @@ public class Event_BlockHighlight {
 	            	           
 	    BlockRendererDispatcher blockrendererdispatcher = Minecraft.getMinecraft().getBlockRendererDispatcher();
 	    BlockModelRenderer renderer = blockrendererdispatcher.getBlockModelRenderer();
-		
-	    renderer.renderModel(event.getPlayer().getEntityWorld(), blockrendererdispatcher.getModelForState(stateToRender), stateToRender, position, vertexbuffer, true, MathHelper.getPositionRandom(position));
-    	
+	    
+
 		GlStateManager.pushMatrix();
-
-
 		GlStateManager.disableFog();
 		GlStateManager.disableLighting();
-		
 		GlStateManager.enableAlpha();
 		GlStateManager.enableBlend();
-
-        GlStateManager.setActiveTexture(OpenGlHelper.lightmapTexUnit);
-        GlStateManager.disableTexture2D();
-        GlStateManager.setActiveTexture(OpenGlHelper.defaultTexUnit);
-
-        GlStateManager.tryBlendFuncSeparate(GlStateManager.SourceFactor.SRC_ALPHA,
-				GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA, GlStateManager.SourceFactor.ONE,
-				GlStateManager.DestFactor.ZERO);
-        
-		GL11.glColor4f(1f, 1f, 1f, 0.5f);
-	    
+        GlStateManager.tryBlendFuncSeparate(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA, GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ZERO);
+        	    
 	    GL11.glTranslated(-playerX, -playerY, -playerZ);
-
+		GlStateManager.color(1f, 1f, 1f, 0.5f);
+		
+	    Tessellator tessellator = Tessellator.getInstance();
+	    BufferBuilder vertexbuffer = tessellator.getBuffer();
+	    vertexbuffer.begin(7, DefaultVertexFormats.BLOCK);
+		
+	    renderer.renderModel(event.getPlayer().getEntityWorld(), blockrendererdispatcher.getModelForState(stateToRender), stateToRender, position, vertexbuffer, true, MathHelper.getPositionRandom(position));
+		
 	    tessellator.draw();
 	    
-        GlStateManager.setActiveTexture(OpenGlHelper.lightmapTexUnit);
-        GlStateManager.enableTexture2D();
-        GlStateManager.setActiveTexture(OpenGlHelper.defaultTexUnit);
-
 	    GlStateManager.disableAlpha();
 	    GlStateManager.disableBlend();
-
 	    GlStateManager.enableFog();
 	    GlStateManager.enableLighting();
-	    
 	    GlStateManager.popMatrix();
 	}
 	

@@ -18,11 +18,6 @@ public class Button_ChangeInt extends Gui_Button{
 	}
 	
 	@Override
-	public void draw(int mouseX, int mouseY, float partialTick) {
-		this.drawRect(this.posX, this.posY, this.posX + this.width, this.posY + this.height, new Color(255,255,0).getRGB());
-	}
-	
-	@Override
 	public boolean mouseClicked(int mouseX, int mouseY, int mouseButton) throws IOException {
 		this.var.add(amount);
 		return true;

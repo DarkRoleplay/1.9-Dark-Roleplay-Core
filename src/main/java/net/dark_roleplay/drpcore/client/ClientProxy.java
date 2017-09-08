@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
+import net.dark_roleplay.drpcore.api.gui.modular.ModularGui_Template;
 import net.dark_roleplay.drpcore.api.items.DRPItem;
 import net.dark_roleplay.drpcore.api.items.ItemApi;
 import net.dark_roleplay.drpcore.client.events.network.Event_ConnectServer;
@@ -16,6 +17,7 @@ import net.dark_roleplay.drpcore.client.events.player.Event_Mouse;
 import net.dark_roleplay.drpcore.client.events.rendering.Event_BlockHighlight;
 import net.dark_roleplay.drpcore.client.events.rendering.Event_ModelBaked;
 import net.dark_roleplay.drpcore.client.keybindings.DRPCoreKeybindings;
+import net.dark_roleplay.drpcore.client.renderer.players.RenderPlayerPremium;
 import net.dark_roleplay.drpcore.client.renderer.tileentities.Renderer_StructureController;
 import net.dark_roleplay.drpcore.client.resources.ModularGui_Handler;
 import net.dark_roleplay.drpcore.common.DRPCoreInfo;
@@ -25,6 +27,7 @@ import net.dark_roleplay.drpcore.common.tile_entities.blueprint_controller.TE_Bl
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.block.model.ModelBakery;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
+import net.minecraft.client.renderer.entity.RenderPlayer;
 import net.minecraft.client.resources.IReloadableResourceManager;
 import net.minecraft.client.resources.IResource;
 import net.minecraft.client.resources.IResourceManager;
@@ -53,9 +56,7 @@ public class ClientProxy extends CommonProxy{
 	public static byte currentTick = 0;
 	
 	public static List<ModularGui_Template> modularGuis = new ArrayList<ModularGui_Template>();
-	
-	public static ModularGui_Template currentGui;
-	
+		
 	public void preInit(FMLPreInitializationEvent event) {
 		DRPCoreKeybindings.preInit(event);
 		ItemApi.registerItemMeshs();
@@ -76,10 +77,15 @@ public class ClientProxy extends CommonProxy{
 		ClientRegistry.bindTileEntitySpecialRenderer(TE_BlueprintController.class, new Renderer_StructureController());
 //		Minecraft.getMinecraft().getResourceManager().
 	}
-	
+
 	public void init(FMLInitializationEvent event) {
 		DRPCoreKeybindings.init(event);
 		FMLCommonHandler.instance().bus().register(new Event_ConnectServer());
+		
+		RenderPlayer steve = ((RenderPlayer)Minecraft.getMinecraft().getRenderManager().getSkinMap().get("default"));
+		RenderPlayer alex = ((RenderPlayer)Minecraft.getMinecraft().getRenderManager().getSkinMap().get("slim"));
+		steve.addLayer(new RenderPlayerPremium(steve));
+		alex.addLayer(new RenderPlayerPremium(alex));
 		
 		IResourceManager manager = Minecraft.getMinecraft().getResourceManager();
 		if(manager instanceof IReloadableResourceManager) {

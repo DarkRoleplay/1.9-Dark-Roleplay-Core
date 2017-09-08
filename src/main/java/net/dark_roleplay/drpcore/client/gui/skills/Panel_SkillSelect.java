@@ -5,15 +5,15 @@ import java.awt.Point;
 import java.util.Random;
 
 import net.dark_roleplay.drpcore.api.gui.advanced.Gui_Panel;
-import net.dark_roleplay.drpcore.api.gui.utility.modulars.ModularBackground;
+import net.dark_roleplay.drpcore.api.gui.modular.ModularGui_Drawer;
 import net.dark_roleplay.drpcore.api.skills.Skill;
 import net.dark_roleplay.drpcore.api.skills.SkillPoint;
 import net.dark_roleplay.drpcore.api.skills.SkillRequirements;
 import net.dark_roleplay.drpcore.common.DRPCoreInfo;
 import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.client.resources.I18n;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.text.translation.I18n;
 
 public class Panel_SkillSelect extends Gui_Panel{
 
@@ -41,7 +41,7 @@ public class Panel_SkillSelect extends Gui_Panel{
 	public void drawBackground(int mouseX, int mouseY, float partialTick) {
 		GlStateManager.disableLighting();
 
-		ModularBackground.drawModularCenter(this, 0, 0, this.width, this.height, true);
+		ModularGui_Drawer.drawBackgroundCenter(0, 0, this.width, this.height, true);
 		parent.mc.renderEngine.bindTexture(skillBG);
 	}
 
@@ -59,7 +59,7 @@ public class Panel_SkillSelect extends Gui_Panel{
 			ItemStack stack;
 			int xOffset = 0;
 			boolean hasPoints;
-			parent.getFontRenderer().drawStringWithShadow(I18n.translateToLocal("gui.skill_select.required"), 5, 112, COLOR_WHITE);
+			parent.getFontRenderer().drawStringWithShadow(I18n.format("gui.skill_select.required"), 5, 112, COLOR_WHITE);
 			for(SkillPoint point : sq.getRequiredPoints()){
 				int amount = sq.getRequiredAmount(point);
 				hasPoints = parent.hasPoints(point, amount);
@@ -76,8 +76,8 @@ public class Panel_SkillSelect extends Gui_Panel{
 	public void setSkill(Skill skill) {
 		this.skill = skill;
 		if(skill != null){
-			translatedName = I18n.translateToLocal(skill.getUnlocalizedName());
-			translatedDesc = I18n.translateToLocal(skill.getUnlocalizedDesc());
+			translatedName = I18n.format(skill.getUnlocalizedName());
+			translatedDesc = I18n.format(skill.getUnlocalizedDesc());
 		}
 	}
 

@@ -9,7 +9,7 @@ import java.util.Random;
 import org.lwjgl.input.Mouse;
 
 import net.dark_roleplay.drpcore.api.gui.advanced.Gui_Panel;
-import net.dark_roleplay.drpcore.api.gui.utility.modulars.ModularBackground;
+import net.dark_roleplay.drpcore.api.gui.modular.ModularGui_Drawer;
 import net.dark_roleplay.drpcore.api.skills.Skill;
 import net.dark_roleplay.drpcore.common.DRPCoreInfo;
 import net.minecraft.client.renderer.GlStateManager;
@@ -56,7 +56,7 @@ public class Panel_SkillTree extends Gui_Panel{
 		GlStateManager.disableLighting();
 
 		parent.mc.renderEngine.bindTexture(skillBG);
-		ModularBackground.drawModularCenter(this, 0, 0, this.width, this.height, true);
+		ModularGui_Drawer.drawBackgroundCenter(0, 0, this.width, this.height, true);
 		
         GlStateManager.disableLighting();
                 

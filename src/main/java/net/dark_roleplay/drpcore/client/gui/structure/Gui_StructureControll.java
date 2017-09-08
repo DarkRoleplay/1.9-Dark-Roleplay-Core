@@ -26,6 +26,7 @@ import net.dark_roleplay.drpcore.api.gui.utility.wrappers.Variable_Boolean;
 import net.dark_roleplay.drpcore.api.gui.utility.wrappers.Variable_Int;
 import net.dark_roleplay.drpcore.client.gui.advanced.buttons.blueprint_controll.Button_ChangeMode;
 import net.dark_roleplay.drpcore.client.gui.advanced.buttons.blueprint_controll.Button_SaveLoad;
+import net.dark_roleplay.drpcore.client.gui.advanced.wrappers.Variable_Mode;
 import net.dark_roleplay.drpcore.common.DRPCoreInfo;
 import net.dark_roleplay.drpcore.common.handler.DRPCorePackets;
 import net.dark_roleplay.drpcore.common.network.packets.blocks.Packet_SaveBlueprint;
@@ -59,10 +60,9 @@ public class Gui_StructureControll extends Gui_Screen {
 	private Variable_Int sizeY;
 	private Variable_Int sizeZ;
 	
-	private Variable_Boolean showBoundingBox;
 	private Variable_Boolean showAir;
 	
-	private TE_BlueprintController.Mode mode;
+	private Variable_Mode mode;
 	
 	private String name = "";
 	private String architects = "";
@@ -87,7 +87,6 @@ public class Gui_StructureControll extends Gui_Screen {
 	private Button_ChangeInt decSizeZ;
 	private Button_ChangeInt incSizeZ;
 	
-	private Button_ChangeBool boundingBox;
 	private Button_ChangeBool air;
 	
 	private Button_ChangeMode changeMode;
@@ -120,13 +119,10 @@ public class Gui_StructureControll extends Gui_Screen {
 		
 		this.name = te.getName();
 		this.architects = te.getArchitects();
-		System.out.println("name" + this.name);
-		System.out.println("architects" + this.architects);
 		
-		this.showBoundingBox = new Variable_Boolean(te.showBoundingBox());
 		this.showAir = new Variable_Boolean(te.showAir());
 		
-		this.mode = te.getMode();
+		this.mode = new Variable_Mode(te.getMode());
 	}
 	
 	@Override
@@ -138,9 +134,9 @@ public class Gui_StructureControll extends Gui_Screen {
 	public void update(){
 		this.te.setOffset(new BlockPos(this.offsetX.get(), this.offsetY.get(), this.offsetZ.get()));
 		this.te.setSize(new BlockPos(this.sizeX.get(), this.sizeY.get(), this.sizeZ.get()));
-		this.te.setShowBoundingBox(this.showBoundingBox.get());
+		this.te.setShowBoundingBox(this.mode.get() == TE_BlueprintController.Mode.SAVE || this.mode.get() == TE_BlueprintController.Mode.LOAD);
 		this.te.setShowAir(this.showAir.get());
-		this.te.setMode(this.mode);
+		this.te.setMode(this.mode.get());
 		this.te.setName(this.name);
 		this.te.setArchitects(this.architects);
 	}
@@ -157,27 +153,25 @@ public class Gui_StructureControll extends Gui_Screen {
 		if(!this.initialized){
 			this.mainFrame = new Gui_Frame(this, this.posX, this.posY, 300, 200);
 			
-			this.mainFrame.addChild(this.decOffsetX = new Button_ChangeInt(this.offsetX, 	-1, 	5, 		5 + btnOffsetY, 10, 15));
-			this.mainFrame.addChild(this.incOffsetX = new Button_ChangeInt(this.offsetX, 	1, 		40, 	5 + btnOffsetY, 10, 15));
-			this.mainFrame.addChild(this.decOffsetY = new Button_ChangeInt(this.offsetY, 	-1,		60,		5 + btnOffsetY, 10, 15));
-			this.mainFrame.addChild(this.incOffsetY = new Button_ChangeInt(this.offsetY, 	1, 		95, 	5 + btnOffsetY, 10, 15));
-			this.mainFrame.addChild(this.decOffsetZ = new Button_ChangeInt(this.offsetZ, 	-1, 	115,	5 + btnOffsetY, 10, 15));
-			this.mainFrame.addChild(this.incOffsetZ = new Button_ChangeInt(this.offsetZ, 	1, 		150, 	5 + btnOffsetY, 10, 15));
+			this.mainFrame.addChild(this.decOffsetX = (Button_ChangeInt) new Button_ChangeInt(this.offsetX, 	-1, 	5, 		5 + btnOffsetY, 12, 17).setText("-"));
+			this.mainFrame.addChild(this.incOffsetX = (Button_ChangeInt) new Button_ChangeInt(this.offsetX, 	1, 		40, 	5 + btnOffsetY, 12, 17).setText("+"));
+			this.mainFrame.addChild(this.decOffsetY = (Button_ChangeInt) new Button_ChangeInt(this.offsetY, 	-1,		60,		5 + btnOffsetY, 12, 17).setText("-"));
+			this.mainFrame.addChild(this.incOffsetY = (Button_ChangeInt) new Button_ChangeInt(this.offsetY, 	1, 		95, 	5 + btnOffsetY, 12, 17).setText("+"));
+			this.mainFrame.addChild(this.decOffsetZ = (Button_ChangeInt) new Button_ChangeInt(this.offsetZ, 	-1, 	115,	5 + btnOffsetY, 12, 17).setText("-"));
+			this.mainFrame.addChild(this.incOffsetZ =(Button_ChangeInt)  new Button_ChangeInt(this.offsetZ, 	1, 		150, 	5 + btnOffsetY, 12, 17).setText("+"));
 			
-			this.mainFrame.addChild(this.decSizeX = new Button_ChangeInt(this.sizeX, 	-1, 	5, 		25 + btnOffsetY, 10, 15));
-			this.mainFrame.addChild(this.incSizeX = new Button_ChangeInt(this.sizeX, 	1, 		40, 	25 + btnOffsetY, 10, 15));
-			this.mainFrame.addChild(this.decSizeY = new Button_ChangeInt(this.sizeY, 	-1,		60,		25 + btnOffsetY, 10, 15));
-			this.mainFrame.addChild(this.incSizeY = new Button_ChangeInt(this.sizeY, 	1, 		95, 	25 + btnOffsetY, 10, 15));
-			this.mainFrame.addChild(this.decSizeZ = new Button_ChangeInt(this.sizeZ, 	-1, 	115,	25 + btnOffsetY, 10, 15));
-			this.mainFrame.addChild(this.incSizeZ = new Button_ChangeInt(this.sizeZ, 	1, 		150, 	25 + btnOffsetY, 10, 15));
+			this.mainFrame.addChild(this.decSizeX = (Button_ChangeInt) new Button_ChangeInt(this.sizeX, 	-1, 	5, 		25 + btnOffsetY, 12, 17).setText("-"));
+			this.mainFrame.addChild(this.incSizeX = (Button_ChangeInt) new Button_ChangeInt(this.sizeX, 	1, 		40, 	25 + btnOffsetY, 12, 17).setText("+"));
+			this.mainFrame.addChild(this.decSizeY = (Button_ChangeInt) new Button_ChangeInt(this.sizeY, 	-1,		60,		25 + btnOffsetY, 12, 17).setText("-"));
+			this.mainFrame.addChild(this.incSizeY = (Button_ChangeInt) new Button_ChangeInt(this.sizeY, 	1, 		95, 	25 + btnOffsetY, 12, 17).setText("+"));
+			this.mainFrame.addChild(this.decSizeZ = (Button_ChangeInt) new Button_ChangeInt(this.sizeZ, 	-1, 	115,	25 + btnOffsetY, 12, 17).setText("-"));
+			this.mainFrame.addChild(this.incSizeZ = (Button_ChangeInt) new Button_ChangeInt(this.sizeZ, 	1, 		150, 	25 + btnOffsetY, 12, 17).setText("+"));
+						
+			this.mainFrame.addChild(this.air = (Button_ChangeBool) new Button_ChangeBool(this.showAir, 50, 65 + btnOffsetY, 40, 20).setText(String.valueOf(this.showAir.get()).toUpperCase()));
 			
-			this.mainFrame.addChild(this.boundingBox = new Button_ChangeBool(this.showBoundingBox, 5, 45 + btnOffsetY, 40, 20));
+			this.mainFrame.addChild(this.changeMode = new Button_ChangeMode(this.mode, 95, 85 + btnOffsetY, 50, 20));
 			
-			this.mainFrame.addChild(this.air = new Button_ChangeBool(this.showAir, 50, 45 + btnOffsetY, 40, 20));
-			
-			this.mainFrame.addChild(this.changeMode = new Button_ChangeMode(this.mode, 95, 45 + btnOffsetY, 50, 20));
-			
-			this.mainFrame.addChild(this.saveLoad = new Button_SaveLoad(this, this.mode == TE_BlueprintController.Mode.SAVE ? true : false, 150, 45 + btnOffsetY, 40, 20));
+			this.mainFrame.addChild(this.saveLoad = new Button_SaveLoad(this, this.mode.get() == TE_BlueprintController.Mode.SAVE ? true : false, 150, 105 + btnOffsetY, 40, 20));
 			
 			
 //			this.mainFrame.addChild(this.nameField = new Gui_Textfield());
@@ -224,11 +218,11 @@ public class Gui_StructureControll extends Gui_Screen {
 		this.drawString(this.fontRenderer,String.valueOf(this.sizeZ.get()), 5, 105, new Color(255,255,255).getRGB());
 		
 		//Bounding Box
-		this.drawString(this.fontRenderer,String.valueOf(this.showBoundingBox.get()), 5, 125, new Color(255,255,255).getRGB());
+		this.drawString(this.fontRenderer,String.valueOf(this.mode.get() == TE_BlueprintController.Mode.SAVE || this.mode.get() == TE_BlueprintController.Mode.LOAD), 5, 125, new Color(255,255,255).getRGB());
 		//Air
 		this.drawString(this.fontRenderer,String.valueOf(this.showAir.get()), 5, 145, new Color(255,255,255).getRGB());
 		//Mode
-		this.drawString(this.fontRenderer,this.mode.getName(), 5, 165, new Color(255,255,255).getRGB());
+		this.drawString(this.fontRenderer,this.mode.get().getName(), 5, 165, new Color(255,255,255).getRGB());
 		
         this.nameEdit.drawTextBox();
         this.architectsEdit.drawTextBox();

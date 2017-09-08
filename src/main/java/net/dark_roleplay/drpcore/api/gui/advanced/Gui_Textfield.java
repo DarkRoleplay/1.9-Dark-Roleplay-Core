@@ -1,13 +1,21 @@
 package net.dark_roleplay.drpcore.api.gui.advanced;
 
+import net.dark_roleplay.drpcore.api.gui.utility.wrappers.Variable_String;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.util.ChatAllowedCharacters;
 
 public class Gui_Textfield extends IGuiElement.IMPL{
 	
-	String text;
+	private Variable_String text;
 	
-	public Gui_Textfield(String text, int posX, int posY, int width, int height){
+	private int cursorPos;
+	private int cursorTick;
+	
+	private int selectionStart;
+	private int selectionEnd;
+	
+	public Gui_Textfield(Variable_String text, int posX, int posY, int width, int height, int maxLength){
 		this.posX = posX;
 		this.posY = posY;
 		this.width = width;
@@ -21,7 +29,18 @@ public class Gui_Textfield extends IGuiElement.IMPL{
 		
 	}
 	
-//	public boolean keyTyped(char typedChar, int keyCode){
+	public void updateCursorCounter(){
+        ++this.cursorTick;
+    }
+	
+	public boolean keyTyped(char typedChar, int keyCode){
+		if(Minecraft.getMinecraft().currentScreen.isKeyComboCtrlA(keyCode)){
+			this.selectionStart = 0;
+			this.selectionEnd = this.text.get().length();
+			return true;
+		}
+		return false;
+	}
 //		if (!this.isVisible()) {
 //			return false;
 //		} else if (GuiScreen.isKeyComboCtrlA(keyCode)) {

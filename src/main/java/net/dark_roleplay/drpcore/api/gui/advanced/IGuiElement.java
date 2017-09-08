@@ -159,5 +159,67 @@ public interface IGuiElement {
 			Point vec = new Point(b.getX() - a.getX(), b.getY() - a.getY());
 			return (float) (Math.acos(vec.getX() / (Math.sqrt(Math.pow(vec.getX(), 2) + Math.pow(vec.getY(), 2)))));
 		}
+		
+		public static void drawCenteredRect(int centerX, int centerY, int radius, double angle, int color){
+			double rads = Math.toRadians(angle);
+			double diagRadius = radius * Math.sqrt(2);
+	        float f3 = (float)(color >> 24 & 255) / 255.0F;
+	        float f = (float)(color >> 16 & 255) / 255.0F;
+	        float f1 = (float)(color >> 8 & 255) / 255.0F;
+	        float f2 = (float)(color & 255) / 255.0F;
+	        Tessellator tessellator = Tessellator.getInstance();
+	        BufferBuilder bufferbuilder = tessellator.getBuffer();
+	        GlStateManager.enableBlend();
+	        GlStateManager.disableTexture2D();
+	        GlStateManager.tryBlendFuncSeparate(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA, GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ZERO);
+	        GlStateManager.color(f, f1, f2, f3);
+	        bufferbuilder.begin(7, DefaultVertexFormats.POSITION);
+	        bufferbuilder.pos(centerX + radius * Math.cos(rads + Math.PI * 1.25), centerY + radius * Math.sin(rads + Math.PI * 1.25), 0.0D).endVertex();
+	        bufferbuilder.pos(centerX + radius * Math.cos(rads + Math.PI * 0.75), centerY + radius * Math.sin(rads + Math.PI * 0.75), 0.0D).endVertex();
+	        bufferbuilder.pos(centerX + radius * Math.cos(rads + Math.PI * 0.25), centerY + radius * Math.sin(rads + Math.PI * 0.25), 0.0D).endVertex();
+	        bufferbuilder.pos(centerX + radius * Math.cos(rads + Math.PI * 1.75), centerY + radius * Math.sin(rads + Math.PI * 1.75), 0.0D).endVertex();
+	        tessellator.draw();
+	        GlStateManager.enableTexture2D();
+	        GlStateManager.disableBlend();
+	    }
+		
+		public static void drawCenteredCircle(int centerX, int centerY, int radius, int resoulution, int color){
+			double diagRadius = radius * Math.sqrt(2);
+	        float f3 = (float)(color >> 24 & 255) / 255.0F;
+	        float f = (float)(color >> 16 & 255) / 255.0F;
+	        float f1 = (float)(color >> 8 & 255) / 255.0F;
+	        float f2 = (float)(color & 255) / 255.0F;
+	        Tessellator tessellator = Tessellator.getInstance();
+	        BufferBuilder bufferbuilder = tessellator.getBuffer();
+	        GlStateManager.enableBlend();
+	        GlStateManager.disableTexture2D();
+	        GlStateManager.tryBlendFuncSeparate(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA, GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ZERO);
+	        GlStateManager.color(f, f1, f2, f3);
+	        bufferbuilder.begin(7, DefaultVertexFormats.POSITION);
+	        double steps = (2D/resoulution);
+	        double startX = centerX + radius * Math.cos(0);
+	        double startY = centerY + radius * Math.sin(0);
+
+        	bufferbuilder.pos(startX, startY, 0.0D).endVertex();
+//        	bufferbuilder.pos(centerX + radius * Math.cos(Math.PI * (steps * (resoulution-1))), centerY + radius * Math.sin(Math.PI * (steps * (resoulution-1))), 0.0D).endVertex();
+//        	bufferbuilder.pos(centerX + radius * Math.cos(Math.PI * (steps * (resoulution-2))), centerY + radius * Math.sin(Math.PI * (steps * (resoulution-2))), 0.0D).endVertex();
+//        	bufferbuilder.pos(centerX + radius * Math.cos(Math.PI * (steps * (resoulution-3))), centerY + radius * Math.sin(Math.PI * (steps * (resoulution-3))), 0.0D).endVertex();
+
+        	int i = 1;
+        	for(;i < 4; i++){
+	        	bufferbuilder.pos(centerX + radius * Math.cos(Math.PI * (steps * (resoulution-i))), centerY + radius * Math.sin(Math.PI * (steps * (resoulution-i))), 0.0D).endVertex();
+        	}
+        	
+        	for(; i < resoulution; i += 2){
+            	bufferbuilder.pos(startX, startY, 0.0D).endVertex();
+        		bufferbuilder.pos(centerX + radius * Math.cos(Math.PI * (steps * (resoulution - i + 1))), centerY + radius * Math.sin(Math.PI * (steps * (resoulution - i + 1))), 0.0D).endVertex();
+        		bufferbuilder.pos(centerX + radius * Math.cos(Math.PI * (steps * (resoulution - i))), centerY + radius * Math.sin(Math.PI * (steps * (resoulution - i))), 0.0D).endVertex();
+        		bufferbuilder.pos(centerX + radius * Math.cos(Math.PI * (steps * (resoulution - i - 1))), centerY + radius * Math.sin(Math.PI * (steps * (resoulution - i - 1))), 0.0D).endVertex();
+        	}
+    		
+	        tessellator.draw();
+	        GlStateManager.enableTexture2D();
+	        GlStateManager.disableBlend();
+	    }
 	}
 }

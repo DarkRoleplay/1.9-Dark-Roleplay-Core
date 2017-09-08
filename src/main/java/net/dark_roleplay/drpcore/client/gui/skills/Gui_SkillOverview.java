@@ -7,7 +7,7 @@ import java.util.List;
 
 import net.dark_roleplay.drpcore.api.gui.DRPGuiScreen;
 import net.dark_roleplay.drpcore.api.gui.advanced.Gui_Panel;
-import net.dark_roleplay.drpcore.api.gui.utility.modulars.ModularBackground;
+import net.dark_roleplay.drpcore.api.gui.modular.ModularGui_Drawer;
 import net.dark_roleplay.drpcore.api.skills.Skill;
 import net.dark_roleplay.drpcore.api.skills.SkillPoint;
 import net.dark_roleplay.drpcore.api.skills.SkillRequirements;
@@ -24,10 +24,10 @@ import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.renderer.RenderItem;
+import net.minecraft.client.resources.I18n;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.text.translation.I18n;
 
 public class Gui_SkillOverview extends DRPGuiScreen {
 
@@ -77,19 +77,19 @@ public class Gui_SkillOverview extends DRPGuiScreen {
 	
 	@Override
 	protected void drawForeground(int mouseX, int mouseY, float partialTicks) {
-		ModularBackground.drawModular(this, 1, 26, this.width - 2, this.height - 28, false, true);
+		ModularGui_Drawer.drawBackground(1, 26, this.width - 2, this.height - 28, false, true);
 		skillTreePanel.draw(mouseX - skillTreePanel.getPosX(), mouseY - skillTreePanel.getPosY(), partialTicks);
 		
 		this.mc.renderEngine.bindTexture(skillBG);
 		if(this.selectedSkill != null){
-			ModularBackground.drawModular(this, skillSelectPanel.getPosX() - 6, skillSelectPanel.getPosY() - 6, skillSelectPanel.getWidth() + 12, skillSelectPanel.getHeight() + 12, false, true);
+			ModularGui_Drawer.drawBackground(skillSelectPanel.getPosX() - 6, skillSelectPanel.getPosY() - 6, skillSelectPanel.getWidth() + 12, skillSelectPanel.getHeight() + 12, false, true);
 			skillSelectPanel.draw(mouseX - skillSelectPanel.getPosX(), mouseY - skillSelectPanel.getPosY(), partialTicks);
 		}
 		
-		ModularBackground.drawModular(this, 1, 1, this.width / 2 - 2, 24);
-		ModularBackground.drawModular(this, this.width / 2 + 1, 1, 16, 24);
-		ModularBackground.drawModular(this, this.width / 2 + 18, 1, this.width / 2 - 36, 24);
-		ModularBackground.drawModular(this, this.width - 17, 1, 16, 24);
+		ModularGui_Drawer.drawBackground(1, 1, this.width / 2 - 2, 24);
+		ModularGui_Drawer.drawBackground(this.width / 2 + 1, 1, 16, 24);
+		ModularGui_Drawer.drawBackground(this.width / 2 + 18, 1, this.width / 2 - 36, 24);
+		ModularGui_Drawer.drawBackground(this.width - 17, 1, 16, 24);
 		
 		this.itemRender.renderItemIntoGUI(treePreview, this.width / 2 + 24, 5);
 		this.fontRenderer.drawStringWithShadow(localizedTree, this.width / 2 + 42, 9, COLOR_WHITE);
@@ -152,7 +152,7 @@ public class Gui_SkillOverview extends DRPGuiScreen {
 				unlockedSkills.add(skill);
 		}
 		this.treePreview = this.skillTrees.get(skillTree).getDisplayTexture();
-		this.localizedTree = I18n.translateToLocal(this.skillTrees.get(skillTree).getUnlocalizedName());
+		this.localizedTree = I18n.format(this.skillTrees.get(skillTree).getUnlocalizedName());
 	}
 	
 	public boolean tryUnlock(Skill skill){

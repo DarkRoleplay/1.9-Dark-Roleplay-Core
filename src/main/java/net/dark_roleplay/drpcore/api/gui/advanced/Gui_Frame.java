@@ -3,7 +3,7 @@ package net.dark_roleplay.drpcore.api.gui.advanced;
 import java.io.IOException;
 import java.util.List;
 
-import net.dark_roleplay.drpcore.api.gui.utility.modulars.ModularBackground;
+import net.dark_roleplay.drpcore.api.gui.modular.ModularGui_Drawer;
 
 public class Gui_Frame extends IGuiElement.IMPL{
 
@@ -36,7 +36,7 @@ public class Gui_Frame extends IGuiElement.IMPL{
 	
 	@Override
 	public void draw(int mouseX, int mouseY, float partialTick) {
-		ModularBackground.drawModular(parent, this.posX, this.posY, this.width, this.height);
+		ModularGui_Drawer.drawBackground(this.posX, this.posY, this.width, this.height);
 		this.mainPanel.draw(mouseX, mouseY, partialTick);
 		for(IGuiElement child : this.children){
 			if(child.isVisible())

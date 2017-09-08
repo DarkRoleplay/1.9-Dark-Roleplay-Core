@@ -76,9 +76,6 @@ public class DRPCoreKeybindings {
 	public static void postInit(FMLPostInitializationEvent event) {
 	}
 
-	IToast globalToast;
-
-	
 	@SubscribeEvent
 	public void KeyInput(KeyInputEvent event) {
 

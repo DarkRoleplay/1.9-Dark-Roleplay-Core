@@ -21,7 +21,7 @@ import com.sun.jna.platform.win32.WinUser.POINT;
 
 import net.dark_roleplay.drpcore.api.gui.DRPGuiScreen;
 import net.dark_roleplay.drpcore.api.gui.advanced.Gui_Panel;
-import net.dark_roleplay.drpcore.api.gui.utility.modulars.ModularBackground;
+import net.dark_roleplay.drpcore.api.gui.modular.ModularGui_Drawer;
 import net.dark_roleplay.drpcore.api.skills.Skill;
 import net.dark_roleplay.drpcore.api.skills.SkillPoint;
 import net.dark_roleplay.drpcore.api.skills.SkillRequirements;
@@ -43,8 +43,8 @@ import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
+import net.minecraft.client.resources.I18n;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.text.translation.I18n;
 
 public class SkillOverview extends DRPGuiScreen {
 	
@@ -166,16 +166,16 @@ public class SkillOverview extends DRPGuiScreen {
 		this.mc.renderEngine.bindTexture(this.bgTexture);
 		
 		//LEFT Field
-		ModularBackground.drawModular(this, 1, 1, 117, this.height - 2);
+		ModularGui_Drawer.drawBackground(1, 1, 117, this.height - 2);
 		
 		//CENTER TOP Field
-		ModularBackground.drawModular(this, 120             , 1                , this.width - 121, this.height - 104);
+		ModularGui_Drawer.drawBackground(120             , 1                , this.width - 121, this.height - 104);
 		
 		//CENTER BOTTOM Field
-		ModularBackground.drawModular(this, 120             , this.height - 101, this.width - 240, 100              );
+		ModularGui_Drawer.drawBackground(120             , this.height - 101, this.width - 240, 100              );
 		
 		//RIGHT BOTTOM Field
-		ModularBackground.drawModular(this, this.width - 118, this.height - 101, 117             , 100              );
+		ModularGui_Drawer.drawBackground(this.width - 118, this.height - 101, 117             , 100              );
 		
 		//233
 //		for(int i = 0; i < 9; i++){
@@ -262,8 +262,8 @@ public class SkillOverview extends DRPGuiScreen {
 
 		if(this.hoveredSkill != null){
 			
-			String localizedName = I18n.translateToLocal(this.hoveredSkill.getUnlocalizedName());
-			String localizedDesc = I18n.translateToLocal(this.hoveredSkill.getUnlocalizedDesc());
+			String localizedName = I18n.format(this.hoveredSkill.getUnlocalizedName());
+			String localizedDesc = I18n.format(this.hoveredSkill.getUnlocalizedDesc());
 			SkillRequirements points = this.hoveredSkill.getRequirements();
 			int lineHeight = this.fontRenderer.getWordWrappedHeight(localizedDesc, 101) / 8;
 
@@ -287,16 +287,16 @@ public class SkillOverview extends DRPGuiScreen {
 				this.mc.renderEngine.bindTexture(this.bgTexture);
 				this.drawTexturedModalRect(pointX, pointY, 0, 234,  105, 22);
 				this.itemRender.renderItemIntoGUI(point.getDisplayStack(), pointX + 3, pointY + 3);
-				this.fontRenderer.drawString(I18n.translateToLocal(point.getUnlocalizedName()), pointX + 21, pointY + 2, COLOR_DARK_GRAY);
-				this.fontRenderer.drawString(I18n.translateToLocal("drpcore.skill.required") + ": " + points.getRequiredAmount(point), pointX + 21, pointY + 11, COLOR_DARK_GRAY);
+				this.fontRenderer.drawString(I18n.format(point.getUnlocalizedName()), pointX + 21, pointY + 2, COLOR_DARK_GRAY);
+				this.fontRenderer.drawString(I18n.format("drpcore.skill.required") + ": " + points.getRequiredAmount(point), pointX + 21, pointY + 11, COLOR_DARK_GRAY);
 				i++;
 			}
 		}
 		
 		if(this.selectedSkill != null && this.hoveredSkill == null){
 			
-			String localizedName = I18n.translateToLocal(this.selectedSkill.getUnlocalizedName());
-			String localizedDesc = I18n.translateToLocal(this.selectedSkill.getUnlocalizedDesc());
+			String localizedName = I18n.format(this.selectedSkill.getUnlocalizedName());
+			String localizedDesc = I18n.format(this.selectedSkill.getUnlocalizedDesc());
 			SkillRequirements points = this.selectedSkill.getRequirements();
 			int lineHeight = this.fontRenderer.getWordWrappedHeight(localizedDesc, 101) / 8;
 
@@ -320,8 +320,8 @@ public class SkillOverview extends DRPGuiScreen {
 				this.mc.renderEngine.bindTexture(this.bgTexture);
 				this.drawTexturedModalRect(pointX, pointY, 0, 234,  105, 22);
 				this.itemRender.renderItemIntoGUI(point.getDisplayStack(), pointX + 3, pointY + 3);
-				this.fontRenderer.drawString(I18n.translateToLocal(point.getUnlocalizedName()), pointX + 21, pointY + 2, COLOR_DARK_GRAY);
-				this.fontRenderer.drawString(I18n.translateToLocal("drpcore.skill.required") + ": " + points.getRequiredAmount(point), pointX + 21, pointY + 11, COLOR_DARK_GRAY);
+				this.fontRenderer.drawString(I18n.format(point.getUnlocalizedName()), pointX + 21, pointY + 2, COLOR_DARK_GRAY);
+				this.fontRenderer.drawString(I18n.format("drpcore.skill.required") + ": " + points.getRequiredAmount(point), pointX + 21, pointY + 11, COLOR_DARK_GRAY);
 				i++;
 			}
 		}
@@ -344,7 +344,7 @@ public class SkillOverview extends DRPGuiScreen {
 			this.itemRender.renderItemIntoGUI(data.getPoint().getDisplayStack(), framePosX + 3, framePosY + (i * 27) + 3);
  			this.itemRender.renderItemOverlayIntoGUI(this.fontRenderer, data.getPoint().getDisplayStack(), framePosX + 3, framePosY + (i * 27) + 3, String.valueOf(data.getAmount()));
             GlStateManager.disableLighting();
-			this.fontRenderer.drawStringWithShadow(I18n.translateToLocal(data.getPoint().getUnlocalizedName()), framePosX + 21, framePosY + (i * 27) + 2, COLOR_WHITE);
+			this.fontRenderer.drawStringWithShadow(I18n.format(data.getPoint().getUnlocalizedName()), framePosX + 21, framePosY + (i * 27) + 2, COLOR_WHITE);
 
 			this.fontRenderer.drawStringWithShadow("LvL: " + data.getLevel(), framePosX + 21, framePosY + (i * 27) + 10, COLOR_WHITE);
 			this.mc.renderEngine.bindTexture(this.bgTexture);

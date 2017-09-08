@@ -28,13 +28,14 @@ import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.toasts.SystemToast;
+import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.TextComponentString;
-import net.minecraft.util.text.translation.I18n;
+import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraftforge.common.config.Config;
 import net.minecraftforge.common.config.ConfigManager;
 
@@ -172,7 +173,7 @@ public class RecipeSelection extends DRPGuiScreen{
 	@Override
 	protected void drawForeground(int mouseX, int mouseY, float partialTicks) {
 		//"Labels"
-		String toPrint = this.fontRenderer.trimStringToWidth(I18n.translateToLocal("crafting.category." + this.categorys.get(this.selectedCategory + this.categoryOffset).getCategoryName() + ".name"), 156);
+		String toPrint = this.fontRenderer.trimStringToWidth(I18n.format("crafting.category." + this.categorys.get(this.selectedCategory + this.categoryOffset).getCategoryName() + ".name"), 156);
 		this.fontRenderer.drawString(toPrint, this.guiLeft + 95 - (this.fontRenderer.getStringWidth(toPrint)/2), this.guiTop + 29, 16777215, true);
 		
 		toPrint = this.fontRenderer.trimStringToWidth("Page " + String.valueOf(this.recipePage + 1) + "/" + String.valueOf(this.maxRecipePages), 136);
