@@ -36,9 +36,9 @@ public class Button_UnlockSkill extends Gui_Button{
 	
 	@Override
 	public boolean mouseClicked(int mouseX, int mouseY, int mouseButton) throws IOException {
-		if(!parent.isUnlocked(parent.selectedSkill)){
-			System.out.println(parent.tryUnlock(parent.selectedSkill));
-		}
+//		if(!parent.isUnlocked(parent.selectedSkill)){
+//			System.out.println(parent.tryUnlock(parent.selectedSkill));
+//		}
 		return true;
 	}
 }

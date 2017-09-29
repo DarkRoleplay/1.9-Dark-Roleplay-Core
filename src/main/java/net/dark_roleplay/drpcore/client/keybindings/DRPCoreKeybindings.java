@@ -18,6 +18,7 @@ import net.dark_roleplay.drpcore.api.crafting.simple_recipe.SimpleRecipe;
 import net.dark_roleplay.drpcore.api.skills.Skill_Util;
 import net.dark_roleplay.drpcore.client.gui.crafting.recipe_crafting.RecipeCrafting_SimpleRecipe;
 import net.dark_roleplay.drpcore.client.gui.crafting.recipe_selection.RecipeSelection;
+import net.dark_roleplay.drpcore.client.gui.skills2.Gui_Skills;
 import net.dark_roleplay.drpcore.client.resources.creation.TextureCombiner;
 import net.dark_roleplay.drpcore.common.DRPCoreInfo;
 import net.dark_roleplay.drpcore.common.DarkRoleplayCore;
@@ -26,7 +27,6 @@ import net.dark_roleplay.drpcore.common.handler.DRPCoreConfigs;
 import net.dark_roleplay.drpcore.common.handler.DRPCoreGuis;
 import net.dark_roleplay.drpcore.common.handler.DRPCorePackets;
 import net.dark_roleplay.drpcore.common.network.packets.debug.Packet_DebugKey;
-import net.dark_roleplay.drpcore.common.skills.SkillRegistry;
 import net.dark_roleplay.drpcore.common.util.jsons.Json_Premium;
 import net.dark_roleplay.drpcore.common.util.web.WebRequest_PremiumPoints;
 import net.minecraft.block.BlockCrops;
@@ -40,10 +40,12 @@ import net.minecraft.client.renderer.ThreadDownloadImageData;
 import net.minecraft.client.renderer.texture.ITextureObject;
 import net.minecraft.client.renderer.texture.TextureManager;
 import net.minecraft.client.settings.KeyBinding;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.text.TextComponentString;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.client.registry.ClientRegistry;
@@ -56,7 +58,7 @@ import net.minecraftforge.fml.common.gameevent.InputEvent.KeyInputEvent;
 public class DRPCoreKeybindings {
 	
 	public static KeyBinding openCrafting = new KeyBinding("keyBinding.openCrafting", Keyboard.KEY_C,"Dark Roleplay Core");
-	public static KeyBinding openSkill = new KeyBinding("keyBinding.openSkill", Keyboard.KEY_K, "Dark Roleplay Core");
+//	public static KeyBinding openSkill = new KeyBinding("keyBinding.openSkill", Keyboard.KEY_K, "Dark Roleplay Core");
 	public static KeyBinding debugging = new KeyBinding("keyBinding.debuging", Keyboard.KEY_B, "Dark Roleplay Core");
 
 	public static void preInit(FMLPreInitializationEvent event) {
@@ -64,7 +66,7 @@ public class DRPCoreKeybindings {
 
 	public static void init(FMLInitializationEvent event) {
 		ClientRegistry.registerKeyBinding(openCrafting);
-		ClientRegistry.registerKeyBinding(openSkill);
+//		ClientRegistry.registerKeyBinding(openSkill);
 		
 		if(DRPCoreConfigs.DEBUG.DEBUG_KEY){
 			ClientRegistry.registerKeyBinding(debugging);
@@ -83,12 +85,16 @@ public class DRPCoreKeybindings {
 			Crafting_Util.openRecipeSelection(Blocks.AIR);
 		}
 		
-		if(this.openSkill.isKeyDown()){
-			Skill_Util.openSkillOverview();
-		}
+//		if(this.openSkill.isKeyDown()){
+//			Skill_Util.openSkillOverview();
+//		}
 		
 		if(DRPCoreConfigs.DEBUG.DEBUG_KEY && this.debugging.isKeyDown()) {
-			System.out.println(Byte.MAX_VALUE);
+
+//			Minecraft.getMinecraft().displayGuiScreen(new Gui_Skills());
+//			EntityPlayer player = Minecraft.getMinecraft().player;
+//			System.out.println(
+//					player.getEntityWorld().getEntitiesWithinAABB(Entity.class, new AxisAlignedBB(player.getPosition().getX(), player.getPosition().getY(), player.getPosition().getZ(), 10, 5, 10)));
 		}
 	}
 }

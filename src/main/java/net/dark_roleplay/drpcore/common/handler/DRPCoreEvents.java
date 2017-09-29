@@ -4,6 +4,7 @@ import net.dark_roleplay.drpcore.client.events.player.Event_GuiOpen;
 import net.dark_roleplay.drpcore.client.events.player.Event_Mouse;
 import net.dark_roleplay.drpcore.client.events.player.Event_Tooltip;
 import net.dark_roleplay.drpcore.client.events.rendering.Event_BlockHighlight;
+import net.dark_roleplay.drpcore.client.events.rendering.Event_RenderHud;
 import net.dark_roleplay.drpcore.client.events.ticks.Event_ClientTick;
 import net.dark_roleplay.drpcore.common.events.blocks.Event_BlockBreak;
 import net.minecraftforge.common.MinecraftForge;
@@ -25,6 +26,7 @@ public class DRPCoreEvents {
 			MinecraftForge.EVENT_BUS.register(new Event_Mouse());
 			MinecraftForge.EVENT_BUS.register(new Event_BlockHighlight());
 			MinecraftForge.EVENT_BUS.register(new Event_Tooltip());
+			MinecraftForge.EVENT_BUS.register(new Event_RenderHud());
 		}else if(event.getSide() == Side.SERVER) {
 			
 		}

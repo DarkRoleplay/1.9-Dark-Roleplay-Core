@@ -17,7 +17,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.common.network.ByteBufUtils;
 
-public class Packet_SaveBlueprint extends PacketBase.SERVER<Packet_SaveBlueprint>{
+public class Packet_SaveBlueprint extends PacketBase.Server<Packet_SaveBlueprint>{
 
 	private BlockPos pos;
 	private BlockPos offset;

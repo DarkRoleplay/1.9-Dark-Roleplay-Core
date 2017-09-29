@@ -23,6 +23,8 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
 import net.minecraftforge.client.event.DrawBlockHighlightEvent;
+import net.minecraftforge.client.model.IModel;
+import net.minecraftforge.client.model.obj.OBJLoader;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
 public class Event_BlockHighlight {
@@ -66,7 +68,6 @@ public class Event_BlockHighlight {
 	    BlockRendererDispatcher blockrendererdispatcher = Minecraft.getMinecraft().getBlockRendererDispatcher();
 	    BlockModelRenderer renderer = blockrendererdispatcher.getBlockModelRenderer();
 	    
-
 		GlStateManager.pushMatrix();
 		GlStateManager.disableFog();
 		GlStateManager.disableLighting();

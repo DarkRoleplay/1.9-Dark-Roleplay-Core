@@ -23,7 +23,7 @@ public class Gui_Button extends IGuiElement.IMPL{
 	}
 	
 	@Override
-	public void draw(int mouseX, int mouseY, float partialTick) {
+	public void draw(int mouseX, int mouseY, float partialTicks) {
 		if((mouseX >= this.posX && mouseX < this.posX + this.width) && (mouseY >= this.posY && mouseY < this.posY + this.height))
 			this.hovered = true;
 		else

@@ -24,6 +24,7 @@ public interface IGuiElement {
 	public int addChild(IGuiElement child);
 	
 	public IGuiElement getChild(int id);
+	public void setChild(int id, IGuiElement newChild);
 	
 	public List<IGuiElement> getChildren();
 	
@@ -44,8 +45,8 @@ public interface IGuiElement {
 	
 	public abstract class IMPL extends Gui implements IGuiElement{
 
-		protected int posX, posY;
-		protected int width, height;
+		protected int posX = 0, posY = 0;
+		protected int width = 10, height = 10;
 		private boolean visible = true;
 		
 		protected List<IGuiElement> children = new ArrayList<IGuiElement>();
@@ -60,6 +61,11 @@ public interface IGuiElement {
 			return null;
 		}
 
+		@Override
+		public void setChild(int id, IGuiElement newChild){
+			
+		}
+		
 		@Override
 		public List<IGuiElement> getChildren() {
 			return null;
@@ -183,6 +189,40 @@ public interface IGuiElement {
 	        GlStateManager.disableBlend();
 	    }
 		
+		/**
+		 * @param posX "X" position of the top left corner
+		 * @param posY "Y" position of the top left corner
+		 * @param widht Size of the rect on the "X" axis
+		 * @param height Size of the rect on the "Y" axis
+		 * @param u "X" position for the texture, top left corner
+		 * @param v "Y" position for the texture, top left corner
+		 * @param uMax "X" position for the texture, bottom right corner
+		 * @param vMax "Y" position for the texture, bottom right corner
+		 */
+		public void drawPerctentedRect(int posX, int posY, int width, int height, float u, float v, float uMax, float vMax){
+	        Tessellator tessellator = Tessellator.getInstance();
+	        BufferBuilder bufferbuilder = tessellator.getBuffer();
+	        bufferbuilder.begin(7, DefaultVertexFormats.POSITION_TEX);
+	        bufferbuilder.pos(posX, posY + height, this.zLevel).tex(u, vMax).endVertex();
+	        bufferbuilder.pos(posX + width, posY + height, this.zLevel).tex(uMax, vMax).endVertex();
+	        bufferbuilder.pos(posX + width, posY, this.zLevel).tex(uMax, v).endVertex();
+	        bufferbuilder.pos(posX, posY, this.zLevel).tex(u, v).endVertex();
+	        tessellator.draw();
+	    }
+		
+		public void drawTexturedCenteredRect(int centerX, int centerY, float u, float v, float uMax, float vMax, int radius, double angle){
+			double rads = Math.toRadians(angle);
+			double diagRadius = radius * Math.sqrt(2);
+	        Tessellator tessellator = Tessellator.getInstance();
+	        BufferBuilder bufferbuilder = tessellator.getBuffer();
+	        bufferbuilder.begin(7, DefaultVertexFormats.POSITION_TEX);
+	        bufferbuilder.pos(centerX + radius * Math.cos(rads + Math.PI * 1.25), centerY + radius * Math.sin(rads + Math.PI * 1.25), 0.0D).tex(u, vMax).endVertex();
+	        bufferbuilder.pos(centerX + radius * Math.cos(rads + Math.PI * 0.75), centerY + radius * Math.sin(rads + Math.PI * 0.75), 0.0D).tex(uMax, vMax).endVertex();
+	        bufferbuilder.pos(centerX + radius * Math.cos(rads + Math.PI * 0.25), centerY + radius * Math.sin(rads + Math.PI * 0.25), 0.0D).tex(uMax, v).endVertex();
+	        bufferbuilder.pos(centerX + radius * Math.cos(rads + Math.PI * 1.75), centerY + radius * Math.sin(rads + Math.PI * 1.75), 0.0D).tex(u, v).endVertex();
+	        tessellator.draw();
+	    }
+		
 		public static void drawCenteredCircle(int centerX, int centerY, int radius, int resoulution, int color){
 			double diagRadius = radius * Math.sqrt(2);
 	        float f3 = (float)(color >> 24 & 255) / 255.0F;
@@ -201,9 +241,6 @@ public interface IGuiElement {
 	        double startY = centerY + radius * Math.sin(0);
 
         	bufferbuilder.pos(startX, startY, 0.0D).endVertex();
-//        	bufferbuilder.pos(centerX + radius * Math.cos(Math.PI * (steps * (resoulution-1))), centerY + radius * Math.sin(Math.PI * (steps * (resoulution-1))), 0.0D).endVertex();
-//        	bufferbuilder.pos(centerX + radius * Math.cos(Math.PI * (steps * (resoulution-2))), centerY + radius * Math.sin(Math.PI * (steps * (resoulution-2))), 0.0D).endVertex();
-//        	bufferbuilder.pos(centerX + radius * Math.cos(Math.PI * (steps * (resoulution-3))), centerY + radius * Math.sin(Math.PI * (steps * (resoulution-3))), 0.0D).endVertex();
 
         	int i = 1;
         	for(;i < 4; i++){

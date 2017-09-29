@@ -9,7 +9,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.common.network.ByteBufUtils;
 
-public class SyncPacket_BlueprintBlock extends PacketBase.SERVER<SyncPacket_BlueprintBlock>{
+public class SyncPacket_BlueprintBlock extends PacketBase.Server<SyncPacket_BlueprintBlock>{
 
 	private BlockPos pos;
 	private BlockPos offset;

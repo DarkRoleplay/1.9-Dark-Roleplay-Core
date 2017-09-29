@@ -18,6 +18,8 @@ import mezz.jei.api.IModRegistry;
 import mezz.jei.api.ISubtypeRegistry;
 import mezz.jei.api.JEIPlugin;
 import mezz.jei.api.ingredients.IModIngredientRegistration;
+import mezz.jei.api.recipe.IRecipeCategoryRegistration;
+import net.dark_roleplay.drpcore.addons.jei.simple_recipe.Category_SimpleRecipe;
 import net.dark_roleplay.drpcore.api.crafting.simple_recipe.IRecipe;
 import net.dark_roleplay.drpcore.api.crafting.simple_recipe.SimpleRecipe;
 import net.dark_roleplay.drpcore.common.crafting.CraftingRegistry;
@@ -27,48 +29,27 @@ import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 
-//@JEIPlugin
+@JEIPlugin
 public class DRPCoreJEIAddon implements IModPlugin{
-
-	public static final String DRPCoreCategory = "drpcore.general";
 	
 	@Override
-	public void registerItemSubtypes(ISubtypeRegistry subtypeRegistry) {}
-
-	@Override
-	public void registerIngredients(IModIngredientRegistration registry) {}
-
+	public void registerCategories(IRecipeCategoryRegistration registry) {
+		for(Block b : CraftingRegistry.getStations()){
+			System.out.println(b);
+			registry.addRecipeCategories(new Category_SimpleRecipe(registry.getJeiHelpers().getGuiHelper(), "drpcore_jet_" + b.getRegistryName().getResourcePath(), b.getRegistryName().getResourcePath()));
+		}
+	}
+	
 	@Override
 	public void register(IModRegistry registry) {
-		IJeiHelpers jeiHelpers = registry.getJeiHelpers();
-	    IGuiHelper guiHelper = jeiHelpers.getGuiHelper();
-		
-		registry.addRecipeCategories(new DRPCoreCategory(guiHelper));
-	    registry.addRecipeHandlers(new DRPCoreHandler());
-	    registry.addRecipeCategoryCraftingItem(new ItemStack(Blocks.CRAFTING_TABLE), DRPCoreCategory);
-	    
-	    Collection<IRecipe> recipes = CraftingRegistry.getRecipes();
-	    Iterator<IRecipe> iterRec = recipes.iterator();
+		for(Block b : CraftingRegistry.getStations()){
+			System.out.println(b);
+			registry.addRecipes(CraftingRegistry.getRecipesForStation(b), "drpcore_jet_" + b.getRegistryName().getResourcePath());
 
-	    Set<DRPCoreJEIRecipe> jeiRecipes = new HashSet();
-	   
-	    while(iterRec.hasNext()){
-	    	IRecipe rec = iterRec.next();
-	    	
-	    	if(rec instanceof SimpleRecipe){
-	    		SimpleRecipe srec = (SimpleRecipe) rec;
-		    	DRPCoreJEIRecipe jeiRec = new DRPCoreJEIRecipe(ItemStack.EMPTY, Arrays.asList(srec.getMainOutput()), Arrays.asList(srec.getMainIngredients()));
-		    	jeiRecipes.add(jeiRec);
-	    	}
-	    }
-
-	    registry.addRecipes(recipes, "drpcore_crafting");
+			if(b != Blocks.AIR)
+				registry.addRecipeCatalyst(new ItemStack(b), "drpcore_jet_" + b.getRegistryName().getResourcePath());
+			else
+				registry.addRecipeCatalyst(new ItemStack(Blocks.CRAFTING_TABLE), "drpcore_jet_" + b.getRegistryName().getResourcePath());
+		}
 	}
-
-	@Override
-	public void onRuntimeAvailable(IJeiRuntime jeiRuntime) {
-		// TODO Auto-generated method stub
-		
-	}
-
 }

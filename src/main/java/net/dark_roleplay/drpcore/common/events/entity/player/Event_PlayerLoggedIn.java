@@ -12,15 +12,18 @@ import java.util.UUID;
 
 import net.dark_roleplay.drpcore.api.skills.Skill;
 import net.dark_roleplay.drpcore.api.skills.SkillPoint;
+import net.dark_roleplay.drpcore.api.skills.SkillPointData;
+import net.dark_roleplay.drpcore.client.renderer.players.PremiumRegistry;
+import net.dark_roleplay.drpcore.client.renderer.players.PremiumRegistry.Equiped;
 import net.dark_roleplay.drpcore.common.capabilities.player.crafting.IRecipeController;
 import net.dark_roleplay.drpcore.common.capabilities.player.skill.ISkillController;
 import net.dark_roleplay.drpcore.common.config.SyncedConfigRegistry;
 import net.dark_roleplay.drpcore.common.handler.DRPCoreCapabilities;
 import net.dark_roleplay.drpcore.common.handler.DRPCorePackets;
 import net.dark_roleplay.drpcore.common.network.packets.crafting.SyncPacket_PlayerRecipeState;
-import net.dark_roleplay.drpcore.common.network.packets.skills.SyncPacket_Skill;
-import net.dark_roleplay.drpcore.common.network.packets.skills.SyncPacket_SkillPoint;
-import net.dark_roleplay.drpcore.common.skills.SkillPointData;
+import net.dark_roleplay.drpcore.common.network.packets.skills.SyncPacket_Skills;
+import net.dark_roleplay.drpcore.common.network.packets.skills.SyncPacket_SkillPoints;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
@@ -51,32 +54,33 @@ public class Event_PlayerLoggedIn {
 				DRPCorePackets.sendTo(new SyncPacket_PlayerRecipeState(recipe,2,progressed.get(recipe)), player);
 			}
 			
-			for(SkillPointData data : slC.getSkillPoints()){
-				DRPCorePackets.sendTo(new SyncPacket_SkillPoint(data.getPoint().getRegistryName(), data.getAmount(), data.getLevel(), data.getXP()) , player);
-			}
-			
-			for(Skill skill : slC.getUnlockedSkills()){
-				DRPCorePackets.sendTo(new SyncPacket_Skill(skill.getRegistryName()), player);
-			}
+//			for(SkillPointData data : slC.getSkillPoints()){
+//				DRPCorePackets.sendTo(new SyncPacket_SkillPoint(data.getPoint().getRegistryName(), data.getAmount(), data.getLevel(), data.getXP()) , player);
+//			}
+//			
+//			for(Skill skill : slC.getUnlockedSkills()){
+//				DRPCorePackets.sendTo(new SyncPacket_Skill(skill.getRegistryName()), player);
+//			}
 			
 			SyncedConfigRegistry.sendConfigTo((EntityPlayer) event.getEntity());
 			
 			
-			try {
-				InputStream input = new URL("http://dark-roleplay.bplaced.net/premium_check.php?uuid=" + player.getUniqueID().toString()).openStream();
-				byte[] value = new byte[4];
-				input.read(value, 0, 4);
-				
-				String s = new String(value);
-				if(s.equals("true")){
-					premiums.add(player);
-				}
-			} catch (MalformedURLException e) {
-				e.printStackTrace();
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
+//			try {
+//				InputStream input = new URL("http://dark-roleplay.bplaced.net/premium_check.php?uuid=" + player.getUniqueID().toString()).openStream();
+//				byte[] value = new byte[4];
+//				input.read(value, 0, 4);
+//				
+//				String s = new String(value);
+//				if(s.equals("true")){
+//					premiums.add(player);
+//				}
+//			} catch (MalformedURLException e) {
+//				e.printStackTrace();
+//			} catch (IOException e) {
+//				e.printStackTrace();
+//			}
 			
+			PremiumRegistry.setEquiped(player, 1, 0);;
 		}
 	}
 	

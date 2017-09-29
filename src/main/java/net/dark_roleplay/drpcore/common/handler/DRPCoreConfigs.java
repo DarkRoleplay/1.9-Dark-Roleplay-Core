@@ -16,7 +16,6 @@ import net.minecraftforge.fml.common.Mod;
 @Config(modid = DRPCoreInfo.MODID, name = "Dark Roleplay Core/Dark Roleplay Core", category = "drpcore")
 public class DRPCoreConfigs {
 
-	@Config.LangKey("config.key")
 	@Config.Comment("This category contains everything that affects the mod but not any of it's features.")
 	public static General GENERAL = new General();
 	
@@ -25,6 +24,9 @@ public class DRPCoreConfigs {
 	
 	@Config.Comment("This category is mainly for modders that want to have some example and test stuff.")
 	public static Debug DEBUG = new Debug();
+	
+	@Config.Comment("Everything that is just important for the Client")
+	public static Client CLIENT = new Client();
 
 	
 	public static class General{
@@ -37,7 +39,7 @@ public class DRPCoreConfigs {
 		@Config.Comment("Shows informational screen if a new update is available. \nAllowed values: true, false")
 		public boolean UPDATE_GUI = true;
 		
-		@Config.Name("Fist Installed")
+		@Config.Name("First Time Installed")
 		@Config.Comment("Shows informational screen when this value is set to true, automaticly sets to false. \nAllowed values: true, false")
 		public boolean FIRST_INSTALL = true;
 	}
@@ -73,5 +75,19 @@ public class DRPCoreConfigs {
 		@Config.Name("Display recipe names")
 		@Config.Comment("Display Recipe Names in Crafting GUI's. \nAllowed values: true, false")
 		public boolean DEBUG_RECIPE_NAMES = false;
+	}
+	
+	public static class Client{
+		
+		@Config.Comment("All you need to customize your hud")
+		public Hud HUD = new Hud();
+		
+		public class Hud{
+			
+			@Config.Name("Draw a Realtime Clock")
+			@Config.Comment("Enables a realtime Clock")
+			public boolean DRAW_REALTIME_CLOCK = true;
+			
+		}
 	}
 }

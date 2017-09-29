@@ -28,7 +28,7 @@ public abstract class PacketBase<REQ extends IMessage> implements IMessage, IMes
 
 	public abstract void handleServerSide(REQ message, EntityPlayer player);
 	
-	public static abstract class SERVER<REQ extends IMessage> extends PacketBase<REQ>{
+	public static abstract class Server<REQ extends IMessage> extends PacketBase<REQ>{
 		@Override
 		@SideOnly(Side.CLIENT)
 		public void handleClientSide(REQ message, EntityPlayer player){
@@ -37,7 +37,7 @@ public abstract class PacketBase<REQ extends IMessage> implements IMessage, IMes
 		}
 	}
 	
-	public static abstract class CLIENT<REQ extends IMessage> extends PacketBase<REQ>{
+	public static abstract class Client<REQ extends IMessage> extends PacketBase<REQ>{
 		@Override
 		public void handleServerSide(REQ message, EntityPlayer player){
 			DRPCoreInfo.LOGGER.error("Received a packet that was ment to be only used to send Data form Server to Client!");

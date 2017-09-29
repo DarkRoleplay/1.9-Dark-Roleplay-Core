@@ -19,7 +19,7 @@ public class ModularGui_Drawer {
 	private static void drawModular(int posX, int posY, int width, int height, int leftLine1, int leftLine2, int topLine1, int topLine2, int textureWidth, int textureHeight, boolean drawCenter){
 		Gui gui = Minecraft.getMinecraft().currentScreen;
 		// Corner TOP LEFT
-		gui.drawModalRectWithCustomSizedTexture(posX, posY, 0, 0, leftLine1, topLine1, textureWidth, 32);
+		gui.drawModalRectWithCustomSizedTexture(posX, posY, 0, 0, leftLine1, topLine1, textureWidth, textureHeight);
 		// Corner TOP RIGHT
 		gui.drawModalRectWithCustomSizedTexture(posX + width - (textureWidth - leftLine2), posY, leftLine2, 0, textureWidth - leftLine2, topLine1, textureWidth, textureHeight);
 		// Corner BOTTOM LEFT

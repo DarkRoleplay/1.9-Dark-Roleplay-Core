@@ -1,11 +1,9 @@
 package net.dark_roleplay.drpcore.common.handler;
 
-import net.dark_roleplay.drpcore.common.capabilities.player.crafting.IRecipeController;
-import net.dark_roleplay.drpcore.common.capabilities.player.crafting.RecipeControllerFactory;
-import net.dark_roleplay.drpcore.common.capabilities.player.crafting.RecipeControllerStorage;
-import net.dark_roleplay.drpcore.common.capabilities.player.skill.ISkillController;
-import net.dark_roleplay.drpcore.common.capabilities.player.skill.SkillControllerFactory;
-import net.dark_roleplay.drpcore.common.capabilities.player.skill.SkillControllerStorage;
+import java.util.concurrent.Callable;
+
+import net.dark_roleplay.drpcore.common.capabilities.player.crafting.*;
+import net.dark_roleplay.drpcore.common.capabilities.player.skill.*;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTBase;
 import net.minecraft.nbt.NBTTagCompound;
@@ -34,8 +32,8 @@ public class DRPCoreCapabilities {
 	public static final void preInit(FMLPreInitializationEvent event) {}
 	
 	public static final void init(FMLInitializationEvent event) {
-		CapabilityManager.INSTANCE.register(IRecipeController.class, new RecipeControllerStorage(), new RecipeControllerFactory());
-		CapabilityManager.INSTANCE.register(ISkillController.class, new SkillControllerStorage(), new SkillControllerFactory());
+		CapabilityManager.INSTANCE.register(IRecipeController.class, new RecipeControllerStorage(), (Callable<IRecipeController>)() -> {return new RecipeControllerDefault();});;
+		CapabilityManager.INSTANCE.register(ISkillController.class, new SkillControllerStorage(), (Callable<ISkillController>)() -> {return new ISkillController.Impl();});
 	}
 
 	public static final void postInit(FMLPostInitializationEvent event) {}

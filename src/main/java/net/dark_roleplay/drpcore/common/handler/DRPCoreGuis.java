@@ -6,7 +6,6 @@ import net.dark_roleplay.drpcore.client.gui.crafting.recipe_creation.Container_R
 import net.dark_roleplay.drpcore.client.gui.crafting.recipe_creation.Gui_RecipeCreation;
 import net.dark_roleplay.drpcore.client.gui.crafting.recipe_selection.RecipeSelection;
 import net.dark_roleplay.drpcore.client.gui.inventory.Gui_ExtendedInventory;
-import net.dark_roleplay.drpcore.client.gui.skills.old.SkillOverview;
 import net.dark_roleplay.drpcore.client.gui.structure.Gui_StructureControll;
 import net.dark_roleplay.drpcore.client.keybindings.DRPCoreKeybindings;
 import net.dark_roleplay.drpcore.common.DarkRoleplayCore;
@@ -54,8 +53,8 @@ public class DRPCoreGuis implements IGuiHandler {
 	@Override
 	public Object getClientGuiElement(int ID, EntityPlayer player, World world, int x, int y, int z) {
 		switch(ID){
-		case DRPCORE_GUI_SKILL_POINT_OVERVIEW:
-			return new SkillOverview();
+//		case DRPCORE_GUI_SKILL_POINT_OVERVIEW:
+//			return new SkillOverview();
 		case DRPCORE_GUI_CRAFTING_RECIPECREATION:
 			return new Gui_RecipeCreation(new Container_RecipeCreation(player.inventory));
 		case DRPCORE_GUI_STRUCTURE_CONTROLLER:

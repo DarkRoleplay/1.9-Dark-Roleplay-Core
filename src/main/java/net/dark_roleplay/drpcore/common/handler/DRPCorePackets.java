@@ -7,8 +7,8 @@ import net.dark_roleplay.drpcore.common.network.packets.crafting.Packet_InitSimp
 import net.dark_roleplay.drpcore.common.network.packets.crafting.SyncPacket_PlayerRecipeState;
 import net.dark_roleplay.drpcore.common.network.packets.debug.Packet_DebugKey;
 import net.dark_roleplay.drpcore.common.network.packets.skills.Packet_UnlockSkill;
-import net.dark_roleplay.drpcore.common.network.packets.skills.SyncPacket_Skill;
-import net.dark_roleplay.drpcore.common.network.packets.skills.SyncPacket_SkillPoint;
+import net.dark_roleplay.drpcore.common.network.packets.skills.SyncPacket_Skills;
+import net.dark_roleplay.drpcore.common.network.packets.skills.SyncPacket_SkillPoints;
 import net.dark_roleplay.drpcore.common.network.packets.weapons.Packet_ExtendedRangeAttack;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraftforge.fml.common.network.NetworkRegistry;
@@ -29,9 +29,9 @@ public class DRPCorePackets {
 		INSTANCE.registerMessage(Packet_InitSimpleRecipe.class, Packet_InitSimpleRecipe.class, i++, Side.SERVER);
 		INSTANCE.registerMessage(Packet_ExtendedRangeAttack.class, Packet_ExtendedRangeAttack.class, i++, Side.SERVER);
 		INSTANCE.registerMessage(SyncPacket_Boolean.class, SyncPacket_Boolean.class, i++, Side.CLIENT);
-		INSTANCE.registerMessage(SyncPacket_SkillPoint.class, SyncPacket_SkillPoint.class, i++, Side.CLIENT);
+		INSTANCE.registerMessage(SyncPacket_SkillPoints.class, SyncPacket_SkillPoints.class, i++, Side.CLIENT);
 		INSTANCE.registerMessage(Packet_UnlockSkill.class, Packet_UnlockSkill.class, i++, Side.SERVER);
-		INSTANCE.registerMessage(SyncPacket_Skill.class, SyncPacket_Skill.class, i++, Side.CLIENT);
+		INSTANCE.registerMessage(SyncPacket_Skills.class, SyncPacket_Skills.class, i++, Side.CLIENT);
 		INSTANCE.registerMessage(Packet_DebugKey.class, Packet_DebugKey.class, i++, Side.SERVER);
 		INSTANCE.registerMessage(SyncPacket_BlueprintBlock.class, SyncPacket_BlueprintBlock.class, i++, Side.SERVER);
 		INSTANCE.registerMessage(Packet_SaveBlueprint.class, Packet_SaveBlueprint.class, i++, Side.SERVER);

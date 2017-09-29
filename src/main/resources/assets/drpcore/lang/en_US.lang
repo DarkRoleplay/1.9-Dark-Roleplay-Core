@@ -16,3 +16,6 @@ drpcore.skill.required_skill_points=Required Skill Points
 drpcore.skill.required=Amount
 
 config.drpcore:general_placement_preview=JUST DEBUGGING
+
+skill.lumberjack.name=Lumberjack
+skill.lumberjack.desc=Become a Lumberjack and learn how to cut down whole trees at once! Though you might require some training... (5% chance per level)

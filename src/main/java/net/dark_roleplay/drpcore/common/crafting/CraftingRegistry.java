@@ -101,6 +101,23 @@ public class CraftingRegistry {
 		return recipes.values();
 	}
 	
+	public static Collection<Block> getStations(){
+		return categorys.keySet();
+	}
+	
+	public static Collection<IRecipe> getRecipesForStation(Block station){
+		List<IRecipe> recipes = new ArrayList<IRecipe>();
+		if(categorys.containsKey(station)){
+			for(RecipeCategory cat : categorys.get(station)){
+				System.out.println(cat);
+				recipes.addAll(cat.getRecipes());
+			}
+			return recipes;
+		}else{
+			return null;
+		}
+	}
+	
 	public static IRecipe getRecipe(String registryString){
 		if(recipes.containsKey(new ResourceLocation(registryString))){
 			return recipes.get(new ResourceLocation(registryString));

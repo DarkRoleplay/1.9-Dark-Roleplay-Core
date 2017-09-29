@@ -16,11 +16,18 @@ import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 
 public abstract class Gui_Panel extends IGuiElement.IMPL{
 	
+	protected boolean isHollow;
+	
 	public Gui_Panel(int posX, int posY, int width, int height){
+		this(posX, posY, width, height, false);
+	}
+	
+	public Gui_Panel(int posX, int posY, int width, int height, boolean isHollow){
 		this.posX = posX;
 		this.posY = posY;
 		this.width = width;
 		this.height = height;
+		this.isHollow = isHollow;
 	}
 	
 	@Override
@@ -41,6 +48,11 @@ public abstract class Gui_Panel extends IGuiElement.IMPL{
 			return null;
 		}
 	}
+	
+	@Override
+	public void setChild(int id, IGuiElement newChild) {
+		this.children.set(id, newChild);
+	}
 
 	@Override
 	public List<IGuiElement> getChildren() {
@@ -52,7 +64,6 @@ public abstract class Gui_Panel extends IGuiElement.IMPL{
 		GlStateManager.pushMatrix();
         GlStateManager.translate((float)(this.posX), (float)(this.posY), -400.0F);
         GlStateManager.enableDepth();
-        
 
 		GlStateManager.depthFunc(518);
 	    drawRect(0, 0, width, height, -16777216);
@@ -61,11 +72,16 @@ public abstract class Gui_Panel extends IGuiElement.IMPL{
 		
 	    GlStateManager.color(1F, 1F, 1F);
 	    
-	    ModularGui_Drawer.drawBackgroundCenter( 0, 0, this.width, this.height, false);
+	    ModularGui_Drawer.drawBackgroundCenter( 0, 0, this.width, this.height, isHollow);
+	    
+
 	    
 	    this.drawBackground(mouseX - this.posX, mouseY - this.posY, partialTick);
 	    this.drawMiddleground(mouseX - this.posX, mouseY - this.posY, partialTick);
 	    this.drawForeground(mouseX - this.posX, mouseY - this.posY, partialTick);
+	    
+
+//        GlStateManager.translate(-50, -10, 0);
 	    
 		GlStateManager.popMatrix();
 	    GlStateManager.depthFunc(515);
@@ -113,7 +129,11 @@ public abstract class Gui_Panel extends IGuiElement.IMPL{
 	public static class IMPL extends Gui_Panel{
 
 		public IMPL(int posX, int posY, int width, int height) {
-			super(posX, posY, width, height);
+			super(posX, posY, width, height, true);
+		}
+		
+		public IMPL(int posX, int posY, int width, int height, boolean isHollow) {
+			super(posX, posY, width, height, isHollow);
 		}
 
 		@Override

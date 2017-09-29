@@ -3,10 +3,10 @@ package net.dark_roleplay.drpcore.common.events.entity.player;
 import java.util.Map;
 
 import net.dark_roleplay.drpcore.api.skills.Skill;
+import net.dark_roleplay.drpcore.api.skills.SkillPointData;
 import net.dark_roleplay.drpcore.common.capabilities.player.crafting.IRecipeController;
 import net.dark_roleplay.drpcore.common.capabilities.player.skill.ISkillController;
 import net.dark_roleplay.drpcore.common.handler.DRPCoreCapabilities;
-import net.dark_roleplay.drpcore.common.skills.SkillPointData;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
@@ -34,8 +34,8 @@ public class Event_PlayerClone {
 				recipesNew.progressRecipe(progressed, progressedRecipes.get(progressed));
 			}
 			
-			skillsNew.unlockSkills(skillsOld.getUnlockedSkills());
-			skillsNew.addPoints(skillsOld.getSkillPoints());
+//			skillsNew.unlockSkills(skillsOld.getUnlockedSkills());
+//			skillsNew.addPoints(skillsOld.getSkillPoints());
 			
 		}
 	}

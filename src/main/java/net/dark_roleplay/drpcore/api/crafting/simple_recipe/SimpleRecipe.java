@@ -1,14 +1,21 @@
 package net.dark_roleplay.drpcore.api.crafting.simple_recipe;
 
+import java.util.Arrays;
+
+import mezz.jei.api.ingredients.IIngredients;
+import mezz.jei.api.recipe.IRecipeWrapper;
 import net.dark_roleplay.drpcore.common.crafting.CraftingRegistry;
 import net.dark_roleplay.drpcore.common.handler.DRPCoreCapabilities;
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.fml.common.Optional.Interface;
 import net.minecraftforge.registries.IForgeRegistryEntry;
 
-public class SimpleRecipe extends IRecipe.Impl{
+
+@Interface(iface="mezz.jei.api.recipe.IRecipeWrapper",modid="jei")
+public class SimpleRecipe extends IRecipe.Impl implements IRecipeWrapper{
 	
 	private ItemStack[] mainIngredients;
 	
@@ -67,5 +74,13 @@ public class SimpleRecipe extends IRecipe.Impl{
 	
 	public void setCrafter(SimpleCrafter crafter) {
 		this.crafter = crafter;
+	}
+	
+	//------------------------------------------------------------ JEI ------------------------------------------------------------
+
+	@Override
+	public void getIngredients(IIngredients ingredients) {
+		ingredients.setInputs(ItemStack.class, Arrays.asList(this.getMainIngredients()));
+		ingredients.setOutputs(ItemStack.class, Arrays.asList(this.getMainOutput()));
 	}
 }

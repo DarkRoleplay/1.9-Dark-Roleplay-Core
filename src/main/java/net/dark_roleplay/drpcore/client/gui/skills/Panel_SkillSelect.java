@@ -8,7 +8,6 @@ import net.dark_roleplay.drpcore.api.gui.advanced.Gui_Panel;
 import net.dark_roleplay.drpcore.api.gui.modular.ModularGui_Drawer;
 import net.dark_roleplay.drpcore.api.skills.Skill;
 import net.dark_roleplay.drpcore.api.skills.SkillPoint;
-import net.dark_roleplay.drpcore.api.skills.SkillRequirements;
 import net.dark_roleplay.drpcore.common.DRPCoreInfo;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.resources.I18n;
@@ -47,37 +46,37 @@ public class Panel_SkillSelect extends Gui_Panel{
 
 	@Override
 	public void drawForeground(int mouseX, int mouseY, float partialTick) {
-		if(this.skill != null){
-	        GlStateManager.disableLighting();
-
-			parent.getItemRenderer().renderItemIntoGUI(skill.getDisplayTexture(), 5, 5);
-			parent.getFontRenderer().drawStringWithShadow(translatedName, 25, 7, COLOR_WHITE);
-			parent.getFontRenderer().drawSplitString(translatedDesc, 6, 26, this.width - 10, COLOR_DARK_GRAY);
-			parent.getFontRenderer().drawSplitString(translatedDesc, 5, 25, this.width - 10, COLOR_WHITE);
-			
-			SkillRequirements sq = this.skill.getRequirements();
-			ItemStack stack;
-			int xOffset = 0;
-			boolean hasPoints;
-			parent.getFontRenderer().drawStringWithShadow(I18n.format("gui.skill_select.required"), 5, 112, COLOR_WHITE);
-			for(SkillPoint point : sq.getRequiredPoints()){
-				int amount = sq.getRequiredAmount(point);
-				hasPoints = parent.hasPoints(point, amount);
-				parent.getItemRenderer().renderItemIntoGUI(point.getDisplayStack(), 5 + xOffset, 129);
-                GlStateManager.disableDepth();
-                parent.getFontRenderer().drawStringWithShadow(String.valueOf(amount), (float)(5 + xOffset + 17 - parent.getFontRenderer().getStringWidth(String.valueOf(amount))), (float)(129 + 9), hasPoints ? COLOR_WHITE : COLOR_RED);
-                GlStateManager.color(1f, 1f, 1f);
-                GlStateManager.enableDepth();
-				xOffset += 22;
-			}
-		}
+//		if(this.skill != null){
+//	        GlStateManager.disableLighting();
+//
+//			parent.getItemRenderer().renderItemIntoGUI(skill.getDisplayTexture(), 5, 5);
+//			parent.getFontRenderer().drawStringWithShadow(translatedName, 25, 7, COLOR_WHITE);
+//			parent.getFontRenderer().drawSplitString(translatedDesc, 6, 26, this.width - 10, COLOR_DARK_GRAY);
+//			parent.getFontRenderer().drawSplitString(translatedDesc, 5, 25, this.width - 10, COLOR_WHITE);
+//			
+//			SkillRequirements sq = this.skill.getRequirements();
+//			ItemStack stack;
+//			int xOffset = 0;
+//			boolean hasPoints;
+//			parent.getFontRenderer().drawStringWithShadow(I18n.format("gui.skill_select.required"), 5, 112, COLOR_WHITE);
+//			for(SkillPoint point : sq.getRequiredPoints()){
+//				int amount = sq.getRequiredAmount(point);
+//				hasPoints = parent.hasPoints(point, amount);
+//				parent.getItemRenderer().renderItemIntoGUI(point.getDisplayStack(), 5 + xOffset, 129);
+//                GlStateManager.disableDepth();
+//                parent.getFontRenderer().drawStringWithShadow(String.valueOf(amount), (float)(5 + xOffset + 17 - parent.getFontRenderer().getStringWidth(String.valueOf(amount))), (float)(129 + 9), hasPoints ? COLOR_WHITE : COLOR_RED);
+//                GlStateManager.color(1f, 1f, 1f);
+//                GlStateManager.enableDepth();
+//				xOffset += 22;
+//			}
+//		}
 	}
 	
 	public void setSkill(Skill skill) {
 		this.skill = skill;
 		if(skill != null){
 			translatedName = I18n.format(skill.getUnlocalizedName());
-			translatedDesc = I18n.format(skill.getUnlocalizedDesc());
+//			translatedDesc = I18n.format(skill.getUnlocalizedDesc());
 		}
 	}
 
