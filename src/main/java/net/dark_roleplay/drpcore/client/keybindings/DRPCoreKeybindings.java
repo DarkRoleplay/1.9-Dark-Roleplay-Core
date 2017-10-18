@@ -18,6 +18,7 @@ import net.dark_roleplay.drpcore.api.crafting.simple_recipe.SimpleRecipe;
 import net.dark_roleplay.drpcore.api.skills.Skill_Util;
 import net.dark_roleplay.drpcore.client.gui.crafting.recipe_crafting.RecipeCrafting_SimpleRecipe;
 import net.dark_roleplay.drpcore.client.gui.crafting.recipe_selection.RecipeSelection;
+import net.dark_roleplay.drpcore.client.gui.premium.Gui_Shop;
 import net.dark_roleplay.drpcore.client.gui.skills2.Gui_Skills;
 import net.dark_roleplay.drpcore.client.resources.creation.TextureCombiner;
 import net.dark_roleplay.drpcore.common.DRPCoreInfo;
@@ -90,6 +91,8 @@ public class DRPCoreKeybindings {
 //		}
 		
 		if(DRPCoreConfigs.DEBUG.DEBUG_KEY && this.debugging.isKeyDown()) {
+			
+//			Minecraft.getMinecraft().displayGuiScreen(new Gui_Shop());
 
 //			Minecraft.getMinecraft().displayGuiScreen(new Gui_Skills());
 //			EntityPlayer player = Minecraft.getMinecraft().player;

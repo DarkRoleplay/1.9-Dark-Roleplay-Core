@@ -3,9 +3,11 @@ package net.dark_roleplay.drpcore.client.events.rendering;
 import java.util.Calendar;
 import java.util.TimeZone;
 
+import org.apache.logging.log4j.core.pattern.DatePatternConverter;
 
 import net.dark_roleplay.drpcore.api.gui.advanced.IGuiElement;
 import net.dark_roleplay.drpcore.common.DRPCoreInfo;
+import net.dark_roleplay.drpcore.common.handler.DRPCoreConfigs;
 import net.minecraft.client.Minecraft;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.event.DrawBlockHighlightEvent;
@@ -33,15 +35,12 @@ public class Event_RenderHud {
 			this.drawTexturedCenteredRect(this.posX + 16, this.posY + 16, 0F, 0F, 1F, 1F, 16, minuteAndlge);
 			Minecraft.getMinecraft().renderEngine.bindTexture(hourTexture);
 			this.drawTexturedCenteredRect(this.posX + 16, this.posY + 16, 0F, 0F, 1F, 1F, 16, hourAngle);
-//			System.out.println(Calendar.getInstance().getTime());
-//			System.out.println(Calendar.getInstance().get(Calendar.HOUR_OF_DAY));
-//			System.out.println(Calendar.getInstance().get(Calendar.MINUTE));
 		}
 	};
 	
 	@SubscribeEvent
 	public void renderHud(RenderGameOverlayEvent event){
-		if(event.getType() == RenderGameOverlayEvent.ElementType.EXPERIENCE){
+		if(event.getType() == RenderGameOverlayEvent.ElementType.EXPERIENCE && DRPCoreConfigs.CLIENT.HUD.DRAW_REALTIME_CLOCK){
 			clock.setPos(event.getResolution().getScaledWidth() - 34, 0);
 			clock.draw(0, 0, event.getPartialTicks());
 		}

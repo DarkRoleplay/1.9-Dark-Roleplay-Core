@@ -8,20 +8,25 @@ import net.dark_roleplay.drpcore.api.skills.SkillTree;
 import net.dark_roleplay.drpcore.api.skills.SkillTreeData;
 import net.dark_roleplay.drpcore.common.DRPCoreInfo;
 import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.event.RegistryEvent;
+import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.registries.IForgeRegistry;
 import net.minecraftforge.registries.IForgeRegistry.AddCallback;
 import net.minecraftforge.registries.IForgeRegistryInternal;
 import net.minecraftforge.registries.RegistryBuilder;
 import net.minecraftforge.registries.RegistryManager;
 
+@Mod.EventBusSubscriber
 public class DRPUtil {
 
 	private static IForgeRegistry<SkillPoint> registrySkillPoints;
 	private static IForgeRegistry<Skill> registrySkills;
 	private static IForgeRegistry<SkillTree> registrySkillTrees;
 	
-	public static void createRegistries(FMLPreInitializationEvent e){
+	@SubscribeEvent
+	public static final void register(RegistryEvent.NewRegistry event) {
 		RegistryBuilder<SkillPoint> rbSkillPoints = new RegistryBuilder<SkillPoint>();
 		rbSkillPoints.setName(new ResourceLocation(DRPCoreInfo.MODID, "skill_points"));
 		rbSkillPoints.setType(SkillPoint.class);

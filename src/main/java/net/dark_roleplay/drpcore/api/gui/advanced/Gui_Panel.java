@@ -67,21 +67,15 @@ public abstract class Gui_Panel extends IGuiElement.IMPL{
 
 		GlStateManager.depthFunc(518);
 	    drawRect(0, 0, width, height, -16777216);
-//		drawCenteredCircle(width / 2, height / 2, height/4, 64, -16777216);
 	    GlStateManager.depthFunc(515);
 		
 	    GlStateManager.color(1F, 1F, 1F);
 	    
 	    ModularGui_Drawer.drawBackgroundCenter( 0, 0, this.width, this.height, isHollow);
 	    
-
-	    
 	    this.drawBackground(mouseX - this.posX, mouseY - this.posY, partialTick);
 	    this.drawMiddleground(mouseX - this.posX, mouseY - this.posY, partialTick);
 	    this.drawForeground(mouseX - this.posX, mouseY - this.posY, partialTick);
-	    
-
-//        GlStateManager.translate(-50, -10, 0);
 	    
 		GlStateManager.popMatrix();
 	    GlStateManager.depthFunc(515);

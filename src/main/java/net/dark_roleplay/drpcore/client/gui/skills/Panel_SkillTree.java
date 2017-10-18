@@ -6,7 +6,6 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Random;
 
-import org.lwjgl.input.Mouse;
 
 import net.dark_roleplay.drpcore.api.gui.advanced.Gui_Panel;
 import net.dark_roleplay.drpcore.api.gui.modular.ModularGui_Drawer;

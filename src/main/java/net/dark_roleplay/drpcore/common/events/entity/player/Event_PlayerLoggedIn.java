@@ -28,6 +28,7 @@ import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
+import net.minecraftforge.event.entity.living.LivingHurtEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.PlayerEvent.PlayerLoggedInEvent;
 
@@ -79,9 +80,6 @@ public class Event_PlayerLoggedIn {
 //			} catch (IOException e) {
 //				e.printStackTrace();
 //			}
-			
-			PremiumRegistry.setEquiped(player, 1, 0);;
 		}
-	}
-	
+	}       
 }

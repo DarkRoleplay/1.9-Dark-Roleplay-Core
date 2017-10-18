@@ -33,12 +33,14 @@ public class RenderLayer_PremiumAddon implements LayerRenderer<EntityPlayer> {
 	@Override
 	public void doRenderLayer(EntityPlayer entity, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
 		PremiumRegistry.Equiped equiped = PremiumRegistry.getEquiped(entity);
-		pa = equiped.getEquiped().getAttachment();
-		
-		pa.setModelAttributes(this.mainModel);
-
-        this.renderer.bindTexture(new ResourceLocation(DRPCoreInfo.MODID, "textures/premium/full_black.png"));
-        pa.setRotationAngles(mainModel);
-		pa.render(entity, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scale);
+		if(equiped != null){
+			pa = equiped.getEquiped().getAttachment();
+			
+			pa.setModelAttributes(this.mainModel);
+	
+	        this.renderer.bindTexture(new ResourceLocation(DRPCoreInfo.MODID, "textures/premium/full_black.png"));
+	        pa.setRotationAngles(mainModel);
+			pa.render(entity, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scale);
+		}
 	}
 }

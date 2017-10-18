@@ -32,6 +32,7 @@ import net.dark_roleplay.drpcore.common.proxy.CommonProxy;
 import net.dark_roleplay.drpcore.common.tile_entities.blueprint_controller.TE_BlueprintController;
 import net.dark_roleplay.drpcore.server.commands.crafting.Command_Recipe;
 import net.dark_roleplay.drpcore.server.commands.skills.Command_Skill;
+import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
 import net.minecraft.command.ServerCommandManager;
 import net.minecraft.init.Blocks;
@@ -74,7 +75,6 @@ public class DarkRoleplayCore {
 
 	@EventHandler
 	public void preInit(FMLPreInitializationEvent event){
-		DRPUtil.createRegistries(event);
 		DRPCoreInfo.init(event);
 		
 		SyncedConfigRegistry.setSide(event.getSide());
@@ -87,6 +87,7 @@ public class DarkRoleplayCore {
 		GameRegistry.registerTileEntity(TE_BlueprintController.class, DRPCoreInfo.MODID + ":" + "tileentity_structure_controller");
 
 		proxy.preInit(event);
+		
 	}
 	
 	@EventHandler
