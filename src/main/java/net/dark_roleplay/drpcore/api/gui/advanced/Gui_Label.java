@@ -23,6 +23,13 @@ public class Gui_Label extends IGuiElement.IMPL{
 		this.color = color;
 	}
 	
+	public Gui_Label(String text, int color, int posX, int posY){
+		this.text = text;
+		this.fr = Minecraft.getMinecraft().fontRenderer;
+		this.color = color;
+		this.setPos(posX, posY);
+	}
+	
 	@Override
 	public void draw(int mouseX, int mouseY, float partialTicks) {
 		if(cache == null && text != null && !text.isEmpty()){

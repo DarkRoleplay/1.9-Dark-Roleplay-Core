@@ -26,6 +26,7 @@ import net.minecraft.util.Mirror;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.Rotation;
 import net.minecraft.util.StringUtils;
+import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.ChunkPos;
 import net.minecraft.util.math.MathHelper;
@@ -167,40 +168,66 @@ public class TE_BlueprintController extends TileEntity {
         private final String modeName;
         private final int modeId;
 
-        private Mode(String modeName, int modeId)
-        {
+        private Mode(String modeName, int modeId){
             this.modeName = modeName;
             this.modeId = modeId;
         }
 
-        public String getName()
-        {
+        public String getName(){
             return this.modeName;
         }
 
-        public int getModeId()
-        {
+        public int getModeId(){
             return this.modeId;
         }
 
-        public static TE_BlueprintController.Mode getById(int id)
-        {
+        public static TE_BlueprintController.Mode getById(int id){
             return id >= 0 && id < MODES.length ? MODES[id] : MODES[0];
         }
 
-        static
-        {
-            for (TE_BlueprintController.Mode TileEntity_Structure$mode : values())
-            {
+        static{
+            for (TE_BlueprintController.Mode TileEntity_Structure$mode : values()){
+                MODES[TileEntity_Structure$mode.getModeId()] = TileEntity_Structure$mode;
+            }
+        }
+    }
+	
+	public static enum RenderMode implements IStringSerializable{
+        NONE("none", 0),
+        BOUNDING_BOX("bounding box", 1),
+        INVISIBLE("everything", 2);
+       // DATA("data", 3);
+
+        private static final TE_BlueprintController.RenderMode[] MODES = new TE_BlueprintController.RenderMode[values().length];
+        private final String modeName;
+        private final int modeId;
+
+        private RenderMode(String modeName, int modeId){
+            this.modeName = modeName;
+            this.modeId = modeId;
+        }
+
+        public String getName(){
+            return this.modeName;
+        }
+
+        public int getModeId(){
+            return this.modeId;
+        }
+
+        public static TE_BlueprintController.RenderMode getById(int id){
+            return id >= 0 && id < MODES.length ? MODES[id] : MODES[0];
+        }
+
+        static{
+            for (TE_BlueprintController.RenderMode TileEntity_Structure$mode : values()){
                 MODES[TileEntity_Structure$mode.getModeId()] = TileEntity_Structure$mode;
             }
         }
     }
 	
 	@SideOnly(Side.CLIENT)
-    public net.minecraft.util.math.AxisAlignedBB getRenderBoundingBox(){
-        net.minecraft.util.math.AxisAlignedBB bb = INFINITE_EXTENT_AABB;
-            bb = INFINITE_EXTENT_AABB;
-        return bb;
+    public AxisAlignedBB getRenderBoundingBox(){
+        return INFINITE_EXTENT_AABB;
     }
 }
