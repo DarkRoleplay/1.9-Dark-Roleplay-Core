@@ -85,13 +85,18 @@ public class Packet_SaveBlueprint extends PacketBase.Server<Packet_SaveBlueprint
 				structure.getParentFile().mkdirs();
 				
 				Blueprint bp = BlueprintUtil.createBlueprint(te.getWorld(), te.getPos().add(message.offset.getX(), message.offset.getY(), message.offset.getZ()), (short) message.size.getX(), (short) message.size.getY(), (short) message.size.getZ(), message.name, message.architects);
-				try {
-					structure.createNewFile();
-					OutputStream os = new FileOutputStream(structure);
-					BlueprintUtil.writeToFile(os, bp);
-				} catch (IOException e) {
-					e.printStackTrace();
-				}
+				player.getServer().addScheduledTask(new Runnable(){
+					@Override
+					public void run() {
+						try {
+							structure.createNewFile();
+							OutputStream os = new FileOutputStream(structure);
+							BlueprintUtil.writeToFile(os, bp);
+						} catch (IOException e) {
+							e.printStackTrace();
+						}
+					}
+				});
 			}
 		});
 	}

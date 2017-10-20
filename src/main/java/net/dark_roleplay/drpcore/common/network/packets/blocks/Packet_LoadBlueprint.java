@@ -76,8 +76,9 @@ public class Packet_LoadBlueprint extends PacketBase.Server<Packet_LoadBlueprint
 				if(structure.exists()){
 					try {
 						Blueprint bp = BlueprintUtil.readFromFile(new FileInputStream(structure));
-						if(bp != null)
+						if(bp != null){
 							bp.build(te.getWorld(), te.getPos().add(te.getOffset()));
+						}
 					} catch (FileNotFoundException e) {
 						e.printStackTrace();
 					}

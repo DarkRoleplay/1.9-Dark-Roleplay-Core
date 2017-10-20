@@ -38,6 +38,7 @@ public class Blueprint {
 	}
 	
 	public void build(World world, BlockPos pos){
+		System.out.println("Trying to Build");
 		IBlockState[] pallete = this.getPallete();
 		short[][][] structure = this.getStructure();
 		for(short y = 0; y < this.getSizeY(); y ++){
@@ -48,9 +49,12 @@ public class Blueprint {
 						continue;
 					if(state.isFullCube())
 						world.setBlockState(pos.add(x, y, z), state, 2);
+					System.out.println("Set block: " + state.getBlock().getRegistryName());
 				}
 			}
 		}
+
+		System.out.println("First Layer set");
 		for(short y = 0; y < this.getSizeY(); y ++){
 			for(short z = 0; z < this.getSizeZ(); z++){
 				for(short x = 0; x < this.getSizeX(); x++){
@@ -62,6 +66,8 @@ public class Blueprint {
 				}
 			}
 		}
+
+		System.out.println("Second layer set");
 		if(this.getTileEntities() != null){
 			for(NBTTagCompound tag : this.getTileEntities()){
 				TileEntity te = world.getTileEntity(pos.add(tag.getShort("x"), tag.getShort("y"), tag.getShort("z")));
