@@ -1,6 +1,16 @@
 package net.dark_roleplay.drpcore.common.network.packets.blocks;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStream;
+
 import io.netty.buffer.ByteBuf;
+import net.dark_roleplay.drpcore.api.blueprints.Blueprint;
+import net.dark_roleplay.drpcore.api.blueprints.BlueprintUtil;
+import net.dark_roleplay.drpcore.common.DRPCoreInfo;
 import net.dark_roleplay.drpcore.common.network.PacketBase;
 import net.dark_roleplay.drpcore.common.tile_entities.blueprint_controller.TE_BlueprintController;
 import net.minecraft.entity.player.EntityPlayer;
@@ -9,41 +19,32 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.common.network.ByteBufUtils;
 
-public class SyncPacket_BlueprintBlock extends PacketBase.Server<SyncPacket_BlueprintBlock>{
+public class Packet_LoadBlueprint extends PacketBase.Server<Packet_LoadBlueprint>{
 
 	private BlockPos pos;
 	private BlockPos offset;
-	private BlockPos size;
 	private String name;
 	private TE_BlueprintController.Mode mode;
-	private TE_BlueprintController.RenderMode renderMode;
 	
-	public SyncPacket_BlueprintBlock(){
-		
-	}
+	public Packet_LoadBlueprint(){}
 	
-	public SyncPacket_BlueprintBlock(TE_BlueprintController te){
+	public Packet_LoadBlueprint(TE_BlueprintController te){
 		this.pos = te.getPos();
 		this.offset = te.getOffset();
-		this.size = te.getSize();
 		this.name = te.getName();
 		this.mode = te.getMode();
-		this.renderMode = te.getRenderMode();
 	}
 	
 	@Override
 	public void fromBytes(ByteBuf buf) {
-		this.renderMode = TE_BlueprintController.RenderMode.getById(buf.readShort());
 		this.mode = TE_BlueprintController.Mode.getById(buf.readShort());
 		this.pos = new BlockPos(buf.readInt(), buf.readInt(), buf.readInt());
 		this.offset = new BlockPos(buf.readInt(), buf.readInt(), buf.readInt());
-		this.size = new BlockPos(buf.readInt(), buf.readInt(), buf.readInt());
 		this.name = ByteBufUtils.readUTF8String(buf);
 	}
 
 	@Override
 	public void toBytes(ByteBuf buf) {
-		buf.writeShort(this.renderMode.getModeId());
 		buf.writeShort(this.mode.getModeId());
 		buf.writeInt(this.pos.getX());
 		buf.writeInt(this.pos.getY());
@@ -51,14 +52,11 @@ public class SyncPacket_BlueprintBlock extends PacketBase.Server<SyncPacket_Blue
 		buf.writeInt(this.offset.getX());
 		buf.writeInt(this.offset.getY());
 		buf.writeInt(this.offset.getZ());
-		buf.writeInt(this.size.getX());
-		buf.writeInt(this.size.getY());
-		buf.writeInt(this.size.getZ());
 		ByteBufUtils.writeUTF8String(buf, this.name);
 	}
 
 	@Override
-	public void handleServerSide(SyncPacket_BlueprintBlock message, EntityPlayer player) {
+	public void handleServerSide(Packet_LoadBlueprint message, EntityPlayer player) {
 		player.getServer().addScheduledTask(new Runnable(){
 			@Override
 			public void run() {
@@ -68,12 +66,22 @@ public class SyncPacket_BlueprintBlock extends PacketBase.Server<SyncPacket_Blue
 					return;
 				TE_BlueprintController te = (TE_BlueprintController) tileEntity;
 				
-				te.setRenderMode(message.renderMode);
 				te.setName(message.name);
 				te.setOffset(message.offset);
-				te.setSize(message.size);
 				te.setMode(message.mode);
 				te.markDirty();
+				
+				DRPCoreInfo.DARK_ROLEPLAY_BLUEPRINTS_FOLDER.mkdirs();
+				File structure = new File(DRPCoreInfo.DARK_ROLEPLAY_BLUEPRINTS_FOLDER.getPath() + "/" + message.name + ".blueprint");
+				if(structure.exists()){
+					try {
+						Blueprint bp = BlueprintUtil.readFromFile(new FileInputStream(structure));
+						if(bp != null)
+							bp.build(te.getWorld(), te.getPos().add(te.getOffset()));
+					} catch (FileNotFoundException e) {
+						e.printStackTrace();
+					}
+				}
 			}
 		});
 	}

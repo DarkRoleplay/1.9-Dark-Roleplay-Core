@@ -25,8 +25,6 @@ public class Packet_SaveBlueprint extends PacketBase.Server<Packet_SaveBlueprint
 	private String name;
 	private String architects;
 	private TE_BlueprintController.Mode mode;
-	private boolean showAir;
-	private boolean showBoundingBox;
 	
 	public Packet_SaveBlueprint(){}
 	
@@ -37,14 +35,10 @@ public class Packet_SaveBlueprint extends PacketBase.Server<Packet_SaveBlueprint
 		this.name = te.getName();
 		this.architects = te.getArchitects();
 		this.mode = te.getMode();
-		this.showAir = te.showAir();
-		this.showBoundingBox = te.showBoundingBox();
 	}
 	
 	@Override
 	public void fromBytes(ByteBuf buf) {
-		this.showAir = buf.readBoolean();
-		this.showBoundingBox = buf.readBoolean();
 		this.mode = TE_BlueprintController.Mode.getById(buf.readShort());
 		this.pos = new BlockPos(buf.readInt(), buf.readInt(), buf.readInt());
 		this.offset = new BlockPos(buf.readInt(), buf.readInt(), buf.readInt());
@@ -55,8 +49,6 @@ public class Packet_SaveBlueprint extends PacketBase.Server<Packet_SaveBlueprint
 
 	@Override
 	public void toBytes(ByteBuf buf) {
-		buf.writeBoolean(this.showAir);
-		buf.writeBoolean(this.showBoundingBox);
 		buf.writeShort(this.mode.getModeId());
 		buf.writeInt(this.pos.getX());
 		buf.writeInt(this.pos.getY());
@@ -82,14 +74,11 @@ public class Packet_SaveBlueprint extends PacketBase.Server<Packet_SaveBlueprint
 					return;
 				TE_BlueprintController te = (TE_BlueprintController) tileEntity;
 				
-				te.setShowAir(message.showAir);
-				te.setShowBoundingBox(message.showBoundingBox);
 				te.setName(message.name);
 				te.setOffset(message.offset);
 				te.setSize(message.size);
 				te.setMode(message.mode);
 				te.markDirty();
-				System.out.println(message.name);
 				
 				DRPCoreInfo.DARK_ROLEPLAY_BLUEPRINTS_FOLDER.mkdirs();
 				File structure = new File(DRPCoreInfo.DARK_ROLEPLAY_BLUEPRINTS_FOLDER.getPath() + "/" + message.name + ".blueprint");

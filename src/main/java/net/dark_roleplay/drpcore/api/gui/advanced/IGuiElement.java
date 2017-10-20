@@ -41,7 +41,7 @@ public interface IGuiElement {
 	public void setPos(int posX, int posY);
 	
 	public boolean isVisible();
-	public void setVsisible(boolean visible);
+	public void setVisible(boolean visible);
 	
 	public abstract class IMPL extends Gui implements IGuiElement{
 
@@ -123,7 +123,7 @@ public interface IGuiElement {
 		}
 		
 		@Override
-		public void setVsisible(boolean visible){
+		public void setVisible(boolean visible){
 			this.visible = visible;
 		}
 		

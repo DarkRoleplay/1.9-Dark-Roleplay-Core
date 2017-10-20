@@ -9,6 +9,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.init.Blocks;
 import net.minecraft.nbt.CompressedStreamTools;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
@@ -41,8 +42,11 @@ public class BlueprintUtil {
 				for(short x = 0; x < sizeX; x++){
 					IBlockState state = world.getBlockState(pos.add(x,y,z));
 					String modName;
-					if(!requiredMods.contains(modName = state.getBlock().getRegistryName().getResourceDomain())){
+					if(Loader.isModLoaded(modName = state.getBlock().getRegistryName().getResourceDomain()) && !requiredMods.contains(modName)){
 						requiredMods.add(modName);
+					}
+					if(!Loader.isModLoaded(modName)){
+						state = Blocks.AIR.getDefaultState();
 					}
 					TileEntity te = world.getTileEntity(pos.add(x,y,z));
 					if(te != null){
@@ -147,8 +151,7 @@ public class BlueprintUtil {
 			for(int i = 0; i < modListSize; i++){
 				requiredMods.add(((NBTTagString)modsList.get(i)).getString());
 				if(!Loader.isModLoaded(requiredMods.get(i))){
-					Logger.getGlobal().log(Level.WARNING, "Couldn't load Blueprint, the following mod is missing: " + requiredMods.get(i));
-					return null;
+					Logger.getGlobal().log(Level.WARNING, "Found missing mods for Blueprint, some blocks may be missing: " + requiredMods.get(i));
 				}
 			}
 			

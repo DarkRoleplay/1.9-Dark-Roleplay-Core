@@ -43,7 +43,7 @@ public class BlueprintController extends Block implements ITileEntityProvider{
 
     	player.openGui(DarkRoleplayCore.instance, DRPCoreGuis.DRPCORE_GUI_STRUCTURE_CONTROLLER, world, pos.getX(), pos.getY(), pos.getZ());
 //        return tileentity instanceof TileEntity_StructureController ? ((TileEntity_StructureController)tileentity).usedBy(playerIn) : false;
-    	return false;
+    	return true;
     }
     
     @Override

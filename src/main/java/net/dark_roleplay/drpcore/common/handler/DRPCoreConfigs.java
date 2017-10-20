@@ -82,11 +82,42 @@ public class DRPCoreConfigs {
 		@Config.Comment("All you need to customize your hud")
 		public Hud HUD = new Hud();
 		
+		@Config.Comment("Everything that deals with blueprints and the blueprint controller")
+		public Blueprints BLUEPRINTS = new Blueprints();
+		
 		public class Hud{
 			
 			@Config.Name("Draw a Realtime Clock")
 			@Config.Comment("Enables a realtime Clock")
 			public boolean DRAW_REALTIME_CLOCK = true;
+			
+		}
+		
+		public class Blueprints{
+			
+			@Config.Name("Draws two boxes for invisible blocks")
+			@Config.Comment("Increases visability but can cause higher fps drops ")
+			public boolean HIGHLIGHT_INVISIBLE_BLOCKS = true;
+			
+			@Config.Name("Invisible block color: RED")
+			@Config.Comment("How strong red color should invisible block have?")
+			@Config.RangeDouble(min = 0.0, max = 1.0)
+			public float INVISIBLE_BLOCKS_RED = 0.5F;
+			
+			@Config.Name("Invisible block color: GREEN")
+			@Config.Comment("How strong green color should invisible block have?")
+			@Config.RangeDouble(min = 0.0, max = 1.0)
+			public float INVISIBLE_BLOCKS_GREEN = 0.5F;
+			
+			@Config.Name("Invisible block color: BLUE")
+			@Config.Comment("How strong blue color should invisible block have?")
+			@Config.RangeDouble(min = 0.0, max = 1.0)
+			public float INVISIBLE_BLOCKS_BLUE = 1.0F;
+			
+			@Config.Name("Invisible block transparency")
+			@Config.Comment("Defines how transparent the invisible blocks hould be rendered")
+			@Config.RangeDouble(min = 0.0, max = 1.0)
+			public float INVISIBLE_BLOCKS_ALPHA = 0.5F;
 			
 		}
 	}

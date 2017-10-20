@@ -26,10 +26,13 @@ import net.dark_roleplay.drpcore.api.gui.advanced.buttons.Button_ChangeInt;
 import net.dark_roleplay.drpcore.api.gui.utility.wrappers.Variable_Boolean;
 import net.dark_roleplay.drpcore.api.gui.utility.wrappers.Variable_Int;
 import net.dark_roleplay.drpcore.client.gui.advanced.buttons.blueprint_controll.Button_ChangeMode;
+import net.dark_roleplay.drpcore.client.gui.advanced.buttons.blueprint_controll.Button_ChangeRenderMode;
 import net.dark_roleplay.drpcore.client.gui.advanced.buttons.blueprint_controll.Button_SaveLoad;
 import net.dark_roleplay.drpcore.client.gui.advanced.wrappers.Variable_Mode;
+import net.dark_roleplay.drpcore.client.gui.advanced.wrappers.Variable_RenderMode;
 import net.dark_roleplay.drpcore.common.DRPCoreInfo;
 import net.dark_roleplay.drpcore.common.handler.DRPCorePackets;
+import net.dark_roleplay.drpcore.common.network.packets.blocks.Packet_LoadBlueprint;
 import net.dark_roleplay.drpcore.common.network.packets.blocks.Packet_SaveBlueprint;
 import net.dark_roleplay.drpcore.common.network.packets.blocks.SyncPacket_BlueprintBlock;
 import net.dark_roleplay.drpcore.common.tile_entities.blueprint_controller.TE_BlueprintController;
@@ -62,8 +65,7 @@ public class Gui_StructureControll extends Gui_Screen {
 	private Variable_Int sizeY;
 	private Variable_Int sizeZ;
 	
-	private Variable_Boolean showAir;
-	private Variable_Boolean showBoundingBox;
+	private Variable_RenderMode renderMode;
 	
 	private Variable_Mode mode;
 	
@@ -99,7 +101,8 @@ public class Gui_StructureControll extends Gui_Screen {
 	private Gui_Label lblSizeZ;
 	private Button_ChangeInt incSizeZ;
 	
-	private Button_ChangeBool air;
+	private Gui_Label lblRenderMode;
+	private Button_ChangeRenderMode btnRenderMode;
 	
 	private Button_ChangeMode changeMode;
 	
@@ -134,7 +137,7 @@ public class Gui_StructureControll extends Gui_Screen {
 		this.name = te.getName();
 		this.architects = te.getArchitects();
 		
-		this.showAir = new Variable_Boolean(te.showAir());
+		this.renderMode = new Variable_RenderMode(te.getRenderMode());
 		
 		this.mode = new Variable_Mode(te.getMode());
 	}
@@ -146,13 +149,39 @@ public class Gui_StructureControll extends Gui_Screen {
 	}
 	
 	public void update(){
+		switch(this.mode.get()){
+			case CORNER:
+				this.setNameGui(false);
+				this.setArchitectsGui(false);
+				this.setSizeGui(false);
+				this.setBBGui(false);
+				this.setOffsetGui(false);
+				this.saveLoad.setVisible(false);
+				break;
+			case LOAD:
+				this.setSizeGui(false);
+				this.setArchitectsGui(false);
+				this.setBBGui(true);
+				this.setNameGui(true);
+				this.setOffsetGui(true);
+				this.saveLoad.setVisible(true);
+				break;
+			case SAVE:
+				this.setSizeGui(true);
+				this.setArchitectsGui(true);
+				this.setBBGui(true);
+				this.setNameGui(true);
+				this.setOffsetGui(true);
+				this.saveLoad.setVisible(true);
+				break;
+		}
 		this.te.setOffset(new BlockPos(this.offsetX.get(), this.offsetY.get(), this.offsetZ.get()));
 		this.te.setSize(new BlockPos(this.sizeX.get(), this.sizeY.get(), this.sizeZ.get()));
-		this.te.setShowBoundingBox(this.mode.get() == TE_BlueprintController.Mode.SAVE || this.mode.get() == TE_BlueprintController.Mode.LOAD);
-		this.te.setShowAir(this.showAir.get());
+		this.te.setRenderMode(this.renderMode.get());
 		this.te.setMode(this.mode.get());
 		this.te.setName(this.name);
 		this.te.setArchitects(this.architects);
+		
 	}
 	
 	@Override
@@ -185,7 +214,9 @@ public class Gui_StructureControll extends Gui_Screen {
 			this.mainFrame.addChild(this.decSizeZ = (Button_ChangeInt) new Button_ChangeInt(this.sizeZ, 	-1, 	110,	42 + btnOffsetY, 12, 17).setText("-"));
 			this.mainFrame.addChild(this.incSizeZ = (Button_ChangeInt) new Button_ChangeInt(this.sizeZ, 	1, 		145, 	42 + btnOffsetY, 12, 17).setText("+"));
 						
-			this.mainFrame.addChild(this.air = (Button_ChangeBool) new Button_ChangeBool(this.showAir, this.mainFrame.getWidth() - 122, 11 + btnOffsetY, 110, 20).setText(String.valueOf(this.showAir.get()).toUpperCase()));
+			this.mainFrame.addChild(this.lblRenderMode = new Gui_Label(I18n.format("gui.structure.render_mode"), 0xFFFFFFFF, this.mainFrame.getWidth() - 122, 1 + btnOffsetY));
+			this.mainFrame.addChild(this.btnRenderMode = new Button_ChangeRenderMode(this.renderMode, this.mainFrame.getWidth() - 122, 11 + btnOffsetY, 110, 20));
+			this.lblRenderMode.setSize(110, 10);
 			
 			this.mainFrame.addChild(this.changeMode = new Button_ChangeMode(this.mode, 95, 85 + btnOffsetY, 50, 20));
 			
@@ -212,6 +243,8 @@ public class Gui_StructureControll extends Gui_Screen {
         this.architectsEdit = new GuiTextField(1, this.fontRenderer,(this.architectsPosX = this.posX + 5), (this.architectsPosY = this.posY + 55), (this.architectsSizeX = 290), (this.architectsSizeY = 20));
         this.architectsEdit.setMaxStringLength(256);
         this.architectsEdit.setText(this.architects);
+
+		update();
     }
 	
 	@Override
@@ -243,8 +276,6 @@ public class Gui_StructureControll extends Gui_Screen {
 		
 		//Bounding Box
 		this.drawString(this.fontRenderer,String.valueOf(this.mode.get() == TE_BlueprintController.Mode.SAVE || this.mode.get() == TE_BlueprintController.Mode.LOAD), 5, 125, new Color(255,255,255).getRGB());
-		//Air
-		this.drawString(this.fontRenderer,String.valueOf(this.showAir.get()), 5, 145, new Color(255,255,255).getRGB());
 		//Mode
 		this.drawString(this.fontRenderer,this.mode.get().getName(), 5, 165, new Color(255,255,255).getRGB());
 		
@@ -312,7 +343,49 @@ public class Gui_StructureControll extends Gui_Screen {
 	}
 
 	public void load(){
-		
+		this.update();
+		DRPCorePackets.sendToServer(new Packet_LoadBlueprint(this.te));
+	}
+	
+	private void setSizeGui(boolean visible){
+		this.lblSize.setVisible(visible);
+//		this.lblSizeX.setVisible(visible);
+//		this.lblSizeY.setVisible(visible);
+//		this.lblSizeZ.setVisible(visible);
+		this.decSizeX.setVisible(visible);
+		this.decSizeY.setVisible(visible);
+		this.decSizeZ.setVisible(visible);
+		this.incSizeX.setVisible(visible);
+		this.incSizeY.setVisible(visible);
+		this.incSizeZ.setVisible(visible);
+	}
+	
+	private void setOffsetGui(boolean visible){
+		this.lblOffset.setVisible(visible);
+//		this.lblOffsetX.setVisible(visible);
+//		this.lblOffsetY.setVisible(visible);
+//		this.lblOffsetZ.setVisible(visible);
+		this.decOffsetX.setVisible(visible);
+		this.decOffsetY.setVisible(visible);
+		this.decOffsetZ.setVisible(visible);
+		this.incOffsetX.setVisible(visible);
+		this.incOffsetY.setVisible(visible);
+		this.incOffsetZ.setVisible(visible);
+	}
+	
+	private void setNameGui(boolean visible){
+		this.lblNameEdit.setVisible(visible);
+		this.nameEdit.setVisible(visible);
+	}
+	
+	private void setArchitectsGui(boolean visible){
+		this.lblArchitectsEdit.setVisible(visible);
+		this.architectsEdit.setVisible(visible);
+	}
+	
+	private void setBBGui(boolean visible){
+		this.lblRenderMode.setVisible(visible);
+		this.btnRenderMode.setVisible(visible);
 	}
 	
     public static final char[] ILLEGAL_CHARACTERS = new char[] {'/', '.', '\n', '\r', '\t', '\u0000', '\f', '`', '?', '*', '\\', '<', '>', '|', '"', ':', ','};															

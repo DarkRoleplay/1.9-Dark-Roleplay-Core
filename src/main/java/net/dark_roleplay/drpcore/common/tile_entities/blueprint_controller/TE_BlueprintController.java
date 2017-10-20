@@ -51,8 +51,7 @@ public class TE_BlueprintController extends TileEntity {
 	
 	private TE_BlueprintController.Mode mode = TE_BlueprintController.Mode.SAVE;
 	
-	private boolean showAir = false;
-	private boolean showBoundingBox = true;
+	private RenderMode renderMode = RenderMode.NONE;
 	
 	public NBTTagCompound writeToNBT(NBTTagCompound compound) {
 		super.writeToNBT(compound);
@@ -63,8 +62,7 @@ public class TE_BlueprintController extends TileEntity {
 		compound.setInteger("sizeY", this.size.getY());
 		compound.setInteger("sizeZ", this.size.getZ());
 		compound.setString("mode", this.mode.toString());
-		compound.setBoolean("showair", this.showAir);
-		compound.setBoolean("showboundingbox", this.showBoundingBox);
+		compound.setString("render_mode", this.renderMode.toString());
 		compound.setString("name", this.name);
 		return compound;
 	}
@@ -81,16 +79,21 @@ public class TE_BlueprintController extends TileEntity {
 		this.size = new BlockPos(l, i1, j1);
 
 		try {
-			this.mode = TE_BlueprintController.Mode.valueOf(compound.getString("mode"));
+			this.mode = Mode.valueOf(compound.getString("mode"));
 		} catch (IllegalArgumentException var9) {
-			this.mode = TE_BlueprintController.Mode.LOAD;
+			this.mode = Mode.LOAD;
 		}
 
-		this.showAir = compound.getBoolean("showair");
-		this.showBoundingBox = compound.getBoolean("showboundingbox");
+		try {
+			if(compound.hasKey("render_mode"))
+				this.renderMode = RenderMode.valueOf(compound.getString("render_mode"));
+			else
+				this.renderMode = RenderMode.BOUNDING_BOX;
+		} catch (IllegalArgumentException var9) {
+			this.renderMode = RenderMode.BOUNDING_BOX;
+		}
 
 		this.name = compound.hasKey("name") ? compound.getString("name") : "";
-		//TODO UPDATE BLOCK MODEL FOR MODE
 	}
 
 	@Nullable
@@ -122,12 +125,8 @@ public class TE_BlueprintController extends TileEntity {
 		return this.mode;
 	}
 
-	public boolean showAir(){
-		return this.showAir;
-	}
-	
-	public boolean showBoundingBox(){
-		return this.showBoundingBox;
+	public RenderMode getRenderMode(){
+		return this.renderMode;
 	}
 	
 	public void setOffset(BlockPos offset){
@@ -150,19 +149,14 @@ public class TE_BlueprintController extends TileEntity {
 		this.mode = mode;
 	}
 	
-	public void setShowAir(boolean showAir){
-		this.showAir = showAir;
-	}
-	
-	public void setShowBoundingBox(boolean showBoundingBox){
-		this.showBoundingBox = showBoundingBox;
+	public void setRenderMode(RenderMode renderMode){
+		this.renderMode = renderMode;
 	}
 	
 	public static enum Mode implements IStringSerializable{
         SAVE("save", 0),
         LOAD("load", 1),
         CORNER("corner", 2);
-       // DATA("data", 3);
 
         private static final TE_BlueprintController.Mode[] MODES = new TE_BlueprintController.Mode[values().length];
         private final String modeName;
@@ -193,10 +187,9 @@ public class TE_BlueprintController extends TileEntity {
     }
 	
 	public static enum RenderMode implements IStringSerializable{
-        NONE("none", 0),
-        BOUNDING_BOX("bounding box", 1),
-        INVISIBLE("everything", 2);
-       // DATA("data", 3);
+        NONE("None", 0),
+        BOUNDING_BOX("Bounding Box", 1),
+        INVISIBLE("Invisible Blocks", 2);
 
         private static final TE_BlueprintController.RenderMode[] MODES = new TE_BlueprintController.RenderMode[values().length];
         private final String modeName;

@@ -1,5 +1,6 @@
 package net.dark_roleplay.drpcore.client.renderer.tileentities;
 
+import net.dark_roleplay.drpcore.common.handler.DRPCoreConfigs;
 import net.dark_roleplay.drpcore.common.tile_entities.blueprint_controller.TE_BlueprintController;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
@@ -56,15 +57,14 @@ public class Renderer_StructureController extends TileEntitySpecialRenderer<TE_B
 					GlStateManager.tryBlendFuncSeparate(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA, GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ZERO);
 					this.setLightmapDisabled(true);
 
-					if (/**te.getMode() == TE_BlueprintController.Mode.SAVE || **/te.showBoundingBox()) {
+					if (te.getRenderMode() == TE_BlueprintController.RenderMode.BOUNDING_BOX) {
 						this.renderBox(tessellator, bufferbuilder, d5, d6, d7, d8, d9, d10, 255, 223, 0);
-					}
-
-					if (te.getMode() == TE_BlueprintController.Mode.SAVE && te.showAir()) {
-						this.renderInvisibleBlocks(te, x, y, z, blockpos, tessellator, bufferbuilder, true);
+					}else if(te.getRenderMode() == TE_BlueprintController.RenderMode.INVISIBLE){
+						this.renderBox(tessellator, bufferbuilder, d5, d6, d7, d8, d9, d10, 255, 223, 0);
+						if(DRPCoreConfigs.CLIENT.BLUEPRINTS.HIGHLIGHT_INVISIBLE_BLOCKS)
+							this.renderInvisibleBlocks(te, x, y, z, blockpos, tessellator, bufferbuilder, true);
 						this.renderInvisibleBlocks(te, x, y, z, blockpos, tessellator, bufferbuilder, false);
 					}
-
 					this.setLightmapDisabled(false);
 					GlStateManager.glLineWidth(1.0F);
 					GlStateManager.enableLighting();
@@ -99,11 +99,13 @@ public class Renderer_StructureController extends TileEntitySpecialRenderer<TE_B
 				double d5 = (double) ((float) (blockpos2.getZ() - blockpos.getZ()) + 0.55F) + sizeZ + (double) f;
 
 				if (inside) {
-					RenderGlobal.drawBoundingBox(bufBuilder, d0, d1, d2, d3, d4, d5, 0.0F, 0.0F, 0.0F, 0.5F);
+					RenderGlobal.drawBoundingBox(bufBuilder, d0, d1, d2, d3, d4, d5, 0.0F, 0.0F, 0.0F, 1.0F);
 				} else if (flag) {
-					RenderGlobal.drawBoundingBox(bufBuilder, d0, d1, d2, d3, d4, d5, 0.5F, 0.5F, 1.0F, 0.5F);
+					RenderGlobal.drawBoundingBox(bufBuilder, d0, d1, d2, d3, d4, d5, 
+							DRPCoreConfigs.CLIENT.BLUEPRINTS.INVISIBLE_BLOCKS_RED, DRPCoreConfigs.CLIENT.BLUEPRINTS.INVISIBLE_BLOCKS_GREEN, 
+							DRPCoreConfigs.CLIENT.BLUEPRINTS.INVISIBLE_BLOCKS_BLUE, DRPCoreConfigs.CLIENT.BLUEPRINTS.INVISIBLE_BLOCKS_ALPHA);
 				} else {
-					RenderGlobal.drawBoundingBox(bufBuilder, d0, d1, d2, d3, d4, d5, 1.0F, 0F, 0F, 0.5F);
+					RenderGlobal.drawBoundingBox(bufBuilder, d0, d1, d2, d3, d4, d5, 1.0F, 0.25F, 0.25F, 1.0F);
 				}
 			}
 		}

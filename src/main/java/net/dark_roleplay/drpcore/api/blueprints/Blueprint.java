@@ -21,6 +21,7 @@ public class Blueprint {
 	private IBlockState[] pallete;
 	private String name;
 	private String[] architects;
+	private String[] missingMods;
 	
 	private short[][][] structure;
 	private NBTTagCompound[] tileEntities;
@@ -122,5 +123,13 @@ public class Blueprint {
 
 	public void setArchitects(String[] architects) {
 		this.architects = architects;
+	}
+	
+	public String[] getMissingMods(){
+		return this.missingMods;
+	}
+	
+	public void setMissingMods(String... missingMods){
+		this.missingMods = missingMods;
 	}
 }
