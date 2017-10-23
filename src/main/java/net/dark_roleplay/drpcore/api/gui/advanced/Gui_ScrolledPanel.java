@@ -52,9 +52,10 @@ public class Gui_ScrolledPanel extends Gui_Panel.IMPL{
 	}
 	
 	@Override
-	public void setSize(int width, int height) {
+	public IGuiElement setSize(int width, int height) {
 		this.width = width;
 		this.height = height;
+		return this;
 	}
 	
 	public void drawMiddleground(int mouseX, int mouseY, float partialTick){

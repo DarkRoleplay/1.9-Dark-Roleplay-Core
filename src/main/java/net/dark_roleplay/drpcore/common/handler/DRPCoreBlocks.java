@@ -49,23 +49,7 @@ public class DRPCoreBlocks  {
 	
 	@SubscribeEvent
 	public static final void register(RegistryEvent.Register<Block> event) {
-//		event.getRegistry().register(value);
-		/**---------- EXAMPLE Blocks ---------**/
-//		if(DRPCoreConfigs.ENABLE_DEBUG_BLOCKS){
-			//Register here all Debug Blocks
-			event.getRegistry().register((schem = (BlueprintController) new BlueprintController().setRegistryName("schematic_controller")));
-			DRPCoreItems.addBlockItem((ItemBlock) new ItemBlock(schem).setRegistryName(schem.getRegistryName()));
-//		}
-	}
-	
-	public static final void registerBlock(String modid,DRPItem item){
-		registerItem(modid,item,true);
-	}
-	
-	public static final void registerItem(String modid,DRPItem item, boolean registerModel){
-//		GameRegistry.register(item);
-		
-		if(registerModel){
-		}
+		event.getRegistry().register((schem = (BlueprintController) new BlueprintController().setRegistryName("blueprint_controller").setUnlocalizedName("blueprint_controller")));
+		DRPCoreItems.addBlockItem((ItemBlock) new ItemBlock(schem).setRegistryName(schem.getRegistryName()));
 	}
 }

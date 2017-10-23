@@ -65,12 +65,13 @@ public class Gui_Frame extends IGuiElement.IMPL{
 	}
 	
 	@Override
-	public void setSize(int width, int height) {
+	public IGuiElement setSize(int width, int height) {
 		int left = ModularGuiHandler.currentGui.getModularBG().getLeft();
 		int top = ModularGuiHandler.currentGui.getModularBG().getTop();
 		this.width = width;
 		this.height = height;
 		this.mainPanel.setSize(width - left * 2, height - top * 2);
+		return this;
 	}
 	
 	@Override

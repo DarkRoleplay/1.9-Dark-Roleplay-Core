@@ -22,6 +22,7 @@ import net.minecraft.util.EnumBlockRenderType;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
 public class BlueprintController extends Block implements ITileEntityProvider{
@@ -43,8 +44,6 @@ public class BlueprintController extends Block implements ITileEntityProvider{
         	TE_BlueprintController te = (TE_BlueprintController) world.getTileEntity(pos);
 
         	player.openGui(DarkRoleplayCore.instance, DRPCoreGuis.DRPCORE_GUI_STRUCTURE_CONTROLLER, world, pos.getX(), pos.getY(), pos.getZ());
-    	}else{
-    		player.
     	}
 //        return tileentity instanceof TileEntity_StructureController ? ((TileEntity_StructureController)tileentity).usedBy(playerIn) : false;
     	return true;
@@ -64,32 +63,28 @@ public class BlueprintController extends Block implements ITileEntityProvider{
     public IBlockState getStateForPlacement(World worldIn, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer){
         return this.getDefaultState().withProperty(MODE, TE_BlueprintController.Mode.LOAD);
     }
+    
+    @Override
+    public IBlockState getActualState(IBlockState state, IBlockAccess world, BlockPos pos){
+    	TileEntity te = world.getTileEntity(pos);
+    	if(te != null && te instanceof TE_BlueprintController){
+            return state.withProperty(MODE, ((TE_BlueprintController) te).getMode());
+    	}
+    	return state;
+    }
 
     @Override
     public IBlockState getStateFromMeta(int meta){
-        return this.getDefaultState().withProperty(MODE, TE_BlueprintController.Mode.getById(meta));
+        return this.getDefaultState();
     }
 
     @Override
     public int getMetaFromState(IBlockState state){
-        return ((TE_BlueprintController.Mode)state.getValue(MODE)).getModeId();
+        return 0;
     }
 
     @Override
     protected BlockStateContainer createBlockState(){
         return new BlockStateContainer(this, new IProperty[] {MODE});
-    }
-
-    private void trigger(TE_BlueprintController te){
-//        switch (te.getMode()){
-//            case SAVE:
-//                te.save(false);
-//                break;
-//            case LOAD:
-//                te.load(false);
-//                break;
-//            case CORNER:
-//                te.unloadStructure();
-//        }
     }
 }

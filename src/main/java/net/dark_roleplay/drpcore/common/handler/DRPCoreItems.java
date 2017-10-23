@@ -77,6 +77,7 @@ public class DRPCoreItems {
 //		}
 		
 		for(ItemBlock b : blockItems){
+			System.out.println(b.getRegistryName() + " _ " + b.getUnlocalizedName());
 			event.getRegistry().register(b);
 		}
 	}
@@ -84,6 +85,7 @@ public class DRPCoreItems {
 	@SubscribeEvent
 	public static void registerModels(ModelRegistryEvent event){
 		for(Item i : blockItems){
+			System.out.println(i.getUnlocalizedName());
 			ModelLoader.setCustomModelResourceLocation(i, 0, new ModelResourceLocation(DRPCoreInfo.MODID + ":" + i.getUnlocalizedName().toString().substring(i.getUnlocalizedName().toString().indexOf(".") + 1, i.getUnlocalizedName().toString().length()), "inventory"));
 		}
 	}

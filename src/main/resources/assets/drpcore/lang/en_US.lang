@@ -17,6 +17,8 @@ drpcore.skill.required=Amount
 
 config.drpcore:general_placement_preview=JUST DEBUGGING
 
+tile.blueprint_controller.name=Blueprint Controller
+
 skill.lumberjack.name=Lumberjack
 skill.lumberjack.desc=Become a Lumberjack and learn how to cut down whole trees at once! Though you might require some training... (5% chance per level)
 

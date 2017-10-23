@@ -17,6 +17,7 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.network.NetworkManager;
 import net.minecraft.network.play.server.SPacketUpdateTileEntity;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.tileentity.TileEntity;
@@ -68,7 +69,6 @@ public class TE_BlueprintController extends TileEntity {
 	}
 
 	public void readFromNBT(NBTTagCompound compound) {
-		System.out.println("readNBT");
 		super.readFromNBT(compound);
 		int i = compound.getInteger("posX");
 		int j = compound.getInteger("posY");
@@ -105,14 +105,17 @@ public class TE_BlueprintController extends TileEntity {
 
 	@Nullable
 	public SPacketUpdateTileEntity getUpdatePacket() {
-		System.out.println("getUpdatePacket");
 		return new SPacketUpdateTileEntity(this.pos, 7, this.getUpdateTag());
 	}
 
 	public NBTTagCompound getUpdateTag() {
-		System.out.println("getUpdateTag");
 		return this.writeToNBT(new NBTTagCompound());
 	}
+	
+	@Override
+	public void onDataPacket(NetworkManager net, SPacketUpdateTileEntity pkt) {
+		this.readFromNBT(pkt.getNbtCompound());
+    }
 
 	public BlockPos getOffset() {
 		return this.offset;
