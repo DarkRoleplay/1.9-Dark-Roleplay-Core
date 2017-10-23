@@ -29,10 +29,10 @@ public class Event_RenderHud {
 
 			//Angle
 			float hourAngle = 30 * Calendar.getInstance().get(Calendar.HOUR_OF_DAY) - 90;
-			float minuteAndlge = 6 * Calendar.getInstance().get(Calendar.MINUTE) - 90;
+			float minuteAngle = 6 * Calendar.getInstance().get(Calendar.MINUTE) - 90;
 
 			Minecraft.getMinecraft().renderEngine.bindTexture(minuteTexture);
-			this.drawTexturedCenteredRect(this.posX + 16, this.posY + 16, 0F, 0F, 1F, 1F, 16, minuteAndlge);
+			this.drawTexturedCenteredRect(this.posX + 16, this.posY + 16, 0F, 0F, 1F, 1F, 16, minuteAngle);
 			Minecraft.getMinecraft().renderEngine.bindTexture(hourTexture);
 			this.drawTexturedCenteredRect(this.posX + 16, this.posY + 16, 0F, 0F, 1F, 1F, 16, hourAngle);
 		}

@@ -30,6 +30,9 @@ public class DRPItem extends Item{
 		this.setRegistryName(modid + ":" + name);
 		
 		this.setMaxStackSize(stackSize);
+		if(subNames != null){
+	        this.setHasSubtypes(true);
+		}
 		this.itemName = name;
 		this.subNames = subNames!=null&&subNames.length>0?subNames:null;
 		this.itemFolder = itemFolder;
