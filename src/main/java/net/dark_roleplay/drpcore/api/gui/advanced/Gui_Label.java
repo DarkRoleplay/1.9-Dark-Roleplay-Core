@@ -7,15 +7,15 @@ import net.minecraft.util.ResourceLocation;
 
 public class Gui_Label extends IGuiElement.IMPL{
 
-	private String text;
+	protected String text;
 	
-	private String[] cache;
+	protected String[] cache;
 	
-	private FontRenderer fr;
+	protected FontRenderer fr;
 	
-	private int color;
+	protected int color;
 	
-	private boolean hasShadow = true;
+	protected boolean hasShadow = true;
 	
 	public Gui_Label(String text, int color){
 		this.text = text;
@@ -62,9 +62,10 @@ public class Gui_Label extends IGuiElement.IMPL{
 	}
 	
 	@Override
-	public void setSize(int width, int height) {
+	public IGuiElement setSize(int width, int height) {
 		this.width = width;
 		this.height = height;
 		this.cache = null;
+		return this;
 	}
 }

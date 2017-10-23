@@ -39,9 +39,13 @@ public class BlueprintController extends Block implements ITileEntityProvider{
 
     @Override
     public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ){
-    	TE_BlueprintController te = (TE_BlueprintController) world.getTileEntity(pos);
+    	if(world.isRemote){
+        	TE_BlueprintController te = (TE_BlueprintController) world.getTileEntity(pos);
 
-    	player.openGui(DarkRoleplayCore.instance, DRPCoreGuis.DRPCORE_GUI_STRUCTURE_CONTROLLER, world, pos.getX(), pos.getY(), pos.getZ());
+        	player.openGui(DarkRoleplayCore.instance, DRPCoreGuis.DRPCORE_GUI_STRUCTURE_CONTROLLER, world, pos.getX(), pos.getY(), pos.getZ());
+    	}else{
+    		player.
+    	}
 //        return tileentity instanceof TileEntity_StructureController ? ((TileEntity_StructureController)tileentity).usedBy(playerIn) : false;
     	return true;
     }

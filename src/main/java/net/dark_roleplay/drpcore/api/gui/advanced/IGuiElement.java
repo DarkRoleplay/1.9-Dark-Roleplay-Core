@@ -34,7 +34,7 @@ public interface IGuiElement {
 	
 	public int getPosX();
 	public int getPosY();
-	public void setSize(int width, int height);
+	public IGuiElement setSize(int width, int height);
 
 	public int getWidth();
 	public int getHeight();
@@ -82,9 +82,10 @@ public interface IGuiElement {
 		}
 		
 		@Override
-		public void setSize(int width, int height) {
+		public IGuiElement setSize(int width, int height) {
 			this.width = width;
 			this.height = height;
+			return this;
 		}
 
 		@Override

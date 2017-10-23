@@ -4,6 +4,7 @@ import net.dark_roleplay.drpcore.api.items.DRPItem;
 import net.dark_roleplay.drpcore.common.DarkRoleplayCore;
 import net.dark_roleplay.drpcore.common.blocks.blueprint_controller.BlueprintController;
 import net.minecraft.block.Block;
+import net.minecraft.item.ItemBlock;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -53,6 +54,7 @@ public class DRPCoreBlocks  {
 //		if(DRPCoreConfigs.ENABLE_DEBUG_BLOCKS){
 			//Register here all Debug Blocks
 			event.getRegistry().register((schem = (BlueprintController) new BlueprintController().setRegistryName("schematic_controller")));
+			DRPCoreItems.addBlockItem((ItemBlock) new ItemBlock(schem).setRegistryName(schem.getRegistryName()));
 //		}
 	}
 	
@@ -64,7 +66,6 @@ public class DRPCoreBlocks  {
 //		GameRegistry.register(item);
 		
 		if(registerModel){
-			DarkRoleplayCore.proxy.registerItemMesh(modid, item);
 		}
 	}
 }

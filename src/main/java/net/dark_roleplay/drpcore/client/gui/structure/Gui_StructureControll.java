@@ -28,6 +28,7 @@ import net.dark_roleplay.drpcore.api.gui.utility.wrappers.Variable_Int;
 import net.dark_roleplay.drpcore.client.gui.advanced.buttons.blueprint_controll.Button_ChangeMode;
 import net.dark_roleplay.drpcore.client.gui.advanced.buttons.blueprint_controll.Button_ChangeRenderMode;
 import net.dark_roleplay.drpcore.client.gui.advanced.buttons.blueprint_controll.Button_SaveLoad;
+import net.dark_roleplay.drpcore.client.gui.advanced.labels.blueprint_controll.Label_AxisInt;
 import net.dark_roleplay.drpcore.client.gui.advanced.wrappers.Variable_Mode;
 import net.dark_roleplay.drpcore.client.gui.advanced.wrappers.Variable_RenderMode;
 import net.dark_roleplay.drpcore.common.DRPCoreInfo;
@@ -81,34 +82,31 @@ public class Gui_StructureControll extends Gui_Screen {
 
 	private Gui_Label lblOffset;
 	private Button_ChangeInt decOffsetX;
-	private Gui_Label lblOffsetX;
+	private Label_AxisInt lblOffsetX;
 	private Button_ChangeInt incOffsetX;
 	private Button_ChangeInt decOffsetY;
-	private Gui_Label lblOffsetY;
+	private Label_AxisInt lblOffsetY;
 	private Button_ChangeInt incOffsetY;
 	private Button_ChangeInt decOffsetZ;
-	private Gui_Label lblOffsetZ;
+	private Label_AxisInt lblOffsetZ;
 	private Button_ChangeInt incOffsetZ;
 	
 	private Gui_Label lblSize;
 	private Button_ChangeInt decSizeX;
-	private Gui_Label lblSizeX;
+	private Label_AxisInt lblSizeX;
 	private Button_ChangeInt incSizeX;
 	private Button_ChangeInt decSizeY;
-	private Gui_Label lblSizeY;
+	private Label_AxisInt lblSizeY;
 	private Button_ChangeInt incSizeY;
 	private Button_ChangeInt decSizeZ;
-	private Gui_Label lblSizeZ;
+	private Label_AxisInt lblSizeZ;
 	private Button_ChangeInt incSizeZ;
 	
-	private Gui_Label lblRenderMode;
 	private Button_ChangeRenderMode btnRenderMode;
 	
 	private Button_ChangeMode changeMode;
 	
 	private Button_SaveLoad saveLoad;
-	
-//	private Gui_Textfield nameField;
 	
 	private int nameEditPosX, nameEditPosY, nameEditSizeX, nameEditSizeY;
     private GuiTextField nameEdit;
@@ -165,6 +163,7 @@ public class Gui_StructureControll extends Gui_Screen {
 				this.setNameGui(true);
 				this.setOffsetGui(true);
 				this.saveLoad.setVisible(true);
+				this.saveLoad.setText(I18n.format("gui.structure.load"));
 				break;
 			case SAVE:
 				this.setSizeGui(true);
@@ -173,6 +172,7 @@ public class Gui_StructureControll extends Gui_Screen {
 				this.setNameGui(true);
 				this.setOffsetGui(true);
 				this.saveLoad.setVisible(true);
+				this.saveLoad.setText(I18n.format("gui.structure.save"));
 				break;
 		}
 		this.te.setOffset(new BlockPos(this.offsetX.get(), this.offsetY.get(), this.offsetZ.get()));
@@ -181,7 +181,6 @@ public class Gui_StructureControll extends Gui_Screen {
 		this.te.setMode(this.mode.get());
 		this.te.setName(this.name);
 		this.te.setArchitects(this.architects);
-		
 	}
 	
 	@Override
@@ -191,56 +190,83 @@ public class Gui_StructureControll extends Gui_Screen {
 		this.posX = (this.width / 2) - 150;
 		this.posY = (this.height / 2) - 100;
 		
-		int btnOffsetY = 73;
+		int currentHeight = 0;
+		int left = 0;
+		int center = 145;
+		int halfWidth = 143;
+		int fullWidth = 288;
+		int lblHeight = 10;
+		int btnHeight = 20;
+		int spacer = 2;
 		
 		if(!this.initialized){
 			this.mainFrame = new Gui_Frame(this, this.posX, this.posY, 300, 200);
 			
-			this.mainFrame.addChild(this.lblOffset = new Gui_Label("gui.structure.offset", 0xFFFFFFFF, 0, btnOffsetY));
-			this.lblOffset.setSize(this.mainFrame.getWidth() - 10, 10);
-			this.mainFrame.addChild(this.decOffsetX = (Button_ChangeInt) new Button_ChangeInt(this.offsetX, 	-1, 	0, 		11 + btnOffsetY, 12, 17).setText("-"));
-			this.mainFrame.addChild(this.incOffsetX = (Button_ChangeInt) new Button_ChangeInt(this.offsetX, 	1, 		35, 	11 + btnOffsetY, 12, 17).setText("+"));
-			this.mainFrame.addChild(this.decOffsetY = (Button_ChangeInt) new Button_ChangeInt(this.offsetY, 	-1,		55,		11 + btnOffsetY, 12, 17).setText("-"));
-			this.mainFrame.addChild(this.incOffsetY = (Button_ChangeInt) new Button_ChangeInt(this.offsetY, 	1, 		90, 	11 + btnOffsetY, 12, 17).setText("+"));
-			this.mainFrame.addChild(this.decOffsetZ = (Button_ChangeInt) new Button_ChangeInt(this.offsetZ, 	-1, 	110,	11 + btnOffsetY, 12, 17).setText("-"));
-			this.mainFrame.addChild(this.incOffsetZ =(Button_ChangeInt)  new Button_ChangeInt(this.offsetZ, 	1, 		145, 	11 + btnOffsetY, 12, 17).setText("+"));
+			//Mode Button
+			this.mainFrame.addChild(this.changeMode = new Button_ChangeMode(this.mode, left, currentHeight, halfWidth, btnHeight));
+			//save Load Button
+			this.mainFrame.addChild(this.saveLoad = new Button_SaveLoad(this, this.mode.get() == TE_BlueprintController.Mode.SAVE ? true : false, center, currentHeight, halfWidth, btnHeight));
+			
+			currentHeight += btnHeight + spacer;
+			
+			this.mainFrame.addChild(this.lblNameEdit = new Gui_Label(I18n.format("gui.structure.name"), 0xFFFFFFFF, 0, currentHeight));
+			this.lblNameEdit.setSize(fullWidth, 10);
+			
+			currentHeight += btnHeight + lblHeight + (spacer * 3);
+			
+			this.mainFrame.addChild(this.lblOffset = new Gui_Label(I18n.format("gui.structure.offset"), 0xFFFFFFFF, 0, currentHeight));
+			this.lblOffset.setSize(fullWidth, 20);
+			
+			currentHeight += lblHeight + spacer;
+			
+			this.mainFrame.addChild(this.decOffsetX = (Button_ChangeInt) new Button_ChangeInt(this.offsetX, 	-1, 1, 		currentHeight, 12, btnHeight).setText("-"));
+			this.mainFrame.addChild(this.lblOffsetX = (Label_AxisInt) (new Label_AxisInt(this.offsetX, "gui.structure.offset.x", 0xFFFFFFFF, 13, currentHeight + 5).setSize(67, 10)));
+			this.mainFrame.addChild(this.incOffsetX = (Button_ChangeInt) new Button_ChangeInt(this.offsetX, 	1, 	81, 	currentHeight, 12, btnHeight).setText("+"));
+			this.mainFrame.addChild(this.decOffsetY = (Button_ChangeInt) new Button_ChangeInt(this.offsetY, 	-1,	98,		currentHeight, 12, btnHeight).setText("-"));
+			this.mainFrame.addChild(this.lblOffsetY = (Label_AxisInt) (new Label_AxisInt(this.offsetY, "gui.structure.offset.y", 0xFFFFFFFF, 110, currentHeight + 5).setSize(67, 10)));
+			this.mainFrame.addChild(this.incOffsetY = (Button_ChangeInt) new Button_ChangeInt(this.offsetY, 	1, 	178, 	currentHeight, 12, btnHeight).setText("+"));
+			this.mainFrame.addChild(this.decOffsetZ = (Button_ChangeInt) new Button_ChangeInt(this.offsetZ, 	-1, 195,	currentHeight, 12, btnHeight).setText("-"));
+			this.mainFrame.addChild(this.lblOffsetZ = (Label_AxisInt) (new Label_AxisInt(this.offsetZ, "gui.structure.offset.z", 0xFFFFFFFF, 207, currentHeight + 5).setSize(67, 10)));
+			this.mainFrame.addChild(this.incOffsetZ =(Button_ChangeInt)  new Button_ChangeInt(this.offsetZ, 	1, 	275, 	currentHeight, 12, btnHeight).setText("+"));
 
-			this.mainFrame.addChild(this.lblSize = new Gui_Label("gui.structure.size", 0xFFFFFFFF, 0, 31 + btnOffsetY));
-			this.lblSize.setSize(this.mainFrame.getWidth() - 10, 10);
-			this.mainFrame.addChild(this.decSizeX = (Button_ChangeInt) new Button_ChangeInt(this.sizeX, 	-1, 	0, 		42 + btnOffsetY, 12, 17).setText("-"));
-			this.mainFrame.addChild(this.incSizeX = (Button_ChangeInt) new Button_ChangeInt(this.sizeX, 	1, 		35, 	42 + btnOffsetY, 12, 17).setText("+"));
-			this.mainFrame.addChild(this.decSizeY = (Button_ChangeInt) new Button_ChangeInt(this.sizeY, 	-1,		55,		42 + btnOffsetY, 12, 17).setText("-"));
-			this.mainFrame.addChild(this.incSizeY = (Button_ChangeInt) new Button_ChangeInt(this.sizeY, 	1, 		90, 	42 + btnOffsetY, 12, 17).setText("+"));
-			this.mainFrame.addChild(this.decSizeZ = (Button_ChangeInt) new Button_ChangeInt(this.sizeZ, 	-1, 	110,	42 + btnOffsetY, 12, 17).setText("-"));
-			this.mainFrame.addChild(this.incSizeZ = (Button_ChangeInt) new Button_ChangeInt(this.sizeZ, 	1, 		145, 	42 + btnOffsetY, 12, 17).setText("+"));
-						
-			this.mainFrame.addChild(this.lblRenderMode = new Gui_Label(I18n.format("gui.structure.render_mode"), 0xFFFFFFFF, this.mainFrame.getWidth() - 122, 1 + btnOffsetY));
-			this.mainFrame.addChild(this.btnRenderMode = new Button_ChangeRenderMode(this.renderMode, this.mainFrame.getWidth() - 122, 11 + btnOffsetY, 110, 20));
-			this.lblRenderMode.setSize(110, 10);
+			currentHeight += btnHeight + spacer;
 			
-			this.mainFrame.addChild(this.changeMode = new Button_ChangeMode(this.mode, 95, 85 + btnOffsetY, 50, 20));
+			this.mainFrame.addChild(this.lblSize = new Gui_Label(I18n.format("gui.structure.size"), 0xFFFFFFFF, 0, currentHeight));
+			this.lblSize.setSize(fullWidth, 10);
 			
-			this.mainFrame.addChild(this.saveLoad = new Button_SaveLoad(this, this.mode.get() == TE_BlueprintController.Mode.SAVE ? true : false, 150, 105 + btnOffsetY, 40, 20));
+			currentHeight += lblHeight + spacer;
 			
-			this.mainFrame.addChild(this.lblNameEdit = new Gui_Label(I18n.format("gui.structure.name"), 0xFFFFFFFF));
-			this.lblNameEdit.setPos(0, 0);
-			this.lblNameEdit.setSize(this.mainFrame.getWidth() - 8, 10);
+			this.mainFrame.addChild(this.decSizeX = (Button_ChangeInt) new Button_ChangeInt(this.sizeX, 	-1, 	1, 		currentHeight, 12, btnHeight).setText("-"));
+			this.mainFrame.addChild(this.lblSizeX = (Label_AxisInt) (new Label_AxisInt(this.sizeX, "gui.structure.size.x", 0xFFFFFFFF, 13, currentHeight + 5).setSize(67, 10)));
+			this.mainFrame.addChild(this.incSizeX = (Button_ChangeInt) new Button_ChangeInt(this.sizeX, 	1, 		81, 	currentHeight, 12, btnHeight).setText("+"));
+			this.mainFrame.addChild(this.decSizeY = (Button_ChangeInt) new Button_ChangeInt(this.sizeY, 	-1,		98,		currentHeight, 12, btnHeight).setText("-"));
+			this.mainFrame.addChild(this.lblSizeY = (Label_AxisInt) (new Label_AxisInt(this.sizeY, "gui.structure.size.y", 0xFFFFFFFF, 110, currentHeight + 5).setSize(67, 10)));
+			this.mainFrame.addChild(this.incSizeY = (Button_ChangeInt) new Button_ChangeInt(this.sizeY, 	1, 		178, 	currentHeight, 12, btnHeight).setText("+"));
+			this.mainFrame.addChild(this.decSizeZ = (Button_ChangeInt) new Button_ChangeInt(this.sizeZ, 	-1, 	195,	currentHeight, 12, btnHeight).setText("-"));
+			this.mainFrame.addChild(this.lblSizeZ = (Label_AxisInt) (new Label_AxisInt(this.sizeZ, "gui.structure.size.z", 0xFFFFFFFF, 207, currentHeight + 5).setSize(67, 10)));
+			this.mainFrame.addChild(this.incSizeZ = (Button_ChangeInt) new Button_ChangeInt(this.sizeZ, 	1, 		275, 	currentHeight, 12, btnHeight).setText("+"));
 			
-			this.mainFrame.addChild(this.lblArchitectsEdit = new Gui_Label(I18n.format("gui.structure.architects"), 0xFFFFFFFF));
-			this.lblArchitectsEdit.setPos(0, 37);
-			this.lblArchitectsEdit.setSize(this.mainFrame.getWidth() - 8, 10);
+			currentHeight += btnHeight + spacer;
 			
+			this.mainFrame.addChild(this.lblArchitectsEdit = new Gui_Label(I18n.format("gui.structure.architects"), 0xFFFFFFFF, 0, currentHeight));
+			this.lblArchitectsEdit.setSize(fullWidth, lblHeight);
 			
+			currentHeight += lblHeight + spacer;
+
+			currentHeight += btnHeight;
+			
+			this.mainFrame.addChild(this.btnRenderMode = new Button_ChangeRenderMode(this.renderMode, 0, 11 + currentHeight, 288, 20));
+
 			this.addElement(this.mainFrame);
 			this.initialized = true;
 		}
 		
 		this.mainFrame.setPos(this.posX, this.posY);
-		this.nameEdit = new GuiTextField(0, this.fontRenderer,(this.nameEditPosX = this.posX + 5), (this.nameEditPosY = this.posY + 18), (this.nameEditSizeX = 290), (this.nameEditSizeY = 20));
+		this.nameEdit = new GuiTextField(0, this.fontRenderer,(this.nameEditPosX = this.posX + 5), (this.nameEditPosY = this.posY + 40), (this.nameEditSizeX = 290), (this.nameEditSizeY = btnHeight));
         this.nameEdit.setMaxStringLength(64);
         this.nameEdit.setText(this.name);
         
-        this.architectsEdit = new GuiTextField(1, this.fontRenderer,(this.architectsPosX = this.posX + 5), (this.architectsPosY = this.posY + 55), (this.architectsSizeX = 290), (this.architectsSizeY = 20));
+        this.architectsEdit = new GuiTextField(1, this.fontRenderer,(this.architectsPosX = this.posX + 5), (this.architectsPosY = this.posY + 144), (this.architectsSizeX = 290), (this.architectsSizeY = btnHeight));
         this.architectsEdit.setMaxStringLength(256);
         this.architectsEdit.setText(this.architects);
 
@@ -259,26 +285,6 @@ public class Gui_StructureControll extends Gui_Screen {
 	public void drawScreen(int mouseX, int mouseY, float partialTicks){
 		this.drawDefaultBackground();
 		super.drawScreen(mouseX, mouseY, partialTicks);
-		//Offset X
-		this.drawString(this.fontRenderer,String.valueOf(this.offsetX.get()), 5, 5, new Color(255,255,255).getRGB());
-		//Offset Y
-		this.drawString(this.fontRenderer,String.valueOf(this.offsetY.get()), 5, 25, new Color(255,255,255).getRGB());
-		//Offset Z
-		this.drawString(this.fontRenderer,String.valueOf(this.offsetZ.get()), 5, 45, new Color(255,255,255).getRGB());
-		
-
-		//Size X
-		this.drawString(this.fontRenderer,String.valueOf(this.sizeX.get()), 5, 65, new Color(255,255,255).getRGB());
-		//Size Y
-		this.drawString(this.fontRenderer,String.valueOf(this.sizeY.get()), 5, 85, new Color(255,255,255).getRGB());
-		//Size Z
-		this.drawString(this.fontRenderer,String.valueOf(this.sizeZ.get()), 5, 105, new Color(255,255,255).getRGB());
-		
-		//Bounding Box
-		this.drawString(this.fontRenderer,String.valueOf(this.mode.get() == TE_BlueprintController.Mode.SAVE || this.mode.get() == TE_BlueprintController.Mode.LOAD), 5, 125, new Color(255,255,255).getRGB());
-		//Mode
-		this.drawString(this.fontRenderer,this.mode.get().getName(), 5, 165, new Color(255,255,255).getRGB());
-		
         this.nameEdit.drawTextBox();
         this.architectsEdit.drawTextBox();
 	}
@@ -349,9 +355,9 @@ public class Gui_StructureControll extends Gui_Screen {
 	
 	private void setSizeGui(boolean visible){
 		this.lblSize.setVisible(visible);
-//		this.lblSizeX.setVisible(visible);
-//		this.lblSizeY.setVisible(visible);
-//		this.lblSizeZ.setVisible(visible);
+		this.lblSizeX.setVisible(visible);
+		this.lblSizeY.setVisible(visible);
+		this.lblSizeZ.setVisible(visible);
 		this.decSizeX.setVisible(visible);
 		this.decSizeY.setVisible(visible);
 		this.decSizeZ.setVisible(visible);
@@ -362,9 +368,9 @@ public class Gui_StructureControll extends Gui_Screen {
 	
 	private void setOffsetGui(boolean visible){
 		this.lblOffset.setVisible(visible);
-//		this.lblOffsetX.setVisible(visible);
-//		this.lblOffsetY.setVisible(visible);
-//		this.lblOffsetZ.setVisible(visible);
+		this.lblOffsetX.setVisible(visible);
+		this.lblOffsetY.setVisible(visible);
+		this.lblOffsetZ.setVisible(visible);
 		this.decOffsetX.setVisible(visible);
 		this.decOffsetY.setVisible(visible);
 		this.decOffsetZ.setVisible(visible);
@@ -384,7 +390,6 @@ public class Gui_StructureControll extends Gui_Screen {
 	}
 	
 	private void setBBGui(boolean visible){
-		this.lblRenderMode.setVisible(visible);
 		this.btnRenderMode.setVisible(visible);
 	}
 	

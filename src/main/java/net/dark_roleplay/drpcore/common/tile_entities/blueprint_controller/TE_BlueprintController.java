@@ -61,47 +61,56 @@ public class TE_BlueprintController extends TileEntity {
 		compound.setInteger("sizeX", this.size.getX());
 		compound.setInteger("sizeY", this.size.getY());
 		compound.setInteger("sizeZ", this.size.getZ());
-		compound.setString("mode", this.mode.toString());
-		compound.setString("render_mode", this.renderMode.toString());
+		compound.setInteger("mode_id", this.mode.getModeId());
+		compound.setInteger("render_mode_id", this.renderMode.getModeId());
 		compound.setString("name", this.name);
 		return compound;
 	}
 
 	public void readFromNBT(NBTTagCompound compound) {
+		System.out.println("readNBT");
 		super.readFromNBT(compound);
-		int i = MathHelper.clamp(compound.getInteger("posX"), -32, 32);
-		int j = MathHelper.clamp(compound.getInteger("posY"), -32, 32);
-		int k = MathHelper.clamp(compound.getInteger("posZ"), -32, 32);
+		int i = compound.getInteger("posX");
+		int j = compound.getInteger("posY");
+		int k = compound.getInteger("posZ");
 		this.offset = new BlockPos(i, j, k);
-		int l = MathHelper.clamp(compound.getInteger("sizeX"), 0, 32);
-		int i1 = MathHelper.clamp(compound.getInteger("sizeY"), 0, 32);
-		int j1 = MathHelper.clamp(compound.getInteger("sizeZ"), 0, 32);
+		int l = compound.getInteger("sizeX");
+		int i1 = compound.getInteger("sizeY");
+		int j1 = compound.getInteger("sizeZ");
 		this.size = new BlockPos(l, i1, j1);
 
-		try {
-			this.mode = Mode.valueOf(compound.getString("mode"));
-		} catch (IllegalArgumentException var9) {
-			this.mode = Mode.LOAD;
-		}
-
-		try {
-			if(compound.hasKey("render_mode"))
-				this.renderMode = RenderMode.valueOf(compound.getString("render_mode"));
-			else
+		if(compound.hasKey("mode")){
+			try {
+				this.mode = Mode.valueOf(compound.getString("mode"));
+			} catch (IllegalArgumentException var9) {
+				this.mode = Mode.LOAD;
+			}
+			
+			try {
+				if(compound.hasKey("render_mode"))
+					this.renderMode = RenderMode.valueOf(compound.getString("render_mode"));
+				else
+					this.renderMode = RenderMode.BOUNDING_BOX;
+			} catch (IllegalArgumentException var9) {
 				this.renderMode = RenderMode.BOUNDING_BOX;
-		} catch (IllegalArgumentException var9) {
-			this.renderMode = RenderMode.BOUNDING_BOX;
+			}
+		}else{
+			this.mode = Mode.getById(compound.getInteger("mode_id"));
+			this.renderMode = RenderMode.getById(compound.getInteger("render_mode_id"));
 		}
 
 		this.name = compound.hasKey("name") ? compound.getString("name") : "";
+		this.markDirty();
 	}
 
 	@Nullable
 	public SPacketUpdateTileEntity getUpdatePacket() {
+		System.out.println("getUpdatePacket");
 		return new SPacketUpdateTileEntity(this.pos, 7, this.getUpdateTag());
 	}
 
 	public NBTTagCompound getUpdateTag() {
+		System.out.println("getUpdateTag");
 		return this.writeToNBT(new NBTTagCompound());
 	}
 
@@ -187,9 +196,9 @@ public class TE_BlueprintController extends TileEntity {
     }
 	
 	public static enum RenderMode implements IStringSerializable{
-        NONE("None", 0),
-        BOUNDING_BOX("Bounding Box", 1),
-        INVISIBLE("Invisible Blocks", 2);
+        NONE("none", 0),
+        BOUNDING_BOX("bounding_box", 1),
+        INVISIBLE("all", 2);
 
         private static final TE_BlueprintController.RenderMode[] MODES = new TE_BlueprintController.RenderMode[values().length];
         private final String modeName;

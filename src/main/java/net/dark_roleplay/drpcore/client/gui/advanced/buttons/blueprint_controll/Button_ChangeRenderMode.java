@@ -6,6 +6,7 @@ import net.dark_roleplay.drpcore.api.gui.advanced.Gui_Button;
 import net.dark_roleplay.drpcore.client.gui.advanced.wrappers.Variable_Mode;
 import net.dark_roleplay.drpcore.client.gui.advanced.wrappers.Variable_RenderMode;
 import net.dark_roleplay.drpcore.common.tile_entities.blueprint_controller.TE_BlueprintController;
+import net.minecraft.client.resources.I18n;
 
 public class Button_ChangeRenderMode extends Gui_Button{
 
@@ -15,7 +16,7 @@ public class Button_ChangeRenderMode extends Gui_Button{
 	public Button_ChangeRenderMode(Variable_RenderMode var, int posX, int posY, int width, int height) {
 		super(posX, posY, width, height);
 		this.var = var;
-		this.setText(this.var.get().getName());
+		this.setText(I18n.format("gui.structure.render_mode." + this.var.get().getName()));
 	}
 	
 	@Override
@@ -34,7 +35,7 @@ public class Button_ChangeRenderMode extends Gui_Button{
 				this.var.set(TE_BlueprintController.RenderMode.BOUNDING_BOX);
 				break;
 		}
-		this.setText(this.var.get().getName());
+		this.setText(I18n.format("gui.structure.render_mode." + this.var.get().getName()));
 		return true;
 	}
 }

@@ -19,3 +19,22 @@ config.drpcore:general_placement_preview=JUST DEBUGGING
 
 skill.lumberjack.name=Lumberjack
 skill.lumberjack.desc=Become a Lumberjack and learn how to cut down whole trees at once! Though you might require some training... (5% chance per level)
+
+gui.structure.mode.save=Mode: SAVE
+gui.structure.mode.load=Mode: LOAD
+gui.structure.mode.corner=Mode: CORNER
+gui.structure.save=SAVE
+gui.structure.load=LOAD
+gui.structure.name=Blueprint Name:
+gui.structure.architects=Builders:
+gui.structure.offset=Offset:
+gui.structure.offset.x=x: %d
+gui.structure.offset.y=y: %d
+gui.structure.offset.z=z: %d
+gui.structure.size=Size:
+gui.structure.size.x=x: %d
+gui.structure.size.y=y: %d
+gui.structure.size.z=z: %d
+gui.structure.render_mode.none=Render Mode: None
+gui.structure.render_mode.bounding_box=Render Mode: Bounding Box
+gui.structure.render_mode.all=Render Mode: Everything
