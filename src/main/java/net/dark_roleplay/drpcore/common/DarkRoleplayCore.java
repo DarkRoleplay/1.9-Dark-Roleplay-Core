@@ -23,6 +23,7 @@ import net.dark_roleplay.drpcore.common.handler.DRPCoreBlocks;
 import net.dark_roleplay.drpcore.common.handler.DRPCoreCapabilities;
 import net.dark_roleplay.drpcore.common.handler.DRPCoreConfigs;
 import net.dark_roleplay.drpcore.common.handler.DRPCoreCrafting;
+import net.dark_roleplay.drpcore.common.handler.DRPCoreEntities;
 import net.dark_roleplay.drpcore.common.handler.DRPCoreEvents;
 import net.dark_roleplay.drpcore.common.handler.DRPCoreGuis;
 import net.dark_roleplay.drpcore.common.handler.DRPCoreItems;
@@ -82,7 +83,7 @@ public class DarkRoleplayCore {
 		DRPCoreCapabilities.preInit(event);
 		DRPCoreGuis.preInit(event);
 		DRPCoreEvents.preInit(event);
-		
+		DRPCoreEntities.init(event);
 		
 		GameRegistry.registerTileEntity(TE_BlueprintController.class, DRPCoreInfo.MODID + ":" + "tileentity_structure_controller");
 

@@ -5,12 +5,13 @@ import java.util.List;
 import net.dark_roleplay.drpcore.common.entities.util.sitting.Sittable;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.math.AxisAlignedBB;
+import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraft.world.World;
 
 public class SittingUtil {
 
 	public static boolean sitOnBlock(World world, double x, double y, double z, EntityPlayer player, double par6){
-		if (!checkForExistingEntity(world, x, y, z, player)){
+		if (!checkForExistingEntity(world, x, y, z, player) && !world.isRemote){
 			Sittable nemb = new Sittable(world, x, y, z, par6);
 			world.spawnEntity(nemb);
 			player.startRiding(nemb);
