@@ -7,6 +7,7 @@ import java.net.URLEncoder;
 import java.util.Arrays;
 import java.util.Iterator;
 
+import org.apache.commons.lang3.ArrayUtils;
 import org.lwjgl.input.Keyboard;
 
 import com.mojang.authlib.properties.Property;
@@ -72,10 +73,26 @@ public class DRPCoreKeybindings {
 //		ClientRegistry.registerKeyBinding(openSkill);
 		
 		if(DRPCoreConfigs.DEBUG.DEBUG_KEY){
-			ClientRegistry.registerKeyBinding(debugging);
+			enableDebugKeys();
 		}
 		
 		MinecraftForge.EVENT_BUS.register(new DRPCoreKeybindings());
+	}
+	
+	private static boolean debugEnabled = false;
+	
+	public static void enableDebugKeys(){
+		if(!debugEnabled){
+			ClientRegistry.registerKeyBinding(debugging);
+		}
+		debugEnabled = !debugEnabled;
+	}
+	
+	public static void disableDebugKeys(){
+		if(debugEnabled){
+			Minecraft.getMinecraft().gameSettings.keyBindings = ArrayUtils.removeElement(Minecraft.getMinecraft().gameSettings.keyBindings, debugging);
+		}
+		debugEnabled = !debugEnabled;
 	}
 
 	public static void postInit(FMLPostInitializationEvent event) {

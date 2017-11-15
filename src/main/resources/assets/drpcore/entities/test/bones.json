@@ -1,6 +1,6 @@
 [
 	{
-		"name" : "back",
+		"name" : "torso",
 		"position" : [0, 12, 0],
 		"children" : [
 			{

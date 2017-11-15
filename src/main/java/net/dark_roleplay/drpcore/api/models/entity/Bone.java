@@ -105,6 +105,25 @@ public class Bone {
 		GlStateManager.rotate((float) -this.rotation.y, 0F, 1F, 0F);
 		GlStateManager.rotate((float) -this.rotation.z, 0F, 0F, 1F);
 		GlStateManager.translate(-this.position.x, -this.position.y, -this.position.z);
+	}
+	
+	public void renderSingle(BufferBuilder render, float scale) {
+		GlStateManager.translate(this.position.x, this.position.y, this.position.z);
+		GlStateManager.rotate((float) this.rotation.x, 1F, 0F, 0F);
+		GlStateManager.rotate((float) this.rotation.y, 0F, 1F, 0F);
+		GlStateManager.rotate((float) this.rotation.z, 0F, 0F, 1F);
 
+		GlStateManager.scale(this.size.x, this.size.y, this.size.z);
+		
+		for(Model mdl : models){
+			mdl.render(render, scale);
+		}
+		
+		GlStateManager.scale(1F / this.size.x, 1F / this.size.y, 1F / this.size.z); 
+
+		GlStateManager.rotate((float) -this.rotation.x, 1F, 0F, 0F);
+		GlStateManager.rotate((float) -this.rotation.y, 0F, 1F, 0F);
+		GlStateManager.rotate((float) -this.rotation.z, 0F, 0F, 1F);
+		GlStateManager.translate(-this.position.x, -this.position.y, -this.position.z);
 	}
 }
