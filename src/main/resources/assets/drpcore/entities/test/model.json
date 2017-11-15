@@ -1,0 +1,55 @@
+{
+	"textures" : [
+		//Insert optional per Bone Texture here
+	],
+	"models" : {
+		"torso"  : [
+			{
+				"type" : "cube",
+				"position" : [-4, 0, -2],
+				"size" : [8, 12, 4],
+				"uv" : [16, 16]
+			}
+		],
+		"head" : [
+			{
+				"type" : "cube",
+				"position" : [-4, 0, -4],
+				"size" : [8, 8, 8],
+				"uv" : [0, 0]
+			}
+		],
+		"leg_left" : [
+			{
+				"type" : "cube",
+				"position" : [-2, -12, -2],
+				"size" : [4, 12, 4],
+				"uv" : [0, 16]
+			}
+		],
+		"leg_right" : [
+			{
+				"type" : "cube",
+				"position" : [-2, -12, -2],
+				"size" : [4, 12, 4],
+				"uv" : [16, 48]
+			}
+		],
+		"arm_left" : [
+			{
+				"type" : "cube",
+				"position" : [0, -12, -2],
+				"size" : [4, 12, 4],
+				"uv" : [40, 16]
+			}
+		],
+		"arm_right" : [
+			{
+				"type" : "cube",
+				"position" : [-4, -12, -2],
+				"size" : [4, 12, 4],
+				"uv" : [32, 48]
+			}
+		]
+	}
+}

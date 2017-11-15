@@ -10,7 +10,7 @@ import net.dark_roleplay.drpcore.api.blueprints.Blueprint;
 import net.dark_roleplay.drpcore.api.blueprints.BlueprintUtil;
 import net.dark_roleplay.drpcore.common.DRPCoreInfo;
 import net.dark_roleplay.drpcore.common.network.PacketBase;
-import net.dark_roleplay.drpcore.common.tile_entities.blueprint_controller.TE_BlueprintController;
+import net.dark_roleplay.drpcore.common.objects.tile_entities.blueprint_controller.TE_BlueprintController;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.math.BlockPos;

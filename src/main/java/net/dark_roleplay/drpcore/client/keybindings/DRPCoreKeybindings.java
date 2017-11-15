@@ -20,6 +20,7 @@ import net.dark_roleplay.drpcore.client.gui.crafting.recipe_crafting.RecipeCraft
 import net.dark_roleplay.drpcore.client.gui.crafting.recipe_selection.RecipeSelection;
 import net.dark_roleplay.drpcore.client.gui.premium.Gui_Shop;
 import net.dark_roleplay.drpcore.client.gui.skills2.Gui_Skills;
+import net.dark_roleplay.drpcore.client.modules.model_editor.Gui_EntityEdit;
 import net.dark_roleplay.drpcore.client.resources.creation.TextureCombiner;
 import net.dark_roleplay.drpcore.common.DRPCoreInfo;
 import net.dark_roleplay.drpcore.common.DarkRoleplayCore;
@@ -29,6 +30,7 @@ import net.dark_roleplay.drpcore.common.handler.DRPCoreGuis;
 import net.dark_roleplay.drpcore.common.handler.DRPCorePackets;
 import net.dark_roleplay.drpcore.common.network.packets.debug.Packet_DebugKey;
 import net.dark_roleplay.drpcore.common.util.jsons.Json_Premium;
+import net.dark_roleplay.drpcore.common.util.toasts.ToastController;
 import net.dark_roleplay.drpcore.common.util.web.WebRequest_PremiumPoints;
 import net.minecraft.block.BlockCrops;
 import net.minecraft.block.state.IBlockState;
@@ -92,7 +94,7 @@ public class DRPCoreKeybindings {
 		
 		if(DRPCoreConfigs.DEBUG.DEBUG_KEY && this.debugging.isKeyDown()) {
 			
-//			Minecraft.getMinecraft().displayGuiScreen(new Gui_Shop());
+			Minecraft.getMinecraft().displayGuiScreen(new Gui_EntityEdit());
 
 //			Minecraft.getMinecraft().displayGuiScreen(new Gui_Skills());
 //			EntityPlayer player = Minecraft.getMinecraft().player;

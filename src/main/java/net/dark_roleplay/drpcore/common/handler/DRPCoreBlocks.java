@@ -2,7 +2,7 @@ package net.dark_roleplay.drpcore.common.handler;
 
 import net.dark_roleplay.drpcore.api.items.DRPItem;
 import net.dark_roleplay.drpcore.common.DarkRoleplayCore;
-import net.dark_roleplay.drpcore.common.blocks.blueprint_controller.BlueprintController;
+import net.dark_roleplay.drpcore.common.objects.blocks.blueprint_controller.BlueprintController;
 import net.minecraft.block.Block;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.tileentity.TileEntity;

@@ -36,7 +36,7 @@ import net.dark_roleplay.drpcore.common.handler.DRPCorePackets;
 import net.dark_roleplay.drpcore.common.network.packets.blocks.Packet_LoadBlueprint;
 import net.dark_roleplay.drpcore.common.network.packets.blocks.Packet_SaveBlueprint;
 import net.dark_roleplay.drpcore.common.network.packets.blocks.SyncPacket_BlueprintBlock;
-import net.dark_roleplay.drpcore.common.tile_entities.blueprint_controller.TE_BlueprintController;
+import net.dark_roleplay.drpcore.common.objects.tile_entities.blueprint_controller.TE_BlueprintController;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.audio.PositionedSoundRecord;
 import net.minecraft.client.gui.GuiButton;

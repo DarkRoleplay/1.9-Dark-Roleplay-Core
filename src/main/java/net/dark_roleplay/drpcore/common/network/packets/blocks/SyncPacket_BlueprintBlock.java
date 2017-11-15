@@ -2,7 +2,7 @@ package net.dark_roleplay.drpcore.common.network.packets.blocks;
 
 import io.netty.buffer.ByteBuf;
 import net.dark_roleplay.drpcore.common.network.PacketBase;
-import net.dark_roleplay.drpcore.common.tile_entities.blueprint_controller.TE_BlueprintController;
+import net.dark_roleplay.drpcore.common.objects.tile_entities.blueprint_controller.TE_BlueprintController;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.math.BlockPos;

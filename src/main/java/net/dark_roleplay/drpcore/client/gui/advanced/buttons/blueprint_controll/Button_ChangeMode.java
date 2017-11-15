@@ -6,7 +6,7 @@ import java.io.IOException;
 import net.dark_roleplay.drpcore.api.gui.advanced.Gui_Button;
 import net.dark_roleplay.drpcore.api.gui.utility.wrappers.Variable_Boolean;
 import net.dark_roleplay.drpcore.client.gui.advanced.wrappers.Variable_Mode;
-import net.dark_roleplay.drpcore.common.tile_entities.blueprint_controller.TE_BlueprintController;
+import net.dark_roleplay.drpcore.common.objects.tile_entities.blueprint_controller.TE_BlueprintController;
 import net.minecraft.client.resources.I18n;
 
 public class Button_ChangeMode extends Gui_Button{

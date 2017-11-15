@@ -1,14 +1,23 @@
 package net.dark_roleplay.drpcore.client;
 
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.net.URISyntaxException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
+import com.google.gson.Gson;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+
+import net.dark_roleplay.drpcore.api.entities.renderer.RendererTest;
 import net.dark_roleplay.drpcore.api.gui.modular.ModularGui_Template;
 import net.dark_roleplay.drpcore.api.items.DRPItem;
 import net.dark_roleplay.drpcore.api.items.ItemApi;
@@ -22,11 +31,15 @@ import net.dark_roleplay.drpcore.client.renderer.tileentities.Renderer_Structure
 import net.dark_roleplay.drpcore.client.resources.ModularGui_Handler;
 import net.dark_roleplay.drpcore.common.DRPCoreInfo;
 import net.dark_roleplay.drpcore.common.handler.DRPCoreItems;
+import net.dark_roleplay.drpcore.common.objects.entities.util.sitting.Sittable;
+import net.dark_roleplay.drpcore.common.objects.tile_entities.blueprint_controller.TE_BlueprintController;
 import net.dark_roleplay.drpcore.common.proxy.CommonProxy;
-import net.dark_roleplay.drpcore.common.tile_entities.blueprint_controller.TE_BlueprintController;
+import net.dark_roleplay.drpcore.testing.Testing_Entity;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.block.model.ModelBakery;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
+import net.minecraft.client.renderer.entity.Render;
+import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.client.renderer.entity.RenderPlayer;
 import net.minecraft.client.resources.IReloadableResourceManager;
 import net.minecraft.client.resources.IResource;
@@ -38,6 +51,8 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.client.registry.ClientRegistry;
+import net.minecraftforge.fml.client.registry.IRenderFactory;
+import net.minecraftforge.fml.client.registry.RenderingRegistry;
 import net.minecraftforge.fml.common.FMLCommonHandler;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
@@ -75,6 +90,13 @@ public class ClientProxy extends CommonProxy{
 
 		
 		ClientRegistry.bindTileEntitySpecialRenderer(TE_BlueprintController.class, new Renderer_StructureController());
+		//TODO REMOVE
+		RenderingRegistry.registerEntityRenderingHandler(Testing_Entity.class, new IRenderFactory<Testing_Entity>(){
+			@Override
+			public Render<? super Testing_Entity> createRenderFor(RenderManager manager) {
+				return new RendererTest(manager, new ResourceLocation(DRPCoreInfo.MODID, "entities/test/bones.json"), new ResourceLocation(DRPCoreInfo.MODID, "entities/test/model.json"), new ResourceLocation(DRPCoreInfo.MODID, "entities/test/animations.json"));
+			}
+		});
 //		Minecraft.getMinecraft().getResourceManager().
 	}
 
@@ -125,7 +147,7 @@ public class ClientProxy extends CommonProxy{
 	public static IResource getResource(ResourceLocation location) throws IOException {
         IResourceManager manager = Minecraft.getMinecraft().getResourceManager();
         IResource res = manager.getResource(location);
-        System.out.println(res.getResourceLocation());
+//        System.out.println(res.getResourceLocation());
         return res;
     }
 	
@@ -138,10 +160,23 @@ public class ClientProxy extends CommonProxy{
 	        if (file.isDirectory()) {
 	        } else {
 	        	resources.add(getResource(new ResourceLocation(location.getResourceDomain(), location.getResourcePath() + file.getName())));
-	            System.out.println(file.getName());
+//	            System.out.println(file.getName());
 	        }
 	    }
 		
 		return resources;
+	}
+	
+	public static JsonElement getResourceAsJson(ResourceLocation location){
+		try {
+			IResource res = getResource(location);
+			Gson gson = new Gson();
+			BufferedReader reader = new BufferedReader(new InputStreamReader(res.getInputStream()));
+			JsonElement je = gson.fromJson(reader, JsonElement.class);
+			return je;
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return null;
 	}
 }

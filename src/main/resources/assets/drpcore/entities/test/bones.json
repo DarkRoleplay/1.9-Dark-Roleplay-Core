@@ -1,0 +1,28 @@
+[
+	{
+		"name" : "back",
+		"position" : [0, 12, 0],
+		"children" : [
+			{
+				"name" : "head",
+				"position" : [0, 12, 0]
+			},
+			{
+				"name" : "arm_left",
+				"position" : [4, 12, 0]
+			},
+			{
+				"name" : "arm_right",
+				"position" : [-4, 12, 0]
+			},
+			{
+				"name" : "leg_left",
+				"position" : [2, 0, 0]
+			},
+			{
+				"name" : "leg_right",
+				"position" : [-2, 0, 0]
+			}
+		]
+	}
+]

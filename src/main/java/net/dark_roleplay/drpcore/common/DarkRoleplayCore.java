@@ -16,9 +16,6 @@ import net.dark_roleplay.drpcore.api.util.DRPUtil;
 import net.dark_roleplay.drpcore.client.events.config.Event_ConfigChange;
 import net.dark_roleplay.drpcore.client.renderer.players.PremiumRegistry;
 import net.dark_roleplay.drpcore.common.config.SyncedConfigRegistry;
-import net.dark_roleplay.drpcore.common.events.capabilities.Event_CapabilityEntity;
-import net.dark_roleplay.drpcore.common.events.entity.player.Event_PlayerClone;
-import net.dark_roleplay.drpcore.common.events.entity.player.Event_PlayerLoggedIn;
 import net.dark_roleplay.drpcore.common.handler.DRPCoreBlocks;
 import net.dark_roleplay.drpcore.common.handler.DRPCoreCapabilities;
 import net.dark_roleplay.drpcore.common.handler.DRPCoreConfigs;
@@ -29,8 +26,13 @@ import net.dark_roleplay.drpcore.common.handler.DRPCoreGuis;
 import net.dark_roleplay.drpcore.common.handler.DRPCoreItems;
 import net.dark_roleplay.drpcore.common.handler.DRPCorePackets;
 import net.dark_roleplay.drpcore.common.handler.DRPCoreSkills;
+import net.dark_roleplay.drpcore.common.objects.events.capabilities.Event_CapabilityEntity;
+import net.dark_roleplay.drpcore.common.objects.events.entity.player.Event_PlayerClone;
+import net.dark_roleplay.drpcore.common.objects.events.entity.player.Event_PlayerLoggedIn;
+import net.dark_roleplay.drpcore.common.objects.events.world.Event_WorldTick;
+import net.dark_roleplay.drpcore.common.objects.tile_entities.blueprint_controller.TE_BlueprintController;
 import net.dark_roleplay.drpcore.common.proxy.CommonProxy;
-import net.dark_roleplay.drpcore.common.tile_entities.blueprint_controller.TE_BlueprintController;
+import net.dark_roleplay.drpcore.common.world.types.ModTutorial;
 import net.dark_roleplay.drpcore.server.commands.crafting.Command_Recipe;
 import net.dark_roleplay.drpcore.server.commands.skills.Command_Skill;
 import net.minecraft.block.Block;
@@ -89,6 +91,8 @@ public class DarkRoleplayCore {
 
 		proxy.preInit(event);
 		
+		
+//		ModTutorial tut = new ModTutorial();
 	}
 	
 	@EventHandler
@@ -98,6 +102,7 @@ public class DarkRoleplayCore {
 		MinecraftForge.EVENT_BUS.register(new Event_CapabilityEntity());
 		MinecraftForge.EVENT_BUS.register(new Event_PlayerLoggedIn());
 
+		MinecraftForge.EVENT_BUS.register(new Event_WorldTick());
 
 		DRPCoreCrafting.init(event);
 		

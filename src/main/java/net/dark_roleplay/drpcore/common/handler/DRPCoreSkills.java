@@ -4,7 +4,7 @@ import net.dark_roleplay.drpcore.api.skills.Skill;
 import net.dark_roleplay.drpcore.api.skills.SkillPoint;
 import net.dark_roleplay.drpcore.api.skills.SkillTree;
 import net.dark_roleplay.drpcore.common.DRPCoreInfo;
-import net.dark_roleplay.drpcore.common.blocks.blueprint_controller.BlueprintController;
+import net.dark_roleplay.drpcore.common.objects.blocks.blueprint_controller.BlueprintController;
 import net.minecraft.block.Block;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;

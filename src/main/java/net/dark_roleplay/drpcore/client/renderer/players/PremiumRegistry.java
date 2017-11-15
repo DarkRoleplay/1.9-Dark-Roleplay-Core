@@ -34,13 +34,13 @@ public class PremiumRegistry {
 	}
 	
 	public static void initialize(){
-		JsonObject json = objFromLink("http://dark-roleplay.net/premium_addons/request.php?type=addon_list");
-		
-		JsonArray jsonAddons = json.get("addons").getAsJsonArray();
-		
-		for(int i = 0; i < jsonAddons.size(); i++){
-			addons.put(jsonAddons.get(i).getAsInt(), null);
-		}
+//		JsonObject json = objFromLink("http://dark-roleplay.net/premium_addons/request.php?type=addon_list");
+//		
+//		JsonArray jsonAddons = json.get("addons").getAsJsonArray();
+//		
+//		for(int i = 0; i < jsonAddons.size(); i++){
+//			addons.put(jsonAddons.get(i).getAsInt(), null);
+//		}
 	}
 	
 	public static Equiped getEquiped(EntityPlayer player){

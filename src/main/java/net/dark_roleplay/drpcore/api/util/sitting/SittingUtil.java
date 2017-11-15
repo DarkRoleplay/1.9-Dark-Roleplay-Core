@@ -2,7 +2,7 @@ package net.dark_roleplay.drpcore.api.util.sitting;
 
 import java.util.List;
 
-import net.dark_roleplay.drpcore.common.entities.util.sitting.Sittable;
+import net.dark_roleplay.drpcore.common.objects.entities.util.sitting.Sittable;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.text.TextComponentTranslation;

@@ -1,7 +1,7 @@
 package net.dark_roleplay.drpcore.client.renderer.tileentities;
 
 import net.dark_roleplay.drpcore.common.handler.DRPCoreConfigs;
-import net.dark_roleplay.drpcore.common.tile_entities.blueprint_controller.TE_BlueprintController;
+import net.dark_roleplay.drpcore.common.objects.tile_entities.blueprint_controller.TE_BlueprintController;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.BufferBuilder;

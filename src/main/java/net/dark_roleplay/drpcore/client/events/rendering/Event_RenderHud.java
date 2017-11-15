@@ -39,7 +39,7 @@ public class Event_RenderHud {
 	};
 	
 	@SubscribeEvent
-	public void renderHud(RenderGameOverlayEvent event){
+	public void renderHud(RenderGameOverlayEvent.Post event){
 		if(event.getType() == RenderGameOverlayEvent.ElementType.EXPERIENCE && DRPCoreConfigs.CLIENT.HUD.DRAW_REALTIME_CLOCK){
 			clock.setPos(event.getResolution().getScaledWidth() - 34, 0);
 			clock.draw(0, 0, event.getPartialTicks());

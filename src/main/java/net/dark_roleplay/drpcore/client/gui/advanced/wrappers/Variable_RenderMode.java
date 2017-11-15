@@ -1,6 +1,6 @@
 package net.dark_roleplay.drpcore.client.gui.advanced.wrappers;
 
-import net.dark_roleplay.drpcore.common.tile_entities.blueprint_controller.TE_BlueprintController;
+import net.dark_roleplay.drpcore.common.objects.tile_entities.blueprint_controller.TE_BlueprintController;
 
 public class Variable_RenderMode {
 

@@ -10,7 +10,7 @@ import net.dark_roleplay.drpcore.client.gui.structure.Gui_StructureControll;
 import net.dark_roleplay.drpcore.client.keybindings.DRPCoreKeybindings;
 import net.dark_roleplay.drpcore.common.DarkRoleplayCore;
 import net.dark_roleplay.drpcore.common.containers.Container_ExtendedInventory;
-import net.dark_roleplay.drpcore.common.tile_entities.blueprint_controller.TE_BlueprintController;
+import net.dark_roleplay.drpcore.common.objects.tile_entities.blueprint_controller.TE_BlueprintController;
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.EntityPlayer;

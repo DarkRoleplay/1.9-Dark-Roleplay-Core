@@ -1,0 +1,31 @@
+{
+	"textures" : [
+		//Insert optional per Bone Texture here
+	],
+	"models" : [
+		{
+			"bone" : "back",
+			"type" : "cube",
+			"data" : 
+			{
+				"position" : [-4, 0, -2],
+				"size" : [8, 12, 4]
+			}
+		},
+		{
+			"bone" : "head",
+			"type" : "mesh",
+			"data" : [
+				[//One quad
+					[x1, y1, z1, u1, v1], //first vertice
+					[], // second vertice
+					[], // third vertice
+					[] // fourth vertice
+				],
+				[//Second Quad
+				
+				]
+			]
+		}
+	]
+}
