@@ -1,5 +1,6 @@
 package net.dark_roleplay.drpcore.client.events.config;
 
+import net.dark_roleplay.drpcore.client.keybindings.DRPCoreKeybindings;
 import net.dark_roleplay.drpcore.common.DRPCoreInfo;
 import net.dark_roleplay.drpcore.common.DarkRoleplayCore;
 import net.dark_roleplay.drpcore.common.handler.DRPCoreConfigs;
@@ -15,6 +16,11 @@ public class Event_ConfigChange {
 	public void onConfigChanged(ConfigChangedEvent.OnConfigChangedEvent event) {
 		if(event.getModID().equals(DRPCoreInfo.MODID)){
 			ConfigManager.sync(DRPCoreInfo.MODID, Config.Type.INSTANCE);
+			if(DRPCoreConfigs.DEBUG.DEBUG_KEY)
+				DRPCoreKeybindings.enableDebugKeys();
+			else{
+				DRPCoreKeybindings.disableDebugKeys();
+			}
 		}
 	}
 }

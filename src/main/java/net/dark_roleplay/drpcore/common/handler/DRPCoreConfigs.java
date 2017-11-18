@@ -69,7 +69,6 @@ public class DRPCoreConfigs {
 		
 		@Config.Name("Enable Debug Key")
 		@Config.Comment("Enables debug keybinds ingame. \nAllowed values: true, false")
-		@Config.RequiresMcRestart
 		public boolean DEBUG_KEY = false;
 		
 		@Config.Name("Display recipe names")
