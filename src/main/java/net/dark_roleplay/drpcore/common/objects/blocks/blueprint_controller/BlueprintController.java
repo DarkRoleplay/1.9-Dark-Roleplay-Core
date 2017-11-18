@@ -16,6 +16,7 @@ import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumBlockRenderType;
@@ -42,7 +43,6 @@ public class BlueprintController extends Block implements ITileEntityProvider{
     public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ){
     	if(world.isRemote){
         	TE_BlueprintController te = (TE_BlueprintController) world.getTileEntity(pos);
-
         	player.openGui(DarkRoleplayCore.instance, DRPCoreGuis.DRPCORE_GUI_STRUCTURE_CONTROLLER, world, pos.getX(), pos.getY(), pos.getZ());
     	}
 //        return tileentity instanceof TileEntity_StructureController ? ((TileEntity_StructureController)tileentity).usedBy(playerIn) : false;

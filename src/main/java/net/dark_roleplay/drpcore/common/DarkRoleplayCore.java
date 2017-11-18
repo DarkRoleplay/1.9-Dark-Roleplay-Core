@@ -52,7 +52,9 @@ import net.minecraftforge.fml.common.FMLContainer;
 import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventHandler;
+import net.minecraftforge.fml.common.ProgressManager.ProgressBar;
 import net.minecraftforge.fml.common.ModContainer;
+import net.minecraftforge.fml.common.ProgressManager;
 import net.minecraftforge.fml.common.SidedProxy;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLLoadEvent;
@@ -76,8 +78,25 @@ public class DarkRoleplayCore {
 	@Mod.Instance(DRPCoreInfo.MODID)
 	public static DarkRoleplayCore instance;
 
+	
 	@EventHandler
 	public void preInit(FMLPreInitializationEvent event){
+		
+		ProgressBar progressBar = ProgressManager.push("Description", 2);
+        progressBar.step("Detail 1");
+		try {
+			Thread.sleep(1000);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		} 
+        progressBar.step("Detail2");
+        try {
+			Thread.sleep(1000);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		} 
+        ProgressManager.pop(progressBar);
+        
 		DRPCoreInfo.init(event);
 		
 		SyncedConfigRegistry.setSide(event.getSide());
