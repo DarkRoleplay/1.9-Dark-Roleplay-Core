@@ -9,7 +9,6 @@ import net.dark_roleplay.drpcore.common.objects.events.blocks.Event_BlockBreak;
 import net.dark_roleplay.drpcore.common.objects.events.capabilities.Event_CapabilityEntity;
 import net.dark_roleplay.drpcore.common.objects.events.entity.player.Event_PlayerClone;
 import net.dark_roleplay.drpcore.common.objects.events.entity.player.Event_PlayerLoggedIn;
-import net.dark_roleplay.drpcore.common.objects.events.world.Event_WorldTick;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
@@ -35,7 +34,6 @@ public class DRPCoreEvents {
 		MinecraftForge.EVENT_BUS.register(new Event_PlayerClone());
 		MinecraftForge.EVENT_BUS.register(new Event_CapabilityEntity());
 		MinecraftForge.EVENT_BUS.register(new Event_PlayerLoggedIn());
-		MinecraftForge.EVENT_BUS.register(new Event_WorldTick());
 		MinecraftForge.EVENT_BUS.register(new Event_BlockBreak());
 	}
 
