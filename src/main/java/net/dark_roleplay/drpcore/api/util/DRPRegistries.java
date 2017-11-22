@@ -2,11 +2,11 @@ package net.dark_roleplay.drpcore.api.util;
 
 import javax.annotation.Nullable;
 
+import net.dark_roleplay.drpcore.api.Modules;
 import net.dark_roleplay.drpcore.api.skills.Skill;
 import net.dark_roleplay.drpcore.api.skills.SkillPoint;
 import net.dark_roleplay.drpcore.api.skills.SkillTree;
 import net.dark_roleplay.drpcore.api.skills.SkillTreeData;
-import net.dark_roleplay.drpcore.api.util.sitting.Modules;
 import net.dark_roleplay.drpcore.common.DRPCoreInfo;
 import net.dark_roleplay.drpcore.modules.hud.Hud;
 import net.minecraft.util.ResourceLocation;
