@@ -6,7 +6,9 @@ import net.dark_roleplay.drpcore.api.skills.Skill;
 import net.dark_roleplay.drpcore.api.skills.SkillPoint;
 import net.dark_roleplay.drpcore.api.skills.SkillTree;
 import net.dark_roleplay.drpcore.api.skills.SkillTreeData;
+import net.dark_roleplay.drpcore.api.util.sitting.Modules;
 import net.dark_roleplay.drpcore.common.DRPCoreInfo;
+import net.dark_roleplay.drpcore.modules.hud.Hud;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -19,11 +21,12 @@ import net.minecraftforge.registries.RegistryBuilder;
 import net.minecraftforge.registries.RegistryManager;
 
 @Mod.EventBusSubscriber
-public class DRPUtil {
+public class DRPRegistries {
 
 	private static IForgeRegistry<SkillPoint> registrySkillPoints;
 	private static IForgeRegistry<Skill> registrySkills;
 	private static IForgeRegistry<SkillTree> registrySkillTrees;
+	private static IForgeRegistry<Hud> registryHUDs;
 	
 	@SubscribeEvent
 	public static final void register(RegistryEvent.NewRegistry event) {
@@ -31,6 +34,13 @@ public class DRPUtil {
 		rbSkillPoints.setName(new ResourceLocation(DRPCoreInfo.MODID, "skill_points"));
 		rbSkillPoints.setType(SkillPoint.class);
 		registrySkillPoints = rbSkillPoints.create();
+		
+		if(Modules.HUD.isEnabled()){
+			RegistryBuilder<Hud> rbHuds = new RegistryBuilder<Hud>();
+			rbHuds.setName(new ResourceLocation(DRPCoreInfo.MODID, "huds"));
+			rbHuds.setType(Hud.class);
+			registryHUDs = rbHuds.create();
+		}
 		
 		RegistryBuilder<Skill> rbSkills = new RegistryBuilder<Skill>();
 		rbSkills.setName(new ResourceLocation(DRPCoreInfo.MODID, "skills"));
@@ -64,5 +74,9 @@ public class DRPUtil {
 	
 	public static IForgeRegistry<SkillTree> getRegistrySkillTrees() {
 		return registrySkillTrees;
+	}
+	
+	public static IForgeRegistry<Hud> getRegistryHUDs() {
+		return registryHUDs;
 	}
 }

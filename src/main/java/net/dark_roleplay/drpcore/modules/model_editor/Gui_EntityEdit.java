@@ -1,4 +1,4 @@
-package net.dark_roleplay.drpcore.client.modules.model_editor;
+package net.dark_roleplay.drpcore.modules.model_editor;
 
 import java.util.ArrayList;
 import java.util.List;

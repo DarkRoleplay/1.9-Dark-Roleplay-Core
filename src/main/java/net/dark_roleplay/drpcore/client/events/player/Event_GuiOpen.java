@@ -9,6 +9,7 @@ import net.dark_roleplay.drpcore.client.gui.info.Gui_FirstRun;
 import net.dark_roleplay.drpcore.client.gui.info.Gui_UpdateAvailable;
 import net.dark_roleplay.drpcore.common.DRPCoreInfo;
 import net.dark_roleplay.drpcore.common.handler.DRPCoreConfigs;
+import net.dark_roleplay.drpcore.modules.tutorial.GuiTutorial;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.client.gui.GuiMainMenu;
@@ -30,15 +31,18 @@ public class Event_GuiOpen {
 	
 	@SubscribeEvent
 	public void onEvent(GuiOpenEvent  event) {
-		if(!hasOpened && event.getGui() instanceof GuiMainMenu){
-			if(DRPCoreConfigs.GENERAL.FIRST_INSTALL){
-				DRPCoreConfigs.GENERAL.FIRST_INSTALL = false;
-				ConfigManager.sync(DRPCoreInfo.MODID, Config.Type.INSTANCE);
-				event.setGui(new Gui_FirstRun());
-			}else if(DRPCoreConfigs.GENERAL.UPDATE_GUI && DRPCoreInfo.VERSION_STATUS.status == Status.OUTDATED || DRPCoreInfo.VERSION_STATUS.status == Status.BETA_OUTDATED){
-				event.setGui(new Gui_UpdateAvailable());
-				hasOpened = true;
-			}
+		if(/**!hasOpened &&**/ event.getGui() instanceof GuiMainMenu){
+			
+			event.setGui(new GuiTutorial(event.getGui()));
+
+//			if(DRPCoreConfigs.GENERAL.FIRST_INSTALL){
+//				DRPCoreConfigs.GENERAL.FIRST_INSTALL = false;
+//				ConfigManager.sync(DRPCoreInfo.MODID, Config.Type.INSTANCE);
+//				event.setGui(new Gui_FirstRun());
+//			}else if(DRPCoreConfigs.GENERAL.UPDATE_GUI && DRPCoreInfo.VERSION_STATUS.status == Status.OUTDATED || DRPCoreInfo.VERSION_STATUS.status == Status.BETA_OUTDATED){
+//				event.setGui(new Gui_UpdateAvailable());
+//				hasOpened = true;
+//			}
 		}
 	}
 	

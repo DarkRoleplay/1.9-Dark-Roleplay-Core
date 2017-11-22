@@ -21,7 +21,6 @@ import net.dark_roleplay.drpcore.client.gui.crafting.recipe_crafting.RecipeCraft
 import net.dark_roleplay.drpcore.client.gui.crafting.recipe_selection.RecipeSelection;
 import net.dark_roleplay.drpcore.client.gui.premium.Gui_Shop;
 import net.dark_roleplay.drpcore.client.gui.skills2.Gui_Skills;
-import net.dark_roleplay.drpcore.client.modules.model_editor.Gui_EntityEdit;
 import net.dark_roleplay.drpcore.client.resources.creation.TextureCombiner;
 import net.dark_roleplay.drpcore.common.DRPCoreInfo;
 import net.dark_roleplay.drpcore.common.DarkRoleplayCore;
@@ -33,6 +32,7 @@ import net.dark_roleplay.drpcore.common.network.packets.debug.Packet_DebugKey;
 import net.dark_roleplay.drpcore.common.util.jsons.Json_Premium;
 import net.dark_roleplay.drpcore.common.util.toasts.ToastController;
 import net.dark_roleplay.drpcore.common.util.web.WebRequest_PremiumPoints;
+import net.dark_roleplay.drpcore.modules.model_editor.Gui_EntityEdit;
 import net.minecraft.block.BlockCrops;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;

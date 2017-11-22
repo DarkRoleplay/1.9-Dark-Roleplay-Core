@@ -29,6 +29,7 @@ public class DRPCoreInfo {
 	public static final String URL = "http://dark-roleplay.net/";
 	public static final String DESCRIPTION = "Dark Roleplay Core is a mixture of a Library and a content adding mod. \nMost parts of it can't be used without another mod, \neven though there are a few things like the \"Blueprint Controller\" which are available without other mods.";
 	
+	public static File DARK_ROLEPLAY_CONFIGS;
 	public static File DARK_ROLEPLAY_FOLDER;
 	public static File DARK_ROLEPLAY_BLUEPRINTS_FOLDER;
 	public static File DARK_ROLEPLAY_RECIPES_FOLDER;
@@ -42,6 +43,8 @@ public class DRPCoreInfo {
 		DRPCoreInfo.LOGGER = LogManager.getLogger(DRPCoreInfo.MODID);
 		
 		DRPCoreInfo.SIDE = event.getSide();
+		
+		DARK_ROLEPLAY_CONFIGS = event.getModConfigurationDirectory();
 		DRPCoreInfo.DARK_ROLEPLAY_FOLDER = new File(event.getModConfigurationDirectory().getParentFile().getPath() + "/dark roleplay/");
 		DRPCoreInfo.DARK_ROLEPLAY_FOLDER.mkdirs();
 		DRPCoreInfo.DARK_ROLEPLAY_BLUEPRINTS_FOLDER = new File(DRPCoreInfo.DARK_ROLEPLAY_FOLDER.getPath() + "/blueprints/");

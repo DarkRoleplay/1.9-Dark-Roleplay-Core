@@ -12,7 +12,8 @@ import org.apache.logging.log4j.Logger;
 import net.dark_roleplay.drpcore.api.crafting.simple_recipe.SimpleRecipe;
 import net.dark_roleplay.drpcore.api.skills.Skill;
 import net.dark_roleplay.drpcore.api.skills.SkillPoint;
-import net.dark_roleplay.drpcore.api.util.DRPUtil;
+import net.dark_roleplay.drpcore.api.util.DRPRegistries;
+import net.dark_roleplay.drpcore.api.util.sitting.Modules;
 import net.dark_roleplay.drpcore.client.events.config.Event_ConfigChange;
 import net.dark_roleplay.drpcore.client.renderer.players.PremiumRegistry;
 import net.dark_roleplay.drpcore.common.config.SyncedConfigRegistry;
@@ -33,6 +34,8 @@ import net.dark_roleplay.drpcore.common.objects.events.world.Event_WorldTick;
 import net.dark_roleplay.drpcore.common.objects.tile_entities.blueprint_controller.TE_BlueprintController;
 import net.dark_roleplay.drpcore.common.proxy.CommonProxy;
 import net.dark_roleplay.drpcore.common.world.types.ModTutorial;
+import net.dark_roleplay.drpcore.modules.Module;
+import net.dark_roleplay.drpcore.modules.hud.HudLoader;
 import net.dark_roleplay.drpcore.server.commands.crafting.Command_Recipe;
 import net.dark_roleplay.drpcore.server.commands.skills.Command_Skill;
 import net.minecraft.block.Block;
@@ -81,23 +84,10 @@ public class DarkRoleplayCore {
 	
 	@EventHandler
 	public void preInit(FMLPreInitializationEvent event){
-		
-		ProgressBar progressBar = ProgressManager.push("Description", 2);
-        progressBar.step("Detail 1");
-		try {
-			Thread.sleep(1000);
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		} 
-        progressBar.step("Detail2");
-        try {
-			Thread.sleep(1000);
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		} 
-        ProgressManager.pop(progressBar);
-        
 		DRPCoreInfo.init(event);
+		
+		Modules.HUD.enable();
+		HudLoader.initializeHuds();
 		
 		SyncedConfigRegistry.setSide(event.getSide());
 		
@@ -110,19 +100,16 @@ public class DarkRoleplayCore {
 
 		proxy.preInit(event);
 		
-		
-//		ModTutorial tut = new ModTutorial();
+		ProgressBar progressBar = ProgressManager.push("Pre Initializing Modules", Module.getModules().size());
+		for(Module module : Module.getModules()){
+	        progressBar.step(module.getName());
+	        module.preInit(event);
+		}
+		ProgressManager.pop(progressBar);
 	}
 	
 	@EventHandler
 	public void init(FMLInitializationEvent event) {
-		MinecraftForge.EVENT_BUS.register(new Event_ConfigChange());
-		MinecraftForge.EVENT_BUS.register(new Event_PlayerClone());
-		MinecraftForge.EVENT_BUS.register(new Event_CapabilityEntity());
-		MinecraftForge.EVENT_BUS.register(new Event_PlayerLoggedIn());
-
-		MinecraftForge.EVENT_BUS.register(new Event_WorldTick());
-
 		DRPCoreCrafting.init(event);
 		
 		DRPCoreCapabilities.init(event);
@@ -130,13 +117,20 @@ public class DarkRoleplayCore {
 		DRPCorePackets.init();
 		DRPCoreEvents.init(event);
 		proxy.init(event);
+		
+		ProgressBar progressBar = ProgressManager.push("Initializing Modules", Module.getModules().size());
+		for(Module module : Module.getModules()){
+	        progressBar.step(module.getName());
+	        module.init(event);
+		}
+		ProgressManager.pop(progressBar);
+		//TODO MOVE
 	}
 	
 	@EventHandler
 	public void postInit(FMLPostInitializationEvent event) {
 		DRPCoreCapabilities.postInit(event);
 		DRPCoreGuis.postInit(event);
-		DRPCoreEvents.postInit(event);
 		DRPCoreEvents.postInit(event);
 		proxy.postInit(event);
 
@@ -145,6 +139,13 @@ public class DarkRoleplayCore {
 			PremiumRegistry.initializeAddon(0);
 			PremiumRegistry.initializeAddon(1);
 		}
+		
+		ProgressBar progressBar = ProgressManager.push("Post Initializing Modules", Module.getModules().size());
+		for(Module module : Module.getModules()){
+	        progressBar.step(module.getName());
+	        module.postInit(event);
+		}
+		ProgressManager.pop(progressBar);
 	}
 	
 	

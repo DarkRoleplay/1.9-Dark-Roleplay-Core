@@ -1,4 +1,4 @@
-package net.dark_roleplay.drpcore.client.modules.model_editor;
+package net.dark_roleplay.drpcore.modules.model_editor;
 
 public class Theme {
 

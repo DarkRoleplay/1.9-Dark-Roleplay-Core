@@ -1,7 +1,7 @@
 package net.dark_roleplay.drpcore.api.skills;
 
 import io.netty.buffer.ByteBuf;
-import net.dark_roleplay.drpcore.api.util.DRPUtil;
+import net.dark_roleplay.drpcore.api.util.DRPRegistries;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.common.network.ByteBufUtils;
 
@@ -47,8 +47,8 @@ public class SkillPointData {
 		this.amount = buf.readInt();
 		this.level = buf.readInt();
 		this.xp = buf.readFloat();
-		if(DRPUtil.getRegistrySkillPoints().containsKey(name)){
-			this.point = DRPUtil.getRegistrySkillPoints().getValue(name);
+		if(DRPRegistries.getRegistrySkillPoints().containsKey(name)){
+			this.point = DRPRegistries.getRegistrySkillPoints().getValue(name);
 		}
 		return this;
 	}

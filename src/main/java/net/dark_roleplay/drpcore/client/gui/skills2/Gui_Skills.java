@@ -11,7 +11,7 @@ import net.dark_roleplay.drpcore.api.gui.utility.wrappers.Variable_Int;
 import net.dark_roleplay.drpcore.api.skills.Skill;
 import net.dark_roleplay.drpcore.api.skills.SkillTree;
 import net.dark_roleplay.drpcore.api.skills.SkillTreeData;
-import net.dark_roleplay.drpcore.api.util.DRPUtil;
+import net.dark_roleplay.drpcore.api.util.DRPRegistries;
 import net.dark_roleplay.drpcore.client.gui.advanced.wrappers.Variable_Object;
 import net.dark_roleplay.drpcore.common.util.toasts.ToastController;
 import net.minecraft.client.Minecraft;
@@ -44,7 +44,7 @@ public class Gui_Skills extends Gui_Screen{
 	
 	public void initGui(){
 		if(!initialized){
-			this.allSkillTrees = DRPUtil.getRegistrySkillTrees().getValues();
+			this.allSkillTrees = DRPRegistries.getRegistrySkillTrees().getValues();
 			
 			if(this.allSkillTrees.isEmpty()){
 				ToastController.displayInfoToast("No skills available", null);
