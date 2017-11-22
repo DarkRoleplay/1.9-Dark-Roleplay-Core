@@ -9,8 +9,8 @@ import java.util.List;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
+import net.dark_roleplay.drpcore.api.Modules;
 import net.dark_roleplay.drpcore.api.util.DRPRegistries;
-import net.dark_roleplay.drpcore.api.util.sitting.Modules;
 import net.dark_roleplay.drpcore.common.DRPCoreInfo;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.common.ProgressManager;

@@ -9,11 +9,11 @@ import java.net.URL;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import net.dark_roleplay.drpcore.api.Modules;
 import net.dark_roleplay.drpcore.api.crafting.simple_recipe.SimpleRecipe;
 import net.dark_roleplay.drpcore.api.skills.Skill;
 import net.dark_roleplay.drpcore.api.skills.SkillPoint;
 import net.dark_roleplay.drpcore.api.util.DRPRegistries;
-import net.dark_roleplay.drpcore.api.util.sitting.Modules;
 import net.dark_roleplay.drpcore.client.events.config.Event_ConfigChange;
 import net.dark_roleplay.drpcore.client.renderer.players.PremiumRegistry;
 import net.dark_roleplay.drpcore.common.config.SyncedConfigRegistry;
@@ -87,6 +87,7 @@ public class DarkRoleplayCore {
 		DRPCoreInfo.init(event);
 		
 		Modules.HUD.enable();
+		Modules.UPDATE_CHECKER.enable();
 		HudLoader.initializeHuds();
 		
 		SyncedConfigRegistry.setSide(event.getSide());
