@@ -1,6 +1,6 @@
 package net.dark_roleplay.drpcore.common.objects.events.capabilities;
 
-import net.dark_roleplay.drpcore.common.DRPCoreInfo;
+import net.dark_roleplay.drpcore.common.DRPCoreReferences;
 import net.dark_roleplay.drpcore.common.capabilities.CapabilityProvider;
 import net.dark_roleplay.drpcore.common.capabilities.player.crafting.*;
 import net.dark_roleplay.drpcore.common.handler.DRPCoreCapabilities;
@@ -20,9 +20,9 @@ public class Event_CapabilityEntity {
     public void attachCapability(AttachCapabilitiesEvent<Entity> event){
         if (!(event.getObject() instanceof EntityPlayer)) return;
 
-        event.addCapability(new ResourceLocation(DRPCoreInfo.MODID, "recipe_controller"), new CapabilityProvider(DRPCoreCapabilities.DRPCORE_RECIPE_CONTROLLER));
-        event.addCapability(new ResourceLocation(DRPCoreInfo.MODID, "skill_controller"), new CapabilityProvider(DRPCoreCapabilities.DRPCORE_SKILL_CONTROLLER));
-        event.addCapability(new ResourceLocation(DRPCoreInfo.MODID, "extended_inv"), new CapabilityProvider(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY));
+        event.addCapability(new ResourceLocation(DRPCoreReferences.MODID, "recipe_controller"), new CapabilityProvider(DRPCoreCapabilities.DRPCORE_RECIPE_CONTROLLER));
+        event.addCapability(new ResourceLocation(DRPCoreReferences.MODID, "skill_controller"), new CapabilityProvider(DRPCoreCapabilities.DRPCORE_SKILL_CONTROLLER));
+        event.addCapability(new ResourceLocation(DRPCoreReferences.MODID, "extended_inv"), new CapabilityProvider(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY));
     }
 	
 }

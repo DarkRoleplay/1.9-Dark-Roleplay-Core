@@ -13,7 +13,7 @@ import net.dark_roleplay.drpcore.client.gui.crafting.recipe_selection.Button_Cha
 import net.dark_roleplay.drpcore.client.gui.crafting.recipe_selection.Button_ChangePage;
 import net.dark_roleplay.drpcore.client.gui.crafting.recipe_selection.RecipeSelection;
 import net.dark_roleplay.drpcore.client.keybindings.DRPCoreKeybindings;
-import net.dark_roleplay.drpcore.common.DRPCoreInfo;
+import net.dark_roleplay.drpcore.common.DRPCoreReferences;
 import net.dark_roleplay.drpcore.common.DarkRoleplayCore;
 import net.dark_roleplay.drpcore.common.config.SyncedConfigRegistry;
 import net.dark_roleplay.drpcore.common.handler.DRPCoreCapabilities;
@@ -32,7 +32,7 @@ import net.minecraft.util.math.BlockPos;
 
 public class RecipeCrafting_SimpleRecipe extends DRPGuiScreen implements ITimedGui {
 
-	private static ResourceLocation bg = new ResourceLocation(DRPCoreInfo.MODID,
+	private static ResourceLocation bg = new ResourceLocation(DRPCoreReferences.MODID,
 			"textures/guis/recipe_crafting_simple.png");
 
 	public InventoryPlayer inventory;

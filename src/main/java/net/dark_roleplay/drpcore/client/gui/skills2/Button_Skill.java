@@ -10,7 +10,7 @@ import net.dark_roleplay.drpcore.api.gui.modular.ModularGui_Drawer;
 import net.dark_roleplay.drpcore.api.gui.utility.wrappers.Variable_Int;
 import net.dark_roleplay.drpcore.api.skills.Skill;
 import net.dark_roleplay.drpcore.client.gui.advanced.wrappers.Variable_Object;
-import net.dark_roleplay.drpcore.common.DRPCoreInfo;
+import net.dark_roleplay.drpcore.common.DRPCoreReferences;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.renderer.GlStateManager;
@@ -19,7 +19,7 @@ import net.minecraft.util.ResourceLocation;
 
 public class Button_Skill extends Gui_Button{
 
-	private static ResourceLocation background_texture = new ResourceLocation(DRPCoreInfo.MODID, "textures/guis/skill/skill_background.png");
+	private static ResourceLocation background_texture = new ResourceLocation(DRPCoreReferences.MODID, "textures/guis/skill/skill_background.png");
 
 	private Variable_Object<Skill> var;
 	private Skill skill;

@@ -11,7 +11,7 @@ import net.dark_roleplay.drpcore.api.gui.modular.ModularGui_Drawer;
 import net.dark_roleplay.drpcore.api.skills.Skill;
 import net.dark_roleplay.drpcore.api.skills.SkillPoint;
 import net.dark_roleplay.drpcore.api.skills.SkillPointData;
-import net.dark_roleplay.drpcore.common.DRPCoreInfo;
+import net.dark_roleplay.drpcore.common.DRPCoreReferences;
 import net.dark_roleplay.drpcore.common.capabilities.player.skill.ISkillController;
 import net.dark_roleplay.drpcore.common.handler.DRPCoreCapabilities;
 import net.dark_roleplay.drpcore.common.handler.DRPCorePackets;
@@ -28,7 +28,7 @@ import net.minecraft.util.ResourceLocation;
 
 public class Gui_SkillOverview extends DRPGuiScreen {
 //
-	private static final ResourceLocation skillBG = new ResourceLocation(DRPCoreInfo.MODID, "textures/guis/skill/skill_point_overview.png");
+	private static final ResourceLocation skillBG = new ResourceLocation(DRPCoreReferences.MODID, "textures/guis/skill/skill_point_overview.png");
 //	
 //	private Panel_SkillTree skillTreePanel;
 //	private Panel_SkillSelect skillSelectPanel;

@@ -7,7 +7,7 @@ import java.net.URL;
 
 import net.dark_roleplay.drpcore.client.gui.info.Gui_FirstRun;
 import net.dark_roleplay.drpcore.client.gui.info.Gui_UpdateAvailable;
-import net.dark_roleplay.drpcore.common.DRPCoreInfo;
+import net.dark_roleplay.drpcore.common.DRPCoreReferences;
 import net.dark_roleplay.drpcore.common.handler.DRPCoreConfigs;
 import net.dark_roleplay.drpcore.modules.tutorial.GuiTutorial;
 import net.minecraft.client.Minecraft;
@@ -33,7 +33,7 @@ public class Event_GuiOpen {
 	public void onEvent(GuiOpenEvent  event) {
 		if(/**!hasOpened &&**/ event.getGui() instanceof GuiMainMenu){
 			
-			event.setGui(new GuiTutorial(event.getGui()));
+//			event.setGui(new GuiTutorial(event.getGui()));
 
 //			if(DRPCoreConfigs.GENERAL.FIRST_INSTALL){
 //				DRPCoreConfigs.GENERAL.FIRST_INSTALL = false;

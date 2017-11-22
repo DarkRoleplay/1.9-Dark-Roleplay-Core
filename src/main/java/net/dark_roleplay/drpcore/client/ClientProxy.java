@@ -29,7 +29,7 @@ import net.dark_roleplay.drpcore.client.keybindings.DRPCoreKeybindings;
 import net.dark_roleplay.drpcore.client.renderer.players.RenderLayer_PremiumAddon;
 import net.dark_roleplay.drpcore.client.renderer.tileentities.Renderer_StructureController;
 import net.dark_roleplay.drpcore.client.resources.ModularGui_Handler;
-import net.dark_roleplay.drpcore.common.DRPCoreInfo;
+import net.dark_roleplay.drpcore.common.DRPCoreReferences;
 import net.dark_roleplay.drpcore.common.handler.DRPCoreItems;
 import net.dark_roleplay.drpcore.common.objects.entities.util.sitting.Sittable;
 import net.dark_roleplay.drpcore.common.objects.tile_entities.blueprint_controller.TE_BlueprintController;
@@ -94,7 +94,7 @@ public class ClientProxy extends CommonProxy{
 		RenderingRegistry.registerEntityRenderingHandler(Testing_Entity.class, new IRenderFactory<Testing_Entity>(){
 			@Override
 			public Render<? super Testing_Entity> createRenderFor(RenderManager manager) {
-				return new RendererTest(manager, new ResourceLocation(DRPCoreInfo.MODID, "entities/test/bones.json"), new ResourceLocation(DRPCoreInfo.MODID, "entities/test/model.json"), new ResourceLocation(DRPCoreInfo.MODID, "entities/test/animations.json"));
+				return new RendererTest(manager, new ResourceLocation(DRPCoreReferences.MODID, "entities/test/bones.json"), new ResourceLocation(DRPCoreReferences.MODID, "entities/test/model.json"), new ResourceLocation(DRPCoreReferences.MODID, "entities/test/animations.json"));
 			}
 		});
 //		Minecraft.getMinecraft().getResourceManager().

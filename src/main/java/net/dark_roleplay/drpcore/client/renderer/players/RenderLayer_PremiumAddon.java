@@ -1,7 +1,7 @@
 package net.dark_roleplay.drpcore.client.renderer.players;
 
 import net.dark_roleplay.drpcore.client.renderer.players.attachments.Attachment_Cylinder;
-import net.dark_roleplay.drpcore.common.DRPCoreInfo;
+import net.dark_roleplay.drpcore.common.DRPCoreReferences;
 import net.minecraft.client.model.ModelPlayer;
 import net.minecraft.client.model.ModelRenderer;
 import net.minecraft.client.renderer.entity.RenderPlayer;
@@ -38,7 +38,7 @@ public class RenderLayer_PremiumAddon implements LayerRenderer<EntityPlayer> {
 			
 			pa.setModelAttributes(this.mainModel);
 	
-	        this.renderer.bindTexture(new ResourceLocation(DRPCoreInfo.MODID, "textures/premium/full_black.png"));
+	        this.renderer.bindTexture(new ResourceLocation(DRPCoreReferences.MODID, "textures/premium/full_black.png"));
 	        pa.setRotationAngles(mainModel);
 			pa.render(entity, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scale);
 		}

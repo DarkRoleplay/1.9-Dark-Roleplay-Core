@@ -10,7 +10,7 @@ import java.io.OutputStream;
 import io.netty.buffer.ByteBuf;
 import net.dark_roleplay.drpcore.api.blueprints.Blueprint;
 import net.dark_roleplay.drpcore.api.blueprints.BlueprintUtil;
-import net.dark_roleplay.drpcore.common.DRPCoreInfo;
+import net.dark_roleplay.drpcore.common.DRPCoreReferences;
 import net.dark_roleplay.drpcore.common.network.PacketBase;
 import net.dark_roleplay.drpcore.common.objects.tile_entities.blueprint_controller.TE_BlueprintController;
 import net.minecraft.entity.player.EntityPlayer;
@@ -71,8 +71,8 @@ public class Packet_LoadBlueprint extends PacketBase.Server<Packet_LoadBlueprint
 				te.setMode(message.mode);
 				te.markDirty();
 				
-				DRPCoreInfo.DARK_ROLEPLAY_BLUEPRINTS_FOLDER.mkdirs();
-				File structure = new File(DRPCoreInfo.DARK_ROLEPLAY_BLUEPRINTS_FOLDER.getPath() + "/" + message.name + ".blueprint");
+				DRPCoreReferences.DARK_ROLEPLAY_BLUEPRINTS_FOLDER.mkdirs();
+				File structure = new File(DRPCoreReferences.DARK_ROLEPLAY_BLUEPRINTS_FOLDER.getPath() + "/" + message.name + ".blueprint");
 				if(structure.exists()){
 					try {
 						Blueprint bp = BlueprintUtil.readFromFile(new FileInputStream(structure));

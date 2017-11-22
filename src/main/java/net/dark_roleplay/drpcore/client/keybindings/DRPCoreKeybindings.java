@@ -22,7 +22,7 @@ import net.dark_roleplay.drpcore.client.gui.crafting.recipe_selection.RecipeSele
 import net.dark_roleplay.drpcore.client.gui.premium.Gui_Shop;
 import net.dark_roleplay.drpcore.client.gui.skills2.Gui_Skills;
 import net.dark_roleplay.drpcore.client.resources.creation.TextureCombiner;
-import net.dark_roleplay.drpcore.common.DRPCoreInfo;
+import net.dark_roleplay.drpcore.common.DRPCoreReferences;
 import net.dark_roleplay.drpcore.common.DarkRoleplayCore;
 import net.dark_roleplay.drpcore.common.crafting.simple_recipe.SimpleRecipeLoader;
 import net.dark_roleplay.drpcore.common.handler.DRPCoreConfigs;

@@ -12,7 +12,7 @@ import mezz.jei.api.ingredients.IIngredients;
 import mezz.jei.api.recipe.IRecipeCategory;
 import net.dark_roleplay.drpcore.addons.jei.DRPCoreJEIAddon;
 import net.dark_roleplay.drpcore.api.crafting.simple_recipe.SimpleRecipe;
-import net.dark_roleplay.drpcore.common.DRPCoreInfo;
+import net.dark_roleplay.drpcore.common.DRPCoreReferences;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.resources.I18n;
@@ -35,7 +35,7 @@ public class Category_SimpleRecipe implements IRecipeCategory<SimpleRecipe>{
 		this.uid = uid;
 		this.title = I18n.format("drp.category." + title + ".name");
 		this.guiHelper = guiHelper;
-		background = guiHelper.createDrawable(new ResourceLocation(DRPCoreInfo.MODID, "textures/guis/jei_background_sr.png"), 0, 0, width, height);
+		background = guiHelper.createDrawable(new ResourceLocation(DRPCoreReferences.MODID, "textures/guis/jei_background_sr.png"), 0, 0, width, height);
 	}
 	
 	@Override
@@ -55,7 +55,7 @@ public class Category_SimpleRecipe implements IRecipeCategory<SimpleRecipe>{
 
 	@Override
 	public String getModName() {
-		return DRPCoreInfo.NAME;
+		return DRPCoreReferences.NAME;
 	}
 
 	@Override

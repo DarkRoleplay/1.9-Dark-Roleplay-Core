@@ -27,6 +27,7 @@ public class Module {
 		for(Module module : required){
 			module.enable();
 		}
+		this.enabled = true;
 	}
 	
 	public boolean isEnabled(){

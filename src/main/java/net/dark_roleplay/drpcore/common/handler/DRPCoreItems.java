@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import net.dark_roleplay.drpcore.api.items.DRPItem;
-import net.dark_roleplay.drpcore.common.DRPCoreInfo;
+import net.dark_roleplay.drpcore.common.DRPCoreReferences;
 import net.dark_roleplay.drpcore.common.DarkRoleplayCore;
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
@@ -86,7 +86,7 @@ public class DRPCoreItems {
 	public static void registerModels(ModelRegistryEvent event){
 		for(Item i : blockItems){
 			System.out.println(i.getUnlocalizedName());
-			ModelLoader.setCustomModelResourceLocation(i, 0, new ModelResourceLocation(DRPCoreInfo.MODID + ":" + i.getUnlocalizedName().toString().substring(i.getUnlocalizedName().toString().indexOf(".") + 1, i.getUnlocalizedName().toString().length()), "inventory"));
+			ModelLoader.setCustomModelResourceLocation(i, 0, new ModelResourceLocation(DRPCoreReferences.MODID + ":" + i.getUnlocalizedName().toString().substring(i.getUnlocalizedName().toString().indexOf(".") + 1, i.getUnlocalizedName().toString().length()), "inventory"));
 		}
 	}
 

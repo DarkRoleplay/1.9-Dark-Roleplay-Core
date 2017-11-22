@@ -31,7 +31,7 @@ import net.dark_roleplay.drpcore.client.gui.advanced.buttons.blueprint_controll.
 import net.dark_roleplay.drpcore.client.gui.advanced.labels.blueprint_controll.Label_AxisInt;
 import net.dark_roleplay.drpcore.client.gui.advanced.wrappers.Variable_Mode;
 import net.dark_roleplay.drpcore.client.gui.advanced.wrappers.Variable_RenderMode;
-import net.dark_roleplay.drpcore.common.DRPCoreInfo;
+import net.dark_roleplay.drpcore.common.DRPCoreReferences;
 import net.dark_roleplay.drpcore.common.handler.DRPCorePackets;
 import net.dark_roleplay.drpcore.common.network.packets.blocks.Packet_LoadBlueprint;
 import net.dark_roleplay.drpcore.common.network.packets.blocks.Packet_SaveBlueprint;
@@ -54,7 +54,7 @@ import net.minecraft.util.math.BlockPos;
 
 public class Gui_StructureControll extends Gui_Screen {
 
-	private static ResourceLocation bg = new ResourceLocation(DRPCoreInfo.MODID,"textures/guis/recipe_crafting_simple.png");
+	private static ResourceLocation bg = new ResourceLocation(DRPCoreReferences.MODID,"textures/guis/recipe_crafting_simple.png");
 
 	private TE_BlueprintController te;
 

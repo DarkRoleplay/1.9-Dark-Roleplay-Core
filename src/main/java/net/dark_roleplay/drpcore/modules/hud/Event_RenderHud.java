@@ -12,10 +12,12 @@ public class Event_RenderHud {
 	@SubscribeEvent
 	public void renderHud(RenderGameOverlayEvent.Post event){
 		if(event.getType() == RenderGameOverlayEvent.ElementType.EXPERIENCE){
+			int width = event.getResolution().getScaledWidth();
+			int height = event.getResolution().getScaledHeight();
 			if(Modules.HUD.isEnabled()){
 				List<Hud> huds = DRPRegistries.getRegistryHUDs().getValues();
 				for(Hud hud : huds){
-					hud.render(event.getPartialTicks());
+					hud.render(width, height, event.getPartialTicks());
 				}
 			}
 		}

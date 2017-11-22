@@ -8,7 +8,7 @@ import org.lwjgl.opengl.GL11;
 import net.dark_roleplay.drpcore.api.models.entity.Bone;
 import net.dark_roleplay.drpcore.api.models.entity.Json_Bones;
 import net.dark_roleplay.drpcore.api.models.entity.Json_Models;
-import net.dark_roleplay.drpcore.common.DRPCoreInfo;
+import net.dark_roleplay.drpcore.common.DRPCoreReferences;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiLabel;
@@ -28,8 +28,8 @@ public class Gui_EntityEdit extends GuiScreen {
 	Bone highlightedBone;
 	
 	public Gui_EntityEdit(){
-		this.bones = Json_Bones.readBonesFromJson(new ResourceLocation(DRPCoreInfo.MODID, "entities/test/bones.json"));
-		Json_Models.readModelFromJson(new ResourceLocation(DRPCoreInfo.MODID, "entities/test/model.json"), this.bones);
+		this.bones = Json_Bones.readBonesFromJson(new ResourceLocation(DRPCoreReferences.MODID, "entities/test/bones.json"));
+		Json_Models.readModelFromJson(new ResourceLocation(DRPCoreReferences.MODID, "entities/test/model.json"), this.bones);
 		this.highlightedBone = this.bones[0];
 	}
 	

@@ -1,7 +1,7 @@
 package net.dark_roleplay.drpcore.api.skills;
 
 import net.dark_roleplay.drpcore.api.gui.advanced.Gui_Icon;
-import net.dark_roleplay.drpcore.common.DRPCoreInfo;
+import net.dark_roleplay.drpcore.common.DRPCoreReferences;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;

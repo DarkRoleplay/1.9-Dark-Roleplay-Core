@@ -2,7 +2,7 @@ package net.dark_roleplay.drpcore.common.handler;
 
 import java.util.Calendar;
 
-import net.dark_roleplay.drpcore.common.DRPCoreInfo;
+import net.dark_roleplay.drpcore.common.DRPCoreReferences;
 import net.dark_roleplay.drpcore.common.objects.blocks.blueprint_controller.BlueprintController;
 import net.dark_roleplay.drpcore.common.objects.huds.RealTimeClock;
 import net.dark_roleplay.drpcore.modules.hud.Hud;
@@ -18,7 +18,7 @@ public class DRPHuds {
 	@SubscribeEvent
 	public static final void register(RegistryEvent.Register<Hud> event) {
 		event.getRegistry().register(
-			new RealTimeClock(new ResourceLocation(DRPCoreInfo.MODID, "real_time_clock"))
+			new RealTimeClock(new ResourceLocation(DRPCoreReferences.MODID, "real_time_clock"))
 		);
 	}
 	

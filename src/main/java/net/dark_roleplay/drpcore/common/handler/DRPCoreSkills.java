@@ -3,7 +3,7 @@ package net.dark_roleplay.drpcore.common.handler;
 import net.dark_roleplay.drpcore.api.skills.Skill;
 import net.dark_roleplay.drpcore.api.skills.SkillPoint;
 import net.dark_roleplay.drpcore.api.skills.SkillTree;
-import net.dark_roleplay.drpcore.common.DRPCoreInfo;
+import net.dark_roleplay.drpcore.common.DRPCoreReferences;
 import net.dark_roleplay.drpcore.common.objects.blocks.blueprint_controller.BlueprintController;
 import net.minecraft.block.Block;
 import net.minecraft.init.Items;
@@ -37,40 +37,40 @@ public class DRPCoreSkills {
 	private static final SkillTree skillTree2;
 	
 	static{
-		point = new SkillPoint(new ResourceLocation(DRPCoreInfo.MODID, "proffesion_point"), null);
+		point = new SkillPoint(new ResourceLocation(DRPCoreReferences.MODID, "proffesion_point"), null);
 		
-		skillTree0 = new SkillTree(new ResourceLocation(DRPCoreInfo.MODID, "lumberjack"));
-		skillTree1 = new SkillTree(new ResourceLocation(DRPCoreInfo.MODID, "miner"));
-		skillTree2 = new SkillTree(new ResourceLocation(DRPCoreInfo.MODID, "debug"));
+		skillTree0 = new SkillTree(new ResourceLocation(DRPCoreReferences.MODID, "lumberjack"));
+		skillTree1 = new SkillTree(new ResourceLocation(DRPCoreReferences.MODID, "miner"));
+		skillTree2 = new SkillTree(new ResourceLocation(DRPCoreReferences.MODID, "debug"));
 
-		skill0 = new Skill(new ResourceLocation(DRPCoreInfo.MODID, "lumberjack"), new ResourceLocation(DRPCoreInfo.MODID, "textures/skills/lumberjack.png"));
+		skill0 = new Skill(new ResourceLocation(DRPCoreReferences.MODID, "lumberjack"), new ResourceLocation(DRPCoreReferences.MODID, "textures/skills/lumberjack.png"));
 		skill0.addToSkillTree(skillTree0, 0, 2);
 		
-		skill1 = new Skill(new ResourceLocation(DRPCoreInfo.MODID, "debug0"), new ResourceLocation(DRPCoreInfo.MODID, "textures/skills/lumberjack.png"));
+		skill1 = new Skill(new ResourceLocation(DRPCoreReferences.MODID, "debug0"), new ResourceLocation(DRPCoreReferences.MODID, "textures/skills/lumberjack.png"));
 		skill1.addToSkillTree(skillTree0, 1, 2);
 		
-		skill2 = new Skill(new ResourceLocation(DRPCoreInfo.MODID, "debug1"), new ResourceLocation(DRPCoreInfo.MODID, "textures/skills/lumberjack.png"));
+		skill2 = new Skill(new ResourceLocation(DRPCoreReferences.MODID, "debug1"), new ResourceLocation(DRPCoreReferences.MODID, "textures/skills/lumberjack.png"));
 		skill2.addToSkillTree(skillTree0, 2, 1);
 		
-		skill3 = new Skill(new ResourceLocation(DRPCoreInfo.MODID, "debug2"), new ResourceLocation(DRPCoreInfo.MODID, "textures/skills/lumberjack.png"));
+		skill3 = new Skill(new ResourceLocation(DRPCoreReferences.MODID, "debug2"), new ResourceLocation(DRPCoreReferences.MODID, "textures/skills/lumberjack.png"));
 		skill3.addToSkillTree(skillTree0, 2, 3);
 		
-		skill4 = new Skill(new ResourceLocation(DRPCoreInfo.MODID, "debug3"), new ResourceLocation(DRPCoreInfo.MODID, "textures/skills/lumberjack.png"));
+		skill4 = new Skill(new ResourceLocation(DRPCoreReferences.MODID, "debug3"), new ResourceLocation(DRPCoreReferences.MODID, "textures/skills/lumberjack.png"));
 		skill4.addToSkillTree(skillTree1, 0, 2);
 		
-		skill5 = new Skill(new ResourceLocation(DRPCoreInfo.MODID, "debug4"), new ResourceLocation(DRPCoreInfo.MODID, "textures/skills/lumberjack.png"));
+		skill5 = new Skill(new ResourceLocation(DRPCoreReferences.MODID, "debug4"), new ResourceLocation(DRPCoreReferences.MODID, "textures/skills/lumberjack.png"));
 		skill5.addToSkillTree(skillTree1, 1, 2);
 		
-		skill6 = new Skill(new ResourceLocation(DRPCoreInfo.MODID, "debug5"), new ResourceLocation(DRPCoreInfo.MODID, "textures/skills/lumberjack.png"));
+		skill6 = new Skill(new ResourceLocation(DRPCoreReferences.MODID, "debug5"), new ResourceLocation(DRPCoreReferences.MODID, "textures/skills/lumberjack.png"));
 		skill6.addToSkillTree(skillTree1, 2, 2);
 		
-		skill7 = new Skill(new ResourceLocation(DRPCoreInfo.MODID, "debug6"), new ResourceLocation(DRPCoreInfo.MODID, "textures/skills/lumberjack.png"));
+		skill7 = new Skill(new ResourceLocation(DRPCoreReferences.MODID, "debug6"), new ResourceLocation(DRPCoreReferences.MODID, "textures/skills/lumberjack.png"));
 		skill7.addToSkillTree(skillTree2, 0, 2);
 		
-		skill8 = new Skill(new ResourceLocation(DRPCoreInfo.MODID, "debug7"), new ResourceLocation(DRPCoreInfo.MODID, "textures/skills/lumberjack.png"));
+		skill8 = new Skill(new ResourceLocation(DRPCoreReferences.MODID, "debug7"), new ResourceLocation(DRPCoreReferences.MODID, "textures/skills/lumberjack.png"));
 		skill8.addToSkillTree(skillTree2, 2, 2);
 		
-		skill9 = new Skill(new ResourceLocation(DRPCoreInfo.MODID, "debug8"), new ResourceLocation(DRPCoreInfo.MODID, "textures/skills/lumberjack.png"));
+		skill9 = new Skill(new ResourceLocation(DRPCoreReferences.MODID, "debug8"), new ResourceLocation(DRPCoreReferences.MODID, "textures/skills/lumberjack.png"));
 		skill9.addToSkillTree(skillTree2, 3, 2);
 	}
 	

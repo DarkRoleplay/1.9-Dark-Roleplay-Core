@@ -7,7 +7,7 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
-import net.dark_roleplay.drpcore.common.DRPCoreInfo;
+import net.dark_roleplay.drpcore.common.DRPCoreReferences;
 import net.dark_roleplay.drpcore.common.DarkRoleplayCore;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.resources.IResource;
@@ -26,7 +26,7 @@ public class TextureCombiner {
 			Graphics gfx = texture1.getGraphics();
 			gfx.drawImage(texture2, 0, 0, null);
 
-			File newFile = new File(DRPCoreInfo.DARK_ROLEPLAY_FOLDER.toString() + "generated_resources/" + newLoc.getResourceDomain() + "/" + newLoc.getResourcePath());
+			File newFile = new File(DRPCoreReferences.DARK_ROLEPLAY_FOLDER.toString() + "generated_resources/" + newLoc.getResourceDomain() + "/" + newLoc.getResourcePath());
 			newFile.createNewFile();
 			ImageIO.write(texture1, "png", newFile);
 		} catch (IOException e) {

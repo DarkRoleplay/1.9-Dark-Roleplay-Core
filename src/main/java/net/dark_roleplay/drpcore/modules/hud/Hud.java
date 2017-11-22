@@ -24,6 +24,7 @@ public class Hud extends IForgeRegistryEntry.Impl<Hud> {
 	protected int posX, posY;
 	protected ALIGNMENT alignment;
     protected float zLevel;
+    protected String style;
 
 	public Hud(ResourceLocation registryName) {
 		this.setRegistryName(registryName);
@@ -32,12 +33,22 @@ public class Hud extends IForgeRegistryEntry.Impl<Hud> {
 		this.alignment = ALIGNMENT.TOP_LEFT;
 	}
 
-	public void render(float partialTicks) {}
+	public void render(int width, int height, float partialTicks) {}
 
 	public JsonObject writeToDefaultConfig() {
 		JsonObject obj = new JsonObject();
 		obj.addProperty("style", "vanilla");
+		obj.addProperty("alignment", alignment.toString());
+		obj.addProperty("posX", posX);
+		obj.addProperty("posY", posY);
 		return obj;
+	}
+	
+	public void readFromConfig(JsonObject obj){
+		this.style = obj.get("style").getAsString();
+		this.alignment = Enum.valueOf(ALIGNMENT.class, obj.get("alignment").getAsString());
+		this.posX = obj.get("posX").getAsInt();
+		this.posY = obj.get("posY").getAsInt();
 	}
 
 	/**
@@ -383,14 +394,12 @@ public class Hud extends IForgeRegistryEntry.Impl<Hud> {
 
 		public int getBaseX(int width, int objWidth) {
 			int basePos = (int) Math.floor(width * alignmentX);
-			return (int) (alignmentX == 0.0F ? basePos
-					: alignmentX == 1.0F ? basePos - objWidth : basePos + (0.5F * objWidth));
+			return (int) (alignmentX == 0.0F ? basePos : alignmentX == 1.0F ? basePos - objWidth : basePos - (0.5F * objWidth));
 		}
 
 		public int getBaseY(int height, int objHeight) {
 			int basePos = (int) Math.floor(height * alignmentY);
-			return (int) (alignmentY == 0.0F ? basePos
-					: alignmentY == 1.0F ? basePos - objHeight : basePos + (0.5F * objHeight));
+			return (int) (alignmentY == 0.0F ? basePos : alignmentY == 1.0F ? basePos - objHeight : basePos - (0.5F * objHeight));
 		}
 	}
 

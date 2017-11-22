@@ -1,21 +1,7 @@
 package net.dark_roleplay.drpcore.common;
 
 
-import java.io.File;
-import java.io.IOException;
-import java.io.InputStream;
-import java.net.MalformedURLException;
-import java.net.URL;
-
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-
 import net.dark_roleplay.drpcore.api.Modules;
-import net.dark_roleplay.drpcore.api.crafting.simple_recipe.SimpleRecipe;
-import net.dark_roleplay.drpcore.api.skills.Skill;
-import net.dark_roleplay.drpcore.api.skills.SkillPoint;
-import net.dark_roleplay.drpcore.api.util.DRPRegistries;
-import net.dark_roleplay.drpcore.client.events.config.Event_ConfigChange;
 import net.dark_roleplay.drpcore.client.renderer.players.PremiumRegistry;
 import net.dark_roleplay.drpcore.common.config.SyncedConfigRegistry;
 import net.dark_roleplay.drpcore.common.handler.DRPCoreCapabilities;
@@ -41,7 +27,7 @@ import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLServerStartingEvent;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 
-@Mod(modid = DRPCoreInfo.MODID, version = DRPCoreInfo.VERSION, name = DRPCoreInfo.NAME, acceptedMinecraftVersions = DRPCoreInfo.ACCEPTEDVERSIONS, updateJSON = DRPCoreInfo.UPDATE_JSON)
+@Mod(modid = DRPCoreReferences.MODID, version = DRPCoreReferences.VERSION, name = DRPCoreReferences.NAME, acceptedMinecraftVersions = DRPCoreReferences.ACCEPTEDVERSIONS, updateJSON = DRPCoreReferences.UPDATE_JSON)
 public class DarkRoleplayCore {
 	
 	public static boolean isServerSide = false;
@@ -49,17 +35,16 @@ public class DarkRoleplayCore {
 	@SidedProxy(serverSide = "net.dark_roleplay.drpcore.common.proxy.CommonProxy", clientSide = "net.dark_roleplay.drpcore.client.ClientProxy")
 	public static CommonProxy proxy;
 	
-	@Mod.Instance(DRPCoreInfo.MODID)
+	@Mod.Instance(DRPCoreReferences.MODID)
 	public static DarkRoleplayCore instance;
 
 	
 	@EventHandler
 	public void preInit(FMLPreInitializationEvent event){
-		DRPCoreInfo.init(event);
+		DRPCoreReferences.init(event);
 		
 		Modules.HUD.enable();
 		Modules.UPDATE_CHECKER.enable();
-		HudLoader.initializeHuds();
 		
 		SyncedConfigRegistry.setSide(event.getSide());
 		
@@ -68,7 +53,7 @@ public class DarkRoleplayCore {
 		DRPCoreEvents.preInit(event);
 		DRPCoreEntities.init(event);
 		
-		GameRegistry.registerTileEntity(TE_BlueprintController.class, DRPCoreInfo.MODID + ":" + "tileentity_structure_controller");
+		GameRegistry.registerTileEntity(TE_BlueprintController.class, DRPCoreReferences.MODID + ":" + "tileentity_structure_controller");
 
 		proxy.preInit(event);
 		

@@ -6,7 +6,7 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.Map;
 
-import net.dark_roleplay.drpcore.common.DRPCoreInfo;
+import net.dark_roleplay.drpcore.common.DRPCoreReferences;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiConfirmOpenLink;
@@ -39,10 +39,10 @@ public class Gui_UpdateAvailable extends GuiScreen{
 		FontRenderer font;
 		font = this.fontRenderer;
 		
-		CheckResult status = DRPCoreInfo.VERSION_STATUS;
+		CheckResult status = DRPCoreReferences.VERSION_STATUS;
 		
-		String updateMessage = "There is a new update for \"" + DRPCoreInfo.NAME + "\" available!\n\n";
-		updateMessage += "v" + DRPCoreInfo.VERSION + " ---> v" + status.target.toString() + "\n\n";
+		String updateMessage = "There is a new update for \"" + DRPCoreReferences.NAME + "\" available!\n\n";
+		updateMessage += "v" + DRPCoreReferences.VERSION + " ---> v" + status.target.toString() + "\n\n";
 		
 		Map<ComparableVersion, String> changes = status.changes;
 		
@@ -91,7 +91,7 @@ public class Gui_UpdateAvailable extends GuiScreen{
             oclass.getMethod("browse", URI.class).invoke(object, url);
         }catch (Throwable throwable1){
             Throwable throwable = throwable1.getCause();
-            DRPCoreInfo.LOGGER.error("Couldn't open link: {}", (Object)(throwable == null ? "<UNKNOWN>" : throwable.getMessage()));
+            DRPCoreReferences.LOGGER.error("Couldn't open link: {}", (Object)(throwable == null ? "<UNKNOWN>" : throwable.getMessage()));
         }
     }
 }

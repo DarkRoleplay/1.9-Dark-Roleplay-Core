@@ -10,13 +10,13 @@ import java.util.Random;
 import net.dark_roleplay.drpcore.api.gui.advanced.Gui_Panel;
 import net.dark_roleplay.drpcore.api.gui.modular.ModularGui_Drawer;
 import net.dark_roleplay.drpcore.api.skills.Skill;
-import net.dark_roleplay.drpcore.common.DRPCoreInfo;
+import net.dark_roleplay.drpcore.common.DRPCoreReferences;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.util.ResourceLocation;
 
 public class Panel_SkillTree extends Gui_Panel{
 
-	private static final ResourceLocation skillBG = new ResourceLocation(DRPCoreInfo.MODID, "textures/guis/skill/skill_point_overview.png");
+	private static final ResourceLocation skillBG = new ResourceLocation(DRPCoreReferences.MODID, "textures/guis/skill/skill_point_overview.png");
 	
 	private int offsetX, offsetY;
 	private Gui_SkillOverview parent;

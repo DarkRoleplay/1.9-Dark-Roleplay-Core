@@ -1,7 +1,7 @@
 package net.dark_roleplay.drpcore.common.network;
 
 import io.netty.buffer.ByteBuf;
-import net.dark_roleplay.drpcore.common.DRPCoreInfo;
+import net.dark_roleplay.drpcore.common.DRPCoreReferences;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
@@ -32,16 +32,16 @@ public abstract class PacketBase<REQ extends IMessage> implements IMessage, IMes
 		@Override
 		@SideOnly(Side.CLIENT)
 		public void handleClientSide(REQ message, EntityPlayer player){
-			DRPCoreInfo.LOGGER.error("Received a packet that was ment to be only used to send Data form Client to Server!");
-			DRPCoreInfo.LOGGER.error("False Packet: "  + message.getClass().getSimpleName());
+			DRPCoreReferences.LOGGER.error("Received a packet that was ment to be only used to send Data form Client to Server!");
+			DRPCoreReferences.LOGGER.error("False Packet: "  + message.getClass().getSimpleName());
 		}
 	}
 	
 	public static abstract class Client<REQ extends IMessage> extends PacketBase<REQ>{
 		@Override
 		public void handleServerSide(REQ message, EntityPlayer player){
-			DRPCoreInfo.LOGGER.error("Received a packet that was ment to be only used to send Data form Server to Client!");
-			DRPCoreInfo.LOGGER.error("False Packet: "  + message.getClass().getSimpleName());
+			DRPCoreReferences.LOGGER.error("Received a packet that was ment to be only used to send Data form Server to Client!");
+			DRPCoreReferences.LOGGER.error("False Packet: "  + message.getClass().getSimpleName());
 		}
 	}
 }

@@ -17,7 +17,7 @@ import net.minecraftforge.fml.common.ModMetadata;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.relauncher.Side;
 
-public class DRPCoreInfo {
+public class DRPCoreReferences {
 
 	public static final String MODID = "drpcore";
 	public static final String NAME = "Dark Roleplay Core";
@@ -40,21 +40,21 @@ public class DRPCoreInfo {
 	public static CheckResult VERSION_STATUS;
 	
 	public static void init(FMLPreInitializationEvent event){
-		DRPCoreInfo.LOGGER = LogManager.getLogger(DRPCoreInfo.MODID);
+		DRPCoreReferences.LOGGER = LogManager.getLogger(DRPCoreReferences.MODID);
 		
-		DRPCoreInfo.SIDE = event.getSide();
+		DRPCoreReferences.SIDE = event.getSide();
 		
 		DARK_ROLEPLAY_CONFIGS = event.getModConfigurationDirectory();
-		DRPCoreInfo.DARK_ROLEPLAY_FOLDER = new File(event.getModConfigurationDirectory().getParentFile().getPath() + "/dark roleplay/");
-		DRPCoreInfo.DARK_ROLEPLAY_FOLDER.mkdirs();
-		DRPCoreInfo.DARK_ROLEPLAY_BLUEPRINTS_FOLDER = new File(DRPCoreInfo.DARK_ROLEPLAY_FOLDER.getPath() + "/blueprints/");
-		DRPCoreInfo.DARK_ROLEPLAY_BLUEPRINTS_FOLDER.mkdirs();
-		DRPCoreInfo.DARK_ROLEPLAY_RECIPES_FOLDER = new File(DRPCoreInfo.DARK_ROLEPLAY_FOLDER.getPath() + "/recipes/");
-		DRPCoreInfo.DARK_ROLEPLAY_RECIPES_FOLDER.mkdirs();
+		DRPCoreReferences.DARK_ROLEPLAY_FOLDER = new File(event.getModConfigurationDirectory().getParentFile().getPath() + "/dark roleplay/");
+		DRPCoreReferences.DARK_ROLEPLAY_FOLDER.mkdirs();
+		DRPCoreReferences.DARK_ROLEPLAY_BLUEPRINTS_FOLDER = new File(DRPCoreReferences.DARK_ROLEPLAY_FOLDER.getPath() + "/blueprints/");
+		DRPCoreReferences.DARK_ROLEPLAY_BLUEPRINTS_FOLDER.mkdirs();
+		DRPCoreReferences.DARK_ROLEPLAY_RECIPES_FOLDER = new File(DRPCoreReferences.DARK_ROLEPLAY_FOLDER.getPath() + "/recipes/");
+		DRPCoreReferences.DARK_ROLEPLAY_RECIPES_FOLDER.mkdirs();
 		
 		ModContainer mod = Loader.instance().activeModContainer();
-		if(mod.getModId().equals(DRPCoreInfo.MODID)){
-			DRPCoreInfo.VERSION_STATUS = ForgeVersion.getResult(mod);
+		if(mod.getModId().equals(DRPCoreReferences.MODID)){
+			DRPCoreReferences.VERSION_STATUS = ForgeVersion.getResult(mod);
 		}
 		
 		ModMetadata meta = event.getModMetadata();

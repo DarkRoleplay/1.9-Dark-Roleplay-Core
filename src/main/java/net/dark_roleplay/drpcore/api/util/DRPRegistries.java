@@ -7,7 +7,7 @@ import net.dark_roleplay.drpcore.api.skills.Skill;
 import net.dark_roleplay.drpcore.api.skills.SkillPoint;
 import net.dark_roleplay.drpcore.api.skills.SkillTree;
 import net.dark_roleplay.drpcore.api.skills.SkillTreeData;
-import net.dark_roleplay.drpcore.common.DRPCoreInfo;
+import net.dark_roleplay.drpcore.common.DRPCoreReferences;
 import net.dark_roleplay.drpcore.modules.hud.Hud;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.event.RegistryEvent;
@@ -31,19 +31,19 @@ public class DRPRegistries {
 	@SubscribeEvent
 	public static final void register(RegistryEvent.NewRegistry event) {
 		RegistryBuilder<SkillPoint> rbSkillPoints = new RegistryBuilder<SkillPoint>();
-		rbSkillPoints.setName(new ResourceLocation(DRPCoreInfo.MODID, "skill_points"));
+		rbSkillPoints.setName(new ResourceLocation(DRPCoreReferences.MODID, "skill_points"));
 		rbSkillPoints.setType(SkillPoint.class);
 		registrySkillPoints = rbSkillPoints.create();
 		
-		if(Modules.HUD.isEnabled()){
-			RegistryBuilder<Hud> rbHuds = new RegistryBuilder<Hud>();
-			rbHuds.setName(new ResourceLocation(DRPCoreInfo.MODID, "huds"));
-			rbHuds.setType(Hud.class);
-			registryHUDs = rbHuds.create();
-		}
+
+		RegistryBuilder<Hud> rbHuds = new RegistryBuilder<Hud>();
+		rbHuds.setName(new ResourceLocation(DRPCoreReferences.MODID, "huds"));
+		rbHuds.setType(Hud.class);
+		rbHuds.disableSaving();
+		registryHUDs = rbHuds.create();
 		
 		RegistryBuilder<Skill> rbSkills = new RegistryBuilder<Skill>();
-		rbSkills.setName(new ResourceLocation(DRPCoreInfo.MODID, "skills"));
+		rbSkills.setName(new ResourceLocation(DRPCoreReferences.MODID, "skills"));
 		rbSkills.setType(Skill.class);
 		rbSkills.add((AddCallback<Skill>)((IForgeRegistryInternal<Skill> owner, RegistryManager stage, int id, Skill obj, @Nullable Skill oldObj) -> {
 			for(SkillTreeData treeData : obj.getSkillTrees()){
@@ -57,7 +57,7 @@ public class DRPRegistries {
 		registrySkills = rbSkills.create();
 		
 		RegistryBuilder<SkillTree> rbSkillTrees = new RegistryBuilder<SkillTree>();
-		rbSkillTrees.setName(new ResourceLocation(DRPCoreInfo.MODID, "skill_trees"));
+		rbSkillTrees.setName(new ResourceLocation(DRPCoreReferences.MODID, "skill_trees"));
 		rbSkillTrees.setType(SkillTree.class);
 		rbSkillTrees.disableSaving();
 
