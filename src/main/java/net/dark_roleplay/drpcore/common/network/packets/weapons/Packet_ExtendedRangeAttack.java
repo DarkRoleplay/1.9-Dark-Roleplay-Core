@@ -45,7 +45,7 @@ public class Packet_ExtendedRangeAttack extends PacketBase<Packet_ExtendedRangeA
                         if(player.getHeldItemMainhand() != null && player.getHeldItemMainhand().getItem() instanceof IExtendedRange){
 
                         	IExtendedRange weapon = (IExtendedRange)player.getHeldItemMainhand().getItem();
-                            double distanceSq = player.getDistanceSqToEntity(entity);
+                            double distanceSq = player.getDistanceSq(entity);
                             double reachSq = Math.pow(weapon.getRange(), 2);
                             if (reachSq >= distanceSq){
                                 player.attackTargetEntityWithCurrentItem(entity);

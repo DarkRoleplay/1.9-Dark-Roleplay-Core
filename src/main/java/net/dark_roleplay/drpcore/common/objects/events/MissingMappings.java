@@ -18,7 +18,7 @@ public class MissingMappings {
 		for(RegistryEvent.MissingMappings.Mapping mapping : mappings){
 			String name = mapping.key.toString();
 			if(name.equals("drpcore:schematic_controller")){
-				mapping.remap(DRPCoreBlocks.schem);
+				mapping.remap(DRPCoreBlocks.BLUEPRINT_CONTROLLER);
 			}
 		}
 	}
