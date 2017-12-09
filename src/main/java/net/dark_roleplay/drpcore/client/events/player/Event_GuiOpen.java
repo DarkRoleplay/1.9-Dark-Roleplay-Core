@@ -31,10 +31,10 @@ public class Event_GuiOpen {
 	
 	@SubscribeEvent
 	public void onEvent(GuiOpenEvent  event) {
-		if(/**!hasOpened &&**/ event.getGui() instanceof GuiMainMenu){
-			
+//		if(/**!hasOpened &&**/ event.getGui() instanceof GuiMainMenu){
+//			
 //			event.setGui(new GuiTutorial(event.getGui()));
-
+//
 //			if(DRPCoreConfigs.GENERAL.FIRST_INSTALL){
 //				DRPCoreConfigs.GENERAL.FIRST_INSTALL = false;
 //				ConfigManager.sync(DRPCoreInfo.MODID, Config.Type.INSTANCE);
@@ -43,7 +43,7 @@ public class Event_GuiOpen {
 //				event.setGui(new Gui_UpdateAvailable());
 //				hasOpened = true;
 //			}
-		}
+//		}
 	}
 	
 }

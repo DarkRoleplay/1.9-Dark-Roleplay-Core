@@ -3,7 +3,7 @@ package net.dark_roleplay.drpcore.modules.time;
 public class Date {
 
 	private int day;
-	private int month;
+	private SEASONS season;
 	private int year;
 	
 	public Date(int day, int month, int year){
@@ -17,5 +17,20 @@ public class Date {
 //		diff + ;
 		
 		return diff;
+	}
+	
+	public static enum SEASONS{
+		EARLY_SPRING,
+		MIDDLE_SPRING,
+		LATE_SPRING,
+		EARLY_SUMMER,
+		MIDDLE_SUMMER,
+		LATE_SUMMER,
+		EARLY_AUTUMN,
+		MIDDLE_AUTUMN,
+		LATE_AUTUMN,
+		EARLY_WINTER,
+		MIDDLE_WINTER,
+		LATE_WINTER
 	}
 }
