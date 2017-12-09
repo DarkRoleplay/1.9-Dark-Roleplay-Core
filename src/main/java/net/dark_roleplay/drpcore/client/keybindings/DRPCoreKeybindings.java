@@ -1,56 +1,14 @@
 package net.dark_roleplay.drpcore.client.keybindings;
 
-import java.io.File;
-import java.io.UnsupportedEncodingException;
-import java.lang.reflect.InvocationTargetException;
-import java.net.URLEncoder;
-import java.util.Arrays;
-import java.util.Iterator;
-
 import org.apache.commons.lang3.ArrayUtils;
 import org.lwjgl.input.Keyboard;
 
-import com.mojang.authlib.properties.Property;
-
-import net.dark_roleplay.drpcore.api.blueprints.Blueprint;
-import net.dark_roleplay.drpcore.api.blueprints.BlueprintUtil;
 import net.dark_roleplay.drpcore.api.crafting.Crafting_Util;
-import net.dark_roleplay.drpcore.api.crafting.simple_recipe.SimpleRecipe;
-import net.dark_roleplay.drpcore.api.skills.Skill_Util;
-import net.dark_roleplay.drpcore.client.gui.crafting.recipe_crafting.RecipeCrafting_SimpleRecipe;
-import net.dark_roleplay.drpcore.client.gui.crafting.recipe_selection.RecipeSelection;
-import net.dark_roleplay.drpcore.client.gui.premium.Gui_Shop;
-import net.dark_roleplay.drpcore.client.gui.skills2.Gui_Skills;
-import net.dark_roleplay.drpcore.client.resources.creation.TextureCombiner;
-import net.dark_roleplay.drpcore.common.DRPCoreReferences;
-import net.dark_roleplay.drpcore.common.DarkRoleplayCore;
-import net.dark_roleplay.drpcore.common.crafting.simple_recipe.SimpleRecipeLoader;
 import net.dark_roleplay.drpcore.common.handler.DRPCoreConfigs;
-import net.dark_roleplay.drpcore.common.handler.DRPCoreGuis;
-import net.dark_roleplay.drpcore.common.handler.DRPCorePackets;
-import net.dark_roleplay.drpcore.common.network.packets.debug.Packet_DebugKey;
-import net.dark_roleplay.drpcore.common.util.jsons.Json_Premium;
-import net.dark_roleplay.drpcore.common.util.toasts.ToastController;
-import net.dark_roleplay.drpcore.common.util.web.WebRequest_PremiumPoints;
 import net.dark_roleplay.drpcore.modules.model_editor.Gui_EntityEdit;
-import net.minecraft.block.BlockCrops;
-import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.toasts.IToast;
-import net.minecraft.client.gui.toasts.TutorialToast;
-import net.minecraft.client.gui.toasts.TutorialToast.Icons;
-import net.minecraft.client.renderer.ImageBufferDownload;
-import net.minecraft.client.renderer.ThreadDownloadImageData;
-import net.minecraft.client.renderer.texture.ITextureObject;
-import net.minecraft.client.renderer.texture.TextureManager;
 import net.minecraft.client.settings.KeyBinding;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
-import net.minecraft.item.Item;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.math.AxisAlignedBB;
-import net.minecraft.util.text.TextComponentString;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.client.registry.ClientRegistry;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;

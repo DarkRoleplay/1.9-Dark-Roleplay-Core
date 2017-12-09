@@ -28,14 +28,13 @@ import scala.actors.threadpool.Arrays;
 
 public class Command_Recipe extends DRPCommand{
 	
-	@Override
-	public int compareTo(ICommand o) {
-		return 0;
+	public Command_Recipe(String name) {
+		super(name);
 	}
 
 	@Override
-	public String getName() {
-		return "drprecipe";
+	public int compareTo(ICommand o) {
+		return 0;
 	}
 
 	@Override

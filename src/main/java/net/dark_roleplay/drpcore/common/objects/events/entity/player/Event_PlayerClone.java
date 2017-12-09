@@ -2,8 +2,6 @@ package net.dark_roleplay.drpcore.common.objects.events.entity.player;
 
 import java.util.Map;
 
-import net.dark_roleplay.drpcore.api.skills.Skill;
-import net.dark_roleplay.drpcore.api.skills.SkillPointData;
 import net.dark_roleplay.drpcore.common.capabilities.player.crafting.IRecipeController;
 import net.dark_roleplay.drpcore.common.capabilities.player.skill.ISkillController;
 import net.dark_roleplay.drpcore.common.handler.DRPCoreCapabilities;

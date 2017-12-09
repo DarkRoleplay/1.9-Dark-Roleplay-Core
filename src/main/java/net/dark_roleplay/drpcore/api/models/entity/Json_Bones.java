@@ -18,8 +18,8 @@ public class Json_Bones {
 				bones = new Bone[arr.size()];
 				for(int i = 0; i < arr.size(); i++){
 					bones[i] = new Bone(arr.get(i).getAsJsonObject());
-					return bones;
 				}
+				return bones;
 			}else{
 				bones = new Bone[1];
 				bones[0] = new Bone(element.getAsJsonObject());

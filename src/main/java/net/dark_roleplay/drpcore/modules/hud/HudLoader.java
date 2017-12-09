@@ -26,7 +26,7 @@ public class HudLoader {
 	
 	public static void initializeHuds(){
 		if(Modules.HUD.isEnabled()){
-			List<Hud> huds = DRPRegistries.getRegistryHUDs().getValues();
+			List<Hud> huds = DRPRegistries.getHudRegistry().getValues();
 			ProgressBar progressBar = ProgressManager.push("Loading HUD elements", 1);
 				
 			for(Hud hud : huds){

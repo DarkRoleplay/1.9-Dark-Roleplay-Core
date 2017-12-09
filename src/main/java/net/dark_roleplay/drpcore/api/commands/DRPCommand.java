@@ -15,6 +15,12 @@ import net.minecraft.util.ResourceLocation;
 
 public abstract class DRPCommand implements ICommand{
 
+	protected String name;
+	
+	public DRPCommand(String name){
+		this.name = name;
+	}
+	
 	/**
 	 * Trys to get the Sender as a Player
 	 * @param sender
@@ -76,4 +82,18 @@ public abstract class DRPCommand implements ICommand{
         }
     }
 	
+	@Override
+	public String getName() {
+		return "drpskills";
+	}
+	
+	@Override
+	public int compareTo(ICommand o) {
+		return 0;
+	}
+
+	@Override
+	public boolean isUsernameIndex(String[] args, int index) {
+		return false;
+	}
 }

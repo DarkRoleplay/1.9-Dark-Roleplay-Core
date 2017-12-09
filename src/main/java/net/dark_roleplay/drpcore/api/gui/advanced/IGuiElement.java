@@ -6,7 +6,6 @@ import java.util.List;
 
 import org.lwjgl.util.Point;
 
-import net.dark_roleplay.drpcore.api.skills.Skill;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.Gui;
 import net.minecraft.client.renderer.BufferBuilder;

@@ -1,6 +1,7 @@
 package net.dark_roleplay.drpcore.client.events.rendering;
 
-import org.lwjgl.opengl.GL11;
+import java.util.HashMap;
+import java.util.Map;
 
 import net.dark_roleplay.drpcore.common.handler.DRPCoreConfigs;
 import net.minecraft.block.Block;
@@ -10,87 +11,96 @@ import net.minecraft.client.renderer.BlockModelRenderer;
 import net.minecraft.client.renderer.BlockRendererDispatcher;
 import net.minecraft.client.renderer.BufferBuilder;
 import net.minecraft.client.renderer.GlStateManager;
-import net.minecraft.client.renderer.OpenGlHelper;
 import net.minecraft.client.renderer.Tessellator;
+import net.minecraft.client.renderer.block.model.IBakedModel;
 import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
-import net.minecraft.client.renderer.vertex.VertexBuffer;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.World;
 import net.minecraftforge.client.event.DrawBlockHighlightEvent;
-import net.minecraftforge.client.model.IModel;
-import net.minecraftforge.client.model.obj.OBJLoader;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
 public class Event_BlockHighlight {
 
-	/**
+	private static Map<IBlockState, IBakedModel> cache = new HashMap<>();
+	
+	private static Item item;
+	
+	/*
 	 * Block Preview
 	 */
 	@SubscribeEvent
 	public void highlightGhostBlock(DrawBlockHighlightEvent event){
-		if(!DRPCoreConfigs.GENERAL.PLACEMENT_PREVIEW || event.getTarget().getBlockPos() == null || event.getPlayer().getEntityWorld().isAirBlock(event.getTarget().getBlockPos()))
-			return;
-		
-		EntityPlayer player = event.getPlayer();
-		if(!player.isSneaking())
+		if (!DRPCoreConfigs.GENERAL.PLACEMENT_PREVIEW || !event.getPlayer().isSneaking() || event.getTarget().getBlockPos() == null || event.getPlayer().getEntityWorld().isAirBlock(event.getTarget().getBlockPos()))
 			return;
 
+		EntityPlayer player = event.getPlayer();
+
 		ItemStack stack = player.getHeldItemMainhand();
-		
-		if (!(stack.getItem() instanceof ItemBlock))
+		if (stack.isEmpty())
+			return;
+
+		Block block = stack.getItem() instanceof ItemBlock ? ((ItemBlock) stack.getItem()).getBlock() : null;
+		if (block == null)
 			return;
 		
+		if(item != stack.getItem()){
+			cache = new HashMap<>();
+			item = stack.getItem();
+		}
+
 		BlockPos position = event.getTarget().getBlockPos();
 		World world = player.getEntityWorld();
+		RayTraceResult target = event.getTarget();
+
+		if(!world.getBlockState(position).getBlock().isReplaceable(world, position)){
+			position = position.offset(target.sideHit);
+		}
+		
+		IBlockState state = block.canPlaceBlockOnSide(world, position, target.sideHit) ? block.getStateForPlacement(world, position, target.sideHit,(float) target.hitVec.x,(float) target.hitVec.y, (float) target.hitVec.z, 0, player, EnumHand.MAIN_HAND) : null;
+		if(state == null)
+			return;
 		
 		position = player.getEntityWorld().getBlockState(position).getBlock().isReplaceable(world, position) ? position : event.getTarget().getBlockPos().offset(event.getTarget().sideHit);
-		
-		if(!((ItemBlock)stack.getItem()).getBlock().canPlaceBlockOnSide(player.getEntityWorld(), position, event.getTarget().sideHit))
-			return;
-		
-		IBlockState stateToRender = ((ItemBlock)stack.getItem()).getBlock().getStateForPlacement(event.getPlayer().getEntityWorld(), position, event.getTarget().sideHit, (float)event.getTarget().hitVec.x, (float)event.getTarget().hitVec.y,  (float)event.getTarget().hitVec.z, event.getPlayer().getHeldItemMainhand().getMetadata(), event.getPlayer(), EnumHand.MAIN_HAND);
-		if(stateToRender == null)
-			return;
-	
+
 		Minecraft.getMinecraft().renderEngine.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
-	           
-        
-	    double playerX = player.prevPosX + (player.posX - player.prevPosX) * event.getPartialTicks();
-	    double playerY = player.prevPosY + (player.posY - player.prevPosY) * event.getPartialTicks();
-	    double playerZ = player.prevPosZ + (player.posZ - player.prevPosZ) * event.getPartialTicks();
-	            	           
-	    BlockRendererDispatcher blockrendererdispatcher = Minecraft.getMinecraft().getBlockRendererDispatcher();
-	    BlockModelRenderer renderer = blockrendererdispatcher.getBlockModelRenderer();
-	    
+
+		double playerX = player.prevPosX + (player.posX - player.prevPosX) * event.getPartialTicks();
+		double playerY = player.prevPosY + (player.posY - player.prevPosY) * event.getPartialTicks();
+		double playerZ = player.prevPosZ + (player.posZ - player.prevPosZ) * event.getPartialTicks();
+
+		BlockRendererDispatcher blockrendererdispatcher = Minecraft.getMinecraft().getBlockRendererDispatcher();
+		BlockModelRenderer renderer = blockrendererdispatcher.getBlockModelRenderer();
+
 		GlStateManager.pushMatrix();
-		GlStateManager.disableFog();
-		GlStateManager.disableLighting();
+
+        GlStateManager.tryBlendFuncSeparate(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA, GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ZERO);
+
 		GlStateManager.enableAlpha();
 		GlStateManager.enableBlend();
-        GlStateManager.tryBlendFuncSeparate(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA, GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ZERO);
-        	    
-	    GL11.glTranslated(-playerX, -playerY, -playerZ);
-		GlStateManager.color(1f, 1f, 1f, 0.5f);
+		GlStateManager.translate(-playerX, -playerY, -playerZ);
 		
-	    Tessellator tessellator = Tessellator.getInstance();
-	    BufferBuilder vertexbuffer = tessellator.getBuffer();
-	    vertexbuffer.begin(7, DefaultVertexFormats.BLOCK);
+		Tessellator tessellator = Tessellator.getInstance();
+		BufferBuilder vertexbuffer = tessellator.getBuffer();
+		vertexbuffer.begin(7, DefaultVertexFormats.BLOCK);
 		
-	    renderer.renderModel(event.getPlayer().getEntityWorld(), blockrendererdispatcher.getModelForState(stateToRender), stateToRender, position, vertexbuffer, true, MathHelper.getPositionRandom(position));
+		if(!cache.containsKey(state))
+			cache.put(state, blockrendererdispatcher.getModelForState(state));
+		renderer.renderModel(event.getPlayer().getEntityWorld(), cache.get(state), state, position, vertexbuffer, true, MathHelper.getPositionRandom(position));
+
+		tessellator.draw();
 		
-	    tessellator.draw();
-	    
-	    GlStateManager.disableAlpha();
 	    GlStateManager.disableBlend();
-	    GlStateManager.enableFog();
-	    GlStateManager.enableLighting();
-	    GlStateManager.popMatrix();
+		GlStateManager.disableAlpha();
+		
+		GlStateManager.popMatrix();
 	}
 	
 }

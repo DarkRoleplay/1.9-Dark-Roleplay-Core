@@ -15,7 +15,7 @@ public class Event_RenderHud {
 			int width = event.getResolution().getScaledWidth();
 			int height = event.getResolution().getScaledHeight();
 			if(Modules.HUD.isEnabled()){
-				List<Hud> huds = DRPRegistries.getRegistryHUDs().getValues();
+				List<Hud> huds = DRPRegistries.getHudRegistry().getValues();
 				for(Hud hud : huds){
 					hud.render(width, height, event.getPartialTicks());
 				}

@@ -1,15 +1,9 @@
 package net.dark_roleplay.drpcore.modules.hud;
 
-import java.util.HashMap;
-
 import org.lwjgl.util.Point;
 
-import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 
-import net.dark_roleplay.drpcore.api.skills.Skill;
-import net.dark_roleplay.drpcore.api.skills.SkillTree;
-import net.dark_roleplay.drpcore.api.skills.SkillTreeData;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.renderer.BufferBuilder;
 import net.minecraft.client.renderer.GlStateManager;

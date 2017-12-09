@@ -1,7 +1,5 @@
 package net.dark_roleplay.drpcore.client.gui.advanced.wrappers;
 
-import net.dark_roleplay.drpcore.api.skills.Skill;
-
 public class Variable_Object<T extends Object> {
 
 	private T value;

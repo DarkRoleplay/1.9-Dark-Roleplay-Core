@@ -10,10 +10,10 @@ import net.dark_roleplay.drpcore.common.handler.DRPCoreEntities;
 import net.dark_roleplay.drpcore.common.handler.DRPCoreEvents;
 import net.dark_roleplay.drpcore.common.handler.DRPCoreGuis;
 import net.dark_roleplay.drpcore.common.handler.DRPCorePackets;
+import net.dark_roleplay.drpcore.common.handler.DRPCorePerms;
 import net.dark_roleplay.drpcore.common.objects.tile_entities.blueprint_controller.TE_BlueprintController;
 import net.dark_roleplay.drpcore.common.proxy.CommonProxy;
 import net.dark_roleplay.drpcore.modules.Module;
-import net.dark_roleplay.drpcore.modules.hud.HudLoader;
 import net.dark_roleplay.drpcore.server.commands.crafting.Command_Recipe;
 import net.dark_roleplay.drpcore.server.commands.skills.Command_Skill;
 import net.minecraftforge.fml.common.Mod;
@@ -53,6 +53,7 @@ public class DarkRoleplayCore {
 		DRPCoreEvents.preInit(event);
 		DRPCoreEntities.init(event);
 		
+		
 		GameRegistry.registerTileEntity(TE_BlueprintController.class, DRPCoreReferences.MODID + ":" + "tileentity_structure_controller");
 
 		proxy.preInit(event);
@@ -75,6 +76,8 @@ public class DarkRoleplayCore {
 		DRPCoreEvents.init(event);
 		proxy.init(event);
 		
+		DRPCorePerms.init(event);
+
 		ProgressBar progressBar = ProgressManager.push("Initializing Modules", Module.getModules().size());
 		for(Module module : Module.getModules()){
 	        progressBar.step(module.getName());
@@ -109,7 +112,7 @@ public class DarkRoleplayCore {
 	
 	@EventHandler
 	public void serverLoad(FMLServerStartingEvent event){
-		event.registerServerCommand(new Command_Recipe());
-		event.registerServerCommand(new Command_Skill());
+		event.registerServerCommand(new Command_Recipe("drprecipes"));
+		event.registerServerCommand(new Command_Skill("drpskills"));
 	}
 }

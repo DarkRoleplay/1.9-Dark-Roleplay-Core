@@ -9,6 +9,7 @@ import io.netty.buffer.ByteBuf;
 import net.dark_roleplay.drpcore.api.blueprints.Blueprint;
 import net.dark_roleplay.drpcore.api.blueprints.BlueprintUtil;
 import net.dark_roleplay.drpcore.common.DRPCoreReferences;
+import net.dark_roleplay.drpcore.common.handler.DRPCorePerms;
 import net.dark_roleplay.drpcore.common.network.PacketBase;
 import net.dark_roleplay.drpcore.common.objects.tile_entities.blueprint_controller.TE_BlueprintController;
 import net.minecraft.entity.player.EntityPlayer;
@@ -16,6 +17,7 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.common.network.ByteBufUtils;
+import net.minecraftforge.server.permission.PermissionAPI;
 
 public class Packet_SaveBlueprint extends PacketBase.Server<Packet_SaveBlueprint>{
 
@@ -65,6 +67,7 @@ public class Packet_SaveBlueprint extends PacketBase.Server<Packet_SaveBlueprint
 
 	@Override
 	public void handleServerSide(Packet_SaveBlueprint message, EntityPlayer player) {
+		if(PermissionAPI.hasPermission(player, DRPCorePerms.BLOCK_BLUEPRINT_SAVE))
 		player.getServer().addScheduledTask(new Runnable(){
 			@Override
 			public void run() {
