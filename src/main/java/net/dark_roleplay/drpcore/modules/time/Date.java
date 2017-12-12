@@ -6,9 +6,9 @@ public class Date {
 	private SEASONS season;
 	private int year;
 	
-	public Date(int day, int month, int year){
+	public Date(int day, SEASONS season, int year){
 		this.day = day;
-		this.month = month;
+		this.season = season;
 		this.year = year;
 	}
 	

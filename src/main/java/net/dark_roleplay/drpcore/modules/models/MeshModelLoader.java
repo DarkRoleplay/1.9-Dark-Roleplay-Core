@@ -20,7 +20,7 @@ import net.minecraftforge.client.model.ICustomModelLoader;
 import net.minecraftforge.client.model.IModel;
 import net.minecraftforge.client.model.ModelLoaderRegistry;
 
-public class AdvancedModelLoader implements ICustomModelLoader {
+public class MeshModelLoader implements ICustomModelLoader {
 
 	private IResourceManager manager;
 	private final Set<String> enabledDomains = new HashSet<>();
@@ -41,7 +41,7 @@ public class AdvancedModelLoader implements ICustomModelLoader {
 
 	@Override
 	public boolean accepts(ResourceLocation modelLocation) {
-		return enabledDomains.contains(modelLocation.getResourceDomain()) && modelLocation.getResourcePath().endsWith(".amdl");
+		return enabledDomains.contains(modelLocation.getResourceDomain()) && modelLocation.getResourcePath().endsWith(".mesh");
 	}
 
 	@Override
@@ -60,7 +60,7 @@ public class AdvancedModelLoader implements ICustomModelLoader {
 					throw e;
 				}
 			}
-			return ModelBlock.deserialize(new InputStreamReader(resource.getInputStream()));
+//			return ModelBlock.deserialize(new InputStreamReader(resource.getInputStream()));
 //			OBJModel.Parser parser = new OBJModel.Parser(resource, manager);
 //			OBJModel model = null;
 //			try {
@@ -75,5 +75,7 @@ public class AdvancedModelLoader implements ICustomModelLoader {
 //		if (model == null)
 //			throw new ModelLoaderRegistry.LoaderException("Error loading model previously: " + file, errors.get(modelLocation));
 //		return model;
+
+		return null;
 	}
 }
