@@ -4,7 +4,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.registries.IForgeRegistryEntry;
 
-public class Skill extends  IForgeRegistryEntry.Impl<Skill>{
+public class Skill extends IForgeRegistryEntry.Impl<Skill>{
 
 	public Skill(String registryName){
 		this.setRegistryName(registryName);

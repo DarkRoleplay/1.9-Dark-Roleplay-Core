@@ -1,6 +1,8 @@
 package net.dark_roleplay.drpcore.common;
 
 
+import java.util.List;
+
 import net.dark_roleplay.drpcore.api.Modules;
 import net.dark_roleplay.drpcore.client.renderer.players.PremiumRegistry;
 import net.dark_roleplay.drpcore.common.config.SyncedConfigRegistry;
@@ -64,6 +66,7 @@ public class DarkRoleplayCore {
 	        module.preInit(event);
 		}
 		ProgressManager.pop(progressBar);
+		Reflections.preInit();
 	}
 	
 	@EventHandler
