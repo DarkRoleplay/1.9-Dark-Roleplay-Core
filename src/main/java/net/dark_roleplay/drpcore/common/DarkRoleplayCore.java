@@ -16,8 +16,14 @@ import net.dark_roleplay.drpcore.common.handler.DRPCorePerms;
 import net.dark_roleplay.drpcore.common.objects.tile_entities.blueprint_controller.TE_BlueprintController;
 import net.dark_roleplay.drpcore.common.proxy.CommonProxy;
 import net.dark_roleplay.drpcore.modules.Module;
+import net.dark_roleplay.drpcore.modules.wood.Wood;
+import net.dark_roleplay.drpcore.modules.wood.WoodenBlock;
 import net.dark_roleplay.drpcore.server.commands.crafting.Command_Recipe;
 import net.dark_roleplay.drpcore.server.commands.skills.Command_Skill;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.resources.IResourcePack;
+import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventHandler;
 import net.minecraftforge.fml.common.ProgressManager;
@@ -27,7 +33,9 @@ import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLServerStartingEvent;
+import net.minecraftforge.fml.common.eventhandler.EventBus;
 import net.minecraftforge.fml.common.registry.GameRegistry;
+import net.minecraftforge.fml.relauncher.ReflectionHelper;
 
 @Mod(modid = DRPCoreReferences.MODID, version = DRPCoreReferences.VERSION, name = DRPCoreReferences.NAME, acceptedMinecraftVersions = DRPCoreReferences.ACCEPTEDVERSIONS, updateJSON = DRPCoreReferences.UPDATE_JSON)
 public class DarkRoleplayCore {
@@ -40,6 +48,11 @@ public class DarkRoleplayCore {
 	@Mod.Instance(DRPCoreReferences.MODID)
 	public static DarkRoleplayCore instance;
 
+	public static final EventBus EVENT_BUS = new EventBus();
+	
+	public DarkRoleplayCore(){
+		Reflections.preInit();
+	}
 	
 	@EventHandler
 	public void preInit(FMLPreInitializationEvent event){
@@ -66,7 +79,11 @@ public class DarkRoleplayCore {
 	        module.preInit(event);
 		}
 		ProgressManager.pop(progressBar);
-		Reflections.preInit();
+		
+		Modules.WOODS.addWoodenBlock(new WoodenBlock(new ResourceLocation("drpcore", "%wood%_plank"))
+			.setBaseBlockState(new ResourceLocation(DRPCoreReferences.MODID, "argh/blockstates/wooden_post.json"))
+			.setTextureGenerator(new ResourceLocation(DRPCoreReferences.MODID, "argh/texture_generators/wooden_plank.json"))
+		);
 	}
 	
 	@EventHandler

@@ -33,7 +33,7 @@ public class DRPCoreReferences {
 	public static File DARK_ROLEPLAY_FOLDER;
 	public static File DARK_ROLEPLAY_BLUEPRINTS_FOLDER;
 	public static File DARK_ROLEPLAY_RECIPES_FOLDER;
-	public static File DARK_ROLEPLAY_AUTOMATIC_RESOURCES;
+	public static File DARK_ROLEPLAY_ARGH;
 	public static Logger LOGGER;
 	
 	public static Side SIDE;
@@ -52,8 +52,8 @@ public class DRPCoreReferences {
 		DRPCoreReferences.DARK_ROLEPLAY_BLUEPRINTS_FOLDER.mkdirs();
 		DRPCoreReferences.DARK_ROLEPLAY_RECIPES_FOLDER = new File(DRPCoreReferences.DARK_ROLEPLAY_FOLDER.getPath() + "/recipes/");
 		DRPCoreReferences.DARK_ROLEPLAY_RECIPES_FOLDER.mkdirs();
-		DARK_ROLEPLAY_AUTOMATIC_RESOURCES = new File(DRPCoreReferences.DARK_ROLEPLAY_FOLDER.getPath() + "/resources.zip");
-		DARK_ROLEPLAY_AUTOMATIC_RESOURCES.mkdirs();
+		DARK_ROLEPLAY_ARGH = new File(DRPCoreReferences.DARK_ROLEPLAY_FOLDER.getPath() + "/argh/assets/");
+		DARK_ROLEPLAY_ARGH.mkdirs();
 		
 		ModContainer mod = Loader.instance().activeModContainer();
 		if(mod.getModId().equals(DRPCoreReferences.MODID)){

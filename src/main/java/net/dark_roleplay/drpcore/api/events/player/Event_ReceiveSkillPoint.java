@@ -1,5 +1,7 @@
 package net.dark_roleplay.drpcore.api.events.player;
 
-public class Event_ReceiveSkillPoint {
+import net.minecraftforge.fml.common.eventhandler.Event;
+
+public class Event_ReceiveSkillPoint extends Event{
 
 }

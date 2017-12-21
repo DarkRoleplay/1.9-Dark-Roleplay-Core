@@ -117,66 +117,46 @@ public class ClientProxy extends CommonProxy{
 	
 	public void postInit(FMLPostInitializationEvent event) {
 		DRPCoreKeybindings.postInit(event);
-
-//		try {
-//			getResources(new ResourceLocation(DRPCoreInfo.MODID, "recipes/"));
-//		} catch (IOException | URISyntaxException e) {
-//			e.printStackTrace();
-//		}
 	}
 	
-//	public void registerItemMesh(String MODID, DRPItem item) {
-//		if(item.getSubModelNames() != null){
-//			if(item.getSubModelNames() != null){
-//				ResourceLocation[] locations = new ResourceLocation[item.getSubModelNames().length];
-//				for(int i = 0; i < item.getSubModelNames().length; i++){
-//					locations[i] = new ResourceLocation(MODID + ":" + item.getModelFolder() + "/" + item.getSubModelNames()[i]);
-//				}
-//				ModelBakery.registerItemVariants(item,locations);
-//				for(int i = 0; i < locations.length; i++){
-//					ModelLoader.setCustomModelResourceLocation(item, 0, new ModelResourceLocation(locations[i], "inventory"));
-//				}
-//			}else{
-//				String path = item.getModelFolder() + "/" + item.getUnlocalizedName().toString().substring(item.getUnlocalizedName().toString().indexOf(".") + 1, item.getUnlocalizedName().toString().length());
-//				ModelBakery.registerItemVariants(item, new ResourceLocation(MODID + ":" + path));
-//				ModelLoader.setCustomModelResourceLocation(item, 0, new ModelResourceLocation(MODID + ":" + path, "inventory"));
-//			}
-//		}
-//	}
+
 	
-	public static IResource getResource(ResourceLocation location) throws IOException {
+	public static IResource getResource(ResourceLocation location){
         IResourceManager manager = Minecraft.getMinecraft().getResourceManager();
-        IResource res = manager.getResource(location);
-//        System.out.println(res.getResourceLocation());
+        IResource res = null;
+		try {
+			res = manager.getResource(location);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
         return res;
     }
 	
-	public static List<IResource> getResources(ResourceLocation location) throws IOException, URISyntaxException{
+	public static List<IResource> getResources(ResourceLocation location){
 		List<IResource> resources = new ArrayList<IResource>();
 		
-		File folder = new File(ClientProxy.class.getClassLoader().getResource("/assets/" + location.getResourceDomain() + "/" + location.getResourcePath()).toURI());
-		
-		for (final File file : folder.listFiles()) {
-	        if (file.isDirectory()) {
-	        } else {
-	        	resources.add(getResource(new ResourceLocation(location.getResourceDomain(), location.getResourcePath() + file.getName())));
-//	            System.out.println(file.getName());
-	        }
-	    }
+		File folder;
+		try {
+			folder = new File(ClientProxy.class.getClassLoader().getResource("/assets/" + location.getResourceDomain() + "/" + location.getResourcePath()).toURI());
+			
+			for (final File file : folder.listFiles()) {
+		        if (file.isDirectory()) {
+		        } else {
+		        	resources.add(getResource(new ResourceLocation(location.getResourceDomain(), location.getResourcePath() + file.getName())));
+		        }
+		    }
+		} catch (URISyntaxException e) {
+			e.printStackTrace();
+		}
 		
 		return resources;
 	}
 	
 	public static JsonElement getResourceAsJson(ResourceLocation location){
-		try {
-			IResource res = getResource(location);
-			Gson gson = new Gson();
-			BufferedReader reader = new BufferedReader(new InputStreamReader(res.getInputStream()));
-			JsonElement je = gson.fromJson(reader, JsonElement.class);
-			return je;
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		return null;
+		IResource res = getResource(location);
+		Gson gson = new Gson();
+		BufferedReader reader = new BufferedReader(new InputStreamReader(res.getInputStream()));
+		JsonElement je = gson.fromJson(reader, JsonElement.class);
+		return je;
 	}
 }
