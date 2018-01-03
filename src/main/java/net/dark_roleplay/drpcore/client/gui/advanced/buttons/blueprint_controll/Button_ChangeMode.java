@@ -21,7 +21,7 @@ public class Button_ChangeMode extends Gui_Button{
 	}
 	
 	@Override
-	public boolean mouseClicked(int mouseX, int mouseY, int mouseButton) throws IOException {
+	public boolean mouseClicked(int mouseX, int mouseY, int mouseButton){
 		switch(this.var.get()){
 			case CORNER:
 				this.var.set(TE_BlueprintController.Mode.SAVE);

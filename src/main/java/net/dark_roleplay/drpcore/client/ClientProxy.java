@@ -26,7 +26,6 @@ import net.dark_roleplay.drpcore.client.events.player.Event_Mouse;
 import net.dark_roleplay.drpcore.client.events.rendering.Event_BlockHighlight;
 import net.dark_roleplay.drpcore.client.events.rendering.Event_ModelBaked;
 import net.dark_roleplay.drpcore.client.keybindings.DRPCoreKeybindings;
-import net.dark_roleplay.drpcore.client.renderer.players.RenderLayer_PremiumAddon;
 import net.dark_roleplay.drpcore.client.renderer.tileentities.Renderer_StructureController;
 import net.dark_roleplay.drpcore.client.resources.ModularGui_Handler;
 import net.dark_roleplay.drpcore.common.DRPCoreReferences;
@@ -34,6 +33,7 @@ import net.dark_roleplay.drpcore.common.handler.DRPCoreItems;
 import net.dark_roleplay.drpcore.common.objects.entities.util.sitting.Sittable;
 import net.dark_roleplay.drpcore.common.objects.tile_entities.blueprint_controller.TE_BlueprintController;
 import net.dark_roleplay.drpcore.common.proxy.CommonProxy;
+import net.dark_roleplay.drpcore.modules.premium.RenderLayer_PremiumAddon;
 import net.dark_roleplay.drpcore.testing.Testing_Entity;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.block.model.ModelBakery;
@@ -106,8 +106,8 @@ public class ClientProxy extends CommonProxy{
 		
 		RenderPlayer steve = ((RenderPlayer)Minecraft.getMinecraft().getRenderManager().getSkinMap().get("default"));
 		RenderPlayer alex = ((RenderPlayer)Minecraft.getMinecraft().getRenderManager().getSkinMap().get("slim"));
-		steve.addLayer(new RenderLayer_PremiumAddon(steve));
-		alex.addLayer(new RenderLayer_PremiumAddon(alex));
+//		steve.addLayer(new RenderLayer_PremiumAddon(steve));
+//		alex.addLayer(new RenderLayer_PremiumAddon(alex));
 		
 		IResourceManager manager = Minecraft.getMinecraft().getResourceManager();
 		if(manager instanceof IReloadableResourceManager) {

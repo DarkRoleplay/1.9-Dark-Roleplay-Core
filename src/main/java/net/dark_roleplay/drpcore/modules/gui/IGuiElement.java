@@ -1,4 +1,4 @@
-package net.dark_roleplay.drpcore.api.gui.advanced;
+package net.dark_roleplay.drpcore.modules.gui;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -6,6 +6,7 @@ import java.util.List;
 
 import org.lwjgl.util.Point;
 
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.Gui;
 import net.minecraft.client.renderer.BufferBuilder;
@@ -29,7 +30,9 @@ public interface IGuiElement {
 	
 	public void draw(int mouseX, int mouseY, float partialTicks);
 	
-	public boolean mouseClicked(int mouseX, int mouseY, int mouseButton) throws IOException;
+	public boolean mouseClicked(int mouseX, int mouseY, int mouseButton);
+	public boolean mousePressed(Minecraft mc, int mouseX, int mouseY);
+	public void mouseReleased(int mouseX, int mouseY);
 	
 	public int getPosX();
 	public int getPosY();
@@ -42,11 +45,21 @@ public interface IGuiElement {
 	public boolean isVisible();
 	public void setVisible(boolean visible);
 	
+	public boolean isEnabled();
+	public void setEnabled(boolean enabled);
+	
+	public void mouseDragged(Minecraft mc, int mouseX, int mouseY);
+	public boolean isHovered(int mouseX, int mouseY);
+	
+	public void handleMouseInput() throws IOException;
+	
 	public abstract class IMPL extends Gui implements IGuiElement{
 
 		protected int posX = 0, posY = 0;
 		protected int width = 10, height = 10;
-		private boolean visible = true;
+		protected boolean visible = true;
+		protected boolean enabled = true;
+		
 		
 		protected List<IGuiElement> children = new ArrayList<IGuiElement>();
 		
@@ -56,18 +69,8 @@ public interface IGuiElement {
 		}
 
 		@Override
-		public IGuiElement getChild(int id) {
-			return null;
-		}
-
-		@Override
 		public void setChild(int id, IGuiElement newChild){
 			
-		}
-		
-		@Override
-		public List<IGuiElement> getChildren() {
-			return null;
 		}
 
 		@Override
@@ -104,7 +107,28 @@ public interface IGuiElement {
 		}
 
 		@Override
-		public boolean mouseClicked(int mouseX, int mouseY, int mouseButton) throws IOException {
+		public IGuiElement getChild(int id) {
+			if(children.size() >= id && id > 0){
+				return children.get(id);
+			}else{
+				return null;
+			}
+		}
+		
+		@Override
+		public List<IGuiElement> getChildren() {
+			return this.children;
+		}
+		
+		@Override
+		public void mouseDragged(Minecraft mc, int mouseX, int mouseY){
+			for(IGuiElement element : this.children){
+				element.mouseDragged(mc, mouseX, mouseY);
+			}
+		}
+		
+		@Override
+		public boolean mouseClicked(int mouseX, int mouseY, int mouseButton){
 			if(this.children != null){
 				for(IGuiElement element : this.children){
 					if(element.isVisible() && (mouseX > element.getPosX() && mouseX < element.getPosX() + element.getWidth()) && (mouseY > element.getPosY() && mouseY < element.getPosY() + element.getHeight())){
@@ -116,6 +140,38 @@ public interface IGuiElement {
 			}
 			return false;
 		}
+
+		@Override
+		public boolean mousePressed(Minecraft mc, int mouseX, int mouseY){
+			if(this.enabled && this.visible && mouseX >= 0 && mouseY >= 0 && mouseX <= this.width && mouseY <= this.height){
+				if(this.children != null){
+					for(IGuiElement element : this.children){
+						if(element.isVisible() && (mouseX > element.getPosX() && mouseX < element.getPosX() + element.getWidth()) && (mouseY > element.getPosY() && mouseY < element.getPosY() + element.getHeight())){
+							if(element.mousePressed(mc, mouseX - element.getPosX(), mouseY - element.getPosY())){
+								return true;
+							}
+						}
+					}
+				}
+				return true;
+			}
+			return false;
+		}
+
+		@Override
+		public void mouseReleased(int mouseX, int mouseY){
+			for(IGuiElement element : this.children){
+				element.mouseReleased(mouseX, mouseY);
+			}
+		}
+		
+		@Override
+		public void handleMouseInput() throws IOException{
+			for(IGuiElement element : this.children){
+				element.handleMouseInput();
+			}
+		}
+		
 		
 		@Override
 		public boolean isVisible(){
@@ -125,6 +181,21 @@ public interface IGuiElement {
 		@Override
 		public void setVisible(boolean visible){
 			this.visible = visible;
+		}
+		
+		@Override
+		public boolean isEnabled(){
+			return this.enabled;
+		}
+		
+		@Override
+		public void setEnabled(boolean enabled){
+			this.enabled = enabled;
+		}
+		
+		@Override
+		public boolean isHovered(int mouseX, int mouseY){
+			return mouseX >= 0 && mouseY >= 0 && mouseX <= this.width && mouseY <= this.height;
 		}
 		
 		protected static void drawLine(int x1, int y1, int x2, int y2, int color) {
@@ -258,5 +329,23 @@ public interface IGuiElement {
 	        GlStateManager.enableTexture2D();
 	        GlStateManager.disableBlend();
 	    }
+		
+		protected void drawTiled(int posX, int posY, int width, int height, int u, int v, int tileWidth, int tileHeight, int textureWidth, int textureHeight){
+			if(height > tileHeight && width <= tileWidth){
+				for(int i = 0; i < height; i += tileHeight){
+					this.drawScaledCustomSizeModalRect(posX, posY + i, u, v, tileWidth, height - i >= tileHeight ? tileHeight : height - i, tileWidth, height - i >= tileHeight ? tileHeight : height - i, textureWidth, textureHeight);
+				}
+			}else if(width > tileWidth && height <= tileHeight){
+				for(int i = 0; i < width; i += tileWidth){
+					this.drawScaledCustomSizeModalRect(posX + i, posY, u, v,  width - i >= tileWidth ? tileWidth : width - i, tileHeight, width - i >= tileWidth ? tileWidth : width - i, tileHeight, textureWidth, textureHeight);
+				}
+			}else if(width > tileWidth && height > tileHeight){
+				for(int i = 0; i < height; i += tileHeight){
+					for(int j = 0; j < width; j += tileWidth){
+						this.drawScaledCustomSizeModalRect(posX + j, posY + i, u, v, width - j >= tileWidth ? tileWidth : width - j, height - i >= tileHeight ? tileHeight : height - i, width - j >= tileWidth ? tileWidth : width - j, height - i >= tileHeight ? tileHeight : height - i, textureWidth, textureHeight);
+					}
+				}
+			}
+		}
 	}
 }

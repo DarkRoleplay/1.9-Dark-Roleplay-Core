@@ -8,7 +8,7 @@ import net.minecraft.item.ItemStack;
 
 public class PlayerInventoryHelper {
 
-	public void consumeItems(EntityPlayer player, ItemStack[] stacks){
+	public static void consumeItems(EntityPlayer player, ItemStack[] stacks){
 		InventoryPlayer inv = player.inventory;
 		stacks = stacks.clone();
 		for(ItemStack stack : stacks){
@@ -28,7 +28,7 @@ public class PlayerInventoryHelper {
 		}
 	}
 	
-	public ItemStack[] hasItems(EntityPlayer player, ItemStack[] stacks){
+	public static ItemStack[] hasItems(EntityPlayer player, ItemStack[] stacks){
 		InventoryPlayer inv = new InventoryPlayer(player);
 		inv.copyInventory(player.inventory);
 		stacks = stacks.clone();
@@ -53,7 +53,7 @@ public class PlayerInventoryHelper {
 				hasItems = false;
 		}
 		if(hasItems)
-			stacks = null;
+			return null;
 		return stacks;
 	}
 	

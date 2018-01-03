@@ -16,14 +16,14 @@ public class SimpleRecipe implements IRecipe{
 	private ItemStack[] outputs = new ItemStack[0];
 	private ItemStack[] ingredients = new ItemStack[0];
 	
-	protected void initalize(ItemStack[] previewStacks, ItemStack[] outputs, ItemStack[] ingredients){
+	protected SimpleRecipe(ItemStack[] previewStacks, ItemStack[] outputs, ItemStack[] ingredients){
 		this.previewStacks = previewStacks;
 		this.outputs = outputs;
 		this.ingredients = ingredients;
 	}
 	
 	@Override
-	public List<Item> getPreviewItems() {
+	public List<ItemStack> getPreviewItems() {
 		return Arrays.asList(previewStacks);
 	}
 
@@ -39,23 +39,40 @@ public class SimpleRecipe implements IRecipe{
 
 	@Override
 	public boolean canCraft(EntityPlayer player) {
-		return true;
+		return PlayerInventoryHelper.hasItems(player, ingredients.clone()) == null ? true : false;
 	}
 
 	
 	@Override
 	public void deserialize(OutputStream os) {
-		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
 	public void serialize(InputStream is) {
 		
-		
 	}
 	
 	public class Builder{
 		
+		private ItemStack[] previewStacks;
+		private ItemStack[] outputs;
+		private ItemStack[] ingredients;
+		
+		public SimpleRecipe build(){
+			return new SimpleRecipe(previewStacks == null ? outputs.clone() : previewStacks, outputs, ingredients);
+		}
+		
+		public void setPreviewStacks(ItemStack... itemStacks){
+			previewStacks = itemStacks;
+		}
+		
+		public void setOutputs(ItemStack... itemStacks){
+			outputs = itemStacks;
+		}
+		
+		public void setIngredients(ItemStack... itemStacks){
+			ingredients = itemStacks;
+		}
 	}
 }

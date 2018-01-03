@@ -1,6 +1,7 @@
 package net.dark_roleplay.drpcore.api.gui.advanced;
 
 import net.dark_roleplay.drpcore.api.gui.utility.wrappers.Variable_String;
+import net.dark_roleplay.drpcore.modules.gui.IGuiElement;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.util.ChatAllowedCharacters;

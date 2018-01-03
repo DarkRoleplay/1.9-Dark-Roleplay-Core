@@ -1,6 +1,7 @@
 package net.dark_roleplay.drpcore.api.gui.advanced;
 
 import net.dark_roleplay.drpcore.client.gui.ModularGuiHandler;
+import net.dark_roleplay.drpcore.modules.gui.IGuiElement;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.util.ResourceLocation;

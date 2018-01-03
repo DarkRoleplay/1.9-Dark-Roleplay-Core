@@ -6,6 +6,7 @@ import java.awt.image.Raster;
 import java.awt.image.WritableRaster;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -15,6 +16,7 @@ import javax.imageio.ImageIO;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
+import com.google.gson.JsonPrimitive;
 
 import net.dark_roleplay.drpcore.client.ClientProxy;
 import net.dark_roleplay.drpcore.common.DRPCoreReferences;
@@ -26,6 +28,8 @@ public class TextureGenerator {
 	private BufferedImage[] requiredTextures;
 	private JsonArray texturesArr;
 	
+	private Map<String, BufferedImage> cache = new HashMap<String, BufferedImage>();
+	
 	public TextureGenerator(JsonElement elm){
 		if(elm.isJsonObject()){
 			JsonObject obj = elm.getAsJsonObject();
@@ -35,7 +39,9 @@ public class TextureGenerator {
 				requiredTextures = new BufferedImage[requiredTexturesArr.size()];
 				for(int i = 0; i < requiredTexturesArr.size(); i ++){
 					try {
-						requiredTextures[i] = ImageIO.read(ClientProxy.getResource(new ResourceLocation(requiredTexturesArr.get(i).getAsString())).getInputStream());
+						InputStream is = ClientProxy.getResource(new ResourceLocation(requiredTexturesArr.get(i).getAsString())).getInputStream();
+						requiredTextures[i] = ImageIO.read(is);
+						is.close();
 					} catch (IOException e) {
 						e.printStackTrace();
 					}
@@ -77,19 +83,20 @@ public class TextureGenerator {
 			for(int j = 0; j < manipulations.size(); j++){
 
 				JsonObject mani = manipulations.get(j).getAsJsonObject();
-				int texture = mani.has("texture") ? mani.get("texture").getAsInt() : -1;
+				boolean cached = mani.has("cached_texture");
+				JsonElement texture = mani.has("texture") ? mani.get("texture") : mani.get("cached_texture");
 				switch(mani.get("type").getAsString()){
 					case "overlay":
-						if(texture >= 0){
+						if(texture != null){
 							for(Wood key : woods){
-								base.put(key.getName(), overlay(base.get(key.getName()), requiredTextures[texture]));
+								base.put(key.getName(), overlay(base.get(key.getName()), !cached ? requiredTextures[texture.getAsInt()] : this.cache.get(texture.getAsString().replace("%wood%", key.getName()))));
 							}
 						}
 						break;
 					case "mask":
-						if(texture >= 0){
+						if(texture != null){
 							for(Wood key : woods){
-								base.put(key.getName(), mask(base.get(key.getName()), requiredTextures[texture]));
+								base.put(key.getName(), mask(base.get(key.getName()), !cached ? requiredTextures[texture.getAsInt()] : this.cache.get(texture.getAsString().replace("%wood%", key.getName()))));
 							}
 						}
 						break;
@@ -98,7 +105,6 @@ public class TextureGenerator {
 							break;
 						int angle = mani.get("angle").getAsInt();
 						for(Wood key : woods){
-							
 							base.put(key.getName(), rotate(base.get(key.getName()), angle));
 						}
 						break;
@@ -107,14 +113,17 @@ public class TextureGenerator {
 				}
 			}
 			for(String key : base.keySet()){
-				File outputFile = new File(DRPCoreReferences.DARK_ROLEPLAY_ARGH + "/" + obj.get("output").getAsString().replaceAll("%wood%", key).replaceFirst(":", "/") + ".png");
-
-				System.out.println(outputFile.getPath());
-				try {
-					outputFile.getParentFile().mkdirs();
-					ImageIO.write(base.get(key), "png", outputFile);
-				} catch (IOException e) {
-					e.printStackTrace();
+				if(obj.has("output")){
+					File outputFile = new File(DRPCoreReferences.DARK_ROLEPLAY_ARGH + "/" + obj.get("output").getAsString().replaceAll("%wood%", key).replaceFirst(":", "/") + ".png");
+	
+					try {
+						outputFile.getParentFile().mkdirs();
+						ImageIO.write(base.get(key), "png", outputFile);
+					} catch (IOException e) {
+						e.printStackTrace();
+					}
+				}else if(obj.has("cache")){
+					this.cache.put(obj.get("cache").getAsString().replace("%wood%", key), base.get(key));
 				}
 			}
 		}
@@ -139,7 +148,6 @@ public class TextureGenerator {
             	pixel2[3] &= pixel[3];
             	
             	raster.setPixel(x, y, pixel2);
-            	System.out.println(Arrays.toString(pixel2));
             }
 		}
 		
@@ -169,7 +177,6 @@ public class TextureGenerator {
             	raster.setPixel(x, y, pixel2);
             }
 		}
-		
 		img.setData(raster);
 		
 		return img;

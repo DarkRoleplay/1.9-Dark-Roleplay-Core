@@ -22,7 +22,7 @@ public class Button_SaveLoad extends Gui_Button{
 	}
 	
 	@Override
-	public boolean mouseClicked(int mouseX, int mouseY, int mouseButton) throws IOException {
+	public boolean mouseClicked(int mouseX, int mouseY, int mouseButton){
 		if(this.saveMode){
 			this.parent.save();
 		}else{

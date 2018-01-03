@@ -5,7 +5,7 @@ import net.minecraft.util.ResourceLocation;
 public class WoodenBlock {
 
 	protected ResourceLocation baseBlockState;
-	protected ResourceLocation[] baseModels;
+	protected ResourceLocation modelGenerator;
 	protected ResourceLocation textureGenerator;
 
 	protected final String registryName;
@@ -27,12 +27,12 @@ public class WoodenBlock {
 		return this;
 	}
 
-	public ResourceLocation[] getBaseModels() {
-		return baseModels;
+	public ResourceLocation getModelGenerator() {
+		return modelGenerator;
 	}
 
-	public WoodenBlock setBaseModels(ResourceLocation[] baseModels) {
-		this.baseModels = baseModels;
+	public WoodenBlock setModelGenerator(ResourceLocation modelGenerator) {
+		this.modelGenerator = modelGenerator;
 		return this;
 	}
 

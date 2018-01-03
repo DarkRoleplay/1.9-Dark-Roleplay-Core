@@ -1,6 +1,6 @@
 package net.dark_roleplay.drpcore.api.gui.hud;
 
-import net.dark_roleplay.drpcore.api.gui.advanced.IGuiElement;
+import net.dark_roleplay.drpcore.modules.gui.IGuiElement;
 
 public class GuiHud extends IGuiElement.IMPL{
 
@@ -19,9 +19,5 @@ public class GuiHud extends IGuiElement.IMPL{
 		BOTTOM,
 		BOTTOM_LEFT,
 		LEFT
-		
-		
-		
 	}
-
 }

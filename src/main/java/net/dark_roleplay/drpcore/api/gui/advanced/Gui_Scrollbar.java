@@ -6,6 +6,7 @@ import org.lwjgl.input.Mouse;
 
 import net.dark_roleplay.drpcore.api.gui.modular.ModularGui_Drawer;
 import net.dark_roleplay.drpcore.api.gui.utility.wrappers.Variable_Int;
+import net.dark_roleplay.drpcore.modules.gui.IGuiElement;
 
 public class Gui_Scrollbar extends IGuiElement.IMPL{
 

@@ -1,4 +1,4 @@
-package net.dark_roleplay.drpcore.client.renderer.players;
+package net.dark_roleplay.drpcore.modules.premium;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;

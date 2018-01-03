@@ -10,7 +10,7 @@ import net.minecraft.item.ItemStack;
 
 public interface IRecipe {
 	
-	public List<Item> getPreviewItems();
+	public List<ItemStack> getPreviewItems();
 	
 	public List<ItemStack> getOutputs(List<ItemStack> consumedInputs);
 	

@@ -4,6 +4,7 @@ import java.io.IOException;
 
 import net.dark_roleplay.drpcore.api.gui.modular.ModularGui_Drawer;
 import net.dark_roleplay.drpcore.api.gui.utility.wrappers.Variable_Int;
+import net.dark_roleplay.drpcore.modules.gui.IGuiElement;
 import net.minecraft.client.renderer.GlStateManager;
 
 public class Gui_ScrolledPanel extends Gui_Panel.IMPL{
@@ -66,7 +67,7 @@ public class Gui_ScrolledPanel extends Gui_Panel.IMPL{
 	}
 	
 	@Override
-	public boolean mouseClicked(int mouseX, int mouseY, int mouseButton) throws IOException {
+	public boolean mouseClicked(int mouseX, int mouseY, int mouseButton){
 		if(this.children != null){
 			for(IGuiElement element : this.children){
 				if(element.isVisible() && (mouseX > element.getPosX() && mouseX < element.getPosX() + element.getWidth()) && (mouseY > element.getPosY() && mouseY < element.getPosY() + element.getHeight())){

@@ -1,14 +1,11 @@
-package net.dark_roleplay.drpcore.client.renderer.players;
+package net.dark_roleplay.drpcore.modules.premium;
 
-import net.dark_roleplay.drpcore.client.renderer.players.attachments.Attachment_Cylinder;
 import net.dark_roleplay.drpcore.common.DRPCoreReferences;
+import net.dark_roleplay.drpcore.modules.premium.Module_Premium.Equiped;
 import net.minecraft.client.model.ModelPlayer;
-import net.minecraft.client.model.ModelRenderer;
 import net.minecraft.client.renderer.entity.RenderPlayer;
 import net.minecraft.client.renderer.entity.layers.LayerRenderer;
-import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.entity.player.EnumPlayerModelParts;
 import net.minecraft.util.ResourceLocation;
 
 public class RenderLayer_PremiumAddon implements LayerRenderer<EntityPlayer> {
@@ -21,7 +18,7 @@ public class RenderLayer_PremiumAddon implements LayerRenderer<EntityPlayer> {
 	public RenderLayer_PremiumAddon(RenderPlayer renderer){
 		this.renderer = renderer;
 		this.mainModel = renderer.getMainModel();
-		pa = new Attachment_Cylinder();
+//		pa = new Attachment_Cylinder();
 		pa.isChild = false;
 	}
 	
@@ -32,7 +29,7 @@ public class RenderLayer_PremiumAddon implements LayerRenderer<EntityPlayer> {
 
 	@Override
 	public void doRenderLayer(EntityPlayer entity, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
-		PremiumRegistry.Equiped equiped = PremiumRegistry.getEquiped(entity);
+		Module_Premium.Equiped equiped = Module_Premium.getEquiped(entity);
 		if(equiped != null){
 			pa = equiped.getEquiped().getAttachment();
 			

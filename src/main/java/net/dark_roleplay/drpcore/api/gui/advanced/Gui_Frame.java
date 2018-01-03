@@ -5,6 +5,7 @@ import java.util.List;
 
 import net.dark_roleplay.drpcore.api.gui.modular.ModularGui_Drawer;
 import net.dark_roleplay.drpcore.client.gui.ModularGuiHandler;
+import net.dark_roleplay.drpcore.modules.gui.IGuiElement;
 
 public class Gui_Frame extends IGuiElement.IMPL{
 
@@ -60,7 +61,7 @@ public class Gui_Frame extends IGuiElement.IMPL{
 	}
 	
 	@Override
-	public boolean mouseClicked(int mouseX, int mouseY, int mouseButton) throws IOException {
+	public boolean mouseClicked(int mouseX, int mouseY, int mouseButton){
 		return this.mainPanel.mouseClicked(mouseX - 5, mouseY - 5, mouseButton);
 	}
 	

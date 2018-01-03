@@ -18,7 +18,7 @@ public class Button_ChangeInt extends Gui_Button{
 	}
 	
 	@Override
-	public boolean mouseClicked(int mouseX, int mouseY, int mouseButton) throws IOException {
+	public boolean mouseClicked(int mouseX, int mouseY, int mouseButton){
 		this.var.add(amount);
 		return true;
 	}

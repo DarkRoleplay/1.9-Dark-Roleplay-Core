@@ -20,7 +20,7 @@ public class Button_ChangeRenderMode extends Gui_Button{
 	}
 	
 	@Override
-	public boolean mouseClicked(int mouseX, int mouseY, int mouseButton) throws IOException {
+	public boolean mouseClicked(int mouseX, int mouseY, int mouseButton){
 		switch(this.var.get()){
 			case NONE:
 				this.var.set(TE_BlueprintController.RenderMode.BOUNDING_BOX);

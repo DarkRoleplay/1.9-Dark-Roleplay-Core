@@ -2,10 +2,14 @@ package net.dark_roleplay.drpcore.api.gui;
 
 import java.awt.Color;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
+import org.lwjgl.input.Mouse;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.util.Point;
 
+import net.dark_roleplay.drpcore.modules.gui.IGuiElement;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiLabel;
@@ -25,6 +29,8 @@ public abstract class DRPGuiScreen extends GuiScreen{
 
 	protected ResourceLocation bgTexture;
 
+	protected boolean hasBG = true;
+	
 	protected int bgWidth = 0;
 	protected int bgHeight = 0;
 
@@ -40,8 +46,14 @@ public abstract class DRPGuiScreen extends GuiScreen{
 	protected static final int COLOR_WHITE = new Color(255,255,255).getRGB();
 	protected static final int COLOR_DARK_GRAY = new Color(55,55,55).getRGB();
 	
+	protected List<IGuiElement> elements = new ArrayList<IGuiElement>();
+
 	protected GuiButton selectedButton;
 
+	public DRPGuiScreen(){
+		this.hasBG = false;
+	}
+	
 	public DRPGuiScreen(ResourceLocation bgTexture, int bgWidth, int bgHeight) {
 		this(bgTexture, bgWidth, bgHeight, 0, 0);
 	}
@@ -62,8 +74,33 @@ public abstract class DRPGuiScreen extends GuiScreen{
 		this.reAdjust();
 	}
 
-	// -------------------------------------------------- Drawing
-	// --------------------------------------------------
+	@Override
+	protected void mouseReleased(int mouseX, int mouseY, int state){
+		super.mouseReleased(mouseX, mouseY, state);
+		for(IGuiElement element : elements){
+			element.mouseReleased(mouseX - element.getPosX(), mouseY - element.getPosY());
+		}
+	}
+	
+	@Override
+	protected void mouseClicked(int mouseX, int mouseY, int mouseButton) throws IOException{
+		super.mouseClicked(mouseX, mouseY, mouseButton);
+		for(IGuiElement element : elements){
+			if(element.isHovered(mouseX - element.getPosX(), mouseY - element.getPosY()) ){
+				element.mousePressed(this.mc, mouseX - element.getPosX(), mouseY - element.getPosY());
+				element.mouseClicked(mouseX - element.getPosX(), mouseY - element.getPosY(), mouseButton);
+			}
+		}
+	}
+
+	@Override
+	public void handleMouseInput() throws IOException{
+		for(IGuiElement element : elements){
+			element.handleMouseInput();
+		}
+    }
+	
+	// -------------------------------------------------- Drawing --------------------------------------------------
 
 	@Override
 	public void drawScreen(int mouseX, int mouseY, float partialTicks) {
@@ -73,6 +110,9 @@ public abstract class DRPGuiScreen extends GuiScreen{
 		// Background Texture
 		this.drawBackground(mouseX, mouseY, partialTicks);
 
+		for(IGuiElement element : elements){
+			element.mouseDragged(this.mc, mouseX - element.getPosX(), mouseY - element.getPosY());
+		}
 		// Slots & Buttons
 		this.drawButtons(mouseX, mouseY, partialTicks);
 		this.drawMiddleground(mouseX, mouseY, partialTicks);
@@ -82,10 +122,16 @@ public abstract class DRPGuiScreen extends GuiScreen{
 	}
 
 	protected void drawBackground(int mouseX, int mouseY, float partialTicks) {
-		this.drawBGTexture();
+		if(this.hasBG)
+			this.drawBGTexture();
+		else
+			this.drawDefaultBackground();
 	}
 
 	protected void drawMiddleground(int mouseX, int mouseY, float partialTicks) {
+		for(IGuiElement element : elements){
+			element.draw(mouseX, mouseY, partialTicks);
+		}
 	}
 
 	protected abstract void drawForeground(int mouseX, int mouseY, float partialTicks);
@@ -94,9 +140,19 @@ public abstract class DRPGuiScreen extends GuiScreen{
 		GL11.glDisable(GL11.GL_LIGHTING);
 		this.drawDefaultBackground();
 		this.mc.renderEngine.bindTexture(this.bgTexture);
-		this.drawTexturedModalRect(this.guiLeft, this.guiTop, this.bgOffsetX, this.bgOffsetY, this.bgWidth,
-				this.bgHeight);
+		this.drawTexturedModalRect(this.guiLeft, this.guiTop, this.bgOffsetX, this.bgOffsetY, this.bgWidth,this.bgHeight);
 		GL11.glEnable(GL11.GL_LIGHTING);
+	}
+	
+	protected void drawTiled(int posX, int posY, int width, int height, int u, int v, int tileWidth, int tileHeight, int textureWidth, int textureHeight){
+		if(height > tileHeight)
+			for(int i = 0; i < height; i += tileHeight){
+				this.drawScaledCustomSizeModalRect(posX, posY + i, u, v, tileWidth, height - i >= tileHeight ? tileHeight : height - i, tileWidth, height - i >= tileHeight ? tileHeight : height - i, textureWidth, textureHeight);
+			}
+		if(width > tileWidth)
+			for(int i = 0; i < width; i += tileWidth){
+				this.drawScaledCustomSizeModalRect(posX + i, posY, u, v,  width - i >= tileWidth ? tileWidth : width - i, tileHeight, width - i >= tileWidth ? tileWidth : width - i, tileHeight, textureWidth, textureHeight);
+			}
 	}
 
 	protected void drawButtons(int mouseX, int mouseY, float partialTicks) {

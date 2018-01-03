@@ -4,7 +4,6 @@ package net.dark_roleplay.drpcore.common;
 import java.util.List;
 
 import net.dark_roleplay.drpcore.api.Modules;
-import net.dark_roleplay.drpcore.client.renderer.players.PremiumRegistry;
 import net.dark_roleplay.drpcore.common.config.SyncedConfigRegistry;
 import net.dark_roleplay.drpcore.common.handler.DRPCoreCapabilities;
 import net.dark_roleplay.drpcore.common.handler.DRPCoreCrafting;
@@ -16,6 +15,8 @@ import net.dark_roleplay.drpcore.common.handler.DRPCorePerms;
 import net.dark_roleplay.drpcore.common.objects.tile_entities.blueprint_controller.TE_BlueprintController;
 import net.dark_roleplay.drpcore.common.proxy.CommonProxy;
 import net.dark_roleplay.drpcore.modules.Module;
+import net.dark_roleplay.drpcore.modules.premium.Module_Premium;
+import net.dark_roleplay.drpcore.modules.premium.SessionUtil;
 import net.dark_roleplay.drpcore.modules.wood.Wood;
 import net.dark_roleplay.drpcore.modules.wood.WoodenBlock;
 import net.dark_roleplay.drpcore.server.commands.crafting.Command_Recipe;
@@ -47,16 +48,21 @@ public class DarkRoleplayCore {
 	
 	@Mod.Instance(DRPCoreReferences.MODID)
 	public static DarkRoleplayCore instance;
-
-	public static final EventBus EVENT_BUS = new EventBus();
 	
 	public DarkRoleplayCore(){
-		Reflections.preInit();
+		Reflections.init();
 	}
 	
 	@EventHandler
 	public void preInit(FMLPreInitializationEvent event){
 		DRPCoreReferences.init(event);
+		
+//		Minecraft.getMinecraft().game
+//		try {
+//			System.out.println(SessionUtil.get().getSessionID());
+//		} catch (IllegalArgumentException | IllegalAccessException e) {
+//			e.printStackTrace();
+//		}
 		
 		Modules.HUD.enable();
 		Modules.UPDATE_CHECKER.enable();
@@ -79,11 +85,6 @@ public class DarkRoleplayCore {
 	        module.preInit(event);
 		}
 		ProgressManager.pop(progressBar);
-		
-		Modules.WOODS.addWoodenBlock(new WoodenBlock(new ResourceLocation("drpcore", "%wood%_plank"))
-			.setBaseBlockState(new ResourceLocation(DRPCoreReferences.MODID, "argh/blockstates/wooden_post.json"))
-			.setTextureGenerator(new ResourceLocation(DRPCoreReferences.MODID, "argh/texture_generators/wooden_plank.json"))
-		);
 	}
 	
 	@EventHandler
@@ -113,12 +114,6 @@ public class DarkRoleplayCore {
 		DRPCoreGuis.postInit(event);
 		DRPCoreEvents.postInit(event);
 		proxy.postInit(event);
-
-		if(event.getSide().isClient()){
-			PremiumRegistry.initialize();
-			PremiumRegistry.initializeAddon(0);
-			PremiumRegistry.initializeAddon(1);
-		}
 		
 		ProgressBar progressBar = ProgressManager.push("Post Initializing Modules", Module.getModules().size());
 		for(Module module : Module.getModules()){

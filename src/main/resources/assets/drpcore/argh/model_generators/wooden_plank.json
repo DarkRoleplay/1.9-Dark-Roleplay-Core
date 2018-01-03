@@ -2,11 +2,11 @@
 	"models":[
 		{
 			"model" : "drpcore:argh/models/wood_plank.json",
-			"output" : "drpcore:models/%wood%_plank.json"
+			"output" : "drpcore:models/blocks/%wood%_plank.json"
 		},
 		{
 			"model" : "drpcore:argh/models/wood_plank.json",
-			"output" : "drpcore:models/%wood%_plank2.json"
+			"output" : "drpcore:models/blocks/%wood%_plank2.json"
 		}
 	]
 }

@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.util.List;
 
 import net.dark_roleplay.drpcore.api.gui.modular.ModularGui_Drawer;
+import net.dark_roleplay.drpcore.modules.gui.IGuiElement;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.renderer.GlStateManager;
@@ -37,7 +38,7 @@ public class Gui_Button extends IGuiElement.IMPL{
 	}
 
 	@Override
-	public boolean mouseClicked(int mouseX, int mouseY, int mouseButton) throws IOException {
+	public boolean mouseClicked(int mouseX, int mouseY, int mouseButton){
 		return true;
 	}
 

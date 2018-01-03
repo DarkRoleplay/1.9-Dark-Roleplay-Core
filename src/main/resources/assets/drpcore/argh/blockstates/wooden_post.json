@@ -1,8 +1,8 @@
 {
     "variants": {
         "normal": [
-            { "model": "drpcore:blocks/%wood%_plank" },
-            { "model": "drpcore:blocks/%wood%_plank", "y": 180 }
+            { "model": "drpmedieval:blocks/firewood_pile/%wood%_firewood_pile" },
+            { "model": "drpmedieval:models/blocks/firewood_pile/%wood%_firewood_pile", "y": 180 }
         ]
     }
 }

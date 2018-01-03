@@ -1,48 +1,18 @@
 {
 	"required_textures":[
-		"drpcore:argh/textures/overlays/plank.png",
+		"drpcore:argh/textures/overlays/plank2.png",
 		"drpcore:argh/textures/masks/plank.png"
 	],
 	"textures":[
 		{
-			"base":"bark",
-			"manipulations":[
-				{
-					"type":"mask",
-					"texture":"1"
-				}
-			],
-			"output":"drpcore:textures/blocks/wooden/%wood%_plank_a"
-		},
-		{
-			"base":"bark",
+			"base":"clean_plank",
 			"manipulations":[
 				{
 					"type":"overlay",
 					"texture":"0"
 				}
 			],
-			"output":"drpcore:textures/blocks/wooden/%wood%_plank_b"
-		},
-		{
-			"base":"bark",
-			"manipulations":[
-				{
-					"type":"rotate",
-					"direction":"right"
-				}
-			],
-			"output":"drpcore:textures/blocks/wooden/%wood%_plank_c"
-		},
-		{
-			"base":"bark",
-			"manipulations":[
-				{
-					"type":"flip",
-					"direction":"right"
-				}
-			],
-			"output":"drpcore:textures/blocks/wooden/%wood%_plank_d"
+			"output":"drpcore:textures/blocks/wooden/%wood%_plank_a"
 		}
 	]
 }

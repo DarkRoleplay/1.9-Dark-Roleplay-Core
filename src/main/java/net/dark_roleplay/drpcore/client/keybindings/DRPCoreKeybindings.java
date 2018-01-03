@@ -5,7 +5,9 @@ import org.lwjgl.input.Keyboard;
 
 import net.dark_roleplay.drpcore.api.crafting.Crafting_Util;
 import net.dark_roleplay.drpcore.common.handler.DRPCoreConfigs;
+import net.dark_roleplay.drpcore.modules.crafting.GuiCrafting;
 import net.dark_roleplay.drpcore.modules.model_editor.Gui_EntityEdit;
+import net.dark_roleplay.drpcore.modules.premium.GuiPremium;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.settings.KeyBinding;
 import net.minecraft.init.Blocks;
@@ -69,8 +71,10 @@ public class DRPCoreKeybindings {
 		
 		if(DRPCoreConfigs.DEBUG.DEBUG_KEY && this.debugging.isKeyDown()) {
 			
-			Minecraft.getMinecraft().displayGuiScreen(new Gui_EntityEdit());
+//			Minecraft.getMinecraft().displayGuiScreen(new GuiCrafting(null, 0, 0, 0, 0));
+			Minecraft.getMinecraft().displayGuiScreen(new GuiPremium());
 
+//new Gui_EntityEdit()
 //			Minecraft.getMinecraft().displayGuiScreen(new Gui_Skills());
 //			EntityPlayer player = Minecraft.getMinecraft().player;
 //			System.out.println(

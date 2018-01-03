@@ -1,4 +1,4 @@
-package net.dark_roleplay.drpcore.client.renderer.players;
+package net.dark_roleplay.drpcore.modules.premium;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -6,6 +6,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.UUID;
@@ -15,32 +16,48 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 
+import net.dark_roleplay.drpcore.modules.Module;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.fml.common.ProgressManager;
+import net.minecraftforge.fml.common.ProgressManager.ProgressBar;
+import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 
-public class PremiumRegistry {
+public class Module_Premium extends Module{
 
-	private static HashMap<Integer, PremiumAddon> addons = new HashMap<Integer, PremiumAddon>();
+	public Module_Premium(String name) {
+		super(name);
+	}
+
+	private static PremiumAddon[] addons;
 	
 	private static HashMap<UUID, Equiped> equiped = new HashMap<UUID, Equiped>();
+
+	private static final byte version = 0;
 	
-	public List<Integer> getAddonIds(){
-		return new ArrayList(addons.keySet());
-	}
-	
-	public List<PremiumAddon> getAddons(){
-		return new ArrayList(addons.values());
-	}
-	
-	public static void initialize(){
-//		JsonObject json = objFromLink("http://dark-roleplay.net/premium_addons/request.php?type=addon_list");
+	public void postInit(FMLPostInitializationEvent event){
+//		if(event.getSide().isServer())
+//			return;
 //		
+//		ProgressBar progressBar = ProgressManager.push("Gadgets", 2);
+//
+//		progressBar.step("Loading Gadget List");
+//		JsonObject json = objFromLink("http://dark-roleplay.net/premium_addons/request.php?version=" + version + "&type=addon_list");
+//
+//
+//		progressBar.step("Generating Gadgets");
 //		JsonArray jsonAddons = json.get("addons").getAsJsonArray();
-//		
+//		addons = new PremiumAddon[jsonAddons.size()];
 //		for(int i = 0; i < jsonAddons.size(); i++){
-//			addons.put(jsonAddons.get(i).getAsInt(), null);
+//			JsonObject addon = jsonAddons.get(i).getAsJsonObject();
+//			addons[addon.get("id").getAsInt()] = new PremiumAddon(addon.get("id").getAsInt(), addon.get("name").getAsString(), addon.get("price").getAsInt(), addon.get("desc").getAsString());
 //		}
+//		ProgressManager.pop(progressBar);
+	}
+	
+	public PremiumAddon[] getAddons(){
+		return addons;
 	}
 	
 	public static Equiped getEquiped(EntityPlayer player){
@@ -51,7 +68,7 @@ public class PremiumRegistry {
 	}
 	
 	public static void setEquiped(EntityPlayer player, int addon, int style){
-		equiped.put(player.getPersistentID(), new Equiped(addons.get(addon), style));
+//		equiped.put(player.getPersistentID(), new Equiped(addons.get(addon), style));
 	}
 	
 	public static void initializeAddon(int addon){
@@ -70,7 +87,7 @@ public class PremiumRegistry {
 			styles[i] = textures.get(i).getAsString();
 		}
 		
-		addons.replace(addon, new PremiumAddon(addon, position, name, price, description, new Attachment_Premium().loadFromJson(objFromLink("http://dark-roleplay.net/premium_addons/models/" + modelURL + ".json")), styles));
+//		addons.replace(addon, new PremiumAddon(addon, position, name, price, description, new Attachment_Premium().loadFromJson(objFromLink("http://dark-roleplay.net/premium_addons/models/" + modelURL + ".json")), styles));
 	}
 	
 	private static JsonObject objFromLink(String url){

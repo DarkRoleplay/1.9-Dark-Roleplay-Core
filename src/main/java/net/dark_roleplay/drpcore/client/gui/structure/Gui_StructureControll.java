@@ -20,7 +20,6 @@ import net.dark_roleplay.drpcore.api.gui.advanced.Gui_Frame;
 import net.dark_roleplay.drpcore.api.gui.advanced.Gui_Label;
 import net.dark_roleplay.drpcore.api.gui.advanced.Gui_Screen;
 import net.dark_roleplay.drpcore.api.gui.advanced.Gui_Textfield;
-import net.dark_roleplay.drpcore.api.gui.advanced.IGuiElement;
 import net.dark_roleplay.drpcore.api.gui.advanced.buttons.Button_ChangeBool;
 import net.dark_roleplay.drpcore.api.gui.advanced.buttons.Button_ChangeInt;
 import net.dark_roleplay.drpcore.api.gui.utility.wrappers.Variable_Boolean;
@@ -37,6 +36,7 @@ import net.dark_roleplay.drpcore.common.network.packets.blocks.Packet_LoadBluepr
 import net.dark_roleplay.drpcore.common.network.packets.blocks.Packet_SaveBlueprint;
 import net.dark_roleplay.drpcore.common.network.packets.blocks.SyncPacket_BlueprintBlock;
 import net.dark_roleplay.drpcore.common.objects.tile_entities.blueprint_controller.TE_BlueprintController;
+import net.dark_roleplay.drpcore.modules.gui.IGuiElement;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.audio.PositionedSoundRecord;
 import net.minecraft.client.gui.GuiButton;

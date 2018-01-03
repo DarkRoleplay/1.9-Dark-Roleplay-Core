@@ -28,6 +28,7 @@ import net.dark_roleplay.drpcore.modules.Module;
 import net.dark_roleplay.drpcore.modules.skill.Skill;
 import net.minecraft.client.resources.IResource;
 import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.ProgressManager;
@@ -88,6 +89,7 @@ public class Module_Wood  extends Module{
 	    String content;
 		try {
 			content = IOUtils.toString(input, charset);
+			input.close();
 			dest.getParentFile().mkdirs();
 			for(Wood wood : woods){
 			   String base = content.replaceAll("%wood%", wood.getName());
@@ -101,7 +103,7 @@ public class Module_Wood  extends Module{
 	
 	@Override
 	public void preInit(FMLPreInitializationEvent event){
-		DarkRoleplayCore.EVENT_BUS.post(new Event_AddWoods());
+		MinecraftForge.EVENT_BUS.post(new Event_AddWoods());
 		
 		Modules.WOODS.addWoodType(new Wood("oak")
 			.setBarkTexture(new ResourceLocation(DRPCoreReferences.MODID, "argh/textures/wood/bark_oak.png"))
@@ -146,7 +148,7 @@ public class Module_Wood  extends Module{
 		);
 		
 
-		DarkRoleplayCore.EVENT_BUS.post(new Event_AddBlocks());
+		MinecraftForge.EVENT_BUS.post(new Event_AddBlocks());
 		
 		ProgressBar progressBar = ProgressManager.push("Loading Wood Textures", woods.size());
 
@@ -179,6 +181,8 @@ public class Module_Wood  extends Module{
 			TextureGenerator texGen = new TextureGenerator(ClientProxy.getResourceAsJson(block.getTextureGenerator()));
 			texGen.generateTextures(woods, barkTextures, logTopTextures, plankTextures, cleanPlankTextures);
 			
+			ModelGenerator modelGen = new ModelGenerator(ClientProxy.getResourceAsJson(block.getModelGenerator()));
+			modelGen.generateModels(woods);
 		}
 		ProgressManager.pop(progressBar);
 		
@@ -186,6 +190,5 @@ public class Module_Wood  extends Module{
 		logTopTextures = null;
 		plankTextures = null;
 		cleanPlankTextures = null;
-		
 	}
 }
