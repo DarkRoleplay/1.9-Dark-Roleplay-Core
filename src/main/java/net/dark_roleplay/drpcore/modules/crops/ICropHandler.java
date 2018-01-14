@@ -5,10 +5,20 @@ import java.util.Iterator;
 import java.util.Map;
 
 import net.dark_roleplay.drpcore.common.handler.DRPCoreCapabilities;
+import net.dark_roleplay.drpcore.modules.crops.ICropHandler.CropInfo;
 import net.dark_roleplay.drpcore.modules.time.Date;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.nbt.NBTBase;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.NBTTagEnd;
+import net.minecraft.nbt.NBTTagInt;
+import net.minecraft.nbt.NBTTagList;
+import net.minecraft.nbt.NBTTagShort;
+import net.minecraft.nbt.NBTUtil;
+import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import net.minecraftforge.common.capabilities.Capability;
 
 public interface ICropHandler {
 
@@ -26,20 +36,20 @@ public interface ICropHandler {
 	
 	public void setCrops(Map<BlockPos, CropInfo> crops);
 	
+	public Date getLastGrown();
+	
+	public void setLastGrown(Date date);
+	
 	public static class Impl implements ICropHandler{
 		
-		public Map<BlockPos, CropInfo> crops = new HashMap<BlockPos, CropInfo>();
+		protected Map<BlockPos, CropInfo> crops = new HashMap<BlockPos, CropInfo>();
 		
-		private Date lastGrown;
+		protected Date lastGrown;
 		
 		@Override
 		public void growCrops(World world) {
 			if(crops != null && crops.keySet() != null && !crops.keySet().isEmpty()){
 				Date date = world.getCapability(DRPCoreCapabilities.DATE_HANDLER, null).getDate();
-				System.out.println(date);
-				if(lastGrown != null)
-				System.out.println("Grow Chunk Load from " + lastGrown.getDayOfSeason() + " to " + date.getDayOfSeason());
-				
 				if(lastGrown == null){
 					lastGrown = date.copy();
 				}else if(date.getDayOfSeason() > this.lastGrown.getDayOfSeason()){
@@ -48,7 +58,7 @@ public interface ICropHandler {
 						BlockPos pos = iter.next();
 						IBlockState state = world.getBlockState(pos);
 						if(state.getBlock() instanceof ICrop){
-							System.out.println("growing" + difference);
+							System.out.println("growing " + difference);
 							((ICrop)state.getBlock()).growthUpdate(world, pos, state, getAndIncreaseCropAge(pos, difference));
 						}else{
 							iter.remove();
@@ -96,6 +106,16 @@ public interface ICropHandler {
 			}else{
 				return 0;
 			}
+		}
+
+		@Override
+		public Date getLastGrown() {
+			return lastGrown;
+		}
+
+		@Override
+		public void setLastGrown(Date date) {
+			this.lastGrown = date;
 		}
 	}
 	

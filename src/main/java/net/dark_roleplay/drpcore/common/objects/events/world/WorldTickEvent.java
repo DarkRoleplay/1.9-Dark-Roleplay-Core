@@ -7,6 +7,7 @@ import java.util.Map;
 import com.google.common.collect.ImmutableMultiset;
 
 import net.dark_roleplay.drpcore.common.handler.DRPCoreCapabilities;
+import net.dark_roleplay.drpcore.modules.crops.CropLoadingTracker;
 import net.dark_roleplay.drpcore.modules.crops.ICropHandler;
 import net.dark_roleplay.drpcore.modules.time.IDateHandler;
 import net.minecraft.util.math.ChunkPos;
@@ -36,6 +37,7 @@ public class WorldTickEvent {
 					lastTick = 0;
 				}else{
 					lastTick = WorldTickEvent.lastTick.get(world.provider.getDimensionType()) + 1;
+					CropLoadingTracker.workTroughChunks(world);
 				}
 				if(lastTick >= 100){
 					lastTick = 0;

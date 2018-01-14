@@ -1,5 +1,7 @@
 package net.dark_roleplay.drpcore.modules.time;
 
+import net.minecraft.nbt.NBTTagCompound;
+
 public class Date {
 
 	private int day;
@@ -30,6 +32,20 @@ public class Date {
 	
 	public Date copy(){
 		return new Date(day, season, year);
+	}
+	
+	public Date(NBTTagCompound tag){
+		this.day = tag.getInteger("day");
+		this.season = Date.SEASON.getSeasonByID(tag.getString("season"));
+		this.year = tag.getInteger("year");
+	}
+	
+	public NBTTagCompound toNBT(){
+		NBTTagCompound tag = new NBTTagCompound();
+		tag.setInteger("year", this.getYear());
+		tag.setInteger("day", this.getDayOfSeason());
+		tag.setString("season", this.getSeason().getName());
+		return tag;
 	}
 	
 	public void addSeason(int amount){

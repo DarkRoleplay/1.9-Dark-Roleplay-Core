@@ -24,13 +24,11 @@ public class Event_CapabilityEntity {
 
         event.addCapability(new ResourceLocation(DRPCoreReferences.MODID, "recipe_controller"), new CapabilityProvider(DRPCoreCapabilities.DRPCORE_RECIPE_CONTROLLER));
         event.addCapability(new ResourceLocation(DRPCoreReferences.MODID, "skill_controller"), new CapabilityProvider(DRPCoreCapabilities.DRPCORE_SKILL_CONTROLLER));
-//        event.addCapability(new ResourceLocation(DRPCoreReferences.MODID, "extended_inv"), new CapabilityProvider(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY));
     }
 	
 	@SubscribeEvent
     public void attachCapabilityChunk(AttachCapabilitiesEvent<Chunk> event){
-//        if (!(event.getObject() instanceof Chunk)) return;
-        System.out.println("Chunk Capability attaching:");
+        if (!(event.getObject() instanceof Chunk)) return;
         event.addCapability(new ResourceLocation(DRPCoreReferences.MODID, "crop_handler"), new CapabilityProvider(DRPCoreCapabilities.CROP_HANDLER));
 	}
 	
@@ -38,7 +36,7 @@ public class Event_CapabilityEntity {
     public void attachCapabilityWorld(AttachCapabilitiesEvent<World> event){
         if (!(event.getObject() instanceof World)) return;
         
-        World c = event.getObject();
+        
         event.addCapability(new ResourceLocation(DRPCoreReferences.MODID, "date_handler"), new CapabilityProvider(DRPCoreCapabilities.DATE_HANDLER));
 
 	}
