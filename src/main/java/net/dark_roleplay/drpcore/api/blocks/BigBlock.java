@@ -18,17 +18,28 @@ public class BigBlock extends Block{
 	
 	public BigBlock() {
 		super(Material.CAKE);
-		this.blueprint = BlueprintUtil.readFromFile(BigBlock.class.getResourceAsStream("big_block_test.blueprint"));
+		this.blueprint = BlueprintUtil.readFromFile(this.getClass().getResourceAsStream("/assets/drpcore/big_blocks/big_block_test.blueprint"));
 		System.out.println(blueprint.getName());
 	}
 
 	
 	public void onBlockPlacedBy(World world, BlockPos pos, IBlockState state, EntityLivingBase placer, ItemStack stack){
-
-		blueprint.build(world, pos);
-//		blueprint.build(world, pos.add(0, 4, 0), Rotation.CLOCKWISE_90);
-//		blueprint.build(world, pos.add(0, 8, 0), Rotation.CLOCKWISE_180);
-//		blueprint.build(world, pos.add(0, 12, 0), Rotation.COUNTERCLOCKWISE_90);
+		switch(placer.getHorizontalFacing()){
+		case EAST:
+			blueprint.build(world, pos, Rotation.CLOCKWISE_90);
+			break;
+		case NORTH:
+			blueprint.build(world, pos, Rotation.NONE);
+			break;
+		case SOUTH:
+			blueprint.build(world, pos, Rotation.CLOCKWISE_180);
+			break;
+		case WEST:
+			blueprint.build(world, pos, Rotation.COUNTERCLOCKWISE_90);
+			break;
+		default:
+			break;
+		}
     }
 	
 	public boolean canPlaceBlockAt(World world, BlockPos pos){

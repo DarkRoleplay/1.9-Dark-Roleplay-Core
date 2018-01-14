@@ -1,6 +1,7 @@
 package net.dark_roleplay.drpcore.api;
 
 import net.dark_roleplay.drpcore.modules.Module;
+import net.dark_roleplay.drpcore.modules.crafting.Module_Crafting;
 import net.dark_roleplay.drpcore.modules.hud.Module_Hud;
 import net.dark_roleplay.drpcore.modules.premium.Module_Premium;
 import net.dark_roleplay.drpcore.modules.skill.Module_Skill;
@@ -18,5 +19,6 @@ public class Modules {
 	public static final Module_UpdateChecker UPDATE_CHECKER = new Module_UpdateChecker("UPDATE_CHECKER", CONFIGS);
 	public static final Module_Wood WOODS = new Module_Wood("WOODS");
 	public static final Module_Premium PREMIUM = new Module_Premium("PREMIUM");
+	public static final Module_Crafting CrAFTING2 = new Module_Crafting("CRAFTING2");
 	
 }

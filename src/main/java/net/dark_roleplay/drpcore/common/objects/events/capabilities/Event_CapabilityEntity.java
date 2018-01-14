@@ -8,6 +8,7 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.world.World;
 import net.minecraft.world.chunk.Chunk;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.ICapabilityProvider;
@@ -23,17 +24,22 @@ public class Event_CapabilityEntity {
 
         event.addCapability(new ResourceLocation(DRPCoreReferences.MODID, "recipe_controller"), new CapabilityProvider(DRPCoreCapabilities.DRPCORE_RECIPE_CONTROLLER));
         event.addCapability(new ResourceLocation(DRPCoreReferences.MODID, "skill_controller"), new CapabilityProvider(DRPCoreCapabilities.DRPCORE_SKILL_CONTROLLER));
-        event.addCapability(new ResourceLocation(DRPCoreReferences.MODID, "extended_inv"), new CapabilityProvider(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY));
+//        event.addCapability(new ResourceLocation(DRPCoreReferences.MODID, "extended_inv"), new CapabilityProvider(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY));
     }
 	
 	@SubscribeEvent
     public void attachCapabilityChunk(AttachCapabilitiesEvent<Chunk> event){
-        if (!(event.getObject() instanceof Chunk)) return;
-        	Chunk c = event.getObject();
-
-//        event.addCapability(new ResourceLocation(DRPCoreReferences.MODID, "recipe_controller"), new CapabilityProvider(DRPCoreCapabilities.DRPCORE_RECIPE_CONTROLLER));
-//        event.addCapability(new ResourceLocation(DRPCoreReferences.MODID, "skill_controller"), new CapabilityProvider(DRPCoreCapabilities.DRPCORE_SKILL_CONTROLLER));
-//        event.addCapability(new ResourceLocation(DRPCoreReferences.MODID, "extended_inv"), new CapabilityProvider(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY));
-    }
+//        if (!(event.getObject() instanceof Chunk)) return;
+        System.out.println("Chunk Capability attaching:");
+        event.addCapability(new ResourceLocation(DRPCoreReferences.MODID, "crop_handler"), new CapabilityProvider(DRPCoreCapabilities.CROP_HANDLER));
+	}
 	
+	@SubscribeEvent
+    public void attachCapabilityWorld(AttachCapabilitiesEvent<World> event){
+        if (!(event.getObject() instanceof World)) return;
+        
+        World c = event.getObject();
+        event.addCapability(new ResourceLocation(DRPCoreReferences.MODID, "date_handler"), new CapabilityProvider(DRPCoreCapabilities.DATE_HANDLER));
+
+	}
 }

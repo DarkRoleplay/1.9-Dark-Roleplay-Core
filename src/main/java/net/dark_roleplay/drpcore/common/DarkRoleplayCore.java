@@ -84,6 +84,7 @@ public class DarkRoleplayCore {
 	        progressBar.step(module.getName());
 	        module.preInit(event);
 		}
+		Modules.CrAFTING2.addMod("drpcore");
 		ProgressManager.pop(progressBar);
 	}
 	

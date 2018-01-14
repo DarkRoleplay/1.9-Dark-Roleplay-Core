@@ -4,13 +4,19 @@ import org.apache.commons.lang3.ArrayUtils;
 import org.lwjgl.input.Keyboard;
 
 import net.dark_roleplay.drpcore.api.crafting.Crafting_Util;
+import net.dark_roleplay.drpcore.common.handler.DRPCoreCapabilities;
 import net.dark_roleplay.drpcore.common.handler.DRPCoreConfigs;
 import net.dark_roleplay.drpcore.modules.crafting.GuiCrafting;
+import net.dark_roleplay.drpcore.modules.crops.ICropHandler;
 import net.dark_roleplay.drpcore.modules.model_editor.Gui_EntityEdit;
 import net.dark_roleplay.drpcore.modules.premium.GuiPremium;
+import net.dark_roleplay.drpcore.modules.time.Date;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.settings.KeyBinding;
 import net.minecraft.init.Blocks;
+import net.minecraft.util.math.ChunkPos;
+import net.minecraft.world.World;
+import net.minecraft.world.chunk.Chunk;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.client.registry.ClientRegistry;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
@@ -72,13 +78,15 @@ public class DRPCoreKeybindings {
 		if(DRPCoreConfigs.DEBUG.DEBUG_KEY && this.debugging.isKeyDown()) {
 			
 //			Minecraft.getMinecraft().displayGuiScreen(new GuiCrafting(null, 0, 0, 0, 0));
-			Minecraft.getMinecraft().displayGuiScreen(new GuiPremium());
+//			Minecraft.getMinecraft().displayGuiScreen(new GuiPremium());
 
-//new Gui_EntityEdit()
-//			Minecraft.getMinecraft().displayGuiScreen(new Gui_Skills());
-//			EntityPlayer player = Minecraft.getMinecraft().player;
-//			System.out.println(
-//					player.getEntityWorld().getEntitiesWithinAABB(Entity.class, new AxisAlignedBB(player.getPosition().getX(), player.getPosition().getY(), player.getPosition().getZ(), 10, 5, 10)));
+			World world = Minecraft.getMinecraft().world;
+			ChunkPos pos = new ChunkPos(Minecraft.getMinecraft().player.getPosition());
+			Chunk chunk = world.getChunkFromChunkCoords(pos.x, pos.z);
+			if(chunk.hasCapability(DRPCoreCapabilities.CROP_HANDLER, null)){
+				ICropHandler instance = chunk.getCapability(DRPCoreCapabilities.CROP_HANDLER, null);
+//				instance.growCrops(world, new Date(0, SEASONS.EARLY_SUMMER, 0));
+			}
 		}
 	}
 }

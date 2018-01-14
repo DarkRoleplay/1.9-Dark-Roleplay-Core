@@ -4,6 +4,10 @@ import java.util.concurrent.Callable;
 
 import net.dark_roleplay.drpcore.common.capabilities.player.crafting.*;
 import net.dark_roleplay.drpcore.common.capabilities.player.skill.*;
+import net.dark_roleplay.drpcore.modules.crops.CropStorage;
+import net.dark_roleplay.drpcore.modules.crops.ICropHandler;
+import net.dark_roleplay.drpcore.modules.time.DateStorage;
+import net.dark_roleplay.drpcore.modules.time.IDateHandler;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTBase;
 import net.minecraft.nbt.NBTTagCompound;
@@ -26,6 +30,12 @@ public class DRPCoreCapabilities {
 	@CapabilityInject(ISkillController.class)
 	public static final Capability<ISkillController> DRPCORE_SKILL_CONTROLLER = null;
 	
+	@CapabilityInject(ICropHandler.class)
+	public static final Capability<ICropHandler> CROP_HANDLER = null;
+	
+	@CapabilityInject(IDateHandler.class)
+	public static final Capability<IDateHandler> DATE_HANDLER = null;
+	
 	public static void preInit(){
 	}
 	
@@ -34,6 +44,9 @@ public class DRPCoreCapabilities {
 	public static final void init(FMLInitializationEvent event) {
 		CapabilityManager.INSTANCE.register(IRecipeController.class, new RecipeControllerStorage(), (Callable<IRecipeController>)() -> {return new RecipeControllerDefault();});;
 		CapabilityManager.INSTANCE.register(ISkillController.class, new SkillControllerStorage(), (Callable<ISkillController>)() -> {return new ISkillController.Impl();});
+
+		CapabilityManager.INSTANCE.register(ICropHandler.class, new CropStorage(), (Callable<ICropHandler>)() -> {return new ICropHandler.Impl();});
+		CapabilityManager.INSTANCE.register(IDateHandler.class, new DateStorage(), (Callable<IDateHandler>)() -> {return new IDateHandler.Impl();});
 	}
 
 	public static final void postInit(FMLPostInitializationEvent event) {}

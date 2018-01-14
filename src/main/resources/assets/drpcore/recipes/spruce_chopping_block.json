@@ -1,0 +1,24 @@
+[
+    {
+        "category":"handheld",
+        "recipes":[
+        
+            {
+                "output":{
+                    "item":"minecraft:apple",
+                    "amount":"5"
+                },
+                "ingredient":[
+                    {
+                        "item":"minecraft:arrow",
+                        "amount":"2"
+                    },{
+                        "item":"minecraft:bed",
+                        "amount":"1"
+                    }
+                ]
+            }
+            
+        ]
+    }
+]
