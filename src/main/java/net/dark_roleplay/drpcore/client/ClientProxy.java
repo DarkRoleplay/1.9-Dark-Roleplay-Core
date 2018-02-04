@@ -33,7 +33,8 @@ import net.dark_roleplay.drpcore.common.handler.DRPCoreItems;
 import net.dark_roleplay.drpcore.common.objects.entities.util.sitting.Sittable;
 import net.dark_roleplay.drpcore.common.objects.tile_entities.blueprint_controller.TE_BlueprintController;
 import net.dark_roleplay.drpcore.common.proxy.CommonProxy;
-import net.dark_roleplay.drpcore.modules.premium.RenderLayer_PremiumAddon;
+import net.dark_roleplay.drpcore.modules.color.ColorHandler;
+import net.dark_roleplay.drpcore.modules.work_in_progress.premium.RenderLayer_PremiumAddon;
 import net.dark_roleplay.drpcore.testing.Testing_Entity;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.block.model.ModelBakery;
@@ -90,14 +91,13 @@ public class ClientProxy extends CommonProxy{
 
 		
 		ClientRegistry.bindTileEntitySpecialRenderer(TE_BlueprintController.class, new Renderer_StructureController());
-		//TODO REMOVE
-		RenderingRegistry.registerEntityRenderingHandler(Testing_Entity.class, new IRenderFactory<Testing_Entity>(){
-			@Override
-			public Render<? super Testing_Entity> createRenderFor(RenderManager manager) {
-				return new RendererTest(manager, new ResourceLocation(DRPCoreReferences.MODID, "entities/test/bones.json"), new ResourceLocation(DRPCoreReferences.MODID, "entities/test/model.json"), new ResourceLocation(DRPCoreReferences.MODID, "entities/test/animations.json"));
-			}
-		});
-//		Minecraft.getMinecraft().getResourceManager().
+		
+//		RenderingRegistry.registerEntityRenderingHandler(Testing_Entity.class, new IRenderFactory<Testing_Entity>(){
+//			@Override
+//			public Render<? super Testing_Entity> createRenderFor(RenderManager manager) {
+//				return new RendererTest(manager, new ResourceLocation(DRPCoreReferences.MODID, "entities/test/bones.json"), new ResourceLocation(DRPCoreReferences.MODID, "entities/test/model.json"), new ResourceLocation(DRPCoreReferences.MODID, "entities/test/animations.json"));
+//			}
+//		});
 	}
 
 	public void init(FMLInitializationEvent event) {
@@ -117,6 +117,7 @@ public class ClientProxy extends CommonProxy{
 	
 	public void postInit(FMLPostInitializationEvent event) {
 		DRPCoreKeybindings.postInit(event);
+//	    Minecraft.getMinecraft().getItemColors().registerItemColorHandler(new ColorHandler(), DRPCoreItems.TEST_PAINT);
 	}
 	
 

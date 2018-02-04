@@ -16,7 +16,7 @@ public interface IDateHandler {
 	
 	public static class Impl implements IDateHandler{
 
-		private Date date = new Date(0, Date.SEASON.EARLY_SPRING, 0);
+		private Date date = new Date(0, Season.EARLY_SPRING, 0);
 		
 		private long lastTick = 0;
 		

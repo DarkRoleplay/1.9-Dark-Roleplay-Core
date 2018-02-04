@@ -1,0 +1,7 @@
+{
+    "parent": "item/generated",
+    "textures": {
+        "layer0": "drpcore:items/clean_paintbrush",
+        "layer1": "drpcore:items/paint_paintbrush"
+    }
+}

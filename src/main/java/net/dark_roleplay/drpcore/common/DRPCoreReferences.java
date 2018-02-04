@@ -21,7 +21,7 @@ public class DRPCoreReferences {
 
 	public static final String MODID = "drpcore";
 	public static final String NAME = "Dark Roleplay Core";
-	public static final String VERSION = "0.3.4.1";
+	public static final String VERSION = "0.3.5";
 	public static final String ACCEPTEDVERSIONS = "[1.12,1.13)";
 	public static final String UPDATE_JSON = "http://dark-roleplay.net/version_files/DarkRoleplayCore.json";
 	public static final List<String> AUTHORS = Arrays.asList("JTK222", "Rolfaal");

@@ -1,8 +1,6 @@
 package net.dark_roleplay.drpcore.common;
 
 
-import java.util.List;
-
 import net.dark_roleplay.drpcore.api.Modules;
 import net.dark_roleplay.drpcore.common.config.SyncedConfigRegistry;
 import net.dark_roleplay.drpcore.common.handler.DRPCoreCapabilities;
@@ -15,16 +13,8 @@ import net.dark_roleplay.drpcore.common.handler.DRPCorePerms;
 import net.dark_roleplay.drpcore.common.objects.tile_entities.blueprint_controller.TE_BlueprintController;
 import net.dark_roleplay.drpcore.common.proxy.CommonProxy;
 import net.dark_roleplay.drpcore.modules.Module;
-import net.dark_roleplay.drpcore.modules.premium.Module_Premium;
-import net.dark_roleplay.drpcore.modules.premium.SessionUtil;
-import net.dark_roleplay.drpcore.modules.wood.Wood;
-import net.dark_roleplay.drpcore.modules.wood.WoodenBlock;
 import net.dark_roleplay.drpcore.server.commands.crafting.Command_Recipe;
 import net.dark_roleplay.drpcore.server.commands.skills.Command_Skill;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.resources.IResourcePack;
-import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventHandler;
 import net.minecraftforge.fml.common.ProgressManager;
@@ -34,9 +24,7 @@ import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLServerStartingEvent;
-import net.minecraftforge.fml.common.eventhandler.EventBus;
 import net.minecraftforge.fml.common.registry.GameRegistry;
-import net.minecraftforge.fml.relauncher.ReflectionHelper;
 
 @Mod(modid = DRPCoreReferences.MODID, version = DRPCoreReferences.VERSION, name = DRPCoreReferences.NAME, acceptedMinecraftVersions = DRPCoreReferences.ACCEPTEDVERSIONS, updateJSON = DRPCoreReferences.UPDATE_JSON)
 public class DarkRoleplayCore {
@@ -57,16 +45,6 @@ public class DarkRoleplayCore {
 	public void preInit(FMLPreInitializationEvent event){
 		DRPCoreReferences.init(event);
 		
-//		Minecraft.getMinecraft().game
-//		try {
-//			System.out.println(SessionUtil.get().getSessionID());
-//		} catch (IllegalArgumentException | IllegalAccessException e) {
-//			e.printStackTrace();
-//		}
-		
-		Modules.HUD.enable();
-		Modules.UPDATE_CHECKER.enable();
-		
 		SyncedConfigRegistry.setSide(event.getSide());
 		
 		DRPCoreCapabilities.preInit(event);
@@ -84,7 +62,9 @@ public class DarkRoleplayCore {
 	        progressBar.step(module.getName());
 	        module.preInit(event);
 		}
-		Modules.CrAFTING2.addMod("drpcore");
+		
+		Modules.CRAFTING2.addMod("drpcore");
+		
 		ProgressManager.pop(progressBar);
 	}
 	

@@ -3,6 +3,7 @@ package net.dark_roleplay.drpcore.common.handler;
 import net.dark_roleplay.drpcore.common.network.packets.blocks.Packet_LoadBlueprint;
 import net.dark_roleplay.drpcore.common.network.packets.blocks.Packet_SaveBlueprint;
 import net.dark_roleplay.drpcore.common.network.packets.blocks.SyncPacket_BlueprintBlock;
+import net.dark_roleplay.drpcore.common.network.packets.chunks.SyncPacket_LockHandler;
 import net.dark_roleplay.drpcore.common.network.packets.config.SyncPacket_Boolean;
 import net.dark_roleplay.drpcore.common.network.packets.crafting.Packet_InitSimpleRecipe;
 import net.dark_roleplay.drpcore.common.network.packets.crafting.SyncPacket_PlayerRecipeState;
@@ -11,6 +12,7 @@ import net.dark_roleplay.drpcore.common.network.packets.skills.Packet_UnlockSkil
 import net.dark_roleplay.drpcore.common.network.packets.skills.SyncPacket_SkillPoints;
 import net.dark_roleplay.drpcore.common.network.packets.weapons.Packet_ExtendedRangeAttack;
 import net.minecraft.entity.player.EntityPlayerMP;
+import net.minecraftforge.fml.common.network.FMLEventChannel;
 import net.minecraftforge.fml.common.network.NetworkRegistry;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
 import net.minecraftforge.fml.common.network.simpleimpl.SimpleNetworkWrapper;
@@ -36,7 +38,7 @@ public class DRPCorePackets {
 		INSTANCE.registerMessage(SyncPacket_BlueprintBlock.class, SyncPacket_BlueprintBlock.class, i++, Side.SERVER);
 		INSTANCE.registerMessage(Packet_SaveBlueprint.class, Packet_SaveBlueprint.class, i++, Side.SERVER);		
 		INSTANCE.registerMessage(Packet_LoadBlueprint.class, Packet_LoadBlueprint.class, i++, Side.SERVER);
-
+		INSTANCE.registerMessage(SyncPacket_LockHandler.class, SyncPacket_LockHandler.class , i++, Side.CLIENT);
 	}
 
 	public static void sendTo(IMessage message, EntityPlayerMP player) {

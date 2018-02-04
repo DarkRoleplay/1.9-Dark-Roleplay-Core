@@ -58,8 +58,10 @@ public interface ICropHandler {
 						BlockPos pos = iter.next();
 						IBlockState state = world.getBlockState(pos);
 						if(state.getBlock() instanceof ICrop){
-							System.out.println("growing " + difference);
-							((ICrop)state.getBlock()).growthUpdate(world, pos, state, getAndIncreaseCropAge(pos, difference));
+							GrowthResult result = ((ICrop)state.getBlock()).growthUpdate(world, pos, state, getAndIncreaseCropAge(pos, difference));
+							if(result == GrowthResult.MATURED || result == GrowthResult.SPOILED){
+								iter.remove();
+							}
 						}else{
 							iter.remove();
 						}

@@ -8,7 +8,7 @@ import java.util.Map;
 import com.google.common.collect.Lists;
 
 import io.netty.buffer.ByteBuf;
-import net.dark_roleplay.drpcore.modules.skill.Skill;
+import net.dark_roleplay.drpcore.modules.work_in_progress.skill.Skill;
 import net.minecraft.entity.player.EntityPlayer;
 
 public interface ISkillController {

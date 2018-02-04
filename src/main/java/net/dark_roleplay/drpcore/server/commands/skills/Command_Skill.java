@@ -7,7 +7,7 @@ import net.dark_roleplay.drpcore.api.Modules;
 import net.dark_roleplay.drpcore.api.commands.DRPCommand;
 import net.dark_roleplay.drpcore.common.capabilities.player.skill.ISkillController;
 import net.dark_roleplay.drpcore.common.handler.DRPCoreCapabilities;
-import net.dark_roleplay.drpcore.modules.skill.Skill;
+import net.dark_roleplay.drpcore.modules.work_in_progress.skill.Skill;
 import net.minecraft.command.CommandException;
 import net.minecraft.command.ICommandSender;
 import net.minecraft.entity.player.EntityPlayer;

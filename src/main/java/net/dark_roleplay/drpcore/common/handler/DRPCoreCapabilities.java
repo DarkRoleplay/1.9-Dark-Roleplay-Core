@@ -6,6 +6,8 @@ import net.dark_roleplay.drpcore.common.capabilities.player.crafting.*;
 import net.dark_roleplay.drpcore.common.capabilities.player.skill.*;
 import net.dark_roleplay.drpcore.modules.crops.CropStorage;
 import net.dark_roleplay.drpcore.modules.crops.ICropHandler;
+import net.dark_roleplay.drpcore.modules.locks.ILockHandler;
+import net.dark_roleplay.drpcore.modules.locks.LockStorage;
 import net.dark_roleplay.drpcore.modules.time.DateStorage;
 import net.dark_roleplay.drpcore.modules.time.IDateHandler;
 import net.minecraft.item.ItemStack;
@@ -36,6 +38,9 @@ public class DRPCoreCapabilities {
 	@CapabilityInject(IDateHandler.class)
 	public static final Capability<IDateHandler> DATE_HANDLER = null;
 	
+	@CapabilityInject(ILockHandler.class)
+	public static final Capability<ILockHandler> LOCK_HANDLER = null;
+	
 	public static void preInit(){
 	}
 	
@@ -47,6 +52,7 @@ public class DRPCoreCapabilities {
 
 		CapabilityManager.INSTANCE.register(ICropHandler.class, new CropStorage(), (Callable<ICropHandler>)() -> {return new ICropHandler.Impl();});
 		CapabilityManager.INSTANCE.register(IDateHandler.class, new DateStorage(), (Callable<IDateHandler>)() -> {return new IDateHandler.Impl();});
+		CapabilityManager.INSTANCE.register(ILockHandler.class, new LockStorage(), (Callable<ILockHandler>)() -> {return new ILockHandler.Impl();});
 	}
 
 	public static final void postInit(FMLPostInitializationEvent event) {}

@@ -3,6 +3,8 @@ package net.dark_roleplay.drpcore.common.handler;
 import net.dark_roleplay.drpcore.api.blocks.BigBlock;
 import net.dark_roleplay.drpcore.api.blocks.Crop;
 import net.dark_roleplay.drpcore.common.objects.blocks.blueprint_controller.BlueprintController;
+import net.dark_roleplay.drpcore.modules.time.Season;
+import net.dark_roleplay.drpcore.testing.Test_Block;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
@@ -25,8 +27,8 @@ public class DRPCoreBlocks  {
 	public static final void register(RegistryEvent.Register<Block> event) {
 		registerBlocks(
 				event.getRegistry(),
-			new BlueprintController().setRegistryName("blueprint_controller").setUnlocalizedName("blueprint_controller"),
-			new Crop().setRegistryName("test_block")
+			new BlueprintController().setRegistryName("blueprint_controller").setUnlocalizedName("blueprint_controller")
+//			new Test_Block().setRegistryName("test_block")
 //			new BigBlock().setRegistryName("big_block")
 		);
 	}

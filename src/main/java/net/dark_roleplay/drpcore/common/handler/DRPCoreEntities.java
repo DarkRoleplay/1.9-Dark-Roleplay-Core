@@ -12,7 +12,7 @@ public class DRPCoreEntities {
 
 	public static final void init(FMLPreInitializationEvent event) {
 		EntityRegistry.registerModEntity(new ResourceLocation(DRPCoreReferences.MODID,"sittable"), Sittable.class, "Sittable", 0, DarkRoleplayCore.instance, 10, 1, false);
-		EntityRegistry.registerModEntity(new ResourceLocation(DRPCoreReferences.MODID,"testing"), Testing_Entity.class, "testing", 1, DarkRoleplayCore.instance, 10, 1, false);
+//		EntityRegistry.registerModEntity(new ResourceLocation(DRPCoreReferences.MODID,"testing"), Testing_Entity.class, "testing", 1, DarkRoleplayCore.instance, 10, 1, false);
 	}
 	
 }

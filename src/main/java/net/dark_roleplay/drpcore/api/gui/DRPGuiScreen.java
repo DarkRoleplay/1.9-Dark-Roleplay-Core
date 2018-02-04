@@ -95,6 +95,7 @@ public abstract class DRPGuiScreen extends GuiScreen{
 
 	@Override
 	public void handleMouseInput() throws IOException{
+		super.handleMouseInput();
 		for(IGuiElement element : elements){
 			element.handleMouseInput();
 		}

@@ -23,7 +23,7 @@ public class DateStorage implements IStorage<IDateHandler>{
 	@Override
 	public void readNBT(Capability<IDateHandler> capability, IDateHandler instance, EnumFacing side, NBTBase nbt) {
 		NBTTagCompound tag = (NBTTagCompound) nbt;
-		instance.setDate(new Date(tag.getInteger("day"), Date.SEASON.getSeasonByID(tag.getString("season")), tag.getInteger("year")));
+		instance.setDate(new Date(tag.getInteger("day"), Season.getSeasonByID(tag.getString("season")), tag.getInteger("year")));
 		instance.setLastTick(tag.getLong("last_tick"));
 	}
 

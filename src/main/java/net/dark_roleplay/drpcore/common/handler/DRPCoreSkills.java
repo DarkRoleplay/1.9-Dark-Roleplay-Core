@@ -1,6 +1,6 @@
 package net.dark_roleplay.drpcore.common.handler;
 
-import net.dark_roleplay.drpcore.modules.skill.Skill;
+import net.dark_roleplay.drpcore.modules.work_in_progress.skill.Skill;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;

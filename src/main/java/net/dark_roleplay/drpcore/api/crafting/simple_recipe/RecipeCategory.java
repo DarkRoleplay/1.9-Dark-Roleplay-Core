@@ -19,7 +19,7 @@ public class RecipeCategory {
 	}
 	
 	public RecipeCategory(Block craftingStation, String categoryName){
-		this(Blocks.AIR, categoryName, ItemStack.EMPTY);
+		this(craftingStation, categoryName, ItemStack.EMPTY);
 	}
 	
 	public RecipeCategory(Block craftingStation, String categoryName, ItemStack previewStack){

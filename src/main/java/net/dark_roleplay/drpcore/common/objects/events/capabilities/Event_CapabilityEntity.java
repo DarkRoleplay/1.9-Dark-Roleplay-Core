@@ -30,6 +30,7 @@ public class Event_CapabilityEntity {
     public void attachCapabilityChunk(AttachCapabilitiesEvent<Chunk> event){
         if (!(event.getObject() instanceof Chunk)) return;
         event.addCapability(new ResourceLocation(DRPCoreReferences.MODID, "crop_handler"), new CapabilityProvider(DRPCoreCapabilities.CROP_HANDLER));
+        event.addCapability(new ResourceLocation(DRPCoreReferences.MODID, "lock_handler"), new CapabilityProvider(DRPCoreCapabilities.LOCK_HANDLER));
 	}
 	
 	@SubscribeEvent

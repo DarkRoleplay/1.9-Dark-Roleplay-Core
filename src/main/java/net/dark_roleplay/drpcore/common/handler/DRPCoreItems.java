@@ -3,9 +3,14 @@ package net.dark_roleplay.drpcore.common.handler;
 import java.util.ArrayList;
 import java.util.List;
 
+import net.dark_roleplay.drpcore.api.items.DRPInstrument;
 import net.dark_roleplay.drpcore.api.items.DRPItem;
+import net.dark_roleplay.drpcore.api.items.DRPLockable;
+import net.dark_roleplay.drpcore.api.items.Seed;
 import net.dark_roleplay.drpcore.common.DRPCoreReferences;
 import net.dark_roleplay.drpcore.common.DarkRoleplayCore;
+import net.dark_roleplay.drpcore.modules.locks.ILock;
+import net.dark_roleplay.drpcore.testing.Test_PaintItem;
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.entity.EntityLivingBase;
@@ -27,10 +32,12 @@ import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.registry.GameRegistry;
+import net.minecraftforge.fml.common.registry.GameRegistry.ObjectHolder;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import net.minecraftforge.registries.IForgeRegistry;
 
+@ObjectHolder(value="drpcore")
 @Mod.EventBusSubscriber
 public class DRPCoreItems {
 	
@@ -69,6 +76,8 @@ public class DRPCoreItems {
 	/**---------- Y ----------**/
 	/**---------- Z ----------**/
 	
+	public static final Item TEST_PAINT = null;
+	
 	@SideOnly(Side.CLIENT)
 	@SubscribeEvent
 	public static final void registerEvent(RegistryEvent.Register<Item> event) {
@@ -76,8 +85,15 @@ public class DRPCoreItems {
 			//Register here all Debug Item
 //		}
 		
+		event.getRegistry().registerAll(
+//			new DRPLockable("test_lock", ILock.TYPE.LOCK, 1),
+//			new DRPLockable("test_key", ILock.TYPE.KEY, 1),
+//			new Test_PaintItem("test_paint", 1),
+//			new DRPInstrument("test_instrument_1", "HARP", 1),
+//			new DRPInstrument("test_instrument_2", "FLUTE", 1)
+		);
+		
 		for(ItemBlock b : blockItems){
-			System.out.println(b.getRegistryName() + " _ " + b.getUnlocalizedName());
 			event.getRegistry().register(b);
 		}
 	}

@@ -5,7 +5,7 @@ import javax.annotation.Nullable;
 import net.dark_roleplay.drpcore.api.Modules;
 import net.dark_roleplay.drpcore.common.DRPCoreReferences;
 import net.dark_roleplay.drpcore.modules.hud.Hud;
-import net.dark_roleplay.drpcore.modules.skill.Skill;
+import net.dark_roleplay.drpcore.modules.work_in_progress.skill.Skill;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.fml.common.Mod;
