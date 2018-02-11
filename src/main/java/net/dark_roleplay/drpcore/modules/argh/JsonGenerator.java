@@ -27,20 +27,21 @@ public class JsonGenerator {
 		if(elm.isJsonObject()){
 			JsonObject obj = elm.getAsJsonObject();
 			
-			if(obj.has("models")){
-				modelArr = obj.get("models").getAsJsonArray();
+			if(obj.has("jsons")){
+				modelArr = obj.get("jsons").getAsJsonArray();
 			}
 		}
 	}
 	
 	public void generateModels(List<Material> materials){
+		
 		for(int i = 0; i < modelArr.size(); i++){
 			JsonObject obj = modelArr.get(i).getAsJsonObject();
 			Charset charset = StandardCharsets.UTF_8;
 			String content;
 			String destPath = obj.get("output").getAsString().replaceFirst(":", "/");
 			try {
-				InputStream is = ClientProxy.getResource(new ResourceLocation(obj.get("model").getAsString())).getInputStream();
+				InputStream is = ClientProxy.getResource(new ResourceLocation(obj.get("input").getAsString())).getInputStream();
 				content = IOUtils.toString(is, charset);
 				is.close();
 				for(Material mat : materials){

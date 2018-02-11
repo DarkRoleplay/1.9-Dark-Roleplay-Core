@@ -25,6 +25,8 @@ import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLServerStartingEvent;
 import net.minecraftforge.fml.common.registry.GameRegistry;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 @Mod(modid = DRPCoreReferences.MODID, version = DRPCoreReferences.VERSION, name = DRPCoreReferences.NAME, acceptedMinecraftVersions = DRPCoreReferences.ACCEPTEDVERSIONS, updateJSON = DRPCoreReferences.UPDATE_JSON)
 public class DarkRoleplayCore {
@@ -38,7 +40,6 @@ public class DarkRoleplayCore {
 	public static DarkRoleplayCore instance;
 	
 	public DarkRoleplayCore(){
-		Reflections.init();
 	}
 	
 	@EventHandler
@@ -57,6 +58,7 @@ public class DarkRoleplayCore {
 
 		proxy.preInit(event);
 		
+		Modules.MATERIALS.enable();
 		ProgressBar progressBar = ProgressManager.push("Pre Initializing Modules", Module.getModules().size());
 		for(Module module : Module.getModules()){
 	        progressBar.step(module.getName());

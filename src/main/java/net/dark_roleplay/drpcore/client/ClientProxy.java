@@ -29,6 +29,7 @@ import net.dark_roleplay.drpcore.client.keybindings.DRPCoreKeybindings;
 import net.dark_roleplay.drpcore.client.renderer.tileentities.Renderer_StructureController;
 import net.dark_roleplay.drpcore.client.resources.ModularGui_Handler;
 import net.dark_roleplay.drpcore.common.DRPCoreReferences;
+import net.dark_roleplay.drpcore.common.Reflections;
 import net.dark_roleplay.drpcore.common.handler.DRPCoreItems;
 import net.dark_roleplay.drpcore.common.objects.entities.util.sitting.Sittable;
 import net.dark_roleplay.drpcore.common.objects.tile_entities.blueprint_controller.TE_BlueprintController;
@@ -73,6 +74,10 @@ public class ClientProxy extends CommonProxy{
 	
 	public static List<ModularGui_Template> modularGuis = new ArrayList<ModularGui_Template>();
 		
+	public ClientProxy(){
+		Reflections.init();
+	}
+	
 	public void preInit(FMLPreInitializationEvent event) {
 		DRPCoreKeybindings.preInit(event);
 		ItemApi.registerItemMeshs();
