@@ -64,16 +64,16 @@ public class MaterialWood extends Material{
 	@Override
 	public BufferedImage getTexture(String key) {
 		switch(key){
-		case "bark":
-			return this.bark;
-		case "plank":
-			return this.plank;
-		case "clean_plank":
-			return this.cleanPlank;
-		case "log_top":
-			return this.logTop;
-		default:
-			return null;
+			case "bark":
+				return this.bark;
+			case "plank":
+				return this.plank;
+			case "clean_plank":
+				return this.cleanPlank;
+			case "log_top":
+				return this.logTop;
+			default:
+				return null;
 		}
 	}
 

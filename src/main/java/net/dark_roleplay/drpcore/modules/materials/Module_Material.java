@@ -15,7 +15,6 @@ import org.apache.commons.io.IOUtils;
 
 import net.dark_roleplay.drpcore.api.Modules;
 import net.dark_roleplay.drpcore.modules.Module;
-import net.dark_roleplay.drpcore.modules.argh.ResourceGenerator;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.ProgressManager;
 import net.minecraftforge.fml.common.ProgressManager.ProgressBar;

@@ -3,7 +3,6 @@ package net.dark_roleplay.drpcore.modules.materials;
 import java.util.ArrayList;
 import java.util.List;
 
-import net.dark_roleplay.drpcore.modules.argh.ResourceGenerator;
 import net.minecraftforge.fml.common.eventhandler.Event;
 
 public class AddResourceGenerators extends Event{

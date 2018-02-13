@@ -1,9 +1,10 @@
-package net.dark_roleplay.drpcore.modules.argh;
+package net.dark_roleplay.drpcore.modules.materials;
 
 import java.util.List;
 
 import net.dark_roleplay.drpcore.client.ClientProxy;
-import net.dark_roleplay.drpcore.modules.materials.Material;
+import net.dark_roleplay.drpcore.modules.argh.JsonGenerator;
+import net.dark_roleplay.drpcore.modules.argh.TextureGenerator;
 import net.minecraft.util.ResourceLocation;
 
 public class ResourceGenerator {
@@ -35,14 +36,15 @@ public class ResourceGenerator {
 			try{
 				this.textureGenerator.generateTextures(materials);
 			}catch(Exception e){
-				System.out.println("Failed to generate Json files: " + textureGenerator.toString());
+				System.out.println("Failed to generate Texture files: " + textureGenerator.toString());
+				e.printStackTrace();
 			}
 		}
 		if(this.jsonGenerator != null){
 			try{
 				this.jsonGenerator.generateModels(materials);
 			}catch(Exception e){
-				System.out.println("Failed to generate Texture files: " + jsonGenerator.toString());
+				System.out.println("Failed to generate Json files: " + jsonGenerator.toString());
 			}
 		}
 	}

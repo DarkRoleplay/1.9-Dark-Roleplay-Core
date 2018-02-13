@@ -109,7 +109,6 @@ public class CraftingRegistry {
 		List<IRecipe> recipes = new ArrayList<IRecipe>();
 		if(categorys.containsKey(station)){
 			for(RecipeCategory cat : categorys.get(station)){
-				System.out.println(cat);
 				recipes.addAll(cat.getRecipes());
 			}
 			return recipes;

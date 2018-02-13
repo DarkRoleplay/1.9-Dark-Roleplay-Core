@@ -35,6 +35,7 @@ public class TextureGenerator {
 			
 			if(obj.has("required_textures") && obj.has("textures")){
 				JsonArray requiredTexturesArr = obj.get("required_textures").getAsJsonArray();
+
 				requiredTextures = new BufferedImage[requiredTexturesArr.size()];
 				for(int i = 0; i < requiredTexturesArr.size(); i ++){
 					try {
@@ -57,9 +58,8 @@ public class TextureGenerator {
 			
 			Map<String, BufferedImage> base = new HashMap<String, BufferedImage>();
 			for(Material mat : materials){
-				base.put(mat.getFormatValue(), mat.getTexture(obj.get("base").toString()));
+				base.put(mat.getFormatValue(), copyImage(mat.getTexture(obj.get("base").getAsString())));
 			}
-			
 			JsonArray manipulations = obj.get("manipulations").getAsJsonArray();
 			for(int j = 0; j < manipulations.size(); j++){
 
@@ -90,6 +90,8 @@ public class TextureGenerator {
 						}
 						break;
 					case "flip":
+						break;
+					default:
 						break;
 				}
 			}
