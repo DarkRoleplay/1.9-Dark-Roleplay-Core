@@ -68,6 +68,10 @@ public class Module_Crafting extends Module{
 				}
 			}
 		}
+		
+		for(String key : categorys.keySet()){
+			CraftingRegistry.register(categorys.get(key));
+		}
 	}
 	
 	public void readRecipe(JsonObject obj){
@@ -96,14 +100,13 @@ public class Module_Crafting extends Module{
         	block = Blocks.AIR;
         }
 		
-		String category = station + "_" + obj.get("category").getAsString();
+		String category = station.replace(":", ".") + "." + obj.get("category").getAsString();
 		if(categorys.containsKey(category)){
 			categorys.get(category).add(rec);
 		}else{
 			RecipeCategory cat = new RecipeCategory(block, category);
 			cat.add(rec);
 			categorys.put(category, cat);
-			CraftingRegistry.register(cat);
 		}
 	}
 	

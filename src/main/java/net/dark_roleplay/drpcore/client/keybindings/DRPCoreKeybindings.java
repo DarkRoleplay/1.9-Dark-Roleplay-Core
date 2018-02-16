@@ -96,7 +96,7 @@ public class DRPCoreKeybindings {
 		
 		if(DRPCoreConfigs.DEBUG.DEBUG_KEY && this.debugging.isKeyDown()) {
 			
-			createRecipe();
+//			createRecipe();
 //			Minecraft.getMinecraft().displayGuiScreen(new GuiCrafting(null, 0, 0, 0, 0));
 //			Minecraft.getMinecraft().displayGuiScreen(new GuiPremium());
 
@@ -111,9 +111,9 @@ public class DRPCoreKeybindings {
 	}
 	
 	private void createRecipe(){
-		Block station = Block.REGISTRY.getObject(new ResourceLocation("drpmedieval", "simple_carpenter_workbench"));
+		Block station = Block.REGISTRY.getObject(new ResourceLocation("drpmedieval", "cauldron"));
 //		Block station = Blocks.AIR;
-		String category = "decoration";
+		String category = "stews";
 		
 		ItemStack output = null;
 		
@@ -147,6 +147,12 @@ public class DRPCoreKeybindings {
 		
 		
 		File file = new File(DRPCoreReferences.DARK_ROLEPLAY_RECIPES_FOLDER.getPath() + "/" + output.getItem().getRegistryName().getResourcePath() + ".json");
+		int i = 1;
+		while(file.exists()){
+			file = new File(DRPCoreReferences.DARK_ROLEPLAY_RECIPES_FOLDER.getPath() + "/" + output.getItem().getRegistryName().getResourcePath() + i + ".json");
+			i++;
+		}
+		
 		try {
 			file.createNewFile();
 			
