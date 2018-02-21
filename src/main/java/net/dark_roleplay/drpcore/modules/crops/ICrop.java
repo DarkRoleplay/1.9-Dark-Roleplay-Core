@@ -6,6 +6,7 @@ import net.dark_roleplay.drpcore.modules.time.Season;
 import net.minecraft.block.properties.PropertyInteger;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraft.world.chunk.Chunk;
 
@@ -13,7 +14,9 @@ public interface ICrop {
 	
 	public GrowthResult growthUpdate(World world, BlockPos pos, IBlockState state, int age);
 	
-	public int getMaxAge(World world, BlockPos pos, IBlockState state);
+	public int getMaxAge(IBlockAccess world, BlockPos pos, IBlockState state);
+	
+	public int getAge(IBlockAccess world, BlockPos pos, IBlockState state);
 	
 	public Season[] getSeasons();
 	

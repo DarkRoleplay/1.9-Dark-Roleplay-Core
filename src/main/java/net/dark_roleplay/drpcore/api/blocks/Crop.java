@@ -1,27 +1,30 @@
 package net.dark_roleplay.drpcore.api.blocks;
 
 import java.util.Collections;
+import java.util.Random;
 
 import javax.annotation.Nullable;
 
 import net.dark_roleplay.drpcore.common.handler.DRPCoreCapabilities;
-import net.dark_roleplay.drpcore.common.objects.tile_entities.blueprint_controller.TE_BlueprintController;
 import net.dark_roleplay.drpcore.modules.crops.GrowthResult;
 import net.dark_roleplay.drpcore.modules.crops.ICrop;
 import net.dark_roleplay.drpcore.modules.crops.ICropHandler;
 import net.dark_roleplay.drpcore.modules.time.Season;
 import net.minecraft.block.Block;
+import net.minecraft.block.IGrowable;
+import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.IProperty;
-import net.minecraft.block.properties.PropertyEnum;
 import net.minecraft.block.properties.PropertyInteger;
 import net.minecraft.block.state.BlockFaceShape;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.BlockRenderLayer;
 import net.minecraft.util.EnumFacing;
+import net.minecraft.util.NonNullList;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
@@ -40,16 +43,28 @@ public class Crop extends Block implements ICrop, IPlantable{
     
     protected Season[] seasons;
     
+    protected Item crop;
+    protected Item seed;
+    
     public Crop(int maxAge, Season... seasons) {
 		super(Material.PLANTS);
 		this.maxAge = maxAge;
 		this.seasons = seasons;
+		this.setSoundType(SoundType.PLANT);
 	}
 
 	protected PropertyInteger getAgeProperty(){
         return AGE_DEFAULT;
     }
-    
+	
+	public Item getCrop() {
+		return crop;
+	}
+
+	public Item getSeed() {
+		return seed;
+	}
+
 	@Override
 	public GrowthResult growthUpdate(World world, BlockPos pos, IBlockState state, int age) {
 		int maxAge = this.getMaxAge(world, pos, state);
@@ -107,8 +122,7 @@ public class Crop extends Block implements ICrop, IPlantable{
     	}
     }
 
-	@Override
-	public int getMaxAge(World world, BlockPos pos, IBlockState state) {
+	public int getMaxAge(IBlockAccess world, BlockPos pos, IBlockState state) {
 		return this.maxAge;
 	}
 
@@ -131,5 +145,42 @@ public class Crop extends Block implements ICrop, IPlantable{
 	@Override
     public AxisAlignedBB getCollisionBoundingBox(IBlockState blockState, IBlockAccess worldIn, BlockPos pos){
         return NULL_AABB;
+    } 
+	
+	@Override
+    public void getDrops(NonNullList<ItemStack> drops, IBlockAccess world, BlockPos pos, IBlockState state, int fortune){
+		System.out.println("call");
+        super.getDrops(drops, world, pos, state, 0);
+        int age = getAge(world, pos, state);
+        Random rand = world instanceof World ? ((World)world).rand : new Random();
+
+        System.out.println(isMature(state));
+        if (isMature(state)){
+            int k = 3 + fortune;
+
+            for (int i = 0; i < 3 + fortune; ++i){
+                if (rand.nextInt(2 * getMaxAge(world, pos, state)) <= age){
+                    drops.add(new ItemStack(this.getSeed(), 1, 0));
+                }
+            }
+        }
     }
+	
+	public boolean isMature(IBlockState state){
+		System.out.println(state.getValue(this.getAgeProperty()) + " --> " + Collections.max(getAgeProperty().getAllowedValues()));
+		return state.getValue(this.getAgeProperty()) >= Collections.max(getAgeProperty().getAllowedValues());
+	}
+	
+	public Item getItemDropped(IBlockState state, Random rand, int fortune){
+        return this.isMature(state) ? this.getCrop() : this.getSeed();
+    }
+
+    public ItemStack getItem(World worldIn, BlockPos pos, IBlockState state){
+        return new ItemStack(this.getSeed());
+    }
+
+	@Override
+	public int getAge(IBlockAccess world, BlockPos pos, IBlockState state) {
+		return state.getValue(this.getAgeProperty());
+	}
 }
