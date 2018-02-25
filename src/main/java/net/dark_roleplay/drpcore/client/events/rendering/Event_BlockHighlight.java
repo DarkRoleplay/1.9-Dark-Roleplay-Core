@@ -19,6 +19,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.EnumBlockRenderType;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
@@ -64,8 +65,8 @@ public class Event_BlockHighlight {
 			position = position.offset(target.sideHit);
 		}
 		
-		IBlockState state = block.canPlaceBlockOnSide(world, position, target.sideHit) ? block.getStateForPlacement(world, position, target.sideHit,(float) target.hitVec.x,(float) target.hitVec.y, (float) target.hitVec.z, 0, player, EnumHand.MAIN_HAND) : null;
-		if(state == null)
+		IBlockState state = block.canPlaceBlockOnSide(world, position, target.sideHit) ? block.getStateForPlacement(world, position, target.sideHit,(float) target.hitVec.x,(float) target.hitVec.y, (float) target.hitVec.z, player.getHeldItem(EnumHand.MAIN_HAND).getMetadata(), player, EnumHand.MAIN_HAND) : null;
+		if(state == null || block.getRenderType(state) != EnumBlockRenderType.MODEL)
 			return;
 		
 		position = player.getEntityWorld().getBlockState(position).getBlock().isReplaceable(world, position) ? position : event.getTarget().getBlockPos().offset(event.getTarget().sideHit);
@@ -88,13 +89,12 @@ public class Event_BlockHighlight {
 		GlStateManager.translate(-playerX, -playerY, -playerZ);
 		
 		Tessellator tessellator = Tessellator.getInstance();
-		BufferBuilder vertexbuffer = tessellator.getBuffer();
-		vertexbuffer.begin(7, DefaultVertexFormats.BLOCK);
-		
+		BufferBuilder buffer = tessellator.getBuffer();
+		buffer.begin(7, DefaultVertexFormats.BLOCK);
 		if(!cache.containsKey(state))
 			cache.put(state, blockrendererdispatcher.getModelForState(state));
-		renderer.renderModel(event.getPlayer().getEntityWorld(), cache.get(state), state, position, vertexbuffer, true, MathHelper.getPositionRandom(position));
-
+		renderer.renderModel(event.getPlayer().getEntityWorld(), cache.get(state), state, position, buffer, true, MathHelper.getPositionRandom(position));
+		
 		tessellator.draw();
 		
 	    GlStateManager.disableBlend();

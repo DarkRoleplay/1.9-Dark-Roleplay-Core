@@ -21,12 +21,13 @@ public class DRPCoreReferences {
 
 	public static final String MODID = "drpcore";
 	public static final String NAME = "Dark Roleplay Core";
-	public static final String VERSION = "0.3.5";
+	public static final String VERSION = "0.3.5.3";
 	public static final String ACCEPTEDVERSIONS = "[1.12,1.13)";
 	public static final String UPDATE_JSON = "http://dark-roleplay.net/version_files/DarkRoleplayCore.json";
-	public static final List<String> AUTHORS = Arrays.asList("JTK222", "Rolfaal");
-	public static final String CREDITS = "Lead Programmer: JTK222 \nLead Artist: Rolfaal";
+	public static final String DEPENDECIES = "required-after:forge@[1.12.2-14.23.0.2499,)";
 	public static final String URL = "http://dark-roleplay.net/";
+	public static final List<String> AUTHORS = Arrays.asList("JTK222");
+	public static final String CREDITS = "Lead Programmer: JTK222";
 	public static final String DESCRIPTION = "Dark Roleplay Core is a mixture of a Library and a content adding mod. \nMost parts of it can't be used without another mod, \neven though there are a few things like the \"Blueprint Controller\" which are available without other mods.";
 	
 	public static File DARK_ROLEPLAY_CONFIGS;

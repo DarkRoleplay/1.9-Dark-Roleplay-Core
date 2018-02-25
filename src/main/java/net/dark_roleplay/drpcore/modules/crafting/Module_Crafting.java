@@ -60,6 +60,7 @@ public class Module_Crafting extends Module{
 						InputStream[] streams = getRecipeFiles(new URL("jar:file:/" + jar.getCanonicalPath() + "!/data/drp/recipes/"));
 						for(InputStream stream : streams){
 							readRecipe(getResourceAsJson(stream));
+							System.out.println(stream);
 						}
 					}catch (URISyntaxException|IOException e) {
 						e.printStackTrace();
@@ -75,6 +76,9 @@ public class Module_Crafting extends Module{
 	}
 	
 	public void readRecipe(JsonObject obj){
+		if(obj == null)
+			return;
+		
 		SimpleRecipe rec;
 		ItemStack[] output;
 		JsonArray outputArr = obj.get("outputs").getAsJsonArray();
@@ -113,8 +117,13 @@ public class Module_Crafting extends Module{
 	public static JsonObject getResourceAsJson(InputStream is ){
 		Gson gson = new Gson();
 		BufferedReader reader = new BufferedReader(new InputStreamReader(is));
-		JsonObject je = gson.fromJson(reader, JsonObject.class);
-		return je;
+		try{
+			JsonObject je = gson.fromJson(reader, JsonObject.class);
+			return je;
+		}catch(Exception e){
+			
+		}
+		return null;
 	}
 	
 	public static ItemStack deserializeItem(JsonObject stackObj) {

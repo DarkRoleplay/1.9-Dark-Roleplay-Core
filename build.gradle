@@ -9,7 +9,7 @@ buildscript {
 }
 apply plugin: 'net.minecraftforge.gradle.forge'
 
-version = "0.3.5"
+version = "0.3.5.3"
 group= "net.dark_roleplay.core"
 archivesBaseName = "Dark Roleplay Core Alpha"
 

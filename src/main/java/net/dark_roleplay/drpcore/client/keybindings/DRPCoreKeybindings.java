@@ -16,6 +16,8 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonSyntaxException;
 
 import net.dark_roleplay.drpcore.api.crafting.Crafting_Util;
+import net.dark_roleplay.drpcore.client.gui.crafting_new.creation.Crafting5;
+import net.dark_roleplay.drpcore.client.gui.crafting_new.creation.ItemSelection;
 import net.dark_roleplay.drpcore.common.DRPCoreReferences;
 import net.dark_roleplay.drpcore.common.handler.DRPCoreCapabilities;
 import net.dark_roleplay.drpcore.common.handler.DRPCoreConfigs;
@@ -96,6 +98,8 @@ public class DRPCoreKeybindings {
 		
 		if(DRPCoreConfigs.DEBUG.DEBUG_KEY && this.debugging.isKeyDown()) {
 			
+//			Minecraft.getMinecraft().displayGuiScreen(new Crafting5());
+			
 //			createRecipe();
 //			Minecraft.getMinecraft().displayGuiScreen(new GuiCrafting(null, 0, 0, 0, 0));
 //			Minecraft.getMinecraft().displayGuiScreen(new GuiPremium());
@@ -111,9 +115,9 @@ public class DRPCoreKeybindings {
 	}
 	
 	private void createRecipe(){
-		Block station = Block.REGISTRY.getObject(new ResourceLocation("drpmedieval", "cauldron"));
+		Block station = Block.REGISTRY.getObject(new ResourceLocation("drpmedieval", "anvil"));
 //		Block station = Blocks.AIR;
-		String category = "stews";
+		String category = "decorations";
 		
 		ItemStack output = null;
 		
