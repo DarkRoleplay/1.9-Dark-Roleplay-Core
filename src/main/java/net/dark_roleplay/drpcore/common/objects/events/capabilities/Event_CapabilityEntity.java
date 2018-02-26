@@ -18,13 +18,13 @@ import net.minecraftforge.items.CapabilityItemHandler;
 
 public class Event_CapabilityEntity {
 
-	@SubscribeEvent
-    public void attachCapability(AttachCapabilitiesEvent<Entity> event){
-        if (!(event.getObject() instanceof EntityPlayer)) return;
-
-        event.addCapability(new ResourceLocation(DRPCoreReferences.MODID, "recipe_controller"), new CapabilityProvider(DRPCoreCapabilities.DRPCORE_RECIPE_CONTROLLER));
-        event.addCapability(new ResourceLocation(DRPCoreReferences.MODID, "skill_controller"), new CapabilityProvider(DRPCoreCapabilities.DRPCORE_SKILL_CONTROLLER));
-    }
+//	@SubscribeEvent
+//    public void attachCapability(AttachCapabilitiesEvent<Entity> event){
+//        if (!(event.getObject() instanceof EntityPlayer)) return;
+//
+//        event.addCapability(new ResourceLocation(DRPCoreReferences.MODID, "recipe_controller"), new CapabilityProvider(DRPCoreCapabilities.DRPCORE_RECIPE_CONTROLLER));
+//        event.addCapability(new ResourceLocation(DRPCoreReferences.MODID, "skill_controller"), new CapabilityProvider(DRPCoreCapabilities.DRPCORE_SKILL_CONTROLLER));
+//    }
 	
 	@SubscribeEvent
     public void attachCapabilityChunk(AttachCapabilitiesEvent<Chunk> event){

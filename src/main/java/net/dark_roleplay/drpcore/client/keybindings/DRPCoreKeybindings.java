@@ -27,6 +27,7 @@ import net.dark_roleplay.drpcore.modules.time.Date;
 import net.dark_roleplay.drpcore.modules.work_in_progress.model_editor.Gui_EntityEdit;
 import net.dark_roleplay.drpcore.modules.work_in_progress.music.Song;
 import net.dark_roleplay.drpcore.modules.work_in_progress.premium.GuiPremium;
+import net.dark_roleplay.drpcore.modules.work_in_progress.update_check.Gui_UpdateInformation;
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.settings.KeyBinding;
@@ -98,6 +99,8 @@ public class DRPCoreKeybindings {
 		
 		if(DRPCoreConfigs.DEBUG.DEBUG_KEY && this.debugging.isKeyDown()) {
 			
+			Minecraft.getMinecraft().displayGuiScreen(new Gui_UpdateInformation());
+
 //			Minecraft.getMinecraft().displayGuiScreen(new Crafting5());
 			
 //			createRecipe();

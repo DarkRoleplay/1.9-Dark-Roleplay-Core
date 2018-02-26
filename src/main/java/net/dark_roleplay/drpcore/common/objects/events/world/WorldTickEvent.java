@@ -44,7 +44,7 @@ public class WorldTickEvent {
 					
 					IDateHandler date = world.getCapability(DRPCoreCapabilities.DATE_HANDLER, null);
 
-					if(date.attemptIncrease((world.getWorldTime() + 6000L) % 24000L)){
+					if(date != null && date.attemptIncrease((world.getWorldTime() + 6000L) % 24000L)){
 						System.out.println("Date Increased!");
 						Collection<Chunk> chunks = ((ChunkProviderServer) world.getChunkProvider()).getLoadedChunks();
 						for(Chunk chunk : chunks){

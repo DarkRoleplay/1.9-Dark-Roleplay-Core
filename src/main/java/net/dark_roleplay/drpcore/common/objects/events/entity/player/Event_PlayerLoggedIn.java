@@ -24,19 +24,19 @@ public class Event_PlayerLoggedIn {
 		
 		if(event.getEntity() instanceof EntityPlayerMP) {
 			EntityPlayerMP player = (EntityPlayerMP) event.getEntity();
-			IRecipeController rpC = player.getCapability(DRPCoreCapabilities.DRPCORE_RECIPE_CONTROLLER, null);
-			ISkillController slC = player.getCapability(DRPCoreCapabilities.DRPCORE_SKILL_CONTROLLER, null);
-			
-			for(String recipe : rpC.getUnlockedRecipes()){
-				DRPCorePackets.sendTo(new SyncPacket_PlayerRecipeState(recipe,0,0F), player);
-			}
-			for(String recipe : rpC.getLockedRecipes()){
-				DRPCorePackets.sendTo(new SyncPacket_PlayerRecipeState(recipe,1,0F), player);
-			}
-			Map<String,Float> progressed = rpC.getProgressedRecipes();
-			for(String recipe : progressed.keySet()){
-				DRPCorePackets.sendTo(new SyncPacket_PlayerRecipeState(recipe,2,progressed.get(recipe)), player);
-			}
+//			IRecipeController rpC = player.getCapability(DRPCoreCapabilities.DRPCORE_RECIPE_CONTROLLER, null);
+//			ISkillController slC = player.getCapability(DRPCoreCapabilities.DRPCORE_SKILL_CONTROLLER, null);
+//			
+//			for(String recipe : rpC.getUnlockedRecipes()){
+//				DRPCorePackets.sendTo(new SyncPacket_PlayerRecipeState(recipe,0,0F), player);
+//			}
+//			for(String recipe : rpC.getLockedRecipes()){
+//				DRPCorePackets.sendTo(new SyncPacket_PlayerRecipeState(recipe,1,0F), player);
+//			}
+//			Map<String,Float> progressed = rpC.getProgressedRecipes();
+//			for(String recipe : progressed.keySet()){
+//				DRPCorePackets.sendTo(new SyncPacket_PlayerRecipeState(recipe,2,progressed.get(recipe)), player);
+//			}
 			
 //			for(SkillPointData data : slC.getSkillPoints()){
 //				DRPCorePackets.sendTo(new SyncPacket_SkillPoint(data.getPoint().getRegistryName(), data.getAmount(), data.getLevel(), data.getXP()) , player);

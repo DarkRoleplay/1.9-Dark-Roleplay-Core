@@ -110,7 +110,7 @@ public class DarkRoleplayCore {
 	
 	@EventHandler
 	public void serverLoad(FMLServerStartingEvent event){
-		event.registerServerCommand(new Command_Recipe("drprecipes"));
-		event.registerServerCommand(new Command_Skill("drpskills"));
+//		event.registerServerCommand(new Command_Recipe("drprecipes"));
+//		event.registerServerCommand(new Command_Skill("drpskills"));
 	}
 }

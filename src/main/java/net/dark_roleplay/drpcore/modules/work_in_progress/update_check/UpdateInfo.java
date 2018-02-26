@@ -7,6 +7,7 @@ import java.util.List;
 
 import net.minecraftforge.common.ForgeVersion.CheckResult;
 import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.common.ModContainer;
 import net.minecraftforge.fml.common.versioning.ComparableVersion;
 
 public class UpdateInfo {
@@ -19,10 +20,10 @@ public class UpdateInfo {
 	private List<String> versions;
 	private List<String> changelog;
 	
-	public UpdateInfo(Mod mod, CheckResult result){
-		this.modid = mod.modid();
-		this.modname = mod.name();
-		this.currentVersion = mod.version();
+	public UpdateInfo(ModContainer mod, CheckResult result){
+		this.modid = mod.getModId();
+		this.modname = mod.getName();
+		this.currentVersion = mod.getVersion();
 		this.targetVersion = result.target.toString();
 		this.versions = new ArrayList<String>();
 		this.changelog = new ArrayList<String>();
@@ -38,5 +39,34 @@ public class UpdateInfo {
 			this.updateURL = null;
 		}
 	}
+
+	public String getModid() {
+		return modid;
+	}
+
+	public String getModname() {
+		return modname;
+	}
+
+	public String getCurrentVersion() {
+		return currentVersion;
+	}
+
+	public String getTargetVersion() {
+		return targetVersion;
+	}
+
+	public URI getUpdateURL() {
+		return updateURL;
+	}
+
+	public List<String> getVersions() {
+		return versions;
+	}
+
+	public List<String> getChangelog() {
+		return changelog;
+	}
+	
 	
 }
