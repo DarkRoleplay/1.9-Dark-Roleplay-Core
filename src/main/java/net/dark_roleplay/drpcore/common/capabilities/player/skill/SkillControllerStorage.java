@@ -38,13 +38,13 @@ public class SkillControllerStorage implements IStorage<ISkillController>{
 		NBTTagList skillList = ((NBTTagCompound ) nbt).getTagList("skills", 8);
 		
 		List<Skill> skills = new ArrayList<Skill>();
-		IForgeRegistry<Skill> registry = Modules.SKILL.getSkillRegistry();
-		for(int i = 0; i < skillList.tagCount(); i++){
-			ResourceLocation loc;
-			if(registry.containsKey(loc = new ResourceLocation(skillList.getStringTagAt(i)))){
-				skills.add(registry.getValue(loc));
-			}
-		}
+//		IForgeRegistry<Skill> registry = Modules.SKILL.getSkillRegistry();
+//		for(int i = 0; i < skillList.tagCount(); i++){
+//			ResourceLocation loc;
+//			if(registry.containsKey(loc = new ResourceLocation(skillList.getStringTagAt(i)))){
+//				skills.add(registry.getValue(loc));
+//			}
+//		}
 		
 		instance.setSkills(skills);
 	}

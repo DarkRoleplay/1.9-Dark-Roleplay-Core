@@ -43,7 +43,7 @@ public class Gui_UpdateInformation extends GuiScreen{
 		
 		for(ModContainer mod : mods) {
 			CheckResult res = Modules.UPDATE_CHECKER.results.get(mod);
-			if(res.status == ForgeVersion.Status.OUTDATED || res.status == ForgeVersion.Status.BETA_OUTDATED) {
+			if(res.status == ForgeVersion.Status.OUTDATED) {
 				this.mods.add(new UpdateInfo(mod, res));
 			}
 		}

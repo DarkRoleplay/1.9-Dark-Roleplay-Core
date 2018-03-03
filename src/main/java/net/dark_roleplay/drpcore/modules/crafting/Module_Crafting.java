@@ -60,7 +60,6 @@ public class Module_Crafting extends Module{
 						InputStream[] streams = getRecipeFiles(new URL("jar:file:/" + jar.getCanonicalPath() + "!/data/drp/recipes/"));
 						for(InputStream stream : streams){
 							readRecipe(getResourceAsJson(stream));
-							System.out.println(stream);
 						}
 					}catch (URISyntaxException|IOException e) {
 						e.printStackTrace();

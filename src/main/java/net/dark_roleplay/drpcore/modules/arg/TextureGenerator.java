@@ -1,4 +1,4 @@
-package net.dark_roleplay.drpcore.modules.argh;
+package net.dark_roleplay.drpcore.modules.arg;
 
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
@@ -26,6 +26,8 @@ public class TextureGenerator {
 
 	private BufferedImage[] requiredTextures;
 	private JsonArray texturesArr;
+	
+	private static final Map<String, BufferedImage> globalCache = new HashMap<String, BufferedImage>();
 	
 	private Map<String, BufferedImage> cache = new HashMap<String, BufferedImage>();
 	
@@ -58,7 +60,12 @@ public class TextureGenerator {
 			
 			Map<String, BufferedImage> base = new HashMap<String, BufferedImage>();
 			for(Material mat : materials){
-				base.put(mat.getFormatValue(), copyImage(mat.getTexture(obj.get("base").getAsString())));
+				System.out.println(obj.get("base").toString());
+				if(obj.get("base").isJsonPrimitive() && obj.get("base").getAsJsonPrimitive().isNumber()) {
+					base.put(mat.getFormatValue(), copyImage(requiredTextures[obj.get("base").getAsInt()]));
+				}else {
+					base.put(mat.getFormatValue(), copyImage(mat.getTexture(obj.get("base").getAsString())));
+				}
 			}
 			JsonArray manipulations = obj.get("manipulations").getAsJsonArray();
 			for(int j = 0; j < manipulations.size(); j++){
@@ -70,14 +77,14 @@ public class TextureGenerator {
 					case "overlay":
 						if(texture != null){
 							for(Material mat : materials){
-								base.put(mat.getFormatValue(), overlay(base.get(mat.getFormatValue()), !cached ? requiredTextures[texture.getAsInt()] : this.cache.get(mat.getFormatted(texture.getAsString()))));
+								base.put(mat.getFormatValue(), overlay(base.get(mat.getFormatValue()), !cached ? requiredTextures[texture.getAsInt()] : this.cache.containsKey(mat.getFormatted(texture.getAsString())) ? this.cache.get(mat.getFormatted(texture.getAsString())) : this.globalCache.get(mat.getFormatted(texture.getAsString()))));
 							}
 						}
 						break;
 					case "mask":
 						if(texture != null){
 							for(Material mat : materials){
-								base.put(mat.getFormatValue(), mask(base.get(mat.getFormatValue()), !cached ? requiredTextures[texture.getAsInt()] : this.cache.get(mat.getFormatted(texture.getAsString()))));
+								base.put(mat.getFormatValue(), mask(base.get(mat.getFormatValue()), !cached ? requiredTextures[texture.getAsInt()] : this.cache.containsKey(mat.getFormatted(texture.getAsString())) ? this.cache.get(mat.getFormatted(texture.getAsString())) : this.globalCache.get(mat.getFormatted(texture.getAsString()))));
 							}
 						}
 						break;
@@ -107,6 +114,8 @@ public class TextureGenerator {
 					}
 				}else if(obj.has("cache")){
 					this.cache.put(obj.get("cache").getAsString().replace("%wood%", key), base.get(key));
+				}else if(obj.has("global_cache")){
+					this.globalCache.put(obj.get("global_cache").getAsString().replace("%wood%", key), base.get(key));
 				}
 			}
 		}

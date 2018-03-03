@@ -9,11 +9,11 @@ public class Panel_Addons extends VerticalPanel{
 		super(posX, posY, width, height, scrollHeight);
 		int i = 0;
 		int pos = 0;
-		for(PremiumAddon addon : Modules.PREMIUM.getAddons()){
-			Addon pAddon = new Addon(addon, 0, pos, this.width - 7);
-			this.addChild(pAddon);
-			pos += pAddon.getHeight();
-			i++;
-		}
+//		for(PremiumAddon addon : Modules.PREMIUM.getAddons()){
+//			Addon pAddon = new Addon(addon, 0, pos, this.width - 7);
+//			this.addChild(pAddon);
+//			pos += pAddon.getHeight();
+//			i++;
+//		}
 	}
 }

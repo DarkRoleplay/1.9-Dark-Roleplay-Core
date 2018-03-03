@@ -25,9 +25,9 @@ public class Command_Skill extends DRPCommand{
 	public Command_Skill(String name){
 		super(name);
 		skills = new ArrayList<String>();
-		for(Skill skill : Modules.SKILL.getSkillRegistry().getValues()){
-			skills.add(skill.toString());
-		}
+//		for(Skill skill : Modules.SKILL.getSkillRegistry().getValues()){
+//			skills.add(skill.toString());
+//		}
 	}
 
 	@Override
@@ -83,13 +83,13 @@ public class Command_Skill extends DRPCommand{
 							
 						}else{
 							sendMessage(sender, "You've unlocked following skills:");
-							sendMessage(sender, Modules.SKILL.getSkillController((EntityPlayer) sender).getSkills().toString());
+//							sendMessage(sender, Modules.SKILL.getSkillController((EntityPlayer) sender).getSkills().toString());
 						}
 					}
 				}
 			}else if(args[0].equals("unlock")){
-				ISkillController controller = Modules.SKILL.getSkillController((EntityPlayer) sender);
-				controller.unlockSkill(getSkill(args[1]), (EntityPlayer) sender);
+//				ISkillController controller = Modules.SKILL.getSkillController((EntityPlayer) sender);
+//				controller.unlockSkill(getSkill(args[1]), (EntityPlayer) sender);
 			}
 		}else{
 			if(args[0].equals("list")){
@@ -112,7 +112,8 @@ public class Command_Skill extends DRPCommand{
 	}
 	
 	private Skill getSkill(String arg){
-		return Modules.SKILL.getSkillRegistry().containsKey(new ResourceLocation(arg)) ? Modules.SKILL.getSkillRegistry().getValue(new ResourceLocation(arg)) : null;
+		return null;
+//		return Modules.SKILL.getSkillRegistry().containsKey(new ResourceLocation(arg)) ? Modules.SKILL.getSkillRegistry().getValue(new ResourceLocation(arg)) : null;
 	}
 	
 	private ISkillController getSkills(MinecraftServer server, ICommandSender sender, String arg){

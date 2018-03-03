@@ -1,4 +1,4 @@
-package net.dark_roleplay.drpcore.modules.argh;
+package net.dark_roleplay.drpcore.modules.arg;
 
 import java.awt.image.BufferedImage;
 import java.io.BufferedInputStream;

@@ -3,8 +3,8 @@ package net.dark_roleplay.drpcore.modules.materials;
 import java.util.List;
 
 import net.dark_roleplay.drpcore.client.ClientProxy;
-import net.dark_roleplay.drpcore.modules.argh.JsonGenerator;
-import net.dark_roleplay.drpcore.modules.argh.TextureGenerator;
+import net.dark_roleplay.drpcore.modules.arg.JsonGenerator;
+import net.dark_roleplay.drpcore.modules.arg.TextureGenerator;
 import net.minecraft.util.ResourceLocation;
 
 public class ResourceGenerator {
