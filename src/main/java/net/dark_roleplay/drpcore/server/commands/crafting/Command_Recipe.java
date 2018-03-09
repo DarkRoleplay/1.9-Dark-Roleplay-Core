@@ -6,7 +6,7 @@ import java.util.Map;
 
 import com.mojang.realmsclient.gui.ChatFormatting;
 
-import net.dark_roleplay.drpcore.api.commands.DRPCommand;
+import net.dark_roleplay.drpcore.api.old.commands.DRPCommand;
 import net.dark_roleplay.drpcore.common.capabilities.player.crafting.IRecipeController;
 import net.dark_roleplay.drpcore.common.crafting.CraftingRegistry;
 import net.dark_roleplay.drpcore.common.handler.DRPCoreCapabilities;

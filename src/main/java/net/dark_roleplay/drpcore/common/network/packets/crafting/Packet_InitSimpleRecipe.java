@@ -1,7 +1,7 @@
 package net.dark_roleplay.drpcore.common.network.packets.crafting;
 
 import io.netty.buffer.ByteBuf;
-import net.dark_roleplay.drpcore.api.crafting.simple_recipe.SimpleRecipe;
+import net.dark_roleplay.drpcore.api.old.crafting.simple_recipe.SimpleRecipe;
 import net.dark_roleplay.drpcore.common.crafting.CraftingRegistry;
 import net.dark_roleplay.drpcore.common.network.PacketBase;
 import net.minecraft.entity.player.EntityPlayer;

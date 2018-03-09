@@ -1,7 +1,7 @@
 package net.dark_roleplay.drpcore.modules.work_in_progress.premium;
 
-import net.dark_roleplay.drpcore.api.Modules;
-import net.dark_roleplay.drpcore.api.gui.DRPGuiScreen;
+import net.dark_roleplay.drpcore.api.old.Modules;
+import net.dark_roleplay.drpcore.api.old.gui.DRPGuiScreen;
 import net.dark_roleplay.drpcore.modules.crafting.Panel_Categories;
 import net.dark_roleplay.drpcore.modules.crafting.Panel_Craft;
 import net.dark_roleplay.drpcore.modules.crafting.Panel_Recipes;

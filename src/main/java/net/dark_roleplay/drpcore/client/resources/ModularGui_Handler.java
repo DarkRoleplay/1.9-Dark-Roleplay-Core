@@ -10,9 +10,9 @@ import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 
-import net.dark_roleplay.drpcore.api.gui.modular.ModularGui_Template;
-import net.dark_roleplay.drpcore.api.gui.modular.Modular_Background;
-import net.dark_roleplay.drpcore.api.gui.modular.Modular_Buttons;
+import net.dark_roleplay.drpcore.api.old.gui.modular.ModularGui_Template;
+import net.dark_roleplay.drpcore.api.old.gui.modular.Modular_Background;
+import net.dark_roleplay.drpcore.api.old.gui.modular.Modular_Buttons;
 import net.dark_roleplay.drpcore.client.ClientProxy;
 import net.dark_roleplay.drpcore.client.gui.ModularGuiHandler;
 import net.dark_roleplay.drpcore.common.DRPCoreReferences;

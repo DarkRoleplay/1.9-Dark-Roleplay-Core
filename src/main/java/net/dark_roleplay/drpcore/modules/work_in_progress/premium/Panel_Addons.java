@@ -1,6 +1,6 @@
 package net.dark_roleplay.drpcore.modules.work_in_progress.premium;
 
-import net.dark_roleplay.drpcore.api.Modules;
+import net.dark_roleplay.drpcore.api.old.Modules;
 import net.dark_roleplay.drpcore.modules.gui.VerticalPanel;
 
 public class Panel_Addons extends VerticalPanel{

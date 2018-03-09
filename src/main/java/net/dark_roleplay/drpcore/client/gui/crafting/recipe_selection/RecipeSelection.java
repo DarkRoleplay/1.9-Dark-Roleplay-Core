@@ -9,10 +9,10 @@ import java.util.Map;
 
 import org.lwjgl.opengl.GL11;
 
-import net.dark_roleplay.drpcore.api.crafting.simple_recipe.IRecipe;
-import net.dark_roleplay.drpcore.api.crafting.simple_recipe.RecipeCategory;
-import net.dark_roleplay.drpcore.api.crafting.simple_recipe.SimpleRecipe;
-import net.dark_roleplay.drpcore.api.gui.DRPGuiScreen;
+import net.dark_roleplay.drpcore.api.old.crafting.simple_recipe.IRecipe;
+import net.dark_roleplay.drpcore.api.old.crafting.simple_recipe.RecipeCategory;
+import net.dark_roleplay.drpcore.api.old.crafting.simple_recipe.SimpleRecipe;
+import net.dark_roleplay.drpcore.api.old.gui.DRPGuiScreen;
 import net.dark_roleplay.drpcore.client.ClientProxy;
 import net.dark_roleplay.drpcore.client.gui.crafting.recipe_crafting.RecipeCrafting_SimpleRecipe;
 import net.dark_roleplay.drpcore.client.keybindings.DRPCoreKeybindings;

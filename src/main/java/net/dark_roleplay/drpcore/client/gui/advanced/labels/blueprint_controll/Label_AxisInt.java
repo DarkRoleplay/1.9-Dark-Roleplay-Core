@@ -1,7 +1,7 @@
 package net.dark_roleplay.drpcore.client.gui.advanced.labels.blueprint_controll;
 
-import net.dark_roleplay.drpcore.api.gui.advanced.Gui_Label;
-import net.dark_roleplay.drpcore.api.gui.utility.wrappers.Variable_Int;
+import net.dark_roleplay.drpcore.api.old.gui.advanced.Gui_Label;
+import net.dark_roleplay.drpcore.api.old.gui.utility.wrappers.Variable_Int;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.resources.I18n;

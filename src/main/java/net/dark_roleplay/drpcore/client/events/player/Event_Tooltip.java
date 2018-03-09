@@ -1,6 +1,6 @@
 package net.dark_roleplay.drpcore.client.events.player;
 
-import net.dark_roleplay.drpcore.api.util.lore.LoreUtil;
+import net.dark_roleplay.drpcore.api.old.util.lore.LoreUtil;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.event.entity.player.ItemTooltipEvent;

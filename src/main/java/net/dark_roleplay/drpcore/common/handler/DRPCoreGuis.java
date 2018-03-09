@@ -1,6 +1,6 @@
 package net.dark_roleplay.drpcore.common.handler;
 
-import net.dark_roleplay.drpcore.api.crafting.simple_recipe.SimpleRecipe;
+import net.dark_roleplay.drpcore.api.old.crafting.simple_recipe.SimpleRecipe;
 import net.dark_roleplay.drpcore.client.gui.crafting.recipe_crafting.RecipeCrafting_SimpleRecipe;
 import net.dark_roleplay.drpcore.client.gui.crafting.recipe_creation.Container_RecipeCreation;
 import net.dark_roleplay.drpcore.client.gui.crafting.recipe_creation.Gui_RecipeCreation;

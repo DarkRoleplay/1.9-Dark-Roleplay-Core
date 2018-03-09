@@ -8,8 +8,8 @@ import java.io.PrintWriter;
 import java.nio.file.Files;
 import java.util.ArrayList;
 
-import net.dark_roleplay.drpcore.api.blueprints.Blueprint;
-import net.dark_roleplay.drpcore.api.crafting.simple_recipe.SimpleRecipe;
+import net.dark_roleplay.drpcore.api.old.crafting.simple_recipe.SimpleRecipe;
+import net.dark_roleplay.library.blueprints.Blueprint;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompressedStreamTools;
 import net.minecraft.nbt.NBTTagCompound;

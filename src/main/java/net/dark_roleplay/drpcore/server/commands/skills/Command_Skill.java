@@ -3,8 +3,8 @@ package net.dark_roleplay.drpcore.server.commands.skills;
 import java.util.ArrayList;
 import java.util.List;
 
-import net.dark_roleplay.drpcore.api.Modules;
-import net.dark_roleplay.drpcore.api.commands.DRPCommand;
+import net.dark_roleplay.drpcore.api.old.Modules;
+import net.dark_roleplay.drpcore.api.old.commands.DRPCommand;
 import net.dark_roleplay.drpcore.common.capabilities.player.skill.ISkillController;
 import net.dark_roleplay.drpcore.common.handler.DRPCoreCapabilities;
 import net.dark_roleplay.drpcore.modules.work_in_progress.skill.Skill;

@@ -3,10 +3,10 @@ package net.dark_roleplay.drpcore.common.handler;
 import java.util.ArrayList;
 import java.util.List;
 
-import net.dark_roleplay.drpcore.api.items.DRPInstrument;
-import net.dark_roleplay.drpcore.api.items.DRPItem;
-import net.dark_roleplay.drpcore.api.items.DRPLockable;
-import net.dark_roleplay.drpcore.api.items.Seed;
+import net.dark_roleplay.drpcore.api.old.items.DRPInstrument;
+import net.dark_roleplay.drpcore.api.old.items.DRPItem;
+import net.dark_roleplay.drpcore.api.old.items.DRPLockable;
+import net.dark_roleplay.drpcore.api.old.items.Seed;
 import net.dark_roleplay.drpcore.common.DRPCoreReferences;
 import net.dark_roleplay.drpcore.common.DarkRoleplayCore;
 import net.dark_roleplay.drpcore.modules.locks.ILock;

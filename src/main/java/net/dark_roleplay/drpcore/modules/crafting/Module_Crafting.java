@@ -25,8 +25,8 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonSyntaxException;
 
-import net.dark_roleplay.drpcore.api.crafting.simple_recipe.RecipeCategory;
-import net.dark_roleplay.drpcore.api.crafting.simple_recipe.SimpleRecipe;
+import net.dark_roleplay.drpcore.api.old.crafting.simple_recipe.RecipeCategory;
+import net.dark_roleplay.drpcore.api.old.crafting.simple_recipe.SimpleRecipe;
 import net.dark_roleplay.drpcore.common.crafting.CraftingRegistry;
 import net.dark_roleplay.drpcore.modules.Module;
 import net.minecraft.block.Block;

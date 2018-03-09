@@ -7,15 +7,15 @@ import java.io.FileOutputStream;
 import java.io.OutputStream;
 
 import io.netty.buffer.ByteBuf;
-import net.dark_roleplay.drpcore.api.blueprints.Blueprint;
-import net.dark_roleplay.drpcore.api.blueprints.BlueprintUtil;
-import net.dark_roleplay.drpcore.api.crafting.simple_recipe.SimpleRecipe;
+import net.dark_roleplay.drpcore.api.old.crafting.simple_recipe.SimpleRecipe;
 import net.dark_roleplay.drpcore.common.DarkRoleplayCore;
 import net.dark_roleplay.drpcore.common.config.SyncedConfigRegistry;
 import net.dark_roleplay.drpcore.common.crafting.simple_recipe.SimpleRecipeSerializationUtil;
 import net.dark_roleplay.drpcore.common.handler.DRPCoreGuis;
 import net.dark_roleplay.drpcore.common.network.PacketBase;
 import net.dark_roleplay.drpcore.common.network.packets.config.SyncPacket_Boolean;
+import net.dark_roleplay.library.blueprints.Blueprint;
+import net.dark_roleplay.library.blueprints.BlueprintUtil;
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;

@@ -15,8 +15,8 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
-import net.dark_roleplay.drpcore.api.Modules;
-import net.dark_roleplay.drpcore.api.util.DRPRegistries;
+import net.dark_roleplay.drpcore.api.old.Modules;
+import net.dark_roleplay.drpcore.api.old.util.DRPRegistries;
 import net.dark_roleplay.drpcore.common.DRPCoreReferences;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.common.ProgressManager;

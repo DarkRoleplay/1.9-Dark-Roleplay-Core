@@ -1,6 +1,6 @@
 package net.dark_roleplay.drpcore.client.gui;
 
-import net.dark_roleplay.drpcore.api.gui.modular.ModularGui_Template;
+import net.dark_roleplay.drpcore.api.old.gui.modular.ModularGui_Template;
 
 public class ModularGuiHandler {
 

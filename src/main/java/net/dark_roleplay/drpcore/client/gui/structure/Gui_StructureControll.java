@@ -13,17 +13,15 @@ import org.lwjgl.input.Keyboard;
 
 import com.google.common.collect.Lists;
 
-import net.dark_roleplay.drpcore.api.blueprints.Blueprint;
-import net.dark_roleplay.drpcore.api.blueprints.BlueprintUtil;
-import net.dark_roleplay.drpcore.api.gui.DRPGuiScreen;
-import net.dark_roleplay.drpcore.api.gui.advanced.Gui_Frame;
-import net.dark_roleplay.drpcore.api.gui.advanced.Gui_Label;
-import net.dark_roleplay.drpcore.api.gui.advanced.Gui_Screen;
-import net.dark_roleplay.drpcore.api.gui.advanced.Gui_Textfield;
-import net.dark_roleplay.drpcore.api.gui.advanced.buttons.Button_ChangeBool;
-import net.dark_roleplay.drpcore.api.gui.advanced.buttons.Button_ChangeInt;
-import net.dark_roleplay.drpcore.api.gui.utility.wrappers.Variable_Boolean;
-import net.dark_roleplay.drpcore.api.gui.utility.wrappers.Variable_Int;
+import net.dark_roleplay.drpcore.api.old.gui.DRPGuiScreen;
+import net.dark_roleplay.drpcore.api.old.gui.advanced.Gui_Frame;
+import net.dark_roleplay.drpcore.api.old.gui.advanced.Gui_Label;
+import net.dark_roleplay.drpcore.api.old.gui.advanced.Gui_Screen;
+import net.dark_roleplay.drpcore.api.old.gui.advanced.Gui_Textfield;
+import net.dark_roleplay.drpcore.api.old.gui.advanced.buttons.Button_ChangeBool;
+import net.dark_roleplay.drpcore.api.old.gui.advanced.buttons.Button_ChangeInt;
+import net.dark_roleplay.drpcore.api.old.gui.utility.wrappers.Variable_Boolean;
+import net.dark_roleplay.drpcore.api.old.gui.utility.wrappers.Variable_Int;
 import net.dark_roleplay.drpcore.client.gui.advanced.buttons.blueprint_controll.Button_ChangeMode;
 import net.dark_roleplay.drpcore.client.gui.advanced.buttons.blueprint_controll.Button_ChangeRenderMode;
 import net.dark_roleplay.drpcore.client.gui.advanced.buttons.blueprint_controll.Button_SaveLoad;
@@ -37,6 +35,8 @@ import net.dark_roleplay.drpcore.common.network.packets.blocks.Packet_SaveBluepr
 import net.dark_roleplay.drpcore.common.network.packets.blocks.SyncPacket_BlueprintBlock;
 import net.dark_roleplay.drpcore.common.objects.tile_entities.blueprint_controller.TE_BlueprintController;
 import net.dark_roleplay.drpcore.modules.gui.IGuiElement;
+import net.dark_roleplay.library.blueprints.Blueprint;
+import net.dark_roleplay.library.blueprints.BlueprintUtil;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.audio.PositionedSoundRecord;
 import net.minecraft.client.gui.GuiButton;

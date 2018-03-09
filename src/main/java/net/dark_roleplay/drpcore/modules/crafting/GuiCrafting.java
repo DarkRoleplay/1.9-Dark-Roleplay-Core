@@ -1,6 +1,6 @@
 package net.dark_roleplay.drpcore.modules.crafting;
 
-import net.dark_roleplay.drpcore.api.gui.DRPGuiScreen;
+import net.dark_roleplay.drpcore.api.old.gui.DRPGuiScreen;
 import net.dark_roleplay.drpcore.common.DRPCoreReferences;
 import net.dark_roleplay.drpcore.modules.gui.HorizontalScrollBar;
 import net.dark_roleplay.drpcore.modules.gui.IntegerWrapper;

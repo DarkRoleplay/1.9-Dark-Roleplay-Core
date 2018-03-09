@@ -2,7 +2,7 @@ package net.dark_roleplay.drpcore.client.events.player;
 
 import java.util.List;
 
-import net.dark_roleplay.drpcore.api.items.weapons.IExtendedRange;
+import net.dark_roleplay.drpcore.api.old.items.weapons.IExtendedRange;
 import net.dark_roleplay.drpcore.common.handler.DRPCorePackets;
 import net.dark_roleplay.drpcore.common.network.packets.weapons.Packet_ExtendedRangeAttack;
 import net.minecraft.client.Minecraft;

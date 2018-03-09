@@ -1,9 +1,9 @@
 package net.dark_roleplay.drpcore.client.gui.premium;
 
-import net.dark_roleplay.drpcore.api.gui.advanced.Gui_Frame;
-import net.dark_roleplay.drpcore.api.gui.advanced.Gui_Panel;
-import net.dark_roleplay.drpcore.api.gui.advanced.Gui_Screen;
-import net.dark_roleplay.drpcore.api.gui.advanced.Gui_ScrolledPanel;
+import net.dark_roleplay.drpcore.api.old.gui.advanced.Gui_Frame;
+import net.dark_roleplay.drpcore.api.old.gui.advanced.Gui_Panel;
+import net.dark_roleplay.drpcore.api.old.gui.advanced.Gui_Screen;
+import net.dark_roleplay.drpcore.api.old.gui.advanced.Gui_ScrolledPanel;
 import net.minecraft.client.resources.I18n;
 
 public class Gui_Shop extends Gui_Screen{

@@ -4,9 +4,9 @@ import java.awt.Color;
 import java.io.IOException;
 import java.util.ArrayList;
 
-import net.dark_roleplay.drpcore.api.crafting.simple_recipe.SimpleRecipe;
-import net.dark_roleplay.drpcore.api.gui.DRPGuiScreen;
-import net.dark_roleplay.drpcore.api.gui.ITimedGui;
+import net.dark_roleplay.drpcore.api.old.crafting.simple_recipe.SimpleRecipe;
+import net.dark_roleplay.drpcore.api.old.gui.DRPGuiScreen;
+import net.dark_roleplay.drpcore.api.old.gui.ITimedGui;
 import net.dark_roleplay.drpcore.client.ClientProxy;
 import net.dark_roleplay.drpcore.client.gui.crafting.recipe_selection.Button_CategorySelect;
 import net.dark_roleplay.drpcore.client.gui.crafting.recipe_selection.Button_ChangeCategory;

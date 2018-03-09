@@ -9,9 +9,9 @@ import java.util.List;
 import com.google.common.collect.BiMap;
 import com.google.common.collect.HashBiMap;
 
-import net.dark_roleplay.drpcore.api.crafting.simple_recipe.IRecipe;
-import net.dark_roleplay.drpcore.api.crafting.simple_recipe.RecipeCategory;
-import net.dark_roleplay.drpcore.api.crafting.simple_recipe.SimpleCrafter;
+import net.dark_roleplay.drpcore.api.old.crafting.simple_recipe.IRecipe;
+import net.dark_roleplay.drpcore.api.old.crafting.simple_recipe.RecipeCategory;
+import net.dark_roleplay.drpcore.api.old.crafting.simple_recipe.SimpleCrafter;
 import net.minecraft.block.Block;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;

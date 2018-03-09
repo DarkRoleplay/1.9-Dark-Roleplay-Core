@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import net.dark_roleplay.drpcore.api.Modules;
+import net.dark_roleplay.drpcore.api.old.Modules;
 import net.dark_roleplay.drpcore.modules.work_in_progress.skill.Skill;
 import net.minecraft.nbt.NBTBase;
 import net.minecraft.nbt.NBTTagCompound;

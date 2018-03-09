@@ -2,7 +2,7 @@ package net.dark_roleplay.drpcore.client.gui.advanced.buttons.blueprint_controll
 
 import java.io.IOException;
 
-import net.dark_roleplay.drpcore.api.gui.advanced.Gui_Button;
+import net.dark_roleplay.drpcore.api.old.gui.advanced.Gui_Button;
 import net.dark_roleplay.drpcore.client.gui.advanced.wrappers.Variable_Mode;
 import net.dark_roleplay.drpcore.client.gui.advanced.wrappers.Variable_RenderMode;
 import net.dark_roleplay.drpcore.common.objects.tile_entities.blueprint_controller.TE_BlueprintController;

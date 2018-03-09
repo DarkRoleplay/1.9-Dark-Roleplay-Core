@@ -1,7 +1,7 @@
 package net.dark_roleplay.drpcore.common;
 
 
-import net.dark_roleplay.drpcore.api.Modules;
+import net.dark_roleplay.drpcore.api.old.Modules;
 import net.dark_roleplay.drpcore.common.config.SyncedConfigRegistry;
 import net.dark_roleplay.drpcore.common.handler.DRPCoreCapabilities;
 import net.dark_roleplay.drpcore.common.handler.DRPCoreCrafting;

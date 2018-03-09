@@ -6,12 +6,12 @@ import java.io.IOException;
 import java.io.OutputStream;
 
 import io.netty.buffer.ByteBuf;
-import net.dark_roleplay.drpcore.api.blueprints.Blueprint;
-import net.dark_roleplay.drpcore.api.blueprints.BlueprintUtil;
 import net.dark_roleplay.drpcore.common.DRPCoreReferences;
 import net.dark_roleplay.drpcore.common.handler.DRPCorePerms;
 import net.dark_roleplay.drpcore.common.network.PacketBase;
 import net.dark_roleplay.drpcore.common.objects.tile_entities.blueprint_controller.TE_BlueprintController;
+import net.dark_roleplay.library.blueprints.Blueprint;
+import net.dark_roleplay.library.blueprints.BlueprintUtil;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.math.BlockPos;

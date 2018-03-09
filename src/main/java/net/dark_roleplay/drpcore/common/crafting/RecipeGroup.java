@@ -2,7 +2,7 @@ package net.dark_roleplay.drpcore.common.crafting;
 
 import java.util.List;
 
-import net.dark_roleplay.drpcore.api.crafting.simple_recipe.SimpleRecipe;
+import net.dark_roleplay.drpcore.api.old.crafting.simple_recipe.SimpleRecipe;
 import net.minecraft.block.Block;
 import net.minecraft.item.ItemStack;
 

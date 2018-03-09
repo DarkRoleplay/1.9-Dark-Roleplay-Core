@@ -5,8 +5,8 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 
-import net.dark_roleplay.drpcore.api.models.TexturedQuad;
-import net.dark_roleplay.drpcore.api.models.entity.Model;
+import net.dark_roleplay.drpcore.api.old.models.TexturedQuad;
+import net.dark_roleplay.drpcore.api.old.models.entity.Model;
 import net.dark_roleplay.drpcore.common.util.premium.PremiumData;
 import net.minecraft.client.model.PositionTextureVertex;
 

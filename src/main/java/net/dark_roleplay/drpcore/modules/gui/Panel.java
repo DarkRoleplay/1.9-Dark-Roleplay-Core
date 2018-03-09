@@ -2,7 +2,7 @@ package net.dark_roleplay.drpcore.modules.gui;
 
 import java.util.List;
 
-import net.dark_roleplay.drpcore.api.gui.modular.ModularGui_Drawer;
+import net.dark_roleplay.drpcore.api.old.gui.modular.ModularGui_Drawer;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
 

@@ -11,7 +11,7 @@ import mezz.jei.api.gui.IRecipeLayout;
 import mezz.jei.api.ingredients.IIngredients;
 import mezz.jei.api.recipe.IRecipeCategory;
 import net.dark_roleplay.drpcore.addons.jei.DRPCoreJEIAddon;
-import net.dark_roleplay.drpcore.api.crafting.simple_recipe.SimpleRecipe;
+import net.dark_roleplay.drpcore.api.old.crafting.simple_recipe.SimpleRecipe;
 import net.dark_roleplay.drpcore.common.DRPCoreReferences;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiScreen;

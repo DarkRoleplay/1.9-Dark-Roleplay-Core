@@ -5,9 +5,9 @@ import java.util.List;
 
 import org.lwjgl.opengl.GL11;
 
-import net.dark_roleplay.drpcore.api.models.entity.Bone;
-import net.dark_roleplay.drpcore.api.models.entity.Json_Bones;
-import net.dark_roleplay.drpcore.api.models.entity.Json_Models;
+import net.dark_roleplay.drpcore.api.old.models.entity.Bone;
+import net.dark_roleplay.drpcore.api.old.models.entity.Json_Bones;
+import net.dark_roleplay.drpcore.api.old.models.entity.Json_Models;
 import net.dark_roleplay.drpcore.common.DRPCoreReferences;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;

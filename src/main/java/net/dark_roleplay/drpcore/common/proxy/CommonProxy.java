@@ -3,7 +3,7 @@ package net.dark_roleplay.drpcore.common.proxy;
 import java.util.HashMap;
 import java.util.UUID;
 
-import net.dark_roleplay.drpcore.api.items.DRPItem;
+import net.dark_roleplay.drpcore.api.old.items.DRPItem;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;

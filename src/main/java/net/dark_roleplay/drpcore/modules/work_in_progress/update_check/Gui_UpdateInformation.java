@@ -10,7 +10,7 @@ import java.util.Set;
 
 import com.google.common.collect.Sets;
 
-import net.dark_roleplay.drpcore.api.Modules;
+import net.dark_roleplay.drpcore.api.old.Modules;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiConfirmOpenLink;
