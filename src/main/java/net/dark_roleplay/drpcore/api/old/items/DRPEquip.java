@@ -1,5 +1,7 @@
 package net.dark_roleplay.drpcore.api.old.items;
 
+import net.dark_roleplay.library.items.DRPItem;
+
 public class DRPEquip extends DRPItem{
 
 	private TYPE type;

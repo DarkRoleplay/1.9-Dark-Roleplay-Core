@@ -4,7 +4,6 @@ import java.util.ArrayList;
 
 import com.google.common.collect.Lists;
 
-import net.dark_roleplay.drpcore.api.old.items.DRPItem;
 import net.minecraft.client.renderer.block.model.ModelBakery;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.util.ResourceLocation;
@@ -43,6 +42,7 @@ public class ItemUtil {
 		}
 		toRegister.clear();
 	}
+	 
 	/*
 	public static void registerItemMeshs() {
 		for(DRPItem item : toRegister){

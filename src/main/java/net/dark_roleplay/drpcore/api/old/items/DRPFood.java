@@ -1,5 +1,6 @@
 package net.dark_roleplay.drpcore.api.old.items;
 
+import net.dark_roleplay.library.items.DRPItem;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.SoundEvents;

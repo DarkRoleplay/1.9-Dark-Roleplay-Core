@@ -4,8 +4,8 @@ import java.util.concurrent.Callable;
 
 import io.netty.buffer.ByteBuf;
 import net.dark_roleplay.drpcore.common.handler.DRPCoreCapabilities;
-import net.dark_roleplay.drpcore.common.network.PacketBase;
 import net.dark_roleplay.drpcore.modules.locks.ILockHandler;
+import net.dark_roleplay.library.networking.PacketBase;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.nbt.NBTTagCompound;

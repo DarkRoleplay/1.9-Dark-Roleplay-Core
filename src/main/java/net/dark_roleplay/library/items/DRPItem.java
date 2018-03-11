@@ -1,6 +1,5 @@
-package net.dark_roleplay.drpcore.api.old.items;
+package net.dark_roleplay.library.items;
 
-import net.dark_roleplay.library.items.ItemUtil;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.EnumAction;
 import net.minecraft.item.Item;
@@ -33,12 +32,25 @@ public class DRPItem extends Item{
 		if(subNames != null){
 	        this.setHasSubtypes(true);
 		}
-		this.subNames = subNames!=null&&subNames.length>0?subNames:null;
+		this.subNames = subNames != null && subNames.length > 0 ? subNames : null;
 		this.itemFolder = itemFolder;
 	
 		ItemUtil.toRegister.add(this);
 	}
 	
+	/**
+	 * Returns the Folder/Folder Path for the Model files
+	 * @return
+	 */
+	public String getItemFolder() {
+		return itemFolder;
+	}
+
+	/**
+	 * Returns an Array of Sub Names for this Item,
+	 * this is also used to register the model files.
+	 * @return
+	 */
 	public String[] getSubNames(){
 		return subNames;
 	}
@@ -51,8 +63,7 @@ public class DRPItem extends Item{
 				for(int i=0;i<getSubNames().length;i++){
 					list.add(new ItemStack(this,1,i));
 				}
-			}
-			else{
+			}else{
 				list.add(new ItemStack(this));
 			}
 		}
@@ -65,9 +76,5 @@ public class DRPItem extends Item{
 			return this.getUnlocalizedName() + subName;
 		}
 		return this.getUnlocalizedName();
-	}
-
-	public String getItemFolder() {
-		return itemFolder;
 	}
 }

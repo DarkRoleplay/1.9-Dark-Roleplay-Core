@@ -19,7 +19,6 @@ import com.google.gson.JsonObject;
 
 import net.dark_roleplay.drpcore.api.old.entities.renderer.RendererTest;
 import net.dark_roleplay.drpcore.api.old.gui.modular.ModularGui_Template;
-import net.dark_roleplay.drpcore.api.old.items.DRPItem;
 import net.dark_roleplay.drpcore.client.events.network.Event_ConnectServer;
 import net.dark_roleplay.drpcore.client.events.player.Event_Mouse;
 import net.dark_roleplay.drpcore.client.events.rendering.Event_BlockHighlight;
@@ -36,6 +35,7 @@ import net.dark_roleplay.drpcore.common.proxy.CommonProxy;
 import net.dark_roleplay.drpcore.modules.color.ColorHandler;
 import net.dark_roleplay.drpcore.modules.work_in_progress.premium.RenderLayer_PremiumAddon;
 import net.dark_roleplay.drpcore.testing.Testing_Entity;
+import net.dark_roleplay.library.items.DRPItem;
 import net.dark_roleplay.library.items.ItemUtil;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.block.model.ModelBakery;

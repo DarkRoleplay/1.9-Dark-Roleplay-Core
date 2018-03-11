@@ -2,8 +2,8 @@ package net.dark_roleplay.drpcore.testing;
 
 import java.util.Random;
 
-import net.dark_roleplay.drpcore.api.old.items.DRPItem;
 import net.dark_roleplay.drpcore.modules.color.IColored;
+import net.dark_roleplay.library.items.DRPItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 

@@ -8,10 +8,10 @@ import java.io.OutputStream;
 import io.netty.buffer.ByteBuf;
 import net.dark_roleplay.drpcore.common.DRPCoreReferences;
 import net.dark_roleplay.drpcore.common.handler.DRPCorePerms;
-import net.dark_roleplay.drpcore.common.network.PacketBase;
 import net.dark_roleplay.drpcore.common.objects.tile_entities.blueprint_controller.TE_BlueprintController;
 import net.dark_roleplay.library.blueprints.Blueprint;
 import net.dark_roleplay.library.blueprints.BlueprintUtil;
+import net.dark_roleplay.library.networking.PacketBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.math.BlockPos;
@@ -94,7 +94,7 @@ public class Packet_SaveBlueprint extends PacketBase.Server<Packet_SaveBlueprint
 						try {
 							structure.createNewFile();
 							OutputStream os = new FileOutputStream(structure);
-							BlueprintUtil.writeToFile(os, bp);
+							BlueprintUtil.writeToStream(os, bp);
 						} catch (IOException e) {
 							e.printStackTrace();
 						}

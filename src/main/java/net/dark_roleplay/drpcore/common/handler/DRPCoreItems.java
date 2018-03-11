@@ -4,13 +4,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 import net.dark_roleplay.drpcore.api.old.items.DRPInstrument;
-import net.dark_roleplay.drpcore.api.old.items.DRPItem;
 import net.dark_roleplay.drpcore.api.old.items.DRPLockable;
 import net.dark_roleplay.drpcore.api.old.items.Seed;
 import net.dark_roleplay.drpcore.common.DRPCoreReferences;
 import net.dark_roleplay.drpcore.common.DarkRoleplayCore;
 import net.dark_roleplay.drpcore.modules.locks.ILock;
 import net.dark_roleplay.drpcore.testing.Test_PaintItem;
+import net.dark_roleplay.library.items.DRPItem;
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.entity.EntityLivingBase;

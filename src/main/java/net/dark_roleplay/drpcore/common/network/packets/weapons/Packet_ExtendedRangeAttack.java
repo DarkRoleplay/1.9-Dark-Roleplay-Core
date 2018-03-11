@@ -2,7 +2,7 @@ package net.dark_roleplay.drpcore.common.network.packets.weapons;
 
 import io.netty.buffer.ByteBuf;
 import net.dark_roleplay.drpcore.api.old.items.weapons.IExtendedRange;
-import net.dark_roleplay.drpcore.common.network.PacketBase;
+import net.dark_roleplay.library.networking.PacketBase;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;

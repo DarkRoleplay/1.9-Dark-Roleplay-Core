@@ -2,8 +2,8 @@ package net.dark_roleplay.drpcore.common.network.packets.config;
 
 import io.netty.buffer.ByteBuf;
 import net.dark_roleplay.drpcore.common.config.SyncedConfigRegistry;
-import net.dark_roleplay.drpcore.common.network.PacketBase;
 import net.dark_roleplay.drpcore.common.network.packets.crafting.Packet_InitSimpleRecipe;
+import net.dark_roleplay.library.networking.PacketBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraftforge.fml.common.network.ByteBufUtils;
 
