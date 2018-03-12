@@ -4,6 +4,11 @@ import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.awt.image.WritableRaster;
 
+/**
+ * This class wasn't tested for now, so some things might also not work
+ * and there are surely ways to optimize them.
+ * @author JTK222
+ */
 public class ImageUtil {
 
 	/**

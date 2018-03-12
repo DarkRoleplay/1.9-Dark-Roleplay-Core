@@ -6,12 +6,12 @@ import java.util.Map;
 
 import com.mojang.realmsclient.gui.ChatFormatting;
 
-import net.dark_roleplay.drpcore.api.old.commands.DRPCommand;
 import net.dark_roleplay.drpcore.common.capabilities.player.crafting.IRecipeController;
 import net.dark_roleplay.drpcore.common.crafting.CraftingRegistry;
 import net.dark_roleplay.drpcore.common.handler.DRPCoreCapabilities;
 import net.dark_roleplay.drpcore.common.handler.DRPCorePackets;
 import net.dark_roleplay.drpcore.common.network.packets.crafting.SyncPacket_PlayerRecipeState;
+import net.dark_roleplay.library.commands.DRPCommand;
 import net.minecraft.command.CommandException;
 import net.minecraft.command.ICommand;
 import net.minecraft.command.ICommandSender;
@@ -29,7 +29,7 @@ import scala.actors.threadpool.Arrays;
 public class Command_Recipe extends DRPCommand{
 	
 	public Command_Recipe(String name) {
-		super(name);
+		super(name, "drpcore.command.recipe");
 	}
 
 	@Override

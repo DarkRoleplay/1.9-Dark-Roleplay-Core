@@ -12,11 +12,20 @@ import net.minecraftforge.fml.common.ModContainer;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
+/**
+ * @author JTK222
+ */
 public class DRPItem extends Item{
 
 	protected String[] subNames;
 	protected String itemFolder;
 	
+	/**
+	 * A Variant for Item that Automaticly registers it's Model	and has also easy to use support for sub Items
+	 * ({@link net.dark_roleplay.library.items.ItemUtil#addItem(DRPItem) ItemUtil.addItem(DRPItem)} should be called by each Mod during the Model Registry Event)
+	 * @param stackSize
+	 * @param subNames
+	 */
 	public DRPItem(String name, int stackSize, String... subNames){
 		this(name, null, stackSize, subNames);
 	}
@@ -35,7 +44,7 @@ public class DRPItem extends Item{
 		this.subNames = subNames != null && subNames.length > 0 ? subNames : null;
 		this.itemFolder = itemFolder;
 	
-		ItemUtil.toRegister.add(this);
+		ItemUtil.addItem(this);
 	}
 	
 	/**

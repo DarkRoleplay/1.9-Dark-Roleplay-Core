@@ -1,24 +1,42 @@
-package net.dark_roleplay.drpcore.api.old.commands;
+package net.dark_roleplay.library.commands;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
+import com.google.common.collect.Lists;
+
+import it.unimi.dsi.fastutil.Arrays;
 import net.minecraft.command.CommandException;
 import net.minecraft.command.EntitySelector;
 import net.minecraft.command.ICommand;
 import net.minecraft.command.ICommandSender;
 import net.minecraft.command.NumberInvalidException;
 import net.minecraft.command.PlayerNotFoundException;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.Item;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.server.permission.PermissionAPI;
 
 public abstract class DRPCommand implements ICommand{
 
 	protected String name;
+	protected List<String> aliases;
+	protected String permissionsNode;
 	
-	public DRPCommand(String name){
+	/**
+	 * You should register the permissions node {@link net.minecraftforge.server.permission.PermissionAPI#registerNode(String, net.minecraftforge.server.permission.DefaultPermissionLevel, String) PermissionApi.registerNode(String, DefaultPermissionLevel, String)}
+	 * When using this. It's usefull to keep track of all permissions and also makes it possible for Permission Handling mods to have an ingame List with all available permissions.
+	 * @param name
+	 * @param permissionsNode
+	 * @param aliases
+	 */
+	public DRPCommand(String name, String permissionsNode, String... aliases){
 		this.name = name;
+		this.permissionsNode = permissionsNode;
+		this.aliases = Lists.<String>newArrayList(aliases);
 	}
 	
 	/**
@@ -38,12 +56,12 @@ public abstract class DRPCommand implements ICommand{
 	/**
 	 * Returns an Item by it's registry name
 	 * @param sender
-	 * @param id
+	 * @param registerName
 	 * @return Item
 	 * @throws NumberInvalidException
 	 */
-	public static Item getItemByText(ICommandSender sender, String id) throws NumberInvalidException{
-        ResourceLocation resourcelocation = new ResourceLocation(id);
+	public static Item getItemByText(ICommandSender sender, String registerName) throws NumberInvalidException{
+        ResourceLocation resourcelocation = new ResourceLocation(registerName);
         Item item = (Item)Item.REGISTRY.getObject(resourcelocation);
 
         if (item == null){
@@ -82,14 +100,27 @@ public abstract class DRPCommand implements ICommand{
         }
     }
 	
+	
+	@Override
+    public List<String> getAliases() {
+		return this.aliases;
+	}
+
 	@Override
 	public String getName() {
-		return "drpskills";
+		return this.name;
 	}
 	
 	@Override
 	public int compareTo(ICommand o) {
 		return 0;
+	}
+	
+	@Override
+	public boolean checkPermission(MinecraftServer server, ICommandSender sender) {
+		if(sender instanceof EntityPlayer)
+			return PermissionAPI.hasPermission((EntityPlayer) sender, this.permissionsNode);
+		else return true;
 	}
 
 	@Override

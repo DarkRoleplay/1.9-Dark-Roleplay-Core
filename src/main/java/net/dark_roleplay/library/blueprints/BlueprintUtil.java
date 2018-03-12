@@ -21,6 +21,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.common.Loader;
 
 /**
+ * You can find the Blueprint specification here: {@link http://dark-roleplay.net/other/blueprint_format.php}
  * @author JTK222
  */
 public class BlueprintUtil {

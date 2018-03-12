@@ -12,6 +12,9 @@ import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
+/**
+ * @author JTK222
+ */
 public abstract class PacketBase<REQ extends IMessage> implements IMessage, IMessageHandler<REQ, REQ> {
 
 	@Override
@@ -42,7 +45,7 @@ public abstract class PacketBase<REQ extends IMessage> implements IMessage, IMes
 	/**
 	 * Has default handling if the Packet is received on the Client,
 	 * therefore this should be used if the Packet should just be receiveable by the Server.
-	 * @author Lukas
+	 * @author JTK222
 	 *
 	 * @param <REQ>
 	 */
@@ -58,7 +61,7 @@ public abstract class PacketBase<REQ extends IMessage> implements IMessage, IMes
 	/**
 	 * Has default handling if the Packet is received on the Server,
 	 * therefore this should be used if the Packet should just be receiveable by the Client.
-	 * @author Lukas
+	 * @author JTK222
 	 *
 	 * @param <REQ>
 	 */

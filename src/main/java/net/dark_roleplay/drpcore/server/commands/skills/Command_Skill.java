@@ -4,10 +4,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import net.dark_roleplay.drpcore.api.old.Modules;
-import net.dark_roleplay.drpcore.api.old.commands.DRPCommand;
 import net.dark_roleplay.drpcore.common.capabilities.player.skill.ISkillController;
 import net.dark_roleplay.drpcore.common.handler.DRPCoreCapabilities;
 import net.dark_roleplay.drpcore.modules.work_in_progress.skill.Skill;
+import net.dark_roleplay.library.commands.DRPCommand;
 import net.minecraft.command.CommandException;
 import net.minecraft.command.ICommandSender;
 import net.minecraft.entity.player.EntityPlayer;
@@ -23,7 +23,7 @@ public class Command_Skill extends DRPCommand{
 	private static List<String> skills;
 	
 	public Command_Skill(String name){
-		super(name);
+		super(name, "drpcore.command.skill");
 		skills = new ArrayList<String>();
 //		for(Skill skill : Modules.SKILL.getSkillRegistry().getValues()){
 //			skills.add(skill.toString());
