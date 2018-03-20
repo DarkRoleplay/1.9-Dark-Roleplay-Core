@@ -16,18 +16,19 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonSyntaxException;
 
 import net.dark_roleplay.drpcore.api.old.crafting.Crafting_Util;
+import net.dark_roleplay.drpcore.api.old.modules.crafting.GuiCrafting;
+import net.dark_roleplay.drpcore.api.old.modules.crops.ICropHandler;
+import net.dark_roleplay.drpcore.api.old.modules.time.Date;
+import net.dark_roleplay.drpcore.api.old.modules.work_in_progress.model_editor.Gui_EntityEdit;
+import net.dark_roleplay.drpcore.api.old.modules.work_in_progress.music.Song;
+import net.dark_roleplay.drpcore.api.old.modules.work_in_progress.premium.GuiPremium;
+import net.dark_roleplay.drpcore.api.old.modules.work_in_progress.update_check.Gui_UpdateInformation;
 import net.dark_roleplay.drpcore.client.gui.crafting_new.creation.Crafting5;
 import net.dark_roleplay.drpcore.client.gui.crafting_new.creation.ItemSelection;
-import net.dark_roleplay.drpcore.common.DRPCoreReferences;
+import net.dark_roleplay.drpcore.common.References;
 import net.dark_roleplay.drpcore.common.handler.DRPCoreCapabilities;
 import net.dark_roleplay.drpcore.common.handler.DRPCoreConfigs;
-import net.dark_roleplay.drpcore.modules.crafting.GuiCrafting;
-import net.dark_roleplay.drpcore.modules.crops.ICropHandler;
-import net.dark_roleplay.drpcore.modules.time.Date;
-import net.dark_roleplay.drpcore.modules.work_in_progress.model_editor.Gui_EntityEdit;
-import net.dark_roleplay.drpcore.modules.work_in_progress.music.Song;
-import net.dark_roleplay.drpcore.modules.work_in_progress.premium.GuiPremium;
-import net.dark_roleplay.drpcore.modules.work_in_progress.update_check.Gui_UpdateInformation;
+import net.dark_roleplay.drpcore.testing.gui_testing.Gui_Test;
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.settings.KeyBinding;
@@ -46,6 +47,7 @@ import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.InputEvent.KeyInputEvent;
+import net.minecraftforge.server.permission.PermissionAPI;
 
 public class DRPCoreKeybindings {
 	
@@ -99,8 +101,11 @@ public class DRPCoreKeybindings {
 		
 		if(DRPCoreConfigs.DEBUG.DEBUG_KEY && this.debugging.isKeyDown()) {
 			
-			Minecraft.getMinecraft().displayGuiScreen(new Gui_UpdateInformation());
+//			Minecraft.getMinecraft().displayGuiScreen(new Gui_UpdateInformation());
+//			System.out.println(	PermissionAPI.hasPermission(Minecraft.getMinecraft().player, "drpcore.test.number2"));
+			Minecraft.getMinecraft().displayGuiScreen(new Gui_Test());
 
+			
 //			Minecraft.getMinecraft().displayGuiScreen(new Crafting5());
 			
 //			createRecipe();
@@ -153,10 +158,10 @@ public class DRPCoreKeybindings {
 		obj.add("ingredients", inputArr);
 		
 		
-		File file = new File(DRPCoreReferences.DARK_ROLEPLAY_RECIPES_FOLDER.getPath() + "/" + output.getItem().getRegistryName().getResourcePath() + ".json");
+		File file = new File(References.FOLDER_RECIPES.getPath() + "/" + output.getItem().getRegistryName().getResourcePath() + ".json");
 		int i = 1;
 		while(file.exists()){
-			file = new File(DRPCoreReferences.DARK_ROLEPLAY_RECIPES_FOLDER.getPath() + "/" + output.getItem().getRegistryName().getResourcePath() + i + ".json");
+			file = new File(References.FOLDER_RECIPES.getPath() + "/" + output.getItem().getRegistryName().getResourcePath() + i + ".json");
 			i++;
 		}
 		

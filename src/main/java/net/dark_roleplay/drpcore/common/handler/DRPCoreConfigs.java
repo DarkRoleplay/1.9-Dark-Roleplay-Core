@@ -4,7 +4,7 @@ import java.io.File;
 import java.lang.invoke.MethodHandle;
 
 import net.dark_roleplay.drpcore.client.events.config.Event_ConfigChange;
-import net.dark_roleplay.drpcore.common.DRPCoreReferences;
+import net.dark_roleplay.drpcore.common.References;
 import net.dark_roleplay.drpcore.common.config.SyncedConfigRegistry;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.config.Config;
@@ -13,7 +13,7 @@ import net.minecraftforge.common.config.Property;
 import net.minecraftforge.fml.common.FMLCommonHandler;
 import net.minecraftforge.fml.common.Mod;
 
-@Config(modid = DRPCoreReferences.MODID, name = "Dark Roleplay Core/Dark Roleplay Core", category = "drpcore")
+@Config(modid = References.MODID, name = "Dark Roleplay Core/Dark Roleplay Core", category = "drpcore")
 public class DRPCoreConfigs {
 
 	@Config.Comment("This category contains everything that affects the mod but not any of it's features.")

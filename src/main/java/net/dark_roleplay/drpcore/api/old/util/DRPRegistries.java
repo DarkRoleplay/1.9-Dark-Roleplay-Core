@@ -3,9 +3,9 @@ package net.dark_roleplay.drpcore.api.old.util;
 import javax.annotation.Nullable;
 
 import net.dark_roleplay.drpcore.api.old.Modules;
-import net.dark_roleplay.drpcore.common.DRPCoreReferences;
-import net.dark_roleplay.drpcore.modules.hud.Hud;
-import net.dark_roleplay.drpcore.modules.work_in_progress.skill.Skill;
+import net.dark_roleplay.drpcore.api.old.modules.hud.Hud;
+import net.dark_roleplay.drpcore.api.old.modules.work_in_progress.skill.Skill;
+import net.dark_roleplay.drpcore.common.References;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -31,7 +31,7 @@ public class DRPRegistries {
 		
 
 		RegistryBuilder<Hud> rbHuds = new RegistryBuilder<Hud>();
-		rbHuds.setName(new ResourceLocation(DRPCoreReferences.MODID, "huds"));
+		rbHuds.setName(new ResourceLocation(References.MODID, "huds"));
 		rbHuds.setType(Hud.class);
 		rbHuds.disableSaving();
 		registryHUDs = rbHuds.create();

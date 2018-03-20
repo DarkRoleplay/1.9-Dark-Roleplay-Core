@@ -3,7 +3,7 @@ package net.dark_roleplay.drpcore.common;
 import java.io.File;
 import java.util.List;
 
-import net.dark_roleplay.drpcore.modules.arg.GeneratedResourcePack;
+import net.dark_roleplay.drpcore.api.old.modules.arg.GeneratedResourcePack;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.resources.FolderResourcePack;
 import net.minecraft.client.resources.IResourcePack;

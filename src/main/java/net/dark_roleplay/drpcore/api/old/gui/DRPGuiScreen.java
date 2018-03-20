@@ -9,7 +9,7 @@ import org.lwjgl.input.Mouse;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.util.Point;
 
-import net.dark_roleplay.drpcore.modules.gui.IGuiElement;
+import net.dark_roleplay.drpcore.api.old.modules.gui.IGuiElement;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiLabel;

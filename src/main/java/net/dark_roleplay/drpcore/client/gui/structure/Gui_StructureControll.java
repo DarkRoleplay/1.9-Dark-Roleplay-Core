@@ -22,19 +22,19 @@ import net.dark_roleplay.drpcore.api.old.gui.advanced.buttons.Button_ChangeBool;
 import net.dark_roleplay.drpcore.api.old.gui.advanced.buttons.Button_ChangeInt;
 import net.dark_roleplay.drpcore.api.old.gui.utility.wrappers.Variable_Boolean;
 import net.dark_roleplay.drpcore.api.old.gui.utility.wrappers.Variable_Int;
+import net.dark_roleplay.drpcore.api.old.modules.gui.IGuiElement;
 import net.dark_roleplay.drpcore.client.gui.advanced.buttons.blueprint_controll.Button_ChangeMode;
 import net.dark_roleplay.drpcore.client.gui.advanced.buttons.blueprint_controll.Button_ChangeRenderMode;
 import net.dark_roleplay.drpcore.client.gui.advanced.buttons.blueprint_controll.Button_SaveLoad;
 import net.dark_roleplay.drpcore.client.gui.advanced.labels.blueprint_controll.Label_AxisInt;
 import net.dark_roleplay.drpcore.client.gui.advanced.wrappers.Variable_Mode;
 import net.dark_roleplay.drpcore.client.gui.advanced.wrappers.Variable_RenderMode;
-import net.dark_roleplay.drpcore.common.DRPCoreReferences;
+import net.dark_roleplay.drpcore.common.References;
 import net.dark_roleplay.drpcore.common.handler.DRPCorePackets;
 import net.dark_roleplay.drpcore.common.network.packets.blocks.Packet_LoadBlueprint;
 import net.dark_roleplay.drpcore.common.network.packets.blocks.Packet_SaveBlueprint;
 import net.dark_roleplay.drpcore.common.network.packets.blocks.SyncPacket_BlueprintBlock;
 import net.dark_roleplay.drpcore.common.objects.tile_entities.blueprint_controller.TE_BlueprintController;
-import net.dark_roleplay.drpcore.modules.gui.IGuiElement;
 import net.dark_roleplay.library.blueprints.Blueprint;
 import net.dark_roleplay.library.blueprints.BlueprintUtil;
 import net.minecraft.client.Minecraft;
@@ -54,7 +54,7 @@ import net.minecraft.util.math.BlockPos;
 
 public class Gui_StructureControll extends Gui_Screen {
 
-	private static ResourceLocation bg = new ResourceLocation(DRPCoreReferences.MODID,"textures/guis/recipe_crafting_simple.png");
+	private static ResourceLocation bg = new ResourceLocation(References.MODID,"textures/guis/recipe_crafting_simple.png");
 
 	private TE_BlueprintController te;
 

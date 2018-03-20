@@ -2,7 +2,7 @@ package net.dark_roleplay.drpcore.client.gui.crafting_new.creation;
 
 import java.io.IOException;
 
-import net.dark_roleplay.drpcore.common.DRPCoreReferences;
+import net.dark_roleplay.drpcore.common.References;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiScreen;
@@ -11,7 +11,7 @@ import net.minecraft.util.ResourceLocation;
 
 public class Crafting5 extends GuiScreen{
 	
-	public static final ResourceLocation texture = new ResourceLocation(DRPCoreReferences.MODID, "textures/guis/crafting/crafting_gui.png");
+	public static final ResourceLocation texture = new ResourceLocation(References.MODID, "textures/guis/crafting/crafting_gui.png");
 	
 	ModeButton modeButton;
 	GuiButton pageLeft;

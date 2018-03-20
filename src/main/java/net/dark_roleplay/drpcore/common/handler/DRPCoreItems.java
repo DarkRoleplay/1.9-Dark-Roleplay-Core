@@ -6,9 +6,9 @@ import java.util.List;
 import net.dark_roleplay.drpcore.api.old.items.DRPInstrument;
 import net.dark_roleplay.drpcore.api.old.items.DRPLockable;
 import net.dark_roleplay.drpcore.api.old.items.Seed;
-import net.dark_roleplay.drpcore.common.DRPCoreReferences;
+import net.dark_roleplay.drpcore.api.old.modules.locks.ILock;
+import net.dark_roleplay.drpcore.common.References;
 import net.dark_roleplay.drpcore.common.DarkRoleplayCore;
-import net.dark_roleplay.drpcore.modules.locks.ILock;
 import net.dark_roleplay.drpcore.testing.Test_PaintItem;
 import net.dark_roleplay.library.items.DRPItem;
 import net.minecraft.block.Block;
@@ -102,7 +102,7 @@ public class DRPCoreItems {
 	public static void registerModels(ModelRegistryEvent event){
 		for(Item i : blockItems){
 			System.out.println(i.getUnlocalizedName());
-			ModelLoader.setCustomModelResourceLocation(i, 0, new ModelResourceLocation(DRPCoreReferences.MODID + ":" + i.getUnlocalizedName().toString().substring(i.getUnlocalizedName().toString().indexOf(".") + 1, i.getUnlocalizedName().toString().length()), "inventory"));
+			ModelLoader.setCustomModelResourceLocation(i, 0, new ModelResourceLocation(References.MODID + ":" + i.getUnlocalizedName().toString().substring(i.getUnlocalizedName().toString().indexOf(".") + 1, i.getUnlocalizedName().toString().length()), "inventory"));
 		}
 	}
 

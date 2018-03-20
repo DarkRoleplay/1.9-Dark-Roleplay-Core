@@ -4,8 +4,8 @@ import java.io.IOException;
 import java.util.List;
 
 import net.dark_roleplay.drpcore.api.old.gui.modular.ModularGui_Drawer;
+import net.dark_roleplay.drpcore.api.old.modules.gui.IGuiElement;
 import net.dark_roleplay.drpcore.client.gui.ModularGuiHandler;
-import net.dark_roleplay.drpcore.modules.gui.IGuiElement;
 
 public class Gui_Frame extends IGuiElement.IMPL{
 

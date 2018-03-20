@@ -2,14 +2,14 @@ package net.dark_roleplay.drpcore.common.handler;
 
 import java.util.concurrent.Callable;
 
+import net.dark_roleplay.drpcore.api.old.modules.crops.CropStorage;
+import net.dark_roleplay.drpcore.api.old.modules.crops.ICropHandler;
+import net.dark_roleplay.drpcore.api.old.modules.locks.ILockHandler;
+import net.dark_roleplay.drpcore.api.old.modules.locks.LockStorage;
+import net.dark_roleplay.drpcore.api.old.modules.time.DateStorage;
+import net.dark_roleplay.drpcore.api.old.modules.time.IDateHandler;
 import net.dark_roleplay.drpcore.common.capabilities.player.crafting.*;
 import net.dark_roleplay.drpcore.common.capabilities.player.skill.*;
-import net.dark_roleplay.drpcore.modules.crops.CropStorage;
-import net.dark_roleplay.drpcore.modules.crops.ICropHandler;
-import net.dark_roleplay.drpcore.modules.locks.ILockHandler;
-import net.dark_roleplay.drpcore.modules.locks.LockStorage;
-import net.dark_roleplay.drpcore.modules.time.DateStorage;
-import net.dark_roleplay.drpcore.modules.time.IDateHandler;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTBase;
 import net.minecraft.nbt.NBTTagCompound;

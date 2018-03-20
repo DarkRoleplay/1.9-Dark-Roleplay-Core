@@ -1,6 +1,6 @@
 package net.dark_roleplay.drpcore.common.objects.events.capabilities;
 
-import net.dark_roleplay.drpcore.common.DRPCoreReferences;
+import net.dark_roleplay.drpcore.common.References;
 import net.dark_roleplay.drpcore.common.capabilities.CapabilityProvider;
 import net.dark_roleplay.drpcore.common.capabilities.player.crafting.*;
 import net.dark_roleplay.drpcore.common.handler.DRPCoreCapabilities;
@@ -29,8 +29,8 @@ public class Event_CapabilityEntity {
 	@SubscribeEvent
     public void attachCapabilityChunk(AttachCapabilitiesEvent<Chunk> event){
         if (!(event.getObject() instanceof Chunk)) return;
-        event.addCapability(new ResourceLocation(DRPCoreReferences.MODID, "crop_handler"), new CapabilityProvider(DRPCoreCapabilities.CROP_HANDLER));
-        event.addCapability(new ResourceLocation(DRPCoreReferences.MODID, "lock_handler"), new CapabilityProvider(DRPCoreCapabilities.LOCK_HANDLER));
+        event.addCapability(new ResourceLocation(References.MODID, "crop_handler"), new CapabilityProvider(DRPCoreCapabilities.CROP_HANDLER));
+        event.addCapability(new ResourceLocation(References.MODID, "lock_handler"), new CapabilityProvider(DRPCoreCapabilities.LOCK_HANDLER));
 	}
 	
 	@SubscribeEvent
@@ -38,7 +38,7 @@ public class Event_CapabilityEntity {
         if (!(event.getObject() instanceof World)) return;
         
         
-        event.addCapability(new ResourceLocation(DRPCoreReferences.MODID, "date_handler"), new CapabilityProvider(DRPCoreCapabilities.DATE_HANDLER));
+        event.addCapability(new ResourceLocation(References.MODID, "date_handler"), new CapabilityProvider(DRPCoreCapabilities.DATE_HANDLER));
 
 	}
 }

@@ -2,10 +2,10 @@ package net.dark_roleplay.drpcore.common.handler;
 
 import java.util.Calendar;
 
-import net.dark_roleplay.drpcore.common.DRPCoreReferences;
+import net.dark_roleplay.drpcore.api.old.modules.hud.Hud;
+import net.dark_roleplay.drpcore.common.References;
 import net.dark_roleplay.drpcore.common.objects.blocks.blueprint_controller.BlueprintController;
 import net.dark_roleplay.drpcore.common.objects.huds.RealTimeClock;
-import net.dark_roleplay.drpcore.modules.hud.Hud;
 import net.minecraft.client.Minecraft;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.event.RegistryEvent;
@@ -18,7 +18,7 @@ public class DRPHuds {
 	@SubscribeEvent
 	public static final void register(RegistryEvent.Register<Hud> event) {
 		event.getRegistry().register(
-			new RealTimeClock(new ResourceLocation(DRPCoreReferences.MODID, "real_time_clock"))
+			new RealTimeClock(new ResourceLocation(References.MODID, "real_time_clock"))
 		);
 	}
 	

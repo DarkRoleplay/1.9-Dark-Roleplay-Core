@@ -1,6 +1,6 @@
 package net.dark_roleplay.drpcore.api.old.gui.hud;
 
-import net.dark_roleplay.drpcore.modules.gui.IGuiElement;
+import net.dark_roleplay.drpcore.api.old.modules.gui.IGuiElement;
 
 public class GuiHud extends IGuiElement.IMPL{
 

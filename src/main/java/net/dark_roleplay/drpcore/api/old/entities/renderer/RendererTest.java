@@ -14,7 +14,7 @@ import net.dark_roleplay.drpcore.api.old.models.entity.Json_Models;
 import net.dark_roleplay.drpcore.api.old.models.entity.Model;
 import net.dark_roleplay.drpcore.api.old.models.entity.ModelCube;
 import net.dark_roleplay.drpcore.client.ClientProxy;
-import net.dark_roleplay.drpcore.common.DRPCoreReferences;
+import net.dark_roleplay.drpcore.common.References;
 import net.dark_roleplay.drpcore.common.objects.entities.util.sitting.Sittable;
 import net.dark_roleplay.drpcore.testing.Testing_Entity;
 import net.minecraft.client.Minecraft;
@@ -31,7 +31,7 @@ import net.minecraft.world.World;
 
 public class RendererTest extends Render<Testing_Entity> {
 
-	ResourceLocation loc = new ResourceLocation(DRPCoreReferences.MODID + ":textures/testing/wheel.png");
+	ResourceLocation loc = new ResourceLocation(References.MODID + ":textures/testing/wheel.png");
 	
 	Bone[] bones;
 	

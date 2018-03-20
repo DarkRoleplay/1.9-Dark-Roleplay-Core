@@ -7,8 +7,8 @@ import java.util.List;
 
 import net.dark_roleplay.drpcore.api.old.gui.DRPGuiScreen;
 import net.dark_roleplay.drpcore.api.old.gui.modular.ModularGui_Drawer;
-import net.dark_roleplay.drpcore.modules.gui.IGuiElement;
-import net.dark_roleplay.drpcore.modules.gui.IGuiElement.IMPL;
+import net.dark_roleplay.drpcore.api.old.modules.gui.IGuiElement;
+import net.dark_roleplay.drpcore.api.old.modules.gui.IGuiElement.IMPL;
 import net.minecraft.client.gui.Gui;
 import net.minecraft.client.renderer.BufferBuilder;
 import net.minecraft.client.renderer.GlStateManager;

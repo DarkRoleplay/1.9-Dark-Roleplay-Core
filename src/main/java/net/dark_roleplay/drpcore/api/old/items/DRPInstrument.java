@@ -1,6 +1,6 @@
 package net.dark_roleplay.drpcore.api.old.items;
 
-import net.dark_roleplay.drpcore.modules.work_in_progress.music.Song;
+import net.dark_roleplay.drpcore.api.old.modules.work_in_progress.music.Song;
 import net.dark_roleplay.library.items.DRPItem;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.EntityPlayer;

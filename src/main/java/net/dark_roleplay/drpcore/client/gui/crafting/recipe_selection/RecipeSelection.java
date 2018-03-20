@@ -16,7 +16,7 @@ import net.dark_roleplay.drpcore.api.old.gui.DRPGuiScreen;
 import net.dark_roleplay.drpcore.client.ClientProxy;
 import net.dark_roleplay.drpcore.client.gui.crafting.recipe_crafting.RecipeCrafting_SimpleRecipe;
 import net.dark_roleplay.drpcore.client.keybindings.DRPCoreKeybindings;
-import net.dark_roleplay.drpcore.common.DRPCoreReferences;
+import net.dark_roleplay.drpcore.common.References;
 import net.dark_roleplay.drpcore.common.DarkRoleplayCore;
 import net.dark_roleplay.drpcore.common.capabilities.player.crafting.IRecipeController;
 import net.dark_roleplay.drpcore.common.crafting.CraftingRegistry;
@@ -41,7 +41,7 @@ import net.minecraftforge.common.config.ConfigManager;
 
 public class RecipeSelection extends DRPGuiScreen{
 
-	private static ResourceLocation bg = new ResourceLocation(DRPCoreReferences.MODID, "textures/guis/recipe_selection.png");
+	private static ResourceLocation bg = new ResourceLocation(References.MODID, "textures/guis/recipe_selection.png");
 	
 	private Block craftingStation;
 	private List<RecipeCategory> categorys;
@@ -205,13 +205,13 @@ public class RecipeSelection extends DRPGuiScreen{
 
 		if(button.id == hideUnknown.id){
 			DRPCoreConfigs.CRAFTING.HIDE_UNKNOWN_RECIPES = !DRPCoreConfigs.CRAFTING.HIDE_UNKNOWN_RECIPES;
-			ConfigManager.sync(DRPCoreReferences.MODID, Config.Type.INSTANCE);
+			ConfigManager.sync(References.MODID, Config.Type.INSTANCE);
 			this.hideUnknown.active = !DRPCoreConfigs.CRAFTING.HIDE_UNKNOWN_RECIPES;
 			this.updateRecipes();
 			this.updateButtons();
 		}else if(button.id == hideLocked.id){
 			DRPCoreConfigs.CRAFTING.HIDE_LOCKED_RECIPES = !DRPCoreConfigs.CRAFTING.HIDE_LOCKED_RECIPES;
-			ConfigManager.sync(DRPCoreReferences.MODID, Config.Type.INSTANCE);
+			ConfigManager.sync(References.MODID, Config.Type.INSTANCE);
 			this.hideLocked.active = !DRPCoreConfigs.CRAFTING.HIDE_LOCKED_RECIPES;
 			this.updateRecipes();
 			this.updateButtons();

@@ -5,7 +5,7 @@ import java.io.IOException;
 import java.util.List;
 
 import net.dark_roleplay.drpcore.api.old.gui.modular.ModularGui_Drawer;
-import net.dark_roleplay.drpcore.modules.gui.IGuiElement;
+import net.dark_roleplay.drpcore.api.old.modules.gui.IGuiElement;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.renderer.GlStateManager;

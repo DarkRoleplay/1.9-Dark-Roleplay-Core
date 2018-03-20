@@ -1,10 +1,10 @@
 package net.dark_roleplay.drpcore.common.objects.events.world;
 
+import net.dark_roleplay.drpcore.api.old.modules.crops.CropLoadingTracker;
+import net.dark_roleplay.drpcore.api.old.modules.locks.ILockHandler;
 import net.dark_roleplay.drpcore.common.handler.DRPCoreCapabilities;
 import net.dark_roleplay.drpcore.common.handler.DRPCorePackets;
 import net.dark_roleplay.drpcore.common.network.packets.chunks.SyncPacket_LockHandler;
-import net.dark_roleplay.drpcore.modules.crops.CropLoadingTracker;
-import net.dark_roleplay.drpcore.modules.locks.ILockHandler;
 import net.minecraft.world.chunk.Chunk;
 import net.minecraftforge.event.world.ChunkDataEvent;
 import net.minecraftforge.event.world.ChunkWatchEvent;

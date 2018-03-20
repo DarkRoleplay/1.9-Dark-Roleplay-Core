@@ -6,7 +6,7 @@ import java.io.IOException;
 import java.io.OutputStream;
 
 import io.netty.buffer.ByteBuf;
-import net.dark_roleplay.drpcore.common.DRPCoreReferences;
+import net.dark_roleplay.drpcore.common.References;
 import net.dark_roleplay.drpcore.common.handler.DRPCorePerms;
 import net.dark_roleplay.drpcore.common.objects.tile_entities.blueprint_controller.TE_BlueprintController;
 import net.dark_roleplay.library.blueprints.Blueprint;
@@ -83,8 +83,8 @@ public class Packet_SaveBlueprint extends PacketBase.Server<Packet_SaveBlueprint
 				te.setMode(message.mode);
 				te.markDirty();
 				
-				DRPCoreReferences.DARK_ROLEPLAY_BLUEPRINTS_FOLDER.mkdirs();
-				File structure = new File(DRPCoreReferences.DARK_ROLEPLAY_BLUEPRINTS_FOLDER.getPath() + "/" + message.name + ".blueprint");
+				References.DARK_ROLEPLAY_BLUEPRINTS_FOLDER.mkdirs();
+				File structure = new File(References.DARK_ROLEPLAY_BLUEPRINTS_FOLDER.getPath() + "/" + message.name + ".blueprint");
 				structure.getParentFile().mkdirs();
 				
 				Blueprint bp = BlueprintUtil.createBlueprint(te.getWorld(), te.getPos().add(message.offset.getX(), message.offset.getY(), message.offset.getZ()), (short) message.size.getX(), (short) message.size.getY(), (short) message.size.getZ(), message.name, message.architects);

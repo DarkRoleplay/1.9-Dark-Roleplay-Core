@@ -5,7 +5,7 @@ import java.awt.Toolkit;
 import java.awt.datatransfer.Clipboard;
 import java.util.Map;
 
-import net.dark_roleplay.drpcore.common.DRPCoreReferences;
+import net.dark_roleplay.drpcore.common.References;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.GuiLabel;
 import net.minecraft.client.gui.GuiScreen;

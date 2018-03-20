@@ -5,7 +5,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 
 import io.netty.buffer.ByteBuf;
-import net.dark_roleplay.drpcore.common.DRPCoreReferences;
+import net.dark_roleplay.drpcore.common.References;
 import net.dark_roleplay.drpcore.common.handler.DRPCorePerms;
 import net.dark_roleplay.drpcore.common.objects.tile_entities.blueprint_controller.TE_BlueprintController;
 import net.dark_roleplay.library.blueprints.Blueprint;
@@ -71,8 +71,8 @@ public class Packet_LoadBlueprint extends PacketBase.Server<Packet_LoadBlueprint
 				te.setMode(message.mode);
 				te.markDirty();
 				
-				DRPCoreReferences.DARK_ROLEPLAY_BLUEPRINTS_FOLDER.mkdirs();
-				File structure = new File(DRPCoreReferences.DARK_ROLEPLAY_BLUEPRINTS_FOLDER.getPath() + "/" + message.name + ".blueprint");
+				References.DARK_ROLEPLAY_BLUEPRINTS_FOLDER.mkdirs();
+				File structure = new File(References.DARK_ROLEPLAY_BLUEPRINTS_FOLDER.getPath() + "/" + message.name + ".blueprint");
 				if(structure.exists()){
 					try {
 						Blueprint bp = BlueprintUtil.readFromFile(new FileInputStream(structure));

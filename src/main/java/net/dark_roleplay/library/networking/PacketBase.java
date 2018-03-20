@@ -2,7 +2,7 @@ package net.dark_roleplay.library.networking;
 
 import org.apache.logging.log4j.LogManager;
 
-import net.dark_roleplay.drpcore.common.DRPCoreReferences;
+import net.dark_roleplay.drpcore.common.References;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraftforge.fml.common.Loader;

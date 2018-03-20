@@ -2,6 +2,7 @@ package net.dark_roleplay.drpcore.common;
 
 
 import net.dark_roleplay.drpcore.api.old.Modules;
+import net.dark_roleplay.drpcore.api.old.modules.Module;
 import net.dark_roleplay.drpcore.common.config.SyncedConfigRegistry;
 import net.dark_roleplay.drpcore.common.handler.DRPCoreCapabilities;
 import net.dark_roleplay.drpcore.common.handler.DRPCoreCrafting;
@@ -12,9 +13,9 @@ import net.dark_roleplay.drpcore.common.handler.DRPCorePackets;
 import net.dark_roleplay.drpcore.common.handler.DRPCorePerms;
 import net.dark_roleplay.drpcore.common.objects.tile_entities.blueprint_controller.TE_BlueprintController;
 import net.dark_roleplay.drpcore.common.proxy.CommonProxy;
-import net.dark_roleplay.drpcore.modules.Module;
 import net.dark_roleplay.drpcore.server.commands.crafting.Command_Recipe;
 import net.dark_roleplay.drpcore.server.commands.skills.Command_Skill;
+import net.dark_roleplay.drpcore.server.permission.DRPPermissionHandler;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventHandler;
 import net.minecraftforge.fml.common.ProgressManager;
@@ -27,8 +28,10 @@ import net.minecraftforge.fml.common.event.FMLServerStartingEvent;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import net.minecraftforge.server.permission.DefaultPermissionLevel;
+import net.minecraftforge.server.permission.PermissionAPI;
 
-@Mod(modid = DRPCoreReferences.MODID, version = DRPCoreReferences.VERSION, name = DRPCoreReferences.NAME, acceptedMinecraftVersions = DRPCoreReferences.ACCEPTEDVERSIONS, updateJSON = DRPCoreReferences.UPDATE_JSON)
+@Mod(modid = References.MODID, version = References.VERSION, name = References.NAME, acceptedMinecraftVersions = References.ACCEPTEDVERSIONS, updateJSON = References.UPDATE_JSON)
 public class DarkRoleplayCore {
 	
 	public static boolean isServerSide = false;
@@ -36,7 +39,7 @@ public class DarkRoleplayCore {
 	@SidedProxy(serverSide = "net.dark_roleplay.drpcore.common.proxy.CommonProxy", clientSide = "net.dark_roleplay.drpcore.client.ClientProxy")
 	public static CommonProxy proxy;
 	
-	@Mod.Instance(DRPCoreReferences.MODID)
+	@Mod.Instance(References.MODID)
 	public static DarkRoleplayCore instance;
 	
 	public DarkRoleplayCore(){
@@ -44,7 +47,7 @@ public class DarkRoleplayCore {
 	
 	@EventHandler
 	public void preInit(FMLPreInitializationEvent event){
-		DRPCoreReferences.init(event);
+		References.init(event);
 		
 		SyncedConfigRegistry.setSide(event.getSide());
 		
@@ -54,7 +57,7 @@ public class DarkRoleplayCore {
 		DRPCoreEntities.init(event);
 		
 		
-		GameRegistry.registerTileEntity(TE_BlueprintController.class, DRPCoreReferences.MODID + ":" + "tileentity_structure_controller");
+		GameRegistry.registerTileEntity(TE_BlueprintController.class, References.MODID + ":" + "tileentity_structure_controller");
 
 		proxy.preInit(event);
 		
@@ -68,6 +71,8 @@ public class DarkRoleplayCore {
 		Modules.CRAFTING2.addMod("drpcore");
 		
 		ProgressManager.pop(progressBar);
+		
+//		PermissionAPI.setPermissionHandler(new DRPPermissionHandler());
 	}
 	
 	@EventHandler
@@ -89,6 +94,10 @@ public class DarkRoleplayCore {
 		}
 		ProgressManager.pop(progressBar);
 		//TODO MOVE
+		
+		
+//		for(int i = 0; i < 25; i ++)
+//			PermissionAPI.registerNode("drpcore.test.number" + i, DefaultPermissionLevel.OP, "A Simple test Permission, not really doing anything (Number: " + i + ")");
 	}
 	
 	@EventHandler

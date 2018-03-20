@@ -4,9 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import net.dark_roleplay.drpcore.api.old.Modules;
+import net.dark_roleplay.drpcore.api.old.modules.work_in_progress.skill.Skill;
 import net.dark_roleplay.drpcore.common.capabilities.player.skill.ISkillController;
 import net.dark_roleplay.drpcore.common.handler.DRPCoreCapabilities;
-import net.dark_roleplay.drpcore.modules.work_in_progress.skill.Skill;
 import net.dark_roleplay.library.commands.DRPCommand;
 import net.minecraft.command.CommandException;
 import net.minecraft.command.ICommandSender;

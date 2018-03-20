@@ -5,11 +5,11 @@ import java.io.InputStream;
 import java.net.MalformedURLException;
 import java.net.URL;
 
+import net.dark_roleplay.drpcore.api.old.modules.work_in_progress.tutorial.GuiTutorial;
 import net.dark_roleplay.drpcore.client.gui.info.Gui_FirstRun;
 import net.dark_roleplay.drpcore.client.gui.info.Gui_UpdateAvailable;
-import net.dark_roleplay.drpcore.common.DRPCoreReferences;
+import net.dark_roleplay.drpcore.common.References;
 import net.dark_roleplay.drpcore.common.handler.DRPCoreConfigs;
-import net.dark_roleplay.drpcore.modules.work_in_progress.tutorial.GuiTutorial;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.client.gui.GuiMainMenu;

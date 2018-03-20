@@ -3,10 +3,10 @@ package net.dark_roleplay.drpcore.common.objects.events.entity.player;
 import java.util.ArrayList;
 import java.util.List;
 
-import net.dark_roleplay.drpcore.common.DRPCoreReferences;
+import net.dark_roleplay.drpcore.api.old.modules.locks.ILock;
+import net.dark_roleplay.drpcore.api.old.modules.locks.ILockHandler;
+import net.dark_roleplay.drpcore.common.References;
 import net.dark_roleplay.drpcore.common.handler.DRPCoreCapabilities;
-import net.dark_roleplay.drpcore.modules.locks.ILock;
-import net.dark_roleplay.drpcore.modules.locks.ILockHandler;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumHand;
@@ -18,7 +18,7 @@ import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.items.ItemHandlerHelper;
 
-@EventBusSubscriber(modid = DRPCoreReferences.MODID)
+@EventBusSubscriber(modid = References.MODID)
 public class Event_PlayerInteract {
 
 	@SubscribeEvent

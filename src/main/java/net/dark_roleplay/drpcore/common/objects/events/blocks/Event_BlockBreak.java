@@ -1,6 +1,6 @@
 package net.dark_roleplay.drpcore.common.objects.events.blocks;
 
-import net.dark_roleplay.drpcore.common.DRPCoreReferences;
+import net.dark_roleplay.drpcore.common.References;
 import net.dark_roleplay.drpcore.common.capabilities.CapabilityProvider;
 import net.dark_roleplay.drpcore.common.handler.DRPCoreCapabilities;
 import net.minecraft.block.Block;

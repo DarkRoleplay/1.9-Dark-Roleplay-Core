@@ -15,7 +15,7 @@ import net.dark_roleplay.drpcore.api.old.gui.modular.Modular_Background;
 import net.dark_roleplay.drpcore.api.old.gui.modular.Modular_Buttons;
 import net.dark_roleplay.drpcore.client.ClientProxy;
 import net.dark_roleplay.drpcore.client.gui.ModularGuiHandler;
-import net.dark_roleplay.drpcore.common.DRPCoreReferences;
+import net.dark_roleplay.drpcore.common.References;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.resources.IResource;
 import net.minecraft.client.resources.IResourceManager;
@@ -26,16 +26,16 @@ public class ModularGui_Handler implements IResourceManagerReloadListener {
 	
 	@Override
 	public void onResourceManagerReload(IResourceManager manager) {	
-		DRPCoreReferences.LOGGER.info("+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=");
-		DRPCoreReferences.LOGGER.info("Starting to load Dark Roleplay modular guis");
-		DRPCoreReferences.LOGGER.info("+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=");
+		References.LOGGER.info("+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=");
+		References.LOGGER.info("Starting to load Dark Roleplay modular guis");
+		References.LOGGER.info("+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=");
 		
 //		ClientProxy.modularGuis.add();
 		ModularGuiHandler.currentGui = loadModularGui(new ResourceLocation("drpcore:textures/guis/modular_gui/vanilla.json"));//ClientProxy.modularGuis.get(0);
 
-		DRPCoreReferences.LOGGER.info("+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=");
-		DRPCoreReferences.LOGGER.info("Finished loading of Dark Roleplay modular guis");
-		DRPCoreReferences.LOGGER.info("+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=");
+		References.LOGGER.info("+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=");
+		References.LOGGER.info("Finished loading of Dark Roleplay modular guis");
+		References.LOGGER.info("+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=");
 	}
 	
 	public static ModularGui_Template loadModularGui(ResourceLocation loc){
@@ -70,28 +70,28 @@ public class ModularGui_Handler implements IResourceManagerReloadListener {
 					JsonElement height_json = background_json.get("height");
 					
 					if(path == null){
-						DRPCoreReferences.LOGGER.warn("Modular Backgrounds: Cannot find 'path' for 'background'");
+						References.LOGGER.warn("Modular Backgrounds: Cannot find 'path' for 'background'");
 						skip = true;
 					}else if(path_hollow == null){
-						DRPCoreReferences.LOGGER.warn("Modular Backgrounds: Cannot find 'path_hollow' for 'background'");
+						References.LOGGER.warn("Modular Backgrounds: Cannot find 'path_hollow' for 'background'");
 						skip = true;
 					}else if(left_json == null){
-						DRPCoreReferences.LOGGER.warn("Modular Backgrounds: Cannot find 'left' for 'background'");
+						References.LOGGER.warn("Modular Backgrounds: Cannot find 'left' for 'background'");
 						skip = true;
 					}else if(right_json == null){
-						DRPCoreReferences.LOGGER.warn("Modular Backgrounds: Cannot find 'right' for 'background'");
+						References.LOGGER.warn("Modular Backgrounds: Cannot find 'right' for 'background'");
 						skip = true;
 					}else if(top_json == null){
-						DRPCoreReferences.LOGGER.warn("Modular Backgrounds: Cannot find 'top' for 'background'");
+						References.LOGGER.warn("Modular Backgrounds: Cannot find 'top' for 'background'");
 						skip = true;
 					}else if(bottom_json == null){
-						DRPCoreReferences.LOGGER.warn("Modular Backgrounds: Cannot find 'bottom' for 'background'");
+						References.LOGGER.warn("Modular Backgrounds: Cannot find 'bottom' for 'background'");
 						skip = true;
 					}else if(width_json == null){
-						DRPCoreReferences.LOGGER.warn("Modular Backgrounds: Cannot find 'width' for 'background'");
+						References.LOGGER.warn("Modular Backgrounds: Cannot find 'width' for 'background'");
 						skip = true;
 					}else if(height_json == null){
-						DRPCoreReferences.LOGGER.warn("Modular Backgrounds: Cannot find 'height' for 'background'");
+						References.LOGGER.warn("Modular Backgrounds: Cannot find 'height' for 'background'");
 						skip = true;
 					}
 					
@@ -112,31 +112,31 @@ public class ModularGui_Handler implements IResourceManagerReloadListener {
 					JsonElement height_json = buttons_json.get("height");
 					
 					if(pathDisabled == null){
-						DRPCoreReferences.LOGGER.warn("Modular Backgrounds: Cannot find 'path_disabled' for 'buttons'");
+						References.LOGGER.warn("Modular Backgrounds: Cannot find 'path_disabled' for 'buttons'");
 						skip = true;
 					}else if(pathEnabled == null){
-						DRPCoreReferences.LOGGER.warn("Modular Backgrounds: Cannot find 'path_enabled' for 'buttons'");
+						References.LOGGER.warn("Modular Backgrounds: Cannot find 'path_enabled' for 'buttons'");
 						skip = true;
 					}else if(pathHovered == null){
-						DRPCoreReferences.LOGGER.warn("Modular Backgrounds: Cannot find 'path_hovered' for 'buttons'");
+						References.LOGGER.warn("Modular Backgrounds: Cannot find 'path_hovered' for 'buttons'");
 						skip = true;
 					}else if(left_json == null){
-						DRPCoreReferences.LOGGER.warn("Modular Backgrounds: Cannot find 'left' for 'buttons'");
+						References.LOGGER.warn("Modular Backgrounds: Cannot find 'left' for 'buttons'");
 						skip = true;
 					}else if(right_json == null){
-						DRPCoreReferences.LOGGER.warn("Modular Backgrounds: Cannot find 'right' for 'buttons'");
+						References.LOGGER.warn("Modular Backgrounds: Cannot find 'right' for 'buttons'");
 						skip = true;
 					}else if(top_json == null){
-						DRPCoreReferences.LOGGER.warn("Modular Backgrounds: Cannot find 'top' for 'buttons'");
+						References.LOGGER.warn("Modular Backgrounds: Cannot find 'top' for 'buttons'");
 						skip = true;
 					}else if(bottom_json == null){
-						DRPCoreReferences.LOGGER.warn("Modular Backgrounds: Cannot find 'bottom' for 'buttons'");
+						References.LOGGER.warn("Modular Backgrounds: Cannot find 'bottom' for 'buttons'");
 						skip = true;
 					}else if(width_json == null){
-						DRPCoreReferences.LOGGER.warn("Modular Backgrounds: Cannot find 'width' for 'background'");
+						References.LOGGER.warn("Modular Backgrounds: Cannot find 'width' for 'background'");
 						skip = true;
 					}else if(height_json == null){
-						DRPCoreReferences.LOGGER.warn("Modular Backgrounds: Cannot find 'height' for 'background'");
+						References.LOGGER.warn("Modular Backgrounds: Cannot find 'height' for 'background'");
 						skip = true;
 					}
 					
@@ -149,7 +149,7 @@ public class ModularGui_Handler implements IResourceManagerReloadListener {
 			
 			
 		} catch (IOException e) {
-			DRPCoreReferences.LOGGER.catching(e);
+			References.LOGGER.catching(e);
 		}
 		return null;
 	}

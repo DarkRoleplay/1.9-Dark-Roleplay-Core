@@ -2,7 +2,7 @@ package net.dark_roleplay.drpcore.client.gui.inventory;
 
 import org.lwjgl.opengl.GL11;
 
-import net.dark_roleplay.drpcore.common.DRPCoreReferences;
+import net.dark_roleplay.drpcore.common.References;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.inventory.Container;
@@ -10,7 +10,7 @@ import net.minecraft.util.ResourceLocation;
 
 public class Gui_ExtendedInventory extends GuiContainer{
 
-	protected ResourceLocation bgTexture = new ResourceLocation(DRPCoreReferences.MODID, "textures/guis/extended/extended_inventory.png");
+	protected ResourceLocation bgTexture = new ResourceLocation(References.MODID, "textures/guis/extended/extended_inventory.png");
 
 	protected int bgWidth = 174;
 	protected int bgHeight = 162;

@@ -2,8 +2,8 @@ package net.dark_roleplay.drpcore.common.objects.huds;
 
 import java.util.Calendar;
 
-import net.dark_roleplay.drpcore.common.DRPCoreReferences;
-import net.dark_roleplay.drpcore.modules.hud.Hud;
+import net.dark_roleplay.drpcore.api.old.modules.hud.Hud;
+import net.dark_roleplay.drpcore.common.References;
 import net.minecraft.client.Minecraft;
 import net.minecraft.util.ResourceLocation;
 
@@ -14,9 +14,9 @@ public class RealTimeClock extends Hud{
 	}
 
 	private static Calendar instance = Calendar.getInstance();
-	private static ResourceLocation clockTexture = new ResourceLocation(DRPCoreReferences.MODID, "textures/hud/clock.png");
-	private static ResourceLocation hourTexture = new ResourceLocation(DRPCoreReferences.MODID, "textures/hud/hour.png");
-	private static ResourceLocation minuteTexture = new ResourceLocation(DRPCoreReferences.MODID, "textures/hud/minute.png");
+	private static ResourceLocation clockTexture = new ResourceLocation(References.MODID, "textures/hud/clock.png");
+	private static ResourceLocation hourTexture = new ResourceLocation(References.MODID, "textures/hud/hour.png");
+	private static ResourceLocation minuteTexture = new ResourceLocation(References.MODID, "textures/hud/minute.png");
 	
 	public void render(int width, int height, float partialTicks){
 		Minecraft.getMinecraft().renderEngine.bindTexture(clockTexture);
