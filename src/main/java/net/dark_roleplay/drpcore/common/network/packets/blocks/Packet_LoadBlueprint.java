@@ -71,8 +71,8 @@ public class Packet_LoadBlueprint extends PacketBase.Server<Packet_LoadBlueprint
 				te.setMode(message.mode);
 				te.markDirty();
 				
-				References.DARK_ROLEPLAY_BLUEPRINTS_FOLDER.mkdirs();
-				File structure = new File(References.DARK_ROLEPLAY_BLUEPRINTS_FOLDER.getPath() + "/" + message.name + ".blueprint");
+				References.FOLDER_BLUEPRINTS.mkdirs();
+				File structure = new File(References.FOLDER_BLUEPRINTS.getPath() + "/" + message.name + ".blueprint");
 				if(structure.exists()){
 					try {
 						Blueprint bp = BlueprintUtil.readFromFile(new FileInputStream(structure));

@@ -10,9 +10,13 @@ import net.dark_roleplay.drpcore.common.config.SyncedConfigRegistry;
 import net.dark_roleplay.drpcore.common.handler.DRPCoreCapabilities;
 import net.dark_roleplay.drpcore.common.handler.DRPCorePackets;
 import net.dark_roleplay.drpcore.common.network.packets.crafting.SyncPacket_PlayerRecipeState;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.toasts.TutorialToast;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
+import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
+import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
 public class Event_PlayerLoggedIn {
@@ -22,8 +26,10 @@ public class Event_PlayerLoggedIn {
 	@SubscribeEvent
 	public void handleEvent(EntityJoinWorldEvent event) {
 		
+		
 		if(event.getEntity() instanceof EntityPlayerMP) {
 			EntityPlayerMP player = (EntityPlayerMP) event.getEntity();
+
 //			IRecipeController rpC = player.getCapability(DRPCoreCapabilities.DRPCORE_RECIPE_CONTROLLER, null);
 //			ISkillController slC = player.getCapability(DRPCoreCapabilities.DRPCORE_SKILL_CONTROLLER, null);
 //			

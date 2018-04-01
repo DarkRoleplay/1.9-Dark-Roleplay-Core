@@ -93,32 +93,21 @@ public class DRPCoreKeybindings {
 
 		if(this.openCrafting.isKeyDown()) {
 			Crafting_Util.openRecipeSelection(Blocks.AIR);
+			References.CRAFTING_TUT.hide();
 		}
-		
-//		if(this.openSkill.isKeyDown()){
-//			Skill_Util.openSkillOverview();
-//		}
 		
 		if(DRPCoreConfigs.DEBUG.DEBUG_KEY && this.debugging.isKeyDown()) {
 			
 //			Minecraft.getMinecraft().displayGuiScreen(new Gui_UpdateInformation());
 //			System.out.println(	PermissionAPI.hasPermission(Minecraft.getMinecraft().player, "drpcore.test.number2"));
-			Minecraft.getMinecraft().displayGuiScreen(new Gui_Test());
+//			Minecraft.getMinecraft().displayGuiScreen(new Gui_Test());
 
 			
-//			Minecraft.getMinecraft().displayGuiScreen(new Crafting5());
+			Minecraft.getMinecraft().displayGuiScreen(new Crafting5());
 			
 //			createRecipe();
 //			Minecraft.getMinecraft().displayGuiScreen(new GuiCrafting(null, 0, 0, 0, 0));
 //			Minecraft.getMinecraft().displayGuiScreen(new GuiPremium());
-
-//			World world = Minecraft.getMinecraft().world;
-//			ChunkPos pos = new ChunkPos(Minecraft.getMinecraft().player.getPosition());
-//			Chunk chunk = world.getChunkFromChunkCoords(pos.x, pos.z);
-//			if(chunk.hasCapability(DRPCoreCapabilities.CROP_HANDLER, null)){
-//				ICropHandler instance = chunk.getCapability(DRPCoreCapabilities.CROP_HANDLER, null);
-////				instance.growCrops(world, new Date(0, SEASONS.EARLY_SUMMER, 0));
-//			}
 		}
 	}
 	

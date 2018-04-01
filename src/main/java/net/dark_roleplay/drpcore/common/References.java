@@ -8,6 +8,8 @@ import java.util.List;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import net.minecraft.client.gui.toasts.TutorialToast;
+import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraftforge.common.ForgeVersion;
 import net.minecraftforge.common.ForgeVersion.CheckResult;
 import net.minecraftforge.common.ForgeVersion.Status;
@@ -16,6 +18,7 @@ import net.minecraftforge.fml.common.ModContainer;
 import net.minecraftforge.fml.common.ModMetadata;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class References {
 
@@ -35,14 +38,21 @@ public class References {
 	public static File FOLDER_BLUEPRINTS;
 	public static File FOLDER_RECIPES;
 	public static File FOLDER_ARG;
+	
+	@SideOnly (Side.SERVER)
 	public static File FOLDER_PERMISSIONS;
+	@SideOnly(Side.SERVER)
 	public static File FOLDER_PERMISSIONS_USERS;
+	@SideOnly(Side.SERVER) 
 	public static File FOLDER_PERMISSIONS_GROUPS;
+	
 	public static Logger LOGGER;
 	
 	public static Side SIDE;
 	
 	public static CheckResult VERSION_STATUS;
+	
+	public static final TutorialToast CRAFTING_TUT = new TutorialToast(TutorialToast.Icons.RECIPE_BOOK, new TextComponentTranslation("drpcore.tutorial.craft.title"), new TextComponentTranslation("drpcore.tutorial.craft.desc", "C"), false);
 	
 	public static void init(FMLPreInitializationEvent event){
 		References.LOGGER = LogManager.getLogger(References.MODID);
@@ -50,19 +60,28 @@ public class References {
 		References.SIDE = event.getSide();
 		
 		FOLDER_CONFIGS = event.getModConfigurationDirectory();
-		References.FOLDER_MAIN = new File(event.getModConfigurationDirectory().getParentFile().getPath() + "/dark roleplay/");
-		References.FOLDER_MAIN.mkdirs();
-		References.FOLDER_BLUEPRINTS = new File(References.FOLDER_MAIN.getPath() + "/blueprints/");
-		References.FOLDER_BLUEPRINTS.mkdirs();
-		References.FOLDER_RECIPES = new File(References.FOLDER_MAIN.getPath() + "/recipes/");
-		References.FOLDER_RECIPES.mkdirs();
-		References.FOLDER_PERMISSIONS = new File(References.FOLDER_MAIN.getPath() + "/permissions/");
-		References.FOLDER_PERMISSIONS.mkdirs();
-		References.FOLDER_PERMISSIONS_USERS = new File(References.FOLDER_PERMISSIONS.getPath() + "/users/");
-		References.FOLDER_PERMISSIONS_USERS.mkdirs();
-		References.FOLDER_PERMISSIONS_GROUPS = new File(References.FOLDER_PERMISSIONS.getPath() + "/groups/");
-		References.FOLDER_PERMISSIONS_GROUPS.mkdirs();
-		FOLDER_ARG = new File(References.FOLDER_MAIN.getPath() + "/argh/assets/");
+		
+		FOLDER_MAIN = new File(event.getModConfigurationDirectory().getParentFile().getPath() + "/dark roleplay/");
+		FOLDER_MAIN.mkdirs();
+		 
+		
+		FOLDER_RECIPES = new File(FOLDER_MAIN.getPath() + "/recipes/");
+		FOLDER_RECIPES.mkdirs();
+		
+		
+		if(SIDE.isServer()) {
+			FOLDER_BLUEPRINTS = new File(FOLDER_MAIN.getPath() + "/blueprints/");
+			FOLDER_BLUEPRINTS.mkdirs();
+			
+			FOLDER_PERMISSIONS = new File(FOLDER_MAIN.getPath() + "/permissions/");
+			FOLDER_PERMISSIONS.mkdirs();
+			FOLDER_PERMISSIONS_USERS = new File(FOLDER_PERMISSIONS.getPath() + "/users/");
+			FOLDER_PERMISSIONS_USERS.mkdirs();
+			FOLDER_PERMISSIONS_GROUPS = new File(FOLDER_PERMISSIONS.getPath() + "/groups/");
+			FOLDER_PERMISSIONS_GROUPS.mkdirs();
+		}
+		
+		FOLDER_ARG = new File(FOLDER_MAIN.getPath() + "/argh/assets/");
 		FOLDER_ARG.mkdirs();
 		
 		ModContainer mod = Loader.instance().activeModContainer();

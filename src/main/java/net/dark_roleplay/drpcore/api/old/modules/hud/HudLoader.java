@@ -27,11 +27,11 @@ public class HudLoader {
 	public static void initializeHuds(){
 		if(Modules.HUD.isEnabled()){
 			List<Hud> huds = DRPRegistries.getHudRegistry().getValues();
-			ProgressBar progressBar = ProgressManager.push("Loading HUD elements", 1);
+//			ProgressBar progressBar = ProgressManager.push("Loading HUD elements", 1);
 				
 			for(Hud hud : huds){
 				ResourceLocation regName = hud.getRegistryName();
-		        progressBar.step(regName.toString());
+//		        progressBar.step(regName.toString());
 		        
 		        File hudFolder = new File(References.FOLDER_CONFIGS + "\\dark roleplay\\client\\huds");
 		        File hudConfig = new File(hudFolder.getPath() + "\\" + regName.getResourcePath() + ".json");
@@ -52,7 +52,7 @@ public class HudLoader {
 					}
 		        }
 			}
-	        ProgressManager.pop(progressBar);
+//	        ProgressManager.pop(progressBar);
 		}
 	}
 }

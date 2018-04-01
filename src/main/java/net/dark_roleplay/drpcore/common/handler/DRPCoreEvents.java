@@ -22,10 +22,10 @@ public class DRPCoreEvents {
 	public static void init(FMLInitializationEvent event) {
 		// CLIENT ONLY
 		if(event.getSide() == Side.CLIENT) {
-			MinecraftForge.EVENT_BUS.register(new Event_GuiOpen());
 			MinecraftForge.EVENT_BUS.register(new Event_Mouse());
 			MinecraftForge.EVENT_BUS.register(new Event_BlockHighlight());
 			MinecraftForge.EVENT_BUS.register(new Event_Tooltip());
+			MinecraftForge.EVENT_BUS.register(new Event_GuiOpen());
 		}else if(event.getSide() == Side.SERVER) {
 		}
 		// BOOTH

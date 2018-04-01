@@ -13,12 +13,14 @@ import net.dark_roleplay.drpcore.common.handler.DRPCoreConfigs;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.client.gui.GuiMainMenu;
+import net.minecraft.client.gui.inventory.GuiInventory;
 import net.minecraftforge.client.event.GuiOpenEvent;
 import net.minecraftforge.client.event.GuiScreenEvent;
 import net.minecraftforge.client.event.MouseEvent;
 import net.minecraftforge.common.ForgeVersion.Status;
 import net.minecraftforge.common.config.Config;
 import net.minecraftforge.common.config.ConfigManager;
+import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.EventPriority;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.PlayerEvent.PlayerLoggedInEvent;
@@ -31,6 +33,13 @@ public class Event_GuiOpen {
 	
 	@SubscribeEvent
 	public void onEvent(GuiOpenEvent  event) {
+		
+		if(event.getGui() instanceof GuiInventory && DRPCoreConfigs.CLIENT.TUTORIAL.SHOW_CRAFTING_TUT) {
+			Minecraft.getMinecraft().getToastGui().add(References.CRAFTING_TUT);
+			DRPCoreConfigs.CLIENT.TUTORIAL.SHOW_CRAFTING_TUT = false;
+			ConfigManager.sync(References.MODID, Config.Type.INSTANCE);
+		}
+		
 //		if(/**!hasOpened &&**/ event.getGui() instanceof GuiMainMenu){
 //			
 //			event.setGui(new GuiTutorial(event.getGui()));
