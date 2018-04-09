@@ -1,6 +1,7 @@
 package net.dark_roleplay.drpcore.common;
 
 
+import net.dark_roleplay.drpcore.api.crafting.RecipeLoader;
 import net.dark_roleplay.drpcore.api.old.Modules;
 import net.dark_roleplay.drpcore.api.old.modules.Module;
 import net.dark_roleplay.drpcore.common.config.SyncedConfigRegistry;
@@ -47,6 +48,8 @@ public class DarkRoleplayCore {
 	
 	@EventHandler
 	public void preInit(FMLPreInitializationEvent event){
+		System.out.println("Prtinging Recipe Files");
+		
 		References.init(event);
 		
 		SyncedConfigRegistry.setSide(event.getSide());
@@ -80,6 +83,8 @@ public class DarkRoleplayCore {
 	@EventHandler
 	public void init(FMLInitializationEvent event) {
 		DRPCoreCrafting.init(event);
+		
+		RecipeLoader.loadRecipes();
 		
 		DRPCoreCapabilities.init(event);
 		DRPCoreGuis.init(event);

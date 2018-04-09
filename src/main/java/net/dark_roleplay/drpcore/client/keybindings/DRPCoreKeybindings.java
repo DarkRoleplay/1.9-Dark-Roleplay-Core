@@ -18,6 +18,7 @@ import com.google.gson.JsonSyntaxException;
 import net.dark_roleplay.drpcore.api.old.crafting.Crafting_Util;
 import net.dark_roleplay.drpcore.api.old.modules.crafting.GuiCrafting;
 import net.dark_roleplay.drpcore.api.old.modules.crops.ICropHandler;
+import net.dark_roleplay.drpcore.api.old.modules.hud.HudLoader;
 import net.dark_roleplay.drpcore.api.old.modules.time.Date;
 import net.dark_roleplay.drpcore.api.old.modules.work_in_progress.model_editor.Gui_EntityEdit;
 import net.dark_roleplay.drpcore.api.old.modules.work_in_progress.music.Song;
@@ -28,6 +29,7 @@ import net.dark_roleplay.drpcore.client.gui.crafting_new.creation.ItemSelection;
 import net.dark_roleplay.drpcore.common.References;
 import net.dark_roleplay.drpcore.common.handler.DRPCoreCapabilities;
 import net.dark_roleplay.drpcore.common.handler.DRPCoreConfigs;
+import net.dark_roleplay.drpcore.common.util.toasts.ToastController;
 import net.dark_roleplay.drpcore.testing.gui_testing.Gui_Test;
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
@@ -51,15 +53,20 @@ import net.minecraftforge.server.permission.PermissionAPI;
 
 public class DRPCoreKeybindings {
 	
-	public static KeyBinding openCrafting = new KeyBinding("keyBinding.openCrafting", Keyboard.KEY_C,"Dark Roleplay Core");
-//	public static KeyBinding openSkill = new KeyBinding("keyBinding.openSkill", Keyboard.KEY_K, "Dark Roleplay Core");
+	public static KeyBinding GUI_CRAFTING = new KeyBinding("keyBinding.openCrafting", Keyboard.KEY_C,"Dark Roleplay Core");		
+	public static KeyBinding GUI_SKILLS = new KeyBinding("keyBinding.openSkills", Keyboard.KEY_K,"Dark Roleplay Core");		
+	public static KeyBinding GUI_VARIATIONS = new KeyBinding("keyBinding.veriationSelection", Keyboard.KEY_V,"Dark Roleplay Core");	
+	public static KeyBinding RELOAD_HUD = new KeyBinding("keyBinding.reloadHud", Keyboard.CHAR_NONE, "Dark Roleplay Core");
 	public static KeyBinding debugging = new KeyBinding("keyBinding.debuging", Keyboard.KEY_B, "Dark Roleplay Core");
 
 	public static void preInit(FMLPreInitializationEvent event) {
 	}
 
 	public static void init(FMLInitializationEvent event) {
-		ClientRegistry.registerKeyBinding(openCrafting);
+		ClientRegistry.registerKeyBinding(GUI_CRAFTING);
+		ClientRegistry.registerKeyBinding(GUI_VARIATIONS);
+		ClientRegistry.registerKeyBinding(GUI_SKILLS);
+		ClientRegistry.registerKeyBinding(RELOAD_HUD);
 //		ClientRegistry.registerKeyBinding(openSkill);
 		
 		if(DRPCoreConfigs.DEBUG.DEBUG_KEY){
@@ -91,19 +98,23 @@ public class DRPCoreKeybindings {
 	@SubscribeEvent
 	public void KeyInput(KeyInputEvent event) {
 
-		if(this.openCrafting.isKeyDown()) {
+		if(this.GUI_CRAFTING.isKeyDown()) {
 			Crafting_Util.openRecipeSelection(Blocks.AIR);
 			References.CRAFTING_TUT.hide();
+		}else if(this.GUI_SKILLS.isKeyDown()){
+			ToastController.displayInfoToast("dpcore.featureNotImplemented", null);
+		}else if(this.GUI_VARIATIONS.isKeyDown()){
+			ToastController.displayInfoToast("dpcore.featureNotImplemented", null);
+		}else if(this.RELOAD_HUD.isKeyDown()) {
+			HudLoader.initializeHuds();
 		}
-		
-		if(DRPCoreConfigs.DEBUG.DEBUG_KEY && this.debugging.isKeyDown()) {
+		else if(DRPCoreConfigs.DEBUG.DEBUG_KEY && this.debugging.isKeyDown()) {
 			
 //			Minecraft.getMinecraft().displayGuiScreen(new Gui_UpdateInformation());
 //			System.out.println(	PermissionAPI.hasPermission(Minecraft.getMinecraft().player, "drpcore.test.number2"));
 //			Minecraft.getMinecraft().displayGuiScreen(new Gui_Test());
 
-			
-			Minecraft.getMinecraft().displayGuiScreen(new Crafting5());
+//			Minecraft.getMinecraft().displayGuiScreen(new Crafting5());
 			
 //			createRecipe();
 //			Minecraft.getMinecraft().displayGuiScreen(new GuiCrafting(null, 0, 0, 0, 0));

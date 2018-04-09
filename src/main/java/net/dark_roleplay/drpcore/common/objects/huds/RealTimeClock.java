@@ -3,6 +3,7 @@ package net.dark_roleplay.drpcore.common.objects.huds;
 import java.util.Calendar;
 
 import net.dark_roleplay.drpcore.api.old.modules.hud.Hud;
+import net.dark_roleplay.drpcore.api.old.modules.hud.Hud.ALIGNMENT;
 import net.dark_roleplay.drpcore.common.References;
 import net.minecraft.client.Minecraft;
 import net.minecraft.util.ResourceLocation;
@@ -11,6 +12,9 @@ public class RealTimeClock extends Hud{
 	
 	public RealTimeClock(ResourceLocation registryName) {
 		super(registryName);
+		this.posX =-1;
+		this.posY = 1;
+		this.alignment = ALIGNMENT.TOP_RIGHT;
 	}
 
 	private static Calendar instance = Calendar.getInstance();

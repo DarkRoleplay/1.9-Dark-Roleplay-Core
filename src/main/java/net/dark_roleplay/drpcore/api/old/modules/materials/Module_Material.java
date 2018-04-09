@@ -33,7 +33,7 @@ public class Module_Material extends Module{
 		super(name, requiredModules);
 	}
 
-	private static void coypFileForMaterials(String material, InputStream input, File dest){
+	private static void copyFileForMaterials(String material, InputStream input, File dest){
 		if(!materials.containsKey(material) || dest.exists())
 			return;
 

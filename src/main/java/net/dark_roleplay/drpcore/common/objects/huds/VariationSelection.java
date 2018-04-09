@@ -3,6 +3,7 @@ package net.dark_roleplay.drpcore.common.objects.huds;
 import java.util.Calendar;
 
 import net.dark_roleplay.drpcore.api.old.modules.hud.Hud;
+import net.dark_roleplay.drpcore.api.old.modules.hud.Hud.ALIGNMENT;
 import net.dark_roleplay.drpcore.common.References;
 import net.minecraft.client.Minecraft;
 import net.minecraft.util.ResourceLocation;
@@ -11,6 +12,9 @@ public class VariationSelection  extends Hud{
 	
 	public VariationSelection(ResourceLocation registryName) {
 		super(registryName);
+		this.posX = 90;
+		this.posY =-16;
+		this.alignment = ALIGNMENT.BOTTOM;
 	}
 
 	private static ResourceLocation BG = new ResourceLocation(References.MODID, "textures/hud/variant_selection.png");

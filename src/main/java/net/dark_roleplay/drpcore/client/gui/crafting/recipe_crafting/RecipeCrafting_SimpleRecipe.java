@@ -257,7 +257,7 @@ public class RecipeCrafting_SimpleRecipe extends DRPGuiScreen implements ITimedG
 
 	@Override
 	protected void keyTyped(char typedChar, int keyCode) throws IOException {
-		if (keyCode == 1 || DRPCoreKeybindings.openCrafting.isActiveAndMatches(keyCode) || this.mc.gameSettings.keyBindInventory.isActiveAndMatches(keyCode)) {
+		if (keyCode == 1 || DRPCoreKeybindings.GUI_CRAFTING.isActiveAndMatches(keyCode) || this.mc.gameSettings.keyBindInventory.isActiveAndMatches(keyCode)) {
 			Minecraft.getMinecraft().displayGuiScreen(null);
 		}
 	}

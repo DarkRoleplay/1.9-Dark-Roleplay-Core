@@ -101,7 +101,6 @@ public class DRPCoreItems {
 	@SubscribeEvent
 	public static void registerModels(ModelRegistryEvent event){
 		for(Item i : blockItems){
-			System.out.println(i.getUnlocalizedName());
 			ModelLoader.setCustomModelResourceLocation(i, 0, new ModelResourceLocation(References.MODID + ":" + i.getUnlocalizedName().toString().substring(i.getUnlocalizedName().toString().indexOf(".") + 1, i.getUnlocalizedName().toString().length()), "inventory"));
 		}
 	}
