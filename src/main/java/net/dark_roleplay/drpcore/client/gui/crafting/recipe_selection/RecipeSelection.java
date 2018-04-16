@@ -54,7 +54,7 @@ public class RecipeSelection extends DRPGuiScreen{
 	private short selectedCategory = 0;
 	
 	private EntityPlayer player;
-	private IRecipeController rcCon;
+//	private IRecipeController rcCon;
 	
 	private Button_CategorySelect[] categoryButtons = new Button_CategorySelect[7]; 
 	private Button_RecipeSelection[] recipeButtons = new Button_RecipeSelection[18];
@@ -74,7 +74,7 @@ public class RecipeSelection extends DRPGuiScreen{
 	public RecipeSelection(Block block) {
 		super(bg, 190, 133);
 		player = Minecraft.getMinecraft().player;
-		rcCon = player.getCapability(DRPCoreCapabilities.DRPCORE_RECIPE_CONTROLLER, null);
+//		rcCon = player.getCapability(DRPCoreCapabilities.DRPCORE_RECIPE_CONTROLLER, null);
 		
 		this.craftingStation = block;
 		this.categorys = CraftingRegistry.getCategorysForBlocks(block);
@@ -133,18 +133,18 @@ public class RecipeSelection extends DRPGuiScreen{
 		for(int i = 0; i < 18; i++){
 			if(this.recipes.size() > (i + (this.recipePage * 18))){
 				IRecipe rec = this.recipes.get((i + (this.recipePage * 18)));
-				if(rcCon.isLocked(rec.getRegistryString())){
-					this.mc.renderEngine.bindTexture(this.bgTexture);
-					drawTexturedModalRect(this.guiLeft + 18 + (26 * (i%6)), this.guiTop + 40 + (26 * (i/6)), 27, 134, 24, 24);
-				}else if(rec.requiresUnlock() && !rec.canCraft(this.player)){
-					this.mc.renderEngine.bindTexture(this.bgTexture);
-					drawTexturedModalRect(this.guiLeft + 18 + (26 * (i%6)), this.guiTop + 40 + (26 * (i/6)), 1, 134, 24, 24);
-					if(rcCon.isRecipeProgressed(rec.getRegistryString())){
-						drawTexturedModalRect(this.guiLeft + 18 + (26 * (i%6)), this.guiTop + 59 + (26 * (i/6)), 1, 160, 2 + (int)(20 * rcCon.getProgressRecipe(rec.getRegistryString())), 4);
-					}
-				}else{
+//				if(rcCon.isLocked(rec.getRegistryString())){
+//					this.mc.renderEngine.bindTexture(this.bgTexture);
+//					drawTexturedModalRect(this.guiLeft + 18 + (26 * (i%6)), this.guiTop + 40 + (26 * (i/6)), 27, 134, 24, 24);
+//				}else if(rec.requiresUnlock() && !rec.canCraft(this.player)){
+//					this.mc.renderEngine.bindTexture(this.bgTexture);
+//					drawTexturedModalRect(this.guiLeft + 18 + (26 * (i%6)), this.guiTop + 40 + (26 * (i/6)), 1, 134, 24, 24);
+//					if(rcCon.isRecipeProgressed(rec.getRegistryString())){
+//						drawTexturedModalRect(this.guiLeft + 18 + (26 * (i%6)), this.guiTop + 59 + (26 * (i/6)), 1, 160, 2 + (int)(20 * rcCon.getProgressRecipe(rec.getRegistryString())), 4);
+//					}
+//				}else{
 					this.itemRender.renderItemIntoGUI(rec.getDisplayItems()[0], this.guiLeft + 22 + (26 * (i%6)), this.guiTop + 44 + (26 * (i/6)));
-				}
+//				}
 				
 			}
 		}
@@ -245,7 +245,7 @@ public class RecipeSelection extends DRPGuiScreen{
 			}
 		}else if(button.id >= this.recipeButtons[0].id && button.id <= this.recipeButtons[17].id){
 			int recipeID = (button.id - recipeButtons[0].id) + (this.recipePage * 18);
-			if(recipeID < this.recipes.size() && this.recipes.get(recipeID).canCraft(this.player) && !rcCon.isLocked(this.recipes.get(recipeID).getRegistryString())){
+			if(recipeID < this.recipes.size() && this.recipes.get(recipeID).canCraft(this.player)){ // && !rcCon.isLocked(this.recipes.get(recipeID).getRegistryString())
 				
 				if(this.recipes.get(recipeID) instanceof SimpleRecipe){
 					Minecraft.getMinecraft().displayGuiScreen(new RecipeCrafting_SimpleRecipe((SimpleRecipe) this.recipes.get(recipeID), this));
@@ -262,7 +262,7 @@ public class RecipeSelection extends DRPGuiScreen{
 			if(rec.requiresUnlock() && !rec.canCraft(this.player) && DRPCoreConfigs.CRAFTING.HIDE_UNKNOWN_RECIPES){
 				continue;
 			}
-			if(DRPCoreConfigs.CRAFTING.HIDE_LOCKED_RECIPES && this.rcCon.isLocked(rec.getRegistryString())){
+			if(DRPCoreConfigs.CRAFTING.HIDE_LOCKED_RECIPES){// && this.rcCon.isLocked(rec.getRegistryString())
 				continue;
 			}
 			this.recipes.add(rec);

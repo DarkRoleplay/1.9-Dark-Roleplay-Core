@@ -25,33 +25,32 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParseException;
 
-import net.minecraft.item.crafting.CraftingManager;
-import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.util.JsonUtils;
 import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.common.crafting.CraftingHelper;
-import net.minecraftforge.common.crafting.JsonContext;
 import net.minecraftforge.fml.common.FMLLog;
 import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.common.ModContainer;
 import net.minecraftforge.fml.common.registry.ForgeRegistries;
 
-public class RecipeLoader {
+public class CraftingRegistry {
 
     private static Gson GSON = new GsonBuilder().setPrettyPrinting().disableHtmlEscaping().create();
 	
-    private static Map<String, IRecipeLoader> recipeLoaders = new HashMap<String, IRecipeLoader>();
+    private static Map<ResourceLocation, IRecipeFactory> recipeLoaders = new HashMap<ResourceLocation, IRecipeFactory>();
+    private static Map<ResourceLocation, IIngredientFactory> ingredientLoaders = new HashMap<ResourceLocation, IIngredientFactory>();
+
+    public void registerRecipeLoader(ResourceLocation loc, IRecipeFactory loader) {
+    	if(!recipeLoaders.containsKey(loc)) {
+    		recipeLoaders.put(loc, loader);
+    	}
+    }
     
-    public static List<String> debugList = new ArrayList<String>();
     
 	public static void loadRecipes() {
-
-		Loader.instance().getActiveModList().forEach(RecipeLoader::loadRecipes);
+		Loader.instance().getActiveModList().forEach(CraftingRegistry::loadRecipes);
 	}
 
 	private static boolean loadRecipes(ModContainer mod) {
-		JsonContext ctx = new JsonContext(mod.getModId());
-
 		return findFiles(mod, "data/" + mod.getModId() + "/drp/recipes", null,
 			(root, file) -> {
 				Loader.instance().setActiveModContainer(mod);
@@ -61,17 +60,20 @@ public class RecipeLoader {
 					return true;
 	
 				String name = FilenameUtils.removeExtension(relative).replaceAll("\\\\", "/");
-				ResourceLocation key = new ResourceLocation(ctx.getModId(), name);
-	
-				debugList.add(file.getFileName().toString());
-				
-//				BufferedReader reader = null;
-//				try {
-//					reader = Files.newBufferedReader(file);
-//					JsonObject json = JsonUtils.fromJson(GSON, reader, JsonObject.class);
-//					if(!json.has("type"))
-//						return true;
-//					
+				ResourceLocation key = new ResourceLocation(mod.getModId(), name);
+					
+				BufferedReader reader = null;
+				try {
+					reader = Files.newBufferedReader(file);
+					JsonObject json = JsonUtils.fromJson(GSON, reader, JsonObject.class);
+					if(!json.has("type"))
+						return true;
+					
+					ResourceLocation loc = new ResourceLocation(JsonUtils.getString(json, "type", "drp:simple_recipe"));
+					if(recipeLoaders.containsKey(loc)) {
+						IRecipe recipe = recipeLoaders.get(loc).loadRecipe(json);
+					}
+					
 //					String loader = json.get("type").getAsString();
 //					if(!recipeLoaders.containsKey(loader))
 //						return true;
@@ -83,15 +85,15 @@ public class RecipeLoader {
 ////						return true;
 ////					IRecipe recipe = CraftingHelper.getRecipe(json, ctx);
 ////					ForgeRegistries.RECIPES.register(recipe.setRegistryName(key));
-//				} catch (JsonParseException e) {
-//					FMLLog.log.error("Parsing error loading recipe {}", key, e);
-//					return false;
-//				} catch (IOException e) {
-//					FMLLog.log.error("Couldn't read recipe {} from {}", key, file, e);
-//					return false;
-//				} finally {
-//					IOUtils.closeQuietly(reader);
-//				}
+				} catch (JsonParseException e) {
+					FMLLog.log.error("Parsing error loading recipe {}", key, e);
+					return false;
+				} catch (IOException e) {
+					FMLLog.log.error("Couldn't read recipe {} from {}", key, file, e);
+					return false;
+				} finally {
+					IOUtils.closeQuietly(reader);
+				}
 				return true;
 			},
 		true, true);

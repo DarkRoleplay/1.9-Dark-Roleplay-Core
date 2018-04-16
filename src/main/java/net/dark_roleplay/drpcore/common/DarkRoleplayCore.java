@@ -1,7 +1,7 @@
 package net.dark_roleplay.drpcore.common;
 
 
-import net.dark_roleplay.drpcore.api.crafting.RecipeLoader;
+import net.dark_roleplay.drpcore.api.crafting.CraftingRegistry;
 import net.dark_roleplay.drpcore.api.old.Modules;
 import net.dark_roleplay.drpcore.api.old.modules.Module;
 import net.dark_roleplay.drpcore.common.config.SyncedConfigRegistry;
@@ -14,9 +14,9 @@ import net.dark_roleplay.drpcore.common.handler.DRPCorePackets;
 import net.dark_roleplay.drpcore.common.handler.DRPCorePerms;
 import net.dark_roleplay.drpcore.common.objects.tile_entities.blueprint_controller.TE_BlueprintController;
 import net.dark_roleplay.drpcore.common.proxy.CommonProxy;
-import net.dark_roleplay.drpcore.server.commands.crafting.Command_Recipe;
-import net.dark_roleplay.drpcore.server.commands.skills.Command_Skill;
-import net.dark_roleplay.drpcore.server.permission.DRPPermissionHandler;
+import net.dark_roleplay.drpcore.testing.skills.CommandTest;
+import net.dark_roleplay.drpcore.testing.skills.SkillRegistries;
+import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventHandler;
 import net.minecraftforge.fml.common.ProgressManager;
@@ -27,10 +27,6 @@ import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLServerStartingEvent;
 import net.minecraftforge.fml.common.registry.GameRegistry;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
-import net.minecraftforge.server.permission.DefaultPermissionLevel;
-import net.minecraftforge.server.permission.PermissionAPI;
 
 @Mod(modid = References.MODID, version = References.VERSION, name = References.NAME, acceptedMinecraftVersions = References.ACCEPTEDVERSIONS, updateJSON = References.UPDATE_JSON)
 public class DarkRoleplayCore {
@@ -48,8 +44,8 @@ public class DarkRoleplayCore {
 	
 	@EventHandler
 	public void preInit(FMLPreInitializationEvent event){
-		System.out.println("Prtinging Recipe Files");
-		
+//		System.out.println("Prtinging Recipe Files");
+				
 		References.init(event);
 		
 		SyncedConfigRegistry.setSide(event.getSide());
@@ -58,7 +54,6 @@ public class DarkRoleplayCore {
 		DRPCoreGuis.preInit(event);
 		DRPCoreEvents.preInit(event);
 		DRPCoreEntities.init(event);
-		
 		
 		GameRegistry.registerTileEntity(TE_BlueprintController.class, References.MODID + ":" + "tileentity_structure_controller");
 
@@ -84,7 +79,8 @@ public class DarkRoleplayCore {
 	public void init(FMLInitializationEvent event) {
 		DRPCoreCrafting.init(event);
 		
-		RecipeLoader.loadRecipes();
+		//TODO REMOVE?
+		CraftingRegistry.loadRecipes();
 		
 		DRPCoreCapabilities.init(event);
 		DRPCoreGuis.init(event);
@@ -126,6 +122,7 @@ public class DarkRoleplayCore {
 	
 	@EventHandler
 	public void serverLoad(FMLServerStartingEvent event){
+		event.registerServerCommand(new CommandTest());
 //		event.registerServerCommand(new Command_Recipe("drprecipes"));
 //		event.registerServerCommand(new Command_Skill("drpskills"));
 	}

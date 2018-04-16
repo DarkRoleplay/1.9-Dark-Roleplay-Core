@@ -1,0 +1,17 @@
+How are skills supposed to work?
+
+Skills
+1. Skills are supposed to be added by Mods and Users
+2. Skills are synchronized from Server to Client
+3. Skills have Parent Skills
+4. Multiple types of Skill Points can be required to unlock a Skill
+
+Skill Trees
+1. Each skill can be within multiple skill trees
+2. Skill Trees should be specified within JSON Files
+3. Skill Trees are "Skills" by them self and can be linked within other Skill Tree's
+
+Skill Points
+1. Skill Points should have an icon
+2. Skill Points should have categories
+3. Skill Points are levelable, reaching a level gives you a Skill Point (optional per skill point)

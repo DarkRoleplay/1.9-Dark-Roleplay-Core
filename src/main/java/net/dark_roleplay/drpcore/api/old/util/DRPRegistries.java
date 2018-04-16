@@ -1,21 +1,13 @@
 package net.dark_roleplay.drpcore.api.old.util;
 
-import javax.annotation.Nullable;
-
-import net.dark_roleplay.drpcore.api.old.Modules;
 import net.dark_roleplay.drpcore.api.old.modules.hud.Hud;
-import net.dark_roleplay.drpcore.api.old.modules.work_in_progress.skill.Skill;
 import net.dark_roleplay.drpcore.common.References;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.registries.IForgeRegistry;
-import net.minecraftforge.registries.IForgeRegistry.AddCallback;
-import net.minecraftforge.registries.IForgeRegistryInternal;
 import net.minecraftforge.registries.RegistryBuilder;
-import net.minecraftforge.registries.RegistryManager;
 
 @Mod.EventBusSubscriber
 public class DRPRegistries {

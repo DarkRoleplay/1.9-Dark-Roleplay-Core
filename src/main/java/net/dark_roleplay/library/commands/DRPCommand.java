@@ -18,6 +18,7 @@ import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.Item;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.server.permission.DefaultPermissionLevel;
 import net.minecraftforge.server.permission.PermissionAPI;
 
 public abstract class DRPCommand implements ICommand{
@@ -37,6 +38,7 @@ public abstract class DRPCommand implements ICommand{
 		this.name = name;
 		this.permissionsNode = permissionsNode;
 		this.aliases = Lists.<String>newArrayList(aliases);
+		PermissionAPI.registerNode(permissionsNode, DefaultPermissionLevel.OP, "Used to manipulate Skills");
 	}
 	
 	/**

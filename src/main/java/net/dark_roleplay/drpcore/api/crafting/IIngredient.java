@@ -1,7 +1,8 @@
-package net.dark_roleplay.drpcore.client.gui.crafting_new.creation;
+package net.dark_roleplay.drpcore.api.crafting;
 
 import com.google.gson.JsonObject;
 
+import net.dark_roleplay.drpcore.client.gui.crafting_new.creation.IIcon;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
@@ -9,15 +10,13 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 public interface IIngredient {
 	
-	public IIngredient readFromJson(JsonObject object);
-	
 	public boolean doesStationHave(World world, BlockPos pos, EntityPlayer player);
 	
 	public boolean doesPlayerHave(EntityPlayer player);
 	
-	public void useFromStation(World world, BlockPos pos, EntityPlayer player);
+	public void takeFromStation(World world, BlockPos pos, EntityPlayer player);
 	
-	public void useFromPlayer(EntityPlayer player);
+	public void takeFromPlayer(EntityPlayer player);
 	
 	public IIcon getIcon();
 

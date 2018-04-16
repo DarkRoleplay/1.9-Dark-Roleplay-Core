@@ -8,6 +8,7 @@ public interface IRecipe {
 
 	public IIcon getIcon();
 	
-//	public List<Block> getCraftingStations();
+	public List<IIngredient> getIngredients();
 	
+	public boolean craft();
 }

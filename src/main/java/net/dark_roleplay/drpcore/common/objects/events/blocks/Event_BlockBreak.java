@@ -1,8 +1,12 @@
 package net.dark_roleplay.drpcore.common.objects.events.blocks;
 
 import net.dark_roleplay.drpcore.common.References;
+
 import net.dark_roleplay.drpcore.common.capabilities.CapabilityProvider;
 import net.dark_roleplay.drpcore.common.handler.DRPCoreCapabilities;
+import net.dark_roleplay.drpcore.testing.skills.Skill;
+import net.dark_roleplay.drpcore.testing.skills.SkillHandler;
+import net.dark_roleplay.drpcore.testing.skills.SkillRegistries;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockLog;
 import net.minecraft.block.state.IBlockState;
@@ -15,11 +19,19 @@ import net.minecraft.world.World;
 import net.minecraftforge.event.AttachCapabilitiesEvent;
 import net.minecraftforge.event.world.BlockEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.fml.common.registry.GameRegistry.ObjectHolder;
 
+@ObjectHolder(value = References.MODID)
 public class Event_BlockBreak {
 
+	public static final Skill TEST_1 = null;
+	
 	@SubscribeEvent
 	public void blockBreak(BlockEvent.BreakEvent event) {
+		SkillHandler handler = event.getPlayer().getCapability(DRPCoreCapabilities.SKILL_HANDLER, null);
+		if(!handler.hasSkill(TEST_1)) {
+			event.setCanceled(true);
+		}
 //		IBlockState breaked = event.getState();
 //		if (breaked.getBlock() instanceof BlockLog && event.getWorld().getBlockState(event.getPos().down()).getBlock() == Blocks.DIRT) {
 //			System.out.println("TREE IS BEEING CUT!");

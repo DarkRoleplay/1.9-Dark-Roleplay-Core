@@ -27,6 +27,7 @@ import net.dark_roleplay.drpcore.client.events.rendering.Event_BlockHighlight;
 import net.dark_roleplay.drpcore.client.events.rendering.Event_ModelBaked;
 import net.dark_roleplay.drpcore.client.keybindings.DRPCoreKeybindings;
 import net.dark_roleplay.drpcore.client.renderer.tileentities.Renderer_StructureController;
+import net.dark_roleplay.drpcore.client.resources.DRPModelLoader;
 import net.dark_roleplay.drpcore.client.resources.ModularGui_Handler;
 import net.dark_roleplay.drpcore.common.References;
 import net.dark_roleplay.drpcore.common.Reflections;
@@ -51,6 +52,7 @@ import net.minecraft.client.resources.data.TextureMetadataSection;
 import net.minecraft.client.resources.data.TextureMetadataSectionSerializer;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.model.ModelLoader;
+import net.minecraftforge.client.model.ModelLoaderRegistry;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.client.registry.ClientRegistry;
 import net.minecraftforge.fml.client.registry.IRenderFactory;
@@ -81,6 +83,9 @@ public class ClientProxy extends CommonProxy{
 	public void preInit(FMLPreInitializationEvent event) {
 		DRPCoreKeybindings.preInit(event);
 		ItemUtil.registerItemMeshs();
+		
+
+		ModelLoaderRegistry.registerLoader(new DRPModelLoader());
 
 		for(Map.Entry<DRPItem, String> entry : toRegisterMeshes.entrySet()) {
 			this.registerItemMesh(entry.getValue(),entry.getKey());
