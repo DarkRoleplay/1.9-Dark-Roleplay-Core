@@ -45,7 +45,8 @@ public interface IRecipe{
 		
 		@Override
 		public boolean canCraft(EntityPlayer player){
-			return (this.requiresUnlock && player.getCapability(DRPCoreCapabilities.DRPCORE_RECIPE_CONTROLLER, null).isRecipeUnlocked(this.registryName.toString()) || !this.requiresUnlock);
+			return true;
+//			return (this.requiresUnlock && player.getCapability(DRPCoreCapabilities.DRPCORE_RECIPE_CONTROLLER, null).isRecipeUnlocked(this.registryName.toString()) || !this.requiresUnlock);
 		}
 	}
 	

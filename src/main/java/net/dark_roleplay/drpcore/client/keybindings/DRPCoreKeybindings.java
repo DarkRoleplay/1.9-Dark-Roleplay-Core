@@ -3,8 +3,6 @@ package net.dark_roleplay.drpcore.client.keybindings;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 
 import org.apache.commons.lang3.ArrayUtils;
 import org.lwjgl.input.Keyboard;
@@ -13,35 +11,19 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
-import com.google.gson.JsonSyntaxException;
 
 import net.dark_roleplay.drpcore.api.old.crafting.Crafting_Util;
-import net.dark_roleplay.drpcore.api.old.modules.crafting.GuiCrafting;
-import net.dark_roleplay.drpcore.api.old.modules.crops.ICropHandler;
 import net.dark_roleplay.drpcore.api.old.modules.hud.HudLoader;
-import net.dark_roleplay.drpcore.api.old.modules.time.Date;
-import net.dark_roleplay.drpcore.api.old.modules.work_in_progress.model_editor.Gui_EntityEdit;
-import net.dark_roleplay.drpcore.api.old.modules.work_in_progress.music.Song;
-import net.dark_roleplay.drpcore.api.old.modules.work_in_progress.premium.GuiPremium;
-import net.dark_roleplay.drpcore.api.old.modules.work_in_progress.update_check.Gui_UpdateInformation;
-import net.dark_roleplay.drpcore.client.gui.crafting_new.creation.Crafting5;
-import net.dark_roleplay.drpcore.client.gui.crafting_new.creation.ItemSelection;
 import net.dark_roleplay.drpcore.common.References;
-import net.dark_roleplay.drpcore.common.handler.DRPCoreCapabilities;
-import net.dark_roleplay.drpcore.common.handler.DRPCoreConfigs;
+import net.dark_roleplay.drpcore.common.config.Debug;
 import net.dark_roleplay.drpcore.common.util.toasts.ToastController;
-import net.dark_roleplay.drpcore.testing.gui_testing.Gui_Test;
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.settings.KeyBinding;
 import net.minecraft.init.Blocks;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.math.ChunkPos;
-import net.minecraft.world.World;
-import net.minecraft.world.chunk.Chunk;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.client.registry.ClientRegistry;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
@@ -49,7 +31,6 @@ import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.InputEvent.KeyInputEvent;
-import net.minecraftforge.server.permission.PermissionAPI;
 
 public class DRPCoreKeybindings {
 	
@@ -69,7 +50,7 @@ public class DRPCoreKeybindings {
 		ClientRegistry.registerKeyBinding(RELOAD_HUD);
 //		ClientRegistry.registerKeyBinding(openSkill);
 		
-		if(DRPCoreConfigs.DEBUG.DEBUG_KEY){
+		if(Debug.DEBUG_KEY){
 			enableDebugKeys();
 		}
 		
@@ -108,7 +89,7 @@ public class DRPCoreKeybindings {
 		}else if(this.RELOAD_HUD.isKeyDown()) {
 			HudLoader.initializeHuds();
 		}
-		else if(DRPCoreConfigs.DEBUG.DEBUG_KEY && this.debugging.isKeyDown()) {
+		else if(Debug.DEBUG_KEY && this.debugging.isKeyDown()) {
 			
 //			Minecraft.getMinecraft().displayGuiScreen(new Gui_UpdateInformation());
 //			System.out.println(	PermissionAPI.hasPermission(Minecraft.getMinecraft().player, "drpcore.test.number2"));

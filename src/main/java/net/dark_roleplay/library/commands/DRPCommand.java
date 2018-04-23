@@ -34,11 +34,11 @@ public abstract class DRPCommand implements ICommand{
 	 * @param permissionsNode
 	 * @param aliases
 	 */
-	public DRPCommand(String name, String permissionsNode, String... aliases){
+	public DRPCommand(String name, String permissionsNode, String permissionDescription, String... aliases){
 		this.name = name;
 		this.permissionsNode = permissionsNode;
 		this.aliases = Lists.<String>newArrayList(aliases);
-		PermissionAPI.registerNode(permissionsNode, DefaultPermissionLevel.OP, "Used to manipulate Skills");
+		PermissionAPI.registerNode(permissionsNode, DefaultPermissionLevel.OP, permissionDescription);
 	}
 	
 	/**

@@ -1,5 +1,6 @@
 package net.dark_roleplay.drpcore.client.renderer.tileentities;
 
+import net.dark_roleplay.drpcore.common.config.Client;
 import net.dark_roleplay.drpcore.common.handler.DRPCoreConfigs;
 import net.dark_roleplay.drpcore.common.objects.tile_entities.blueprint_controller.TE_BlueprintController;
 import net.minecraft.block.state.IBlockState;
@@ -61,7 +62,7 @@ public class Renderer_StructureController extends TileEntitySpecialRenderer<TE_B
 						this.renderBox(tessellator, bufferbuilder, d5, d6, d7, d8, d9, d10, 255, 223, 0);
 					}else if(te.getRenderMode() == TE_BlueprintController.RenderMode.INVISIBLE){
 						this.renderBox(tessellator, bufferbuilder, d5, d6, d7, d8, d9, d10, 255, 223, 0);
-						if(DRPCoreConfigs.CLIENT.BLUEPRINTS.HIGHLIGHT_INVISIBLE_BLOCKS)
+						if(Client.BLUEPRINTS.HIGHLIGHT_INVISIBLE_BLOCKS)
 							this.renderInvisibleBlocks(te, x, y, z, blockpos, tessellator, bufferbuilder, true);
 						this.renderInvisibleBlocks(te, x, y, z, blockpos, tessellator, bufferbuilder, false);
 					}
@@ -102,8 +103,8 @@ public class Renderer_StructureController extends TileEntitySpecialRenderer<TE_B
 					RenderGlobal.drawBoundingBox(bufBuilder, d0, d1, d2, d3, d4, d5, 0.0F, 0.0F, 0.0F, 1.0F);
 				} else if (flag) {
 					RenderGlobal.drawBoundingBox(bufBuilder, d0, d1, d2, d3, d4, d5, 
-							DRPCoreConfigs.CLIENT.BLUEPRINTS.INVISIBLE_BLOCKS_RED, DRPCoreConfigs.CLIENT.BLUEPRINTS.INVISIBLE_BLOCKS_GREEN, 
-							DRPCoreConfigs.CLIENT.BLUEPRINTS.INVISIBLE_BLOCKS_BLUE, DRPCoreConfigs.CLIENT.BLUEPRINTS.INVISIBLE_BLOCKS_ALPHA);
+							Client.BLUEPRINTS.INVISIBLE_BLOCKS_COLOR.RED, Client.BLUEPRINTS.INVISIBLE_BLOCKS_COLOR.GREEN, 
+							Client.BLUEPRINTS.INVISIBLE_BLOCKS_COLOR.BLUE, Client.BLUEPRINTS.INVISIBLE_BLOCKS_COLOR.ALPHA);
 				} else {
 					RenderGlobal.drawBoundingBox(bufBuilder, d0, d1, d2, d3, d4, d5, 1.0F, 0.25F, 0.25F, 1.0F);
 				}

@@ -263,7 +263,7 @@ public class Blueprint {
 						continue;
 					if(state.isFullCube()){
 						BlockPos rotated = transformedBlockPos(x, y, z, mirror, rotation);
-						world.setBlockState(pos.add(rotated.getX(), rotated.getY(), rotated.getZ()), state, 18);
+						world.setBlockState(pos.add(rotated.getX(), rotated.getY(), rotated.getZ()), state, 2);
 					}
 				}
 			}
@@ -277,7 +277,7 @@ public class Blueprint {
 						continue;
 					if(!state.isFullCube()){
 						BlockPos rotated = transformedBlockPos(x, y, z, Mirror.NONE, rotation);
-						world.setBlockState(pos.add(rotated.getX(), rotated.getY(), rotated.getZ()), state, 18);
+						world.setBlockState(pos.add(rotated.getX(), rotated.getY(), rotated.getZ()), state, 2);
 					}
 				}
 			}
@@ -322,13 +322,13 @@ public class Blueprint {
 							indexVoid = structure[y][z][x];
 						}else{
 							BlockPos rotated = transformedBlockPos(x, y, z, mirror, rotation);
-							world.setBlockToAir(pos.add(rotated.getX(), rotated.getY(), rotated.getZ()));
+							world.setBlockState(pos.add(rotated.getX(), rotated.getY(), rotated.getZ()), Blocks.AIR.getDefaultState(), 2);
 						}
 					}else if(structure[y][z][x] == indexVoid){
 						continue;
 					}else{
 						BlockPos rotated = transformedBlockPos(x, y, z, mirror, rotation);
-						world.setBlockToAir(pos.add(rotated.getX(), rotated.getY(), rotated.getZ()));
+						world.setBlockState(pos.add(rotated.getX(), rotated.getY(), rotated.getZ()), Blocks.AIR.getDefaultState(), 2);
 					}
 				}
 			}

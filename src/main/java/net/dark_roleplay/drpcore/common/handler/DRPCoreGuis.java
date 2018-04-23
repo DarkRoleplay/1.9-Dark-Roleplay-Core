@@ -21,9 +21,6 @@ public class DRPCoreGuis implements IGuiHandler {
 	
 	public static final int DRPCORE_GUI_STRUCTURE_CONTROLLER = 5;
 	
-	
-	//TODO GUI HANDLER
-	
 	@Override
 	public Object getServerGuiElement(int ID, EntityPlayer player, World world, int x, int y, int z){
 		switch(ID){
@@ -39,8 +36,6 @@ public class DRPCoreGuis implements IGuiHandler {
 	@Override
 	public Object getClientGuiElement(int ID, EntityPlayer player, World world, int x, int y, int z) {
 		switch(ID){
-//		case DRPCORE_GUI_SKILL_POINT_OVERVIEW:
-//			return new SkillOverview();
 		case DRPCORE_GUI_CRAFTING_RECIPECREATION:
 			return new Gui_RecipeCreation(new Container_RecipeCreation(player.inventory));
 		case DRPCORE_GUI_STRUCTURE_CONTROLLER:

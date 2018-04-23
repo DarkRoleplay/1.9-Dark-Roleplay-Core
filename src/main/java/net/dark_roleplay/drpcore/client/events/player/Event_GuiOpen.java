@@ -1,48 +1,28 @@
 package net.dark_roleplay.drpcore.client.events.player;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.net.MalformedURLException;
-import java.net.URL;
-
-import net.dark_roleplay.drpcore.api.old.modules.work_in_progress.tutorial.GuiTutorial;
-import net.dark_roleplay.drpcore.client.gui.info.Gui_FirstRun;
-import net.dark_roleplay.drpcore.client.gui.info.Gui_UpdateAvailable;
 import net.dark_roleplay.drpcore.common.References;
-import net.dark_roleplay.drpcore.common.handler.DRPCoreConfigs;
+import net.dark_roleplay.drpcore.common.config.Client;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.entity.EntityPlayerSP;
-import net.minecraft.client.gui.GuiMainMenu;
 import net.minecraft.client.gui.inventory.GuiInventory;
 import net.minecraftforge.client.event.GuiOpenEvent;
-import net.minecraftforge.client.event.GuiScreenEvent;
-import net.minecraftforge.client.event.MouseEvent;
-import net.minecraftforge.common.ForgeVersion.Status;
 import net.minecraftforge.common.config.Config;
 import net.minecraftforge.common.config.ConfigManager;
-import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.common.eventhandler.EventPriority;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
-import net.minecraftforge.fml.common.gameevent.PlayerEvent.PlayerLoggedInEvent;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class Event_GuiOpen {
 
 	public static boolean hasOpened = false;
 	
 	@SubscribeEvent
-	public void onEvent(GuiOpenEvent  event) {
+	public void onEvent(GuiOpenEvent event) {
 		
 		System.out.println(event.getGui() != null ? event.getGui().getClass() : "");
 		
-		if(event.getGui() instanceof GuiInventory && DRPCoreConfigs.CLIENT.TUTORIAL.SHOW_CRAFTING_TUT) {
+		if(event.getGui() instanceof GuiInventory && Client.TUTORIAL.SHOW_CRAFTING_TUT) {
 			Minecraft.getMinecraft().getToastGui().add(References.CRAFTING_TUT);
-			DRPCoreConfigs.CLIENT.TUTORIAL.SHOW_CRAFTING_TUT = false;
+			Client.TUTORIAL.SHOW_CRAFTING_TUT = false;
 			ConfigManager.sync(References.MODID, Config.Type.INSTANCE);
 		}
-		
-//		if(/**!hasOpened &&**/ event.getGui() instanceof GuiMainMenu){
 //			
 //			event.setGui(new GuiTutorial(event.getGui()));
 //
@@ -56,5 +36,23 @@ public class Event_GuiOpen {
 //			}
 //		}
 	}
+	
+//	GuiButton updateAvailableButton;
+//	
+//	@SubscribeEvent
+//	public void onEvent(GuiScreenEvent.InitGuiEvent event) {
+//		if(event.getGui() instanceof GuiMainMenu){
+//			event.getButtonList().add(updateAvailableButton = new GuiButton(9, 5, 25, 100, 20, "Test Button2"));
+//		}
+//	}
+//	
+//	@SubscribeEvent
+//	public void onEvent(GuiScreenEvent.ActionPerformedEvent event) {
+//		if(event.getGui() instanceof GuiMainMenu){
+//			if(event.getButton().equals(updateAvailableButton)) {
+//				System.out.println("Update");
+//			}
+//		}
+//	}
 	
 }

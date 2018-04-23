@@ -14,7 +14,7 @@ public class CubeElement implements IElement{
 	
 	@Override
 	public List<BakedQuad> bake() {
-		// TODO Auto-generated method stu
+		// TOIMPLEMENT
 		return null;
 	}
 	

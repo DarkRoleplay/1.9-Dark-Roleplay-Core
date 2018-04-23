@@ -18,7 +18,7 @@ public class DRPModelLoader implements ICustomModelLoader{
 
 	@Override
 	public void onResourceManagerReload(IResourceManager resourceManager) {
-		// TODO Auto-generated method stub
+		//TOIMPLEMENT
 	}
 
 	@Override

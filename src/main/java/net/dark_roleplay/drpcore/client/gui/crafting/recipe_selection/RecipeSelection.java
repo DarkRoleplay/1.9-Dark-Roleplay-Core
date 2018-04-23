@@ -19,6 +19,7 @@ import net.dark_roleplay.drpcore.client.keybindings.DRPCoreKeybindings;
 import net.dark_roleplay.drpcore.common.References;
 import net.dark_roleplay.drpcore.common.DarkRoleplayCore;
 import net.dark_roleplay.drpcore.common.capabilities.player.crafting.IRecipeController;
+import net.dark_roleplay.drpcore.common.config.Debug;
 import net.dark_roleplay.drpcore.common.crafting.CraftingRegistry;
 import net.dark_roleplay.drpcore.common.handler.DRPCoreCapabilities;
 import net.dark_roleplay.drpcore.common.handler.DRPCoreConfigs;
@@ -184,7 +185,7 @@ public class RecipeSelection extends DRPGuiScreen{
 				int k = (18 * recipePage);
 				if(recipes.size() > k + i){
 					renderToolTip(recipes.get(i + k).getDisplayItems()[0] ,mouseX,mouseY);
-					if(DRPCoreConfigs.DEBUG.DEBUG_RECIPE_NAMES){
+					if(Debug.DEBUG_RECIPE_NAMES){
 						this.fontRenderer.drawString(recipes.get(i + k).getRegistryString(), 5, this.height - 25, 16777215);
 					}
 				}

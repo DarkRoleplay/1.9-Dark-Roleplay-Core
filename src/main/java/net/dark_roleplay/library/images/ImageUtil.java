@@ -11,6 +11,8 @@ import java.awt.image.WritableRaster;
  */
 public class ImageUtil {
 
+	//TOIMPLEMENT Finish the ImageUtilClass
+	
 	/**
 	 * Converts a RGB Image to a Greyscale Image
 	 * @param input The RGB Image

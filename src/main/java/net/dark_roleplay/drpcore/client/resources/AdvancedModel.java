@@ -22,8 +22,8 @@ public class AdvancedModel implements IModel {
 
 	@Override
 	public IBakedModel bake(IModelState state, VertexFormat format, Function<ResourceLocation, TextureAtlasSprite> bakedTextureGetter) {
-		
-		// TODO Auto-generated method stub
+
+		//TOIMPLEMENT
 		return null;
 	}
 

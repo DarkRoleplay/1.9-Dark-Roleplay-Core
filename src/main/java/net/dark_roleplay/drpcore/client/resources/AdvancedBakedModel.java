@@ -27,13 +27,13 @@ public class AdvancedBakedModel implements IBakedModel {
 
 	@Override
 	public boolean isAmbientOcclusion() {
-		// TODO Auto-generated method stub
+		//TOIMPLEMENT
 		return false;
 	}
 
 	@Override
 	public boolean isGui3d() {
-		// TODO Auto-generated method stub
+		//TOIMPLEMENT
 		return false;
 	}
 
@@ -44,13 +44,13 @@ public class AdvancedBakedModel implements IBakedModel {
 
 	@Override
 	public TextureAtlasSprite getParticleTexture() {
-		// TODO Auto-generated method stub
+		//TOIMPLEMENT
 		return null;
 	}
 
 	@Override
 	public ItemOverrideList getOverrides() {
-		// TODO Auto-generated method stub
+		//TOIMPLEMENT
 		return null;
 	}
 }

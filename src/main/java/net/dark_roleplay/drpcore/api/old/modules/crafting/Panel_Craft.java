@@ -28,10 +28,10 @@ public class Panel_Craft extends Panel{
 	}
 
 	public void drawBackground(int mouseX, int mouseY, float partialTick){
-		//TODO Draw Recipe Information
-		//TODO Draw Player Inventory
-		//TODO Craft Button
-		//TODO Disable Inventory Slots
+//		TODO Draw Recipe Information
+//		TODO Draw Player Inventory
+//		TODO Craft Button
+//		TODO Disable Inventory Slots
         Minecraft.getMinecraft().getTextureManager().bindTexture(parent.BG);
         
         this.drawTiled(posInvX, posInvY, 162, 72, 8, 34, 18, 18, 64, 64);

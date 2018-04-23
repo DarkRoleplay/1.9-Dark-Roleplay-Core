@@ -6,7 +6,7 @@ public class DRPEquip extends DRPItem{
 
 	private TYPE type;
 	
-	//TODO ADD DRPEQUI INVENTORY
+	//TOREMOVE
 	/**
 	 * Used to define Storage Space for following types:
 	 * TYPE_AMMO_STORAGE, TYPE_MONEY_STORAGE, TYPE_GENERAL_STORAGE

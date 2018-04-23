@@ -3,7 +3,7 @@ package net.dark_roleplay.library.blocks;
 import java.util.List;
 
 /**
- * TODO not fully implemented yet!
+ * TOIMPLEMENT
  * @author JTK222
  *
  */

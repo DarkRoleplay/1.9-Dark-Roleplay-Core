@@ -1,7 +1,8 @@
 package net.dark_roleplay.library.images;
 
 public class DataHelper {
-
+	//TODOCUMENT
+	
 	/**
 	 * Used to store a boolean array into an int array
 	 * @param data the boolean array to convert

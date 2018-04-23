@@ -69,13 +69,13 @@ public class SyncPacket_PlayerRecipeState extends PacketBase<SyncPacket_PlayerRe
 		EntityPlayer player = Minecraft.getMinecraft().player;
 		switch(message.type){
 		case 0:
-			player.getCapability(DRPCoreCapabilities.DRPCORE_RECIPE_CONTROLLER, null).unlockRecipe(message.recipeID);
+//			player.getCapability(DRPCoreCapabilities.DRPCORE_RECIPE_CONTROLLER, null).unlockRecipe(message.recipeID);
 			break;
 		case 1:
-			player.getCapability(DRPCoreCapabilities.DRPCORE_RECIPE_CONTROLLER, null).lockRecipe(message.recipeID);
+//			player.getCapability(DRPCoreCapabilities.DRPCORE_RECIPE_CONTROLLER, null).lockRecipe(message.recipeID);
 			break;
 		case 2:
-			player.getCapability(DRPCoreCapabilities.DRPCORE_RECIPE_CONTROLLER, null).progressRecipe(message.recipeID,message.percentage);
+//			player.getCapability(DRPCoreCapabilities.DRPCORE_RECIPE_CONTROLLER, null).progressRecipe(message.recipeID,message.percentage);
 			break;
 		}
 	}

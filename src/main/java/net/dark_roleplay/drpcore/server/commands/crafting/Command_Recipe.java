@@ -29,7 +29,7 @@ import scala.actors.threadpool.Arrays;
 public class Command_Recipe extends DRPCommand{
 	
 	public Command_Recipe(String name) {
-		super(name, "drpcore.command.recipe");
+		super(name, "drpcore.command.recipe", "Used to manipulate Unlocked Recipes");
 	}
 
 	@Override
@@ -64,7 +64,7 @@ public class Command_Recipe extends DRPCommand{
             	player =  args.length < 3 ? getCommandSenderAsPlayer(sender) : getPlayer(server, sender, args[2]);
             }
 
-            IRecipeController cap = player.getCapability(DRPCoreCapabilities.DRPCORE_RECIPE_CONTROLLER, null);
+            IRecipeController cap = null;//player.getCapability(DRPCoreCapabilities.DRPCORE_RECIPE_CONTROLLER, null);
             
         	switch(args[0]){
         		case "lock":
