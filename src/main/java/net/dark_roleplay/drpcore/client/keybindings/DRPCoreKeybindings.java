@@ -24,6 +24,7 @@ import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.client.registry.ClientRegistry;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
@@ -90,6 +91,7 @@ public class DRPCoreKeybindings {
 			HudLoader.initializeHuds();
 		}
 		else if(Debug.DEBUG_KEY && this.debugging.isKeyDown()) {
+			Minecraft.getMinecraft().setRenderViewEntity(Minecraft.getMinecraft().player.getEntityWorld().getEntitiesWithinAABBExcludingEntity(Minecraft.getMinecraft().player, new AxisAlignedBB(0,0,0,10,10,10)).get(0));
 			
 //			Minecraft.getMinecraft().displayGuiScreen(new Gui_UpdateInformation());
 //			System.out.println(	PermissionAPI.hasPermission(Minecraft.getMinecraft().player, "drpcore.test.number2"));
