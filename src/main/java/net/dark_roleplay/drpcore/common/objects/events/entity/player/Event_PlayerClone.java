@@ -1,13 +1,16 @@
 package net.dark_roleplay.drpcore.common.objects.events.entity.player;
 
+import net.dark_roleplay.drpcore.common.References;
 import net.minecraftforge.event.entity.player.PlayerEvent;
+import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
+@Mod.EventBusSubscriber(modid = References.MODID)
 public class Event_PlayerClone {
 
 	
 	@SubscribeEvent
-	public void onConfigChanged(PlayerEvent.Clone event) {
+	public static void onConfigChanged(PlayerEvent.Clone event) {
 		if(event.isWasDeath()){
 //			IRecipeController recipesOld = event.getOriginal().getCapability(DRPCoreCapabilities.DRPCORE_RECIPE_CONTROLLER, null); 
 //			IRecipeController recipesNew = event.getEntityPlayer().getCapability(DRPCoreCapabilities.DRPCORE_RECIPE_CONTROLLER, null); 

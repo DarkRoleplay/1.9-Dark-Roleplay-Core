@@ -37,8 +37,6 @@ public class DRPCoreCapabilities {
 	public static void preInit(){
 	}
 	
-	public static final void preInit(FMLPreInitializationEvent event) {}
-	
 	public static final void init(FMLInitializationEvent event) {
 //		CapabilityManager.INSTANCE.register(IRecipeController.class, new RecipeControllerStorage(), (Callable<IRecipeController>)() -> {return new RecipeControllerDefault();});;
 //		CapabilityManager.INSTANCE.register(ISkillController.class, new SkillControllerStorage(), (Callable<ISkillController>)() -> {return new ISkillController.Impl();});
@@ -49,6 +47,4 @@ public class DRPCoreCapabilities {
 		CapabilityManager.INSTANCE.register(SkillHandler.class, new SkillStorage(), (Callable<SkillHandler>)() -> {return new SkillHandler();});
 
 	}
-
-	public static final void postInit(FMLPostInitializationEvent event) {}
 }

@@ -39,6 +39,8 @@ public class CraftingRegistry {
     private static Map<ResourceLocation, IRecipeFactory> recipeLoaders = new HashMap<ResourceLocation, IRecipeFactory>();
     private static Map<ResourceLocation, IIngredientFactory> ingredientLoaders = new HashMap<ResourceLocation, IIngredientFactory>();
 
+    private static List<IRecipe> recipes = new ArrayList<IRecipe>();
+    
     public void registerRecipeLoader(ResourceLocation loc, IRecipeFactory loader) {
     	if(!recipeLoaders.containsKey(loc)) {
     		recipeLoaders.put(loc, loader);
@@ -48,6 +50,10 @@ public class CraftingRegistry {
     
 	public static void loadRecipes() {
 		Loader.instance().getActiveModList().forEach(CraftingRegistry::loadRecipes);
+		
+//		for(IRecipe recipe : recipes) {
+//			recipe.getC
+//		}
 	}
 
 	private static boolean loadRecipes(ModContainer mod) {
@@ -72,6 +78,7 @@ public class CraftingRegistry {
 					ResourceLocation loc = new ResourceLocation(JsonUtils.getString(json, "type", "drp:simple_recipe"));
 					if(recipeLoaders.containsKey(loc)) {
 						IRecipe recipe = recipeLoaders.get(loc).loadRecipe(json);
+						recipes.add(recipe);
 					}
 					
 //					String loader = json.get("type").getAsString();

@@ -5,6 +5,7 @@ import java.util.List;
 import net.dark_roleplay.drpcore.api.crafting.IIngredient;
 import net.dark_roleplay.drpcore.api.crafting.IRecipe;
 import net.dark_roleplay.drpcore.api.old.modules.gui.IIcon;
+import net.minecraft.item.ItemStack;
 
 public class SimpleRecipe implements IRecipe{
 
@@ -24,6 +25,12 @@ public class SimpleRecipe implements IRecipe{
 	public boolean craft() {
 		// TODO Auto-generated method stub
 		return false;
+	}
+
+	@Override
+	public List<ItemStack> getOutputs() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

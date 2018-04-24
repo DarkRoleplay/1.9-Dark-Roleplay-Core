@@ -1,22 +1,17 @@
 package net.dark_roleplay.drpcore.common;
 
 
-import net.dark_roleplay.drpcore.api.crafting.CraftingRegistry;
 import net.dark_roleplay.drpcore.api.old.Modules;
 import net.dark_roleplay.drpcore.api.old.modules.Module;
 import net.dark_roleplay.drpcore.common.config.SyncedConfigRegistry;
 import net.dark_roleplay.drpcore.common.handler.DRPCoreCapabilities;
 import net.dark_roleplay.drpcore.common.handler.DRPCoreCrafting;
 import net.dark_roleplay.drpcore.common.handler.DRPCoreEntities;
-import net.dark_roleplay.drpcore.common.handler.DRPCoreEvents;
 import net.dark_roleplay.drpcore.common.handler.DRPCoreGuis;
 import net.dark_roleplay.drpcore.common.handler.DRPCorePackets;
 import net.dark_roleplay.drpcore.common.handler.DRPCorePerms;
 import net.dark_roleplay.drpcore.common.objects.tile_entities.blueprint_controller.TE_BlueprintController;
 import net.dark_roleplay.drpcore.common.proxy.CommonProxy;
-import net.dark_roleplay.drpcore.testing.skills.CommandTest;
-import net.dark_roleplay.drpcore.testing.skills.SkillRegistries;
-import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventHandler;
 import net.minecraftforge.fml.common.ProgressManager;
@@ -39,36 +34,24 @@ public class DarkRoleplayCore {
 	@Mod.Instance(References.MODID)
 	public static DarkRoleplayCore instance;
 	
-	public DarkRoleplayCore(){
-	}
-	
 	@EventHandler
-	public void preInit(FMLPreInitializationEvent event){
-//		System.out.println("Prtinging Recipe Files");
-				
+	public void preInit(FMLPreInitializationEvent event){				
 		References.init(event);
 		
 		SyncedConfigRegistry.setSide(event.getSide());
-		
-		DRPCoreCapabilities.preInit(event);
-		DRPCoreGuis.preInit(event);
-		DRPCoreEvents.preInit(event);
-		DRPCoreEntities.init(event);
 		
 		GameRegistry.registerTileEntity(TE_BlueprintController.class, References.MODID + ":" + "tileentity_structure_controller");
 
 		proxy.preInit(event);
 		
 		Modules.HUD.enable();
-		
+		Modules.CRAFTING2.enable();
 		Modules.MATERIALS.enable();
 		ProgressBar progressBar = ProgressManager.push("Pre Initializing Modules", Module.getModules().size());
 		for(Module module : Module.getModules()){
 	        progressBar.step(module.getName());
 	        module.preInit(event);
 		}
-		
-		Modules.CRAFTING2.addMod("drpcore");
 		
 		ProgressManager.pop(progressBar);
 		
@@ -80,12 +63,11 @@ public class DarkRoleplayCore {
 		DRPCoreCrafting.init(event);
 		
 		//TODO REMOVE?
-		CraftingRegistry.loadRecipes();
+//		CraftingRegistry.loadRecipes();
 		
 		DRPCoreCapabilities.init(event);
 		DRPCoreGuis.init(event);
 		DRPCorePackets.init();
-		DRPCoreEvents.init(event);
 		proxy.init(event);
 		
 		DRPCorePerms.init(event);
@@ -105,9 +87,6 @@ public class DarkRoleplayCore {
 	
 	@EventHandler
 	public void postInit(FMLPostInitializationEvent event) {
-		DRPCoreCapabilities.postInit(event);
-		DRPCoreGuis.postInit(event);
-		DRPCoreEvents.postInit(event);
 		proxy.postInit(event);
 		
 		ProgressBar progressBar = ProgressManager.push("Post Initializing Modules", Module.getModules().size());
@@ -122,7 +101,7 @@ public class DarkRoleplayCore {
 	
 	@EventHandler
 	public void serverLoad(FMLServerStartingEvent event){
-		event.registerServerCommand(new CommandTest());
+//		event.registerServerCommand(new CommandTest());
 //		event.registerServerCommand(new Command_Recipe("drprecipes"));
 //		event.registerServerCommand(new Command_Skill("drpskills"));
 	}

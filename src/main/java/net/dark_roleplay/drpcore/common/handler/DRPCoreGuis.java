@@ -46,14 +46,8 @@ public class DRPCoreGuis implements IGuiHandler {
 	}
 		return null;
 	}
-	
-	
-	public static void preInit(FMLPreInitializationEvent event) {}
 
 	public static void init(FMLInitializationEvent event) {
 		NetworkRegistry.INSTANCE.registerGuiHandler(DarkRoleplayCore.instance, new DRPCoreGuis());
 	}
-
-	public static void postInit(FMLPostInitializationEvent event) {}
-
 }

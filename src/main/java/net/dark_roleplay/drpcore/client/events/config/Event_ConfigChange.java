@@ -13,7 +13,7 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 public class Event_ConfigChange {
 
 	@SubscribeEvent
-	public void onConfigChanged(ConfigChangedEvent.OnConfigChangedEvent event) {
+	public static void onConfigChanged(ConfigChangedEvent.OnConfigChangedEvent event) {
 		if(event.getModID().equals(References.MODID)){
 			ConfigManager.sync(References.MODID, Config.Type.INSTANCE);
 			if(Debug.DEBUG_KEY)

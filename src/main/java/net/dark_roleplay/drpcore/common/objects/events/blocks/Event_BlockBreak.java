@@ -18,20 +18,19 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.event.AttachCapabilitiesEvent;
 import net.minecraftforge.event.world.BlockEvent;
+import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.registry.GameRegistry.ObjectHolder;
 
-@ObjectHolder(value = References.MODID)
+@Mod.EventBusSubscriber(modid = References.MODID)
 public class Event_BlockBreak {
-
-	public static final Skill TEST_1 = null;
 	
 	@SubscribeEvent
-	public void blockBreak(BlockEvent.BreakEvent event) {
-		SkillHandler handler = event.getPlayer().getCapability(DRPCoreCapabilities.SKILL_HANDLER, null);
-		if(!handler.hasSkill(TEST_1)) {
-			event.setCanceled(true);
-		}
+	public static void blockBreak(BlockEvent.BreakEvent event) {
+//		SkillHandler handler = event.getPlayer().getCapability(DRPCoreCapabilities.SKILL_HANDLER, null);
+//		if(!handler.hasSkill(TEST_1)) {
+//			event.setCanceled(true);
+//		}
 //		IBlockState breaked = event.getState();
 //		if (breaked.getBlock() instanceof BlockLog && event.getWorld().getBlockState(event.getPos().down()).getBlock() == Blocks.DIRT) {
 //			System.out.println("TREE IS BEEING CUT!");
@@ -43,7 +42,7 @@ public class Event_BlockBreak {
 //		}
 	}
 
-	private void destroyTree(BlockPos pos, World world, Block type, boolean isInit) {
+	private static void destroyTree(BlockPos pos, World world, Block type, boolean isInit) {
 		IBlockState state;
 
 		if(!isInit)

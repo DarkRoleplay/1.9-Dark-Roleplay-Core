@@ -3,18 +3,21 @@ package net.dark_roleplay.drpcore.common.objects.events.entity.player;
 import java.util.ArrayList;
 import java.util.List;
 
+import net.dark_roleplay.drpcore.common.References;
 import net.dark_roleplay.drpcore.common.config.SyncedConfigRegistry;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
+import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
+@Mod.EventBusSubscriber(modid = References.MODID)
 public class Event_PlayerLoggedIn {
 
 	public static List<EntityPlayerMP> premiums = new ArrayList<EntityPlayerMP>();
 	
 	@SubscribeEvent
-	public void handleEvent(EntityJoinWorldEvent event) {
+	public static void handleEvent(EntityJoinWorldEvent event) {
 		
 		
 		if(event.getEntity() instanceof EntityPlayerMP) {

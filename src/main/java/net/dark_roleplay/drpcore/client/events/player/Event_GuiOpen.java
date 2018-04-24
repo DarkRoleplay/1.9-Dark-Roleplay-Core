@@ -7,14 +7,17 @@ import net.minecraft.client.gui.inventory.GuiInventory;
 import net.minecraftforge.client.event.GuiOpenEvent;
 import net.minecraftforge.common.config.Config;
 import net.minecraftforge.common.config.ConfigManager;
+import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.fml.relauncher.Side;
 
+@Mod.EventBusSubscriber(value = Side.CLIENT, modid = References.MODID)
 public class Event_GuiOpen {
 
 	public static boolean hasOpened = false;
 	
 	@SubscribeEvent
-	public void onEvent(GuiOpenEvent event) {
+	public static void onEvent(GuiOpenEvent event) {
 		
 		System.out.println(event.getGui() != null ? event.getGui().getClass() : "");
 		

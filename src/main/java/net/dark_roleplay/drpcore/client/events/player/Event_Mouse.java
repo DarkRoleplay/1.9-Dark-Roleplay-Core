@@ -3,6 +3,7 @@ package net.dark_roleplay.drpcore.client.events.player;
 import java.util.List;
 
 import net.dark_roleplay.drpcore.api.old.items.weapons.IExtendedRange;
+import net.dark_roleplay.drpcore.common.References;
 import net.dark_roleplay.drpcore.common.handler.DRPCorePackets;
 import net.dark_roleplay.drpcore.common.network.packets.weapons.Packet_ExtendedRangeAttack;
 import net.minecraft.client.Minecraft;
@@ -10,16 +11,17 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.AxisAlignedBB;
-import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.math.Vec3d;
 import net.minecraftforge.client.event.MouseEvent;
 import net.minecraftforge.fml.client.FMLClientHandler;
+import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.EventPriority;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
+@Mod.EventBusSubscriber(value = Side.CLIENT, modid = References.MODID)
 public class Event_Mouse {
 
 	/**
@@ -27,7 +29,7 @@ public class Event_Mouse {
 	 */
 	@SideOnly(Side.CLIENT)
 	@SubscribeEvent(priority = EventPriority.NORMAL, receiveCanceled = true)
-	public void onEvent(MouseEvent event) {
+	public static void onEvent(MouseEvent event) {
 		if (event.getButton() == 0 && event.isButtonstate()) {
 
 			Minecraft mc =  FMLClientHandler.instance().getClient();

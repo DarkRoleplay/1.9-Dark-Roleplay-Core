@@ -15,13 +15,15 @@ import net.minecraft.world.chunk.Chunk;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.ICapabilityProvider;
 import net.minecraftforge.event.AttachCapabilitiesEvent;
+import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.items.CapabilityItemHandler;
 
+@Mod.EventBusSubscriber(modid = References.MODID)
 public class Event_CapabilityEntity {
 
 	@SubscribeEvent
-    public void attachCapability(AttachCapabilitiesEvent<Entity> event){
+    public static void attachCapability(AttachCapabilitiesEvent<Entity> event){
         if (!(event.getObject() instanceof EntityPlayer)) return;
 
         event.addCapability(new ResourceLocation(References.MODID, "skill_handler"), new CapabilityProvider(DRPCoreCapabilities.SKILL_HANDLER));
@@ -30,14 +32,14 @@ public class Event_CapabilityEntity {
     }
 	
 	@SubscribeEvent
-    public void attachCapabilityChunk(AttachCapabilitiesEvent<Chunk> event){
+    public static void attachCapabilityChunk(AttachCapabilitiesEvent<Chunk> event){
         if (!(event.getObject() instanceof Chunk)) return;
         event.addCapability(new ResourceLocation(References.MODID, "crop_handler"), new CapabilityProvider(DRPCoreCapabilities.CROP_HANDLER));
         event.addCapability(new ResourceLocation(References.MODID, "lock_handler"), new CapabilityProvider(DRPCoreCapabilities.LOCK_HANDLER));
 	}
 	
 	@SubscribeEvent
-    public void attachCapabilityWorld(AttachCapabilitiesEvent<World> event){
+    public static void attachCapabilityWorld(AttachCapabilitiesEvent<World> event){
         if (!(event.getObject() instanceof World)) return;
         
         

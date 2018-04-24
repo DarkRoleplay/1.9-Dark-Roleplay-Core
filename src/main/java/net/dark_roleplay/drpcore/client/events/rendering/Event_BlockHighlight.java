@@ -3,6 +3,7 @@ package net.dark_roleplay.drpcore.client.events.rendering;
 import java.util.HashMap;
 import java.util.Map;
 
+import net.dark_roleplay.drpcore.common.References;
 import net.dark_roleplay.drpcore.common.handler.DRPCoreConfigs;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
@@ -26,8 +27,11 @@ import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.World;
 import net.minecraftforge.client.event.DrawBlockHighlightEvent;
+import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.fml.relauncher.Side;
 
+@Mod.EventBusSubscriber(value = Side.CLIENT, modid = References.MODID)
 public class Event_BlockHighlight {
 
 	private static Map<IBlockState, IBakedModel> cache = new HashMap<>();
@@ -38,7 +42,7 @@ public class Event_BlockHighlight {
 	 * Block Preview
 	 */
 	@SubscribeEvent
-	public void highlightGhostBlock(DrawBlockHighlightEvent event){
+	public static void highlightGhostBlock(DrawBlockHighlightEvent event){
 		if (!DRPCoreConfigs.GENERAL.PLACEMENT_PREVIEW || !event.getPlayer().isSneaking() || event.getTarget().getBlockPos() == null || event.getPlayer().getEntityWorld().isAirBlock(event.getTarget().getBlockPos()))
 			return;
 

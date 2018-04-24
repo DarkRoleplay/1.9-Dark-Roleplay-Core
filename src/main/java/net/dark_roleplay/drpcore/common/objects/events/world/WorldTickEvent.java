@@ -30,6 +30,8 @@ public class WorldTickEvent {
 	public static void serverTick(TickEvent.WorldTickEvent e){
 		if(e.phase == Phase.END && e.side.isServer()){
 			World world = e.world;
+//			if(world == null || world)
+//				return;
 			if(world.provider.getDimensionType() == DimensionType.OVERWORLD){
 				int lastTick;
 				if(!WorldTickEvent.lastTick.containsKey(world.provider.getDimensionType())){
