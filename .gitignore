@@ -20,7 +20,4 @@ build
 # other
 eclipse
 run
-gradle.properties
-gradlew
-gradle/
 src2/
