@@ -5,7 +5,7 @@ import net.dark_roleplay.drpcore.api.old.modules.crafting.Module_Crafting;
 import net.dark_roleplay.drpcore.api.old.modules.hud.Module_Hud;
 import net.dark_roleplay.drpcore.api.old.modules.materials.Module_Material;
 import net.dark_roleplay.drpcore.api.old.modules.work_in_progress.premium.Module_Premium;
-import net.dark_roleplay.drpcore.api.old.modules.work_in_progress.update_check.Module_UpdateChecker;
+import net.dark_roleplay.drpcore.modules.update_checker.Module_UpdateChecker;
 
 public class Modules {
 	

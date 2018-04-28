@@ -1,4 +1,4 @@
-package net.dark_roleplay.drpcore.api.old.modules.arg;
+package net.dark_roleplay.drpcore.modules.automatic_resource_generation;
 
 import java.io.File;
 import java.io.IOException;
@@ -41,11 +41,23 @@ public class JsonGenerator {
 			String content;
 			String destPath = obj.get("output").getAsString().replaceFirst(":", "/");
 			try {
+				boolean needsToCreate = false;
+				for(Material mat : materials){
+					File dest = new File(References.FOLDER_ARG + "/" + mat.getFormatted(destPath));
+					if(!dest.exists())
+						needsToCreate = true;
+					break;
+				}
+				if(!needsToCreate)
+					return;
+					
 				InputStream is = ClientProxy.getResource(new ResourceLocation(obj.get("input").getAsString())).getInputStream();
 				content = IOUtils.toString(is, charset);
 				is.close();
 				for(Material mat : materials){
 					File dest = new File(References.FOLDER_ARG + "/" + mat.getFormatted(destPath));
+					if(dest.exists())
+						continue;
 					dest.getParentFile().mkdirs();
 					String base = mat.getFormatted(content);
 					File woodDest = new File(mat.getFormatted(dest.getPath()));

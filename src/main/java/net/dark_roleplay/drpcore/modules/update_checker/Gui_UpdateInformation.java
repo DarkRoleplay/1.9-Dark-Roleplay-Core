@@ -1,4 +1,4 @@
-package net.dark_roleplay.drpcore.api.old.modules.work_in_progress.update_check;
+package net.dark_roleplay.drpcore.modules.update_checker;
 
 import java.io.IOException;
 import java.net.URI;
@@ -25,63 +25,61 @@ import net.minecraftforge.fml.common.ModContainer;
 
 public class Gui_UpdateInformation extends GuiScreen{
 
-	private List<UpdateInfo> mods = new ArrayList<UpdateInfo>();
 	
 	private String localizedTitle;
 	
 	private int currentMod = 0;
 	
 	private GuiButton btnDownload;
-	private GuiButton btnLater;
-	private GuiButton btnSkip;
-	private GuiButton btnDont;
+	private GuiButton btnNext;
+	private GuiButton btnPrev;
+	private GuiButton btnClose;
 
     private URI clickedLinkURI;
     
 	public Gui_UpdateInformation(){
-		Set<ModContainer> mods = Modules.UPDATE_CHECKER.results.keySet();
 		
-		for(ModContainer mod : mods) {
-			CheckResult res = Modules.UPDATE_CHECKER.results.get(mod);
-			if(res.status == ForgeVersion.Status.OUTDATED) {
-				this.mods.add(new UpdateInfo(mod, res));
-			}
-		}
 		
-		if(mods.isEmpty()) {
+		if(Modules.UPDATE_CHECKER.mods.isEmpty()) {
 			this.mc.displayGuiScreen(null);
 		}
 	}
 	
 	@Override
 	public void initGui() {
-		this.addButton(btnDownload = new GuiButton(0, this.width - 105, this.height - 25, 100, 20, "Download"));
-		this.addButton(btnLater = new GuiButton(1, this.width - 210, this.height - 25, 100, 20, "Later"));
-		this.addButton(btnSkip = new GuiButton(2, 110, this.height - 25, 100, 20, "Skip"));
-		this.addButton(btnDont = new GuiButton(3, 5, this.height - 25, 100, 20, "Don't show again"));
+		int buttonWidht = (this.width - 20) /5;
+		this.addButton(btnDownload = new GuiButton(0, this.width - (buttonWidht + 5), this.height - 25, buttonWidht, 20, "Download"));
+		this.addButton(btnNext = new GuiButton(1, this.width - ((buttonWidht + 5) * 2), this.height - 25, buttonWidht, 20, "Next"));
+		this.addButton(btnPrev = new GuiButton(2, buttonWidht + 10, this.height - 25, buttonWidht, 20, "Prev"));
+		this.addButton(btnClose = new GuiButton(3, 5, this.height - 25, buttonWidht, 20, "Exit"));
 
 	}
 	
 	@Override
 	public void drawScreen(int mouseX, int mouseY, float partialTicks){
-		if(this.currentMod >= this.mods.size()) {
+		if(this.currentMod >= Modules.UPDATE_CHECKER.mods.size()) {
 			this.mc.displayGuiScreen(null);
 		}
 		this.drawBackground(0);
 		
-		if((mods.size() - this.currentMod) == 1) {
+		if((Modules.UPDATE_CHECKER.mods.size()) == 1) {
 			this.fontRenderer.drawString("There's 1 mod outdated!", 7, 5,0xFFFFFFFF);
 		}else {
-			this.fontRenderer.drawString("There are " + (mods.size() - this.currentMod) + " mods outdated!", 7, 5,0xFFFFFFFF);
+			this.fontRenderer.drawString("There are " + Modules.UPDATE_CHECKER.mods.size() + " mods outdated!", 7, 5,0xFFFFFFFF);
 		}
 		
 		this.drawGradientRect(0, 30, this.width, this.height - 30, 0x80000000, 0x80000000);
 		
 		int offsetTop = 25;
 		
-		UpdateInfo info = this.mods.get(this.currentMod);
+		UpdateInfo info = Modules.UPDATE_CHECKER.mods.get(this.currentMod);
+		if(info.getChangelog().isEmpty()) {
+			this.fontRenderer.drawString("No Changelog provided :(", 15, offsetTop + 10, 0xFFFFFFFF);
+		}
 		
 		this.fontRenderer.drawString("Changelog - " + info.getModname(), 7, 18, 0xFFFFFFFF);
+		
+		this.fontRenderer.drawString(this.currentMod + 1 + "/" + Modules.UPDATE_CHECKER.mods.size(), (this.width - this.fontRenderer.getStringWidth(this.currentMod + 1 + "/" + Modules.UPDATE_CHECKER.mods.size())) / 2, this.height - 20, 0xFFFFFFFF);
 		
 		for(int i = 0; i < info.getVersions().size(); i++) {
 			this.fontRenderer.drawString(info.getVersions().get(i), 15, offsetTop += 10, 0xFFFFFFFF);
@@ -95,15 +93,20 @@ public class Gui_UpdateInformation extends GuiScreen{
 	protected void actionPerformed(GuiButton button) throws IOException{
 		if(button == btnDownload) {
 			downloadMod();
+		}else if(button == btnNext && this.currentMod + 1 < Modules.UPDATE_CHECKER.mods.size()) {
+			this.currentMod ++;
+		}else if(button == btnPrev && this.currentMod - 1 >= 0) {
+			this.currentMod --;
+		}else if(button == btnClose) {
+			Minecraft.getMinecraft().displayGuiScreen(null);;
 		}
 		
-		this.currentMod += 1;
     }
 	
     private static final Set<String> PROTOCOLS = Sets.newHashSet("http", "https");
 	private void downloadMod() {
 		try{
-            URI uri = this.mods.get(this.currentMod).getUpdateURL();
+            URI uri = Modules.UPDATE_CHECKER.mods.get(this.currentMod).getUpdateURL();
             String s = uri.getScheme();
 
             if (s == null) {

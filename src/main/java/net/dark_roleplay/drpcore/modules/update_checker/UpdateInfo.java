@@ -1,4 +1,4 @@
-package net.dark_roleplay.drpcore.api.old.modules.work_in_progress.update_check;
+package net.dark_roleplay.drpcore.modules.update_checker;
 
 import java.net.URI;
 import java.net.URISyntaxException;

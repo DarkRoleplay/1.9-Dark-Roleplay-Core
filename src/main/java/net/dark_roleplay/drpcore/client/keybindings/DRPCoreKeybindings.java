@@ -14,18 +14,27 @@ import com.google.gson.JsonObject;
 
 import net.dark_roleplay.drpcore.api.old.crafting.Crafting_Util;
 import net.dark_roleplay.drpcore.api.old.modules.hud.HudLoader;
+import net.dark_roleplay.drpcore.client.build_mode.BuildingViewerHelper;
+import net.dark_roleplay.drpcore.client.build_mode.EntityBuildingViewer;
 import net.dark_roleplay.drpcore.common.References;
+import net.dark_roleplay.drpcore.common.config.Client;
 import net.dark_roleplay.drpcore.common.config.Debug;
+import net.dark_roleplay.drpcore.common.handler.DRPCoreConfigs;
 import net.dark_roleplay.drpcore.common.util.toasts.ToastController;
+import net.dark_roleplay.drpcore.modules.update_checker.Gui_UpdateInformation;
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.settings.KeyBinding;
+import net.minecraft.entity.passive.EntitySheep;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.common.config.Config;
+import net.minecraftforge.common.config.ConfigManager;
 import net.minecraftforge.fml.client.registry.ClientRegistry;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
@@ -38,7 +47,10 @@ public class DRPCoreKeybindings {
 	public static KeyBinding GUI_CRAFTING = new KeyBinding("keyBinding.openCrafting", Keyboard.KEY_C,"Dark Roleplay Core");		
 	public static KeyBinding GUI_SKILLS = new KeyBinding("keyBinding.openSkills", Keyboard.KEY_K,"Dark Roleplay Core");		
 	public static KeyBinding GUI_VARIATIONS = new KeyBinding("keyBinding.veriationSelection", Keyboard.KEY_V,"Dark Roleplay Core");	
+	public static KeyBinding TOGGLE_PLACEMENT_PREVIEW = new KeyBinding("keyBinding.placement_preview", Keyboard.KEY_P,"Dark Roleplay Core");	
+	
 	public static KeyBinding RELOAD_HUD = new KeyBinding("keyBinding.reloadHud", Keyboard.CHAR_NONE, "Dark Roleplay Core");
+	
 	public static KeyBinding debugging = new KeyBinding("keyBinding.debuging", Keyboard.KEY_B, "Dark Roleplay Core");
 
 	public static void preInit(FMLPreInitializationEvent event) {
@@ -46,15 +58,15 @@ public class DRPCoreKeybindings {
 
 	public static void init(FMLInitializationEvent event) {
 		ClientRegistry.registerKeyBinding(GUI_CRAFTING);
-		ClientRegistry.registerKeyBinding(GUI_VARIATIONS);
-		ClientRegistry.registerKeyBinding(GUI_SKILLS);
+//		ClientRegistry.registerKeyBinding(GUI_VARIATIONS);
+//		ClientRegistry.registerKeyBinding(GUI_SKILLS);
 		ClientRegistry.registerKeyBinding(RELOAD_HUD);
 //		ClientRegistry.registerKeyBinding(openSkill);
 		
 		if(Debug.DEBUG_KEY){
 			enableDebugKeys();
 		}
-		
+				
 		MinecraftForge.EVENT_BUS.register(new DRPCoreKeybindings());
 	}
 	
@@ -77,23 +89,27 @@ public class DRPCoreKeybindings {
 	public static void postInit(FMLPostInitializationEvent event) {
 	}
 	
+	
 	@SubscribeEvent
 	public void KeyInput(KeyInputEvent event) {
-
 		if(this.GUI_CRAFTING.isKeyDown()) {
 			Crafting_Util.openRecipeSelection(Blocks.AIR);
 			References.CRAFTING_TUT.hide();
-		}else if(this.GUI_SKILLS.isKeyDown()){
-			ToastController.displayInfoToast("dpcore.featureNotImplemented", null);
-		}else if(this.GUI_VARIATIONS.isKeyDown()){
-			ToastController.displayInfoToast("dpcore.featureNotImplemented", null);
+//		}else if(this.GUI_SKILLS.isKeyDown()){
+//			ToastController.displayInfoToast("dpcore.featureNotImplemented", null);
+//		}else if(this.GUI_VARIATIONS.isKeyDown()){
+//			ToastController.displayInfoToast("dpcore.featureNotImplemented", null);
 		}else if(this.RELOAD_HUD.isKeyDown()) {
 			HudLoader.initializeHuds();
+		}else if(this.TOGGLE_PLACEMENT_PREVIEW.isKeyDown()) {
+			Client.BUILDING.PLACEMENT_PREVIEW = !Client.BUILDING.PLACEMENT_PREVIEW;
+			ConfigManager.sync(References.MODID, Config.Type.INSTANCE);
 		}
 		else if(Debug.DEBUG_KEY && this.debugging.isKeyDown()) {
-			Minecraft.getMinecraft().setRenderViewEntity(Minecraft.getMinecraft().player.getEntityWorld().getEntitiesWithinAABBExcludingEntity(Minecraft.getMinecraft().player, new AxisAlignedBB(0,0,0,10,10,10)).get(0));
 			
-//			Minecraft.getMinecraft().displayGuiScreen(new Gui_UpdateInformation());
+//			//Building Viewer
+//			BuildingViewerHelper.initialize(Minecraft.getMinecraft().player.getPosition().add(0, 5, 0));
+			
 //			System.out.println(	PermissionAPI.hasPermission(Minecraft.getMinecraft().player, "drpcore.test.number2"));
 //			Minecraft.getMinecraft().displayGuiScreen(new Gui_Test());
 

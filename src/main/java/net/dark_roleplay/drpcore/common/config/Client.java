@@ -13,8 +13,8 @@ public class Client {
 	@Config.Comment("Containing Settings for food information gui's")
 	public static Food FOOD = new Food();
 	
-	@Config.Comment("Everything that deals with blueprints and the blueprint controller")
-	public static Blueprints BLUEPRINTS = new Blueprints();
+	@Config.Comment("Everything you might want to improve your building experience")
+	public static Building BUILDING = new Building();
 	
 	@Config.Comment("Containing Settings for Tutorial Toasts")
 	public static Tutorial TUTORIAL = new Tutorial();
@@ -25,17 +25,6 @@ public class Client {
 		@Config.Comment("Enables a realtime Clock")
 		public boolean DRAW_REALTIME_CLOCK = true;
 		
-	}
-	
-	public static class Blueprints{
-		
-		@Config.Name("Draws two boxes for invisible blocks")
-		@Config.Comment("Increases visability but can cause higher fps drops ")
-		public boolean HIGHLIGHT_INVISIBLE_BLOCKS = true;
-		
-		@Config.Name("Ivisible Blocks color")
-		@Config.Comment("The Color in which invisible blocks will be highlighted")
-		public RGBA INVISIBLE_BLOCKS_COLOR = new RGBA(0.5F, 0.5F, 1.0F, 0.5F);
 	}
 	
 	public static class Food{
@@ -59,6 +48,37 @@ public class Client {
 		@Config.Name("Single Color Mode Color")
 		@Config.Comment("This color is used")
 		public RGB SINGLE_COLOR = new RGB(1F, 1F, 1F);
+		
+	}
+	
+	public static class Building{
+		
+		@Config.Name("Enable Placement Preview")
+		@Config.Comment("Show a preview of how the block that you are holding would be placed. \nAllowed values: true, false")
+		public boolean PLACEMENT_PREVIEW = true;
+		
+		@Config.Comment("Some Settings to customize the blueprint controller")
+		public static Blueprints BLUEPRINTS = new Blueprints();
+	}
+	
+	public static class Tutorial{
+		
+		@Config.Name("Show Crafting Tutorial")
+		@Config.Comment("Set to true this will prevent the crafting gui to show up again.")
+		public boolean SHOW_CRAFTING_TUT = true;
+		
+	}
+	
+	public static class Blueprints{
+		
+		@Config.Name("Draws two boxes for invisible blocks")
+		@Config.Comment("Increases visability but can cause higher fps drops ")
+		public boolean HIGHLIGHT_INVISIBLE_BLOCKS = true;
+		
+		@Config.Name("Ivisible Blocks color")
+		@Config.Comment("The Color in which invisible blocks will be highlighted")
+		public RGBA INVISIBLE_BLOCKS_COLOR = new RGBA(0.5F, 0.5F, 1.0F, 0.5F);
+		
 	}
 	
 	public static class RGB{
@@ -83,13 +103,6 @@ public class Client {
 			this.GREEN = green;
 			this.BLUE = blue;
 		}
-	}
-	
-	public static class Tutorial{
-		@Config.Name("Show Crafting Tutorial")
-		@Config.Comment("Set to true this will prevent the crafting gui to show up again.")
-		public boolean SHOW_CRAFTING_TUT = true;
-		
 	}
 	
 	public static class RGBA{

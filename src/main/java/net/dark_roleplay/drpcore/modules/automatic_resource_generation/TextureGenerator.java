@@ -1,4 +1,4 @@
-package net.dark_roleplay.drpcore.api.old.modules.arg;
+package net.dark_roleplay.drpcore.modules.automatic_resource_generation;
 
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
@@ -55,12 +55,31 @@ public class TextureGenerator {
 	}
 	
 	public void generateTextures(List<Material> materials){
+		boolean needsToCreate = false;
+		for(int i = 0; i < texturesArr.size(); i++){
+			JsonObject obj = texturesArr.get(i).getAsJsonObject();
+			for(Material mat : materials){
+				if(obj.has("output")){
+					File outputFile = new File(References.FOLDER_ARG + "/" + obj.get("output").getAsString().replaceAll("%wood%", mat.getFormatValue()).replaceFirst(":", "/") + ".png");
+					if(outputFile.exists())
+						continue;
+					else {
+						needsToCreate = true;
+						break;
+					}
+				}
+			}
+		}
+		
+		if(!needsToCreate)
+			return;
+		
+		
 		for(int i = 0; i < texturesArr.size(); i++){
 			JsonObject obj = texturesArr.get(i).getAsJsonObject();
 			
 			Map<String, BufferedImage> base = new HashMap<String, BufferedImage>();
 			for(Material mat : materials){
-				System.out.println(obj.get("base").toString());
 				if(obj.get("base").isJsonPrimitive() && obj.get("base").getAsJsonPrimitive().isNumber()) {
 					base.put(mat.getFormatValue(), copyImage(requiredTextures[obj.get("base").getAsInt()]));
 				}else {

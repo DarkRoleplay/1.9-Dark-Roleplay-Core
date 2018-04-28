@@ -1,9 +1,11 @@
-package net.dark_roleplay.drpcore.api.old.modules.work_in_progress.update_check;
+package net.dark_roleplay.drpcore.modules.update_checker;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Set;
 
+import net.dark_roleplay.drpcore.api.old.Modules;
 import net.dark_roleplay.drpcore.api.old.modules.Module;
 import net.minecraftforge.common.ForgeVersion;
 import net.minecraftforge.common.ForgeVersion.CheckResult;
@@ -14,7 +16,7 @@ import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 
 public class Module_UpdateChecker extends Module{
 
-	protected static HashMap<ModContainer, CheckResult> results = new HashMap<ModContainer, CheckResult>();
+	public static final List<UpdateInfo> mods = new ArrayList<UpdateInfo>();
 	
 	public Module_UpdateChecker(String name, Module... requiredModules) {
 		super(name, requiredModules);
@@ -23,7 +25,11 @@ public class Module_UpdateChecker extends Module{
 	public void postInit(FMLPostInitializationEvent event){
 		List<ModContainer> mods = Loader.instance().getActiveModList();
 		for(ModContainer mod : mods){
-			results.put(mod, ForgeVersion.getResult(mod));
+			CheckResult res = ForgeVersion.getResult(mod);
+			if(res.status == ForgeVersion.Status.OUTDATED) {
+				this.mods.add(new UpdateInfo(mod, res));
+			}
 		}
 	}
+	
 }

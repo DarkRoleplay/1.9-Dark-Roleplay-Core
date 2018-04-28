@@ -24,10 +24,6 @@ public class DRPCoreConfigs {
 	
 	public static class General{
 		
-		@Config.Name("Enable Placement Preview")
-		@Config.Comment("Show a preview of how the block that you are holding would be placed. \nAllowed values: true, false")
-		public boolean PLACEMENT_PREVIEW = true;
-		
 		@Config.Name("Enable Update Info")
 		@Config.Comment("Shows informational screen if a new update is available. \nAllowed values: true, false")
 		public boolean UPDATE_GUI = true;

@@ -1,6 +1,7 @@
 package net.dark_roleplay.drpcore.client.events.rendering;
 
 import net.dark_roleplay.drpcore.client.items.models.SmithableSword;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.block.model.IBakedModel;
 import net.minecraftforge.client.event.ModelBakeEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
@@ -17,7 +18,6 @@ public class Event_ModelBaked {
 		// (model/items/mbe15_item_chessboard.json) just like an ordinary item
 		// Replace the mapping with our ISmartBlockModel, using the existing
 		// mapped model as the base for the smart model.
-		
 		
 		Object object = event.getModelRegistry().getObject(SmithableSword.modelResourceLocation);
 		if (object instanceof IBakedModel) {

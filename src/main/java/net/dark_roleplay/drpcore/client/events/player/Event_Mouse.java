@@ -21,13 +21,12 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-@Mod.EventBusSubscriber(value = Side.CLIENT, modid = References.MODID)
+@Mod.EventBusSubscriber(modid = References.MODID)
 public class Event_Mouse {
 
 	/**
 	 * Extended Range Event
 	 */
-	@SideOnly(Side.CLIENT)
 	@SubscribeEvent(priority = EventPriority.NORMAL, receiveCanceled = true)
 	public static void onEvent(MouseEvent event) {
 		if (event.getButton() == 0 && event.isButtonstate()) {
@@ -45,11 +44,11 @@ public class Event_Mouse {
 
 					if (ranged != null) {
 
-						float reach = ranged.getRange();
-						RayTraceResult res = getMouseOverExtended(reach);
-
+						float range = ranged.getRange();
+						RayTraceResult res = getMouseOverExtended(range);
+						
 						if (res != null) {
-							if (res.entityHit != null && res.entityHit.hurtResistantTime > 1) {
+							if (res.entityHit != null && res.entityHit.hurtResistantTime < 1) {
 								if (res.entityHit != player) {
 									DRPCorePackets.sendToServer(new Packet_ExtendedRangeAttack(res.entityHit.getEntityId()));
 								}
@@ -67,24 +66,32 @@ public class Event_Mouse {
 		AxisAlignedBB theViewBoundingBox = new AxisAlignedBB(theRenderViewEntity.posX - 0.5D, theRenderViewEntity.posY - 0.0D, theRenderViewEntity.posZ - 0.5D, theRenderViewEntity.posX + 0.5D, theRenderViewEntity.posY + 1.5D, theRenderViewEntity.posZ + 0.5D);
 		RayTraceResult returnMOP = null;
 		if (mc.world != null) {
-			double var2 = dist;
-			returnMOP = theRenderViewEntity.rayTrace(var2, 0);
-			double calcdist = var2;
+
+			returnMOP = theRenderViewEntity.rayTrace(dist, 0);
+			double calcdist = dist;
 			Vec3d pos = theRenderViewEntity.getPositionEyes(0);
-			var2 = calcdist;
 			if (returnMOP != null) {
 				calcdist = returnMOP.hitVec.distanceTo(pos);
 			}
 
 			Vec3d lookvec = theRenderViewEntity.getLook(0);
-			Vec3d var8 = pos.addVector(lookvec.x * var2, lookvec.y * var2, lookvec.z * var2);
+			Vec3d var8 = pos.addVector(lookvec.x * dist, lookvec.y * dist, lookvec.z * dist);
 			Entity pointedEntity = null;
-			float var9 = 1.0F;
-			@SuppressWarnings("unchecked")
+			float var9 = 0.2F;
+			
+			
 			List<Entity> list = mc.world.getEntitiesWithinAABBExcludingEntity(theRenderViewEntity,
-					theViewBoundingBox.offset(lookvec.x * var2, lookvec.y * var2, lookvec.z * var2)
+					theViewBoundingBox.offset(lookvec.x * 4.2, lookvec.y * 4.2, lookvec.z * 4.2)
 					.expand(var9, var9, var9));
+			float offset = 4.4f;
+			while(list.size() == 0 && offset < dist) {
+				list = mc.world.getEntitiesWithinAABBExcludingEntity(theRenderViewEntity,
+						theViewBoundingBox.offset(lookvec.x * offset, lookvec.y * offset, lookvec.z * offset)
+						.expand(var9, var9, var9));
+				offset += 0.1F;
+			}
 			double d = calcdist;
+
 
 			for (Entity entity : list) {
 				if (entity.canBeCollidedWith()) {

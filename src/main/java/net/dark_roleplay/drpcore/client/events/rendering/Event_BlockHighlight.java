@@ -1,9 +1,12 @@
 package net.dark_roleplay.drpcore.client.events.rendering;
 
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
 
 import net.dark_roleplay.drpcore.common.References;
+import net.dark_roleplay.drpcore.common.config.Client;
 import net.dark_roleplay.drpcore.common.handler.DRPCoreConfigs;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
@@ -36,6 +39,8 @@ public class Event_BlockHighlight {
 
 	private static Map<IBlockState, IBakedModel> cache = new HashMap<>();
 	
+	private static Set<Block> erroringBlocks = new HashSet<Block>();
+	
 	private static Item item;
 	
 	/*
@@ -43,7 +48,7 @@ public class Event_BlockHighlight {
 	 */
 	@SubscribeEvent
 	public static void highlightGhostBlock(DrawBlockHighlightEvent event){
-		if (!DRPCoreConfigs.GENERAL.PLACEMENT_PREVIEW || !event.getPlayer().isSneaking() || event.getTarget().getBlockPos() == null || event.getPlayer().getEntityWorld().isAirBlock(event.getTarget().getBlockPos()))
+		if (!Client.BUILDING.PLACEMENT_PREVIEW || !event.getPlayer().isSneaking() || event.getTarget().getBlockPos() == null || event.getPlayer().getEntityWorld().isAirBlock(event.getTarget().getBlockPos()))
 			return;
 
 		EntityPlayer player = event.getPlayer();
@@ -53,7 +58,7 @@ public class Event_BlockHighlight {
 			return;
 
 		Block block = stack.getItem() instanceof ItemBlock ? ((ItemBlock) stack.getItem()).getBlock() : null;
-		if (block == null)
+		if (block == null || erroringBlocks.contains(block))
 			return;
 		
 		if(item != stack.getItem()){
@@ -70,10 +75,12 @@ public class Event_BlockHighlight {
 		}
 		
 		IBlockState state = block.canPlaceBlockOnSide(world, position, target.sideHit) ? block.getStateForPlacement(world, position, target.sideHit,(float) target.hitVec.x,(float) target.hitVec.y, (float) target.hitVec.z, player.getHeldItem(EnumHand.MAIN_HAND).getMetadata(), player, EnumHand.MAIN_HAND) : null;
+		state = block.getActualState(state, world, position);
+		
 		if(state == null || block.getRenderType(state) != EnumBlockRenderType.MODEL)
 			return;
 		
-		position = player.getEntityWorld().getBlockState(position).getBlock().isReplaceable(world, position) ? position : event.getTarget().getBlockPos().offset(event.getTarget().sideHit);
+//		position = player.getEntityWorld().getBlockState(position).getBlock().isReplaceable(world, position) ? position : event.getTarget().getBlockPos().offset(event.getTarget().sideHit);
 
 		Minecraft.getMinecraft().renderEngine.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
 
@@ -95,16 +102,22 @@ public class Event_BlockHighlight {
 		Tessellator tessellator = Tessellator.getInstance();
 		BufferBuilder buffer = tessellator.getBuffer();
 		buffer.begin(7, DefaultVertexFormats.BLOCK);
-		if(!cache.containsKey(state))
-			cache.put(state, blockrendererdispatcher.getModelForState(state));
-		renderer.renderModel(event.getPlayer().getEntityWorld(), cache.get(state), state, position, buffer, true, MathHelper.getPositionRandom(position));
 		
-		tessellator.draw();
-		
-	    GlStateManager.disableBlend();
-		GlStateManager.disableAlpha();
-		
-		GlStateManager.popMatrix();
+		try {
+			if(!cache.containsKey(state))
+				cache.put(state, blockrendererdispatcher.getModelForState(state));		
+			renderer.renderModel(event.getPlayer().getEntityWorld(), cache.get(state), state, position, buffer, true, MathHelper.getPositionRandom(position));
+		}catch(Exception e) {
+			erroringBlocks.add(block);
+			return;
+		}finally {
+			tessellator.draw();
+			
+		    GlStateManager.disableBlend();
+			GlStateManager.disableAlpha();
+			
+			GlStateManager.popMatrix();
+		}
 	}
 	
 }

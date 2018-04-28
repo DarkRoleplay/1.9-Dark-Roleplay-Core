@@ -18,9 +18,7 @@ public class Event_GuiOpen {
 	
 	@SubscribeEvent
 	public static void onEvent(GuiOpenEvent event) {
-		
-		System.out.println(event.getGui() != null ? event.getGui().getClass() : "");
-		
+				
 		if(event.getGui() instanceof GuiInventory && Client.TUTORIAL.SHOW_CRAFTING_TUT) {
 			Minecraft.getMinecraft().getToastGui().add(References.CRAFTING_TUT);
 			Client.TUTORIAL.SHOW_CRAFTING_TUT = false;
