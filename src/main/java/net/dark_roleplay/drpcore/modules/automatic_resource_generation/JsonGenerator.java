@@ -49,7 +49,7 @@ public class JsonGenerator {
 					break;
 				}
 				if(!needsToCreate)
-					return;
+					break;
 					
 				InputStream is = ClientProxy.getResource(new ResourceLocation(obj.get("input").getAsString())).getInputStream();
 				content = IOUtils.toString(is, charset);
@@ -60,8 +60,7 @@ public class JsonGenerator {
 						continue;
 					dest.getParentFile().mkdirs();
 					String base = mat.getFormatted(content);
-					File woodDest = new File(mat.getFormatted(dest.getPath()));
-					Files.write(woodDest.toPath(), base.getBytes(charset));
+					Files.write(dest.toPath(), base.getBytes(charset));
 				}
 			} catch (IOException e) {
 				e.printStackTrace();

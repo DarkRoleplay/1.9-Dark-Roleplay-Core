@@ -21,16 +21,12 @@ public class Event_GuiEvents {
 			GuiButton updateAvailableButton = new GuiButton(222, menu.width - 105, 5, 100, 20, "Updates Available!" );
 			event.getButtonList().add(updateAvailableButton);
 		}
-		
 	}
 	
 	@SubscribeEvent
 	public static void guiButtonPressed(GuiScreenEvent.ActionPerformedEvent event) {
-		
 		if(event.getGui() instanceof GuiMainMenu && event.getButton().id == 222) {
 			Minecraft.getMinecraft().displayGuiScreen(new Gui_UpdateInformation());
 		}
-		
 	}
-	
 }

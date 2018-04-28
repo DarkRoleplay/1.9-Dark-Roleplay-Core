@@ -35,7 +35,6 @@ public class DRPCoreJEIAddon implements IModPlugin{
 	@Override
 	public void registerCategories(IRecipeCategoryRegistration registry) {
 		for(Block b : CraftingRegistry.getStations()){
-			System.out.println(b);
 			registry.addRecipeCategories(new Category_SimpleRecipe(registry.getJeiHelpers().getGuiHelper(), "drpcore_jet_" + b.getRegistryName().getResourcePath(), b.getRegistryName().getResourcePath()));
 		}
 	}
@@ -43,7 +42,6 @@ public class DRPCoreJEIAddon implements IModPlugin{
 	@Override
 	public void register(IModRegistry registry) {
 		for(Block b : CraftingRegistry.getStations()){
-			System.out.println(b);
 			registry.addRecipes(CraftingRegistry.getRecipesForStation(b), "drpcore_jet_" + b.getRegistryName().getResourcePath());
 
 			if(b != Blocks.AIR)

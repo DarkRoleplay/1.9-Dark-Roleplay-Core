@@ -47,10 +47,12 @@ public class DarkRoleplayCore {
 		Modules.HUD.enable();
 		Modules.CRAFTING2.enable();
 		Modules.MATERIALS.enable();
+		Modules.UPDATE_CHECKER.enable();
 		ProgressBar progressBar = ProgressManager.push("Pre Initializing Modules", Module.getModules().size());
 		for(Module module : Module.getModules()){
 	        progressBar.step(module.getName());
-	        module.preInit(event);
+			if(module.isEnabled())
+		        module.preInit(event);
 		}
 		
 		ProgressManager.pop(progressBar);
@@ -74,8 +76,9 @@ public class DarkRoleplayCore {
 
 		ProgressBar progressBar = ProgressManager.push("Initializing Modules", Module.getModules().size());
 		for(Module module : Module.getModules()){
-	        progressBar.step(module.getName());
-	        module.init(event);
+			progressBar.step(module.getName());
+			if(module.isEnabled())
+				module.init(event);
 		}
 		ProgressManager.pop(progressBar);
 		//TODO MOVE
@@ -91,8 +94,9 @@ public class DarkRoleplayCore {
 		
 		ProgressBar progressBar = ProgressManager.push("Post Initializing Modules", Module.getModules().size());
 		for(Module module : Module.getModules()){
-	        progressBar.step(module.getName());
-	        module.postInit(event);
+			progressBar.step(module.getName());
+			if(module.isEnabled())
+				module.postInit(event);
 		}
 		ProgressManager.pop(progressBar);
 	}
