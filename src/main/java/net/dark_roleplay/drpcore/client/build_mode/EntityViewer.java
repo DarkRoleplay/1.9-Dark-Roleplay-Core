@@ -4,14 +4,10 @@ import net.minecraft.entity.Entity;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.world.World;
 
-public class EntityBuildingViewer extends Entity{
+public class EntityViewer extends Entity{
 
-	public EntityBuildingViewer(World world) {
+	public EntityViewer(World world) {
 		super(world);
-	}
-
-	public void rotate(float x, float y) {
-		this.setRotation(this.rotationYaw + x, -360);
 	}
 	
 	@Override

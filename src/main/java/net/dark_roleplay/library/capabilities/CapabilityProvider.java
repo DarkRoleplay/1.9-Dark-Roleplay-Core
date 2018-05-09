@@ -1,4 +1,4 @@
-package net.dark_roleplay.drpcore.common.capabilities;
+package net.dark_roleplay.library.capabilities;
 
 import net.dark_roleplay.drpcore.common.handler.DRPCoreCapabilities;
 import net.minecraft.nbt.NBTBase;
@@ -13,6 +13,10 @@ public class CapabilityProvider <C> implements ICapabilitySerializable<NBTBase>{
     private final Capability<C> capability;
     private final C instance;
     
+    /**
+     * Pass the Capbility this is for.
+     * @param capability
+     */
     public CapabilityProvider(Capability<C> capability){
         this.capability = capability;
         this.instance = capability.getDefaultInstance();

@@ -75,7 +75,8 @@ public class Event_BlockHighlight {
 		}
 		
 		IBlockState state = block.canPlaceBlockOnSide(world, position, target.sideHit) ? block.getStateForPlacement(world, position, target.sideHit,(float) target.hitVec.x,(float) target.hitVec.y, (float) target.hitVec.z, player.getHeldItem(EnumHand.MAIN_HAND).getMetadata(), player, EnumHand.MAIN_HAND) : null;
-		state = block.getActualState(state, world, position);
+		if(state != null)
+			state = block.getActualState(state, world, position);
 		
 		if(state == null || block.getRenderType(state) != EnumBlockRenderType.MODEL)
 			return;

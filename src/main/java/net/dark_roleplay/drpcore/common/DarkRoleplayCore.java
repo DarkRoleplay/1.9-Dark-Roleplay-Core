@@ -3,15 +3,14 @@ package net.dark_roleplay.drpcore.common;
 
 import net.dark_roleplay.drpcore.api.old.Modules;
 import net.dark_roleplay.drpcore.api.old.modules.Module;
+import net.dark_roleplay.drpcore.client.ClientProxy;
 import net.dark_roleplay.drpcore.common.config.SyncedConfigRegistry;
 import net.dark_roleplay.drpcore.common.handler.DRPCoreCapabilities;
 import net.dark_roleplay.drpcore.common.handler.DRPCoreCrafting;
-import net.dark_roleplay.drpcore.common.handler.DRPCoreEntities;
 import net.dark_roleplay.drpcore.common.handler.DRPCoreGuis;
 import net.dark_roleplay.drpcore.common.handler.DRPCorePackets;
 import net.dark_roleplay.drpcore.common.handler.DRPCorePerms;
 import net.dark_roleplay.drpcore.common.objects.tile_entities.blueprint_controller.TE_BlueprintController;
-import net.dark_roleplay.drpcore.common.proxy.CommonProxy;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventHandler;
 import net.minecraftforge.fml.common.ProgressManager;
@@ -28,8 +27,8 @@ public class DarkRoleplayCore {
 	
 	public static boolean isServerSide = false;
 	
-	@SidedProxy(serverSide = "net.dark_roleplay.drpcore.common.proxy.CommonProxy", clientSide = "net.dark_roleplay.drpcore.client.ClientProxy")
-	public static CommonProxy proxy;
+	@SidedProxy(clientSide = "net.dark_roleplay.drpcore.client.ClientProxy")
+	public static ClientProxy proxy;
 	
 	@Mod.Instance(References.MODID)
 	public static DarkRoleplayCore instance;

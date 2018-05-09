@@ -107,7 +107,6 @@ public class DRPCoreItems {
 
 	public static final void register(IForgeRegistry<Item> registry, DRPItem item){
 		registry.register(item);
-		DarkRoleplayCore.proxy.registerItemMesh(item.getRegistryName().getResourceDomain(), item);
 	}
 	
 }

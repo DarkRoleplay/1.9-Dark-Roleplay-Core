@@ -3,71 +3,42 @@ package net.dark_roleplay.drpcore.client;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.URISyntaxException;
-import java.net.URL;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-import java.util.UUID;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
 
-import net.dark_roleplay.drpcore.api.old.entities.renderer.RendererTest;
 import net.dark_roleplay.drpcore.api.old.gui.modular.ModularGui_Template;
-import net.dark_roleplay.drpcore.api.old.modules.color.ColorHandler;
-import net.dark_roleplay.drpcore.api.old.modules.work_in_progress.premium.RenderLayer_PremiumAddon;
 import net.dark_roleplay.drpcore.client.events.network.Event_ConnectServer;
 import net.dark_roleplay.drpcore.client.events.player.Event_Mouse;
 import net.dark_roleplay.drpcore.client.events.rendering.Event_BlockHighlight;
-import net.dark_roleplay.drpcore.client.events.rendering.Event_ModelBaked;
 import net.dark_roleplay.drpcore.client.keybindings.DRPCoreKeybindings;
 import net.dark_roleplay.drpcore.client.renderer.tileentities.Renderer_StructureController;
 import net.dark_roleplay.drpcore.client.resources.DRPModelLoader;
 import net.dark_roleplay.drpcore.client.resources.ModularGui_Handler;
-import net.dark_roleplay.drpcore.common.References;
 import net.dark_roleplay.drpcore.common.Reflections;
-import net.dark_roleplay.drpcore.common.handler.DRPCoreItems;
-import net.dark_roleplay.drpcore.common.objects.entities.util.sitting.Sittable;
 import net.dark_roleplay.drpcore.common.objects.tile_entities.blueprint_controller.TE_BlueprintController;
-import net.dark_roleplay.drpcore.common.proxy.CommonProxy;
-import net.dark_roleplay.drpcore.testing.Testing_Entity;
-import net.dark_roleplay.library.items.DRPItem;
 import net.dark_roleplay.library.items.ItemUtil;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.block.model.ModelBakery;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
-import net.minecraft.client.renderer.entity.Render;
-import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.client.renderer.entity.RenderPlayer;
 import net.minecraft.client.resources.IReloadableResourceManager;
 import net.minecraft.client.resources.IResource;
 import net.minecraft.client.resources.IResourceManager;
-import net.minecraft.client.resources.SimpleReloadableResourceManager;
-import net.minecraft.client.resources.data.TextureMetadataSection;
-import net.minecraft.client.resources.data.TextureMetadataSectionSerializer;
 import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.client.model.ModelLoaderRegistry;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.client.registry.ClientRegistry;
-import net.minecraftforge.fml.client.registry.IRenderFactory;
-import net.minecraftforge.fml.client.registry.RenderingRegistry;
 import net.minecraftforge.fml.common.FMLCommonHandler;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
 
-public class ClientProxy extends CommonProxy{
-	
-	private Map<DRPItem,String> toRegisterMeshes = new HashMap<DRPItem,String>();
-	
+public class ClientProxy{
+		
 	public static boolean useRecipeData = false;
 	public static int recipePage = 0;
 	public static int categoryOffset = 0;
@@ -87,10 +58,6 @@ public class ClientProxy extends CommonProxy{
 
 		ModelLoaderRegistry.registerLoader(new DRPModelLoader());
 
-		for(Map.Entry<DRPItem, String> entry : toRegisterMeshes.entrySet()) {
-			this.registerItemMesh(entry.getValue(),entry.getKey());
-		}
-		this.toRegisterMeshes = null;
 		
 		//MinecraftForge.EVENT_BUS.register(Event_ModelBaked.instance);
 		MinecraftForge.EVENT_BUS.register(new Event_Mouse());

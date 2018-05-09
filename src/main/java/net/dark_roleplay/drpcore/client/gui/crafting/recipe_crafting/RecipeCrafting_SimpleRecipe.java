@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import net.dark_roleplay.drpcore.api.old.crafting.Crafting_Util;
 import net.dark_roleplay.drpcore.api.old.crafting.simple_recipe.SimpleRecipe;
 import net.dark_roleplay.drpcore.api.old.gui.DRPGuiScreen;
 import net.dark_roleplay.drpcore.api.old.gui.ITimedGui;
@@ -70,6 +71,11 @@ public class RecipeCrafting_SimpleRecipe extends DRPGuiScreen implements ITimedG
 		this.recipe = recipe;
 		this.parent = parent;
 	}
+	
+	@Override
+	public void onGuiClosed(){
+		Crafting_Util.exit();
+    }
 
 	@Override
 	public void initGui() {

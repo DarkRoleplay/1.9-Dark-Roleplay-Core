@@ -1,23 +1,16 @@
 package net.dark_roleplay.drpcore.common.objects.events.capabilities;
 
-import org.apache.logging.log4j.core.pattern.DatePatternConverter;
-
 import net.dark_roleplay.drpcore.common.References;
-import net.dark_roleplay.drpcore.common.capabilities.CapabilityProvider;
-import net.dark_roleplay.drpcore.common.capabilities.player.crafting.*;
 import net.dark_roleplay.drpcore.common.handler.DRPCoreCapabilities;
+import net.dark_roleplay.library.capabilities.CapabilityProvider;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
 import net.minecraft.world.chunk.Chunk;
-import net.minecraftforge.common.capabilities.Capability;
-import net.minecraftforge.common.capabilities.ICapabilityProvider;
 import net.minecraftforge.event.AttachCapabilitiesEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
-import net.minecraftforge.items.CapabilityItemHandler;
 
 @Mod.EventBusSubscriber(modid = References.MODID)
 public class Event_CapabilityEntity {
@@ -27,8 +20,6 @@ public class Event_CapabilityEntity {
         if (!(event.getObject() instanceof EntityPlayer)) return;
 
         event.addCapability(new ResourceLocation(References.MODID, "skill_handler"), new CapabilityProvider(DRPCoreCapabilities.SKILL_HANDLER));
-//        event.addCapability(new ResourceLocation(DRPCoreReferences.MODID, "recipe_controller"), new CapabilityProvider(DRPCoreCapabilities.DRPCORE_RECIPE_CONTROLLER));
-//        event.addCapability(new ResourceLocation(DRPCoreReferences.MODID, "skill_controller"), new CapabilityProvider(DRPCoreCapabilities.DRPCORE_SKILL_CONTROLLER));
     }
 	
 	@SubscribeEvent

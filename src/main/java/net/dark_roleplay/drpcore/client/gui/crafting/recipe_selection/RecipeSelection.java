@@ -2,41 +2,29 @@ package net.dark_roleplay.drpcore.client.gui.crafting.recipe_selection;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
 
 import org.lwjgl.opengl.GL11;
 
+import net.dark_roleplay.drpcore.api.old.crafting.Crafting_Util;
 import net.dark_roleplay.drpcore.api.old.crafting.simple_recipe.IRecipe;
 import net.dark_roleplay.drpcore.api.old.crafting.simple_recipe.RecipeCategory;
 import net.dark_roleplay.drpcore.api.old.crafting.simple_recipe.SimpleRecipe;
 import net.dark_roleplay.drpcore.api.old.gui.DRPGuiScreen;
-import net.dark_roleplay.drpcore.client.ClientProxy;
 import net.dark_roleplay.drpcore.client.gui.crafting.recipe_crafting.RecipeCrafting_SimpleRecipe;
 import net.dark_roleplay.drpcore.client.keybindings.DRPCoreKeybindings;
 import net.dark_roleplay.drpcore.common.References;
-import net.dark_roleplay.drpcore.common.DarkRoleplayCore;
-import net.dark_roleplay.drpcore.common.capabilities.player.crafting.IRecipeController;
 import net.dark_roleplay.drpcore.common.config.Debug;
 import net.dark_roleplay.drpcore.common.crafting.CraftingRegistry;
-import net.dark_roleplay.drpcore.common.handler.DRPCoreCapabilities;
 import net.dark_roleplay.drpcore.common.handler.DRPCoreConfigs;
-import net.dark_roleplay.drpcore.common.handler.DRPCoreGuis;
 import net.dark_roleplay.drpcore.common.util.toasts.ToastController;
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
-import net.minecraft.client.gui.toasts.SystemToast;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.Blocks;
-import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.text.TextComponentString;
-import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraftforge.common.config.Config;
 import net.minecraftforge.common.config.ConfigManager;
 
@@ -81,6 +69,11 @@ public class RecipeSelection extends DRPGuiScreen{
 		this.categorys = CraftingRegistry.getCategorysForBlocks(block);
 	}
 
+	@Override
+	public void onGuiClosed(){
+		Crafting_Util.exit();
+    }
+	
 	@Override
 	public void initGui(){
 		super.initGui();
@@ -134,41 +127,9 @@ public class RecipeSelection extends DRPGuiScreen{
 		for(int i = 0; i < 18; i++){
 			if(this.recipes.size() > (i + (this.recipePage * 18))){
 				IRecipe rec = this.recipes.get((i + (this.recipePage * 18)));
-//				if(rcCon.isLocked(rec.getRegistryString())){
-//					this.mc.renderEngine.bindTexture(this.bgTexture);
-//					drawTexturedModalRect(this.guiLeft + 18 + (26 * (i%6)), this.guiTop + 40 + (26 * (i/6)), 27, 134, 24, 24);
-//				}else if(rec.requiresUnlock() && !rec.canCraft(this.player)){
-//					this.mc.renderEngine.bindTexture(this.bgTexture);
-//					drawTexturedModalRect(this.guiLeft + 18 + (26 * (i%6)), this.guiTop + 40 + (26 * (i/6)), 1, 134, 24, 24);
-//					if(rcCon.isRecipeProgressed(rec.getRegistryString())){
-//						drawTexturedModalRect(this.guiLeft + 18 + (26 * (i%6)), this.guiTop + 59 + (26 * (i/6)), 1, 160, 2 + (int)(20 * rcCon.getProgressRecipe(rec.getRegistryString())), 4);
-//					}
-//				}else{
-					this.itemRender.renderItemIntoGUI(rec.getDisplayItems()[0], this.guiLeft + 22 + (26 * (i%6)), this.guiTop + 44 + (26 * (i/6)));
-//				}
-				
+				this.itemRender.renderItemIntoGUI(rec.getDisplayItems()[0], this.guiLeft + 22 + (26 * (i%6)), this.guiTop + 44 + (26 * (i/6)));
 			}
 		}
-		
-//		if(this.recipes != null){
-//			for(int i = 0; i < 18; i++){
-//					if(this.recipes.size() > (i) + (this.recipePage * 18)){
-//						String recipe = this.recipes.get((i) + (this.recipePage * 18));
-//						
-//						if(this.lockedRecipes != null && this.lockedRecipes.contains(recipe)){
-//							this.mc.renderEngine.bindTexture(this.bgTexture);
-//							drawTexturedModalRect(this.guiLeft + 18 + (26 * (i%6)), this.guiTop + 40 + (26 * (i/6)), 27, 134, 24, 24);
-//						}else if(this.unlockRecipes.contains(recipe)){
-//							this.mc.renderEngine.bindTexture(this.bgTexture);
-//							drawTexturedModalRect(this.guiLeft + 18 + (26 * (i%6)), this.guiTop + 40 + (26 * (i/6)), 1, 134, 24, 24);
-//							if(progressedRecipes.containsKey(recipe))
-//								drawTexturedModalRect(this.guiLeft + 18 + (26 * i%6), this.guiTop + 59 + (26 * i/6), 1, 160, 2 + (int)(20 * progressedRecipes.get(recipe)), 4);
-//						}else{
-//							this.itemRender.renderItemIntoGUI(CraftingRegistry.getRecipe(this.recipes.get(i + (this.recipePage * 18))).getMainOutput()[0], this.guiLeft + 22 + (26 * (i%6)), this.guiTop + 44 + (26 * (i/6)));
-//						}
-//					}
-//			}
-//		}
 	}
 	
 	@Override

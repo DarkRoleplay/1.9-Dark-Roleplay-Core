@@ -15,7 +15,7 @@ import com.google.gson.JsonObject;
 import net.dark_roleplay.drpcore.api.old.crafting.Crafting_Util;
 import net.dark_roleplay.drpcore.api.old.modules.hud.HudLoader;
 import net.dark_roleplay.drpcore.client.build_mode.BuildingViewerHelper;
-import net.dark_roleplay.drpcore.client.build_mode.EntityBuildingViewer;
+import net.dark_roleplay.drpcore.client.build_mode.EntityViewer;
 import net.dark_roleplay.drpcore.common.References;
 import net.dark_roleplay.drpcore.common.config.Client;
 import net.dark_roleplay.drpcore.common.config.Debug;
@@ -93,7 +93,7 @@ public class DRPCoreKeybindings {
 	@SubscribeEvent
 	public void KeyInput(KeyInputEvent event) {
 		if(this.GUI_CRAFTING.isKeyDown()) {
-			Crafting_Util.openRecipeSelection(Blocks.AIR);
+			Crafting_Util.openRecipeSelection(Blocks.AIR, Minecraft.getMinecraft().player.getPosition().add(0, -1, 0), 0f, -90f);
 			References.CRAFTING_TUT.hide();
 //		}else if(this.GUI_SKILLS.isKeyDown()){
 //			ToastController.displayInfoToast("dpcore.featureNotImplemented", null);
@@ -108,7 +108,7 @@ public class DRPCoreKeybindings {
 		else if(Debug.DEBUG_KEY && this.debugging.isKeyDown()) {
 			
 //			//Building Viewer
-//			BuildingViewerHelper.initialize(Minecraft.getMinecraft().player.getPosition().add(0, 5, 0));
+			BuildingViewerHelper.initialize(Minecraft.getMinecraft().player.getPosition().add(0, 5, 0), Minecraft.getMinecraft().player.world.getTileEntity(Minecraft.getMinecraft().player.getPosition().down()));
 			
 //			System.out.println(	PermissionAPI.hasPermission(Minecraft.getMinecraft().player, "drpcore.test.number2"));
 //			Minecraft.getMinecraft().displayGuiScreen(new Gui_Test());

@@ -95,23 +95,6 @@ public class Module_Crafting extends Module{
 					},
 				true, true);
 		});
-
-		
-//		for(File jar : modFolder.listFiles()){
-//			if(jar.isFile()){
-//				if(jar.getName().endsWith(".jar")){
-//					try {
-//						InputStream[] streams = getRecipeFiles(new URL("jar:file:/" + jar.getCanonicalPath() + "!/data/drp/recipes/"));
-//						for(InputStream stream : streams){
-//							readRecipe(getResourceAsJson(stream));
-//						}
-//					}catch (URISyntaxException|IOException e) {
-//						e.printStackTrace();
-//					}
-//					
-//				}
-//			}
-//		}
 		
 		for(String key : categorys.keySet()){
 			CraftingRegistry.register(categorys.get(key));
