@@ -29,7 +29,7 @@ public class ResourceHelper {
 	 * @return
 	 */
 	@Deprecated
-	private static boolean findFiles(ModContainer mod, String base, Function<Path, Boolean> preprocessor,
+	public static boolean findFiles(ModContainer mod, String base, Function<Path, Boolean> preprocessor,
 			BiFunction<Path, Path, Boolean> processor, boolean defaultUnfoundRoot, boolean visitAllFiles) {
 		FileSystem fs = null;
 		try {

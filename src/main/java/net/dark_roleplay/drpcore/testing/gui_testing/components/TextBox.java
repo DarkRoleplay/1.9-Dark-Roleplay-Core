@@ -115,7 +115,7 @@ public class TextBox extends Component {
 	}
 
 	public void keyTyped(char typedChar, int keyCode) throws IOException {
-		System.out.println(keyCode);
+//		System.out.println(keyCode);
 		// else if (keyCode == 203) {
 		// this.cursorPos = this.cursorPos - 1 >= 0 ? this.cursorPos - 1 : 0;
 		// } else {
@@ -127,7 +127,8 @@ public class TextBox extends Component {
 		try {
 
 			if (keyCode == 14) {
-				this.delete();
+				this.delete();				
+				this.contentChanged();
 				return;
 			} else if (GuiScreen.isKeyComboCtrlA(keyCode)) {
 				this.selectionStart = 0;
@@ -135,6 +136,7 @@ public class TextBox extends Component {
 				return;
 			} else if (GuiScreen.isKeyComboCtrlV(keyCode)) {
 				this.writeText(GuiScreen.getClipboardString());
+				this.contentChanged();
 				return;
 			} else if (GuiScreen.isKeyComboCtrlC(keyCode) && this.selectionStart != -1) {
 	            GuiScreen.setClipboardString(this.text.substring(this.selectionStart, this.selectionEnd)); 
@@ -144,6 +146,7 @@ public class TextBox extends Component {
 				this.text = this.text.substring(0, this.selectionStart) + this.text.substring(this.selectionEnd, this.text.length());
 				this.cursorPos = this.selectionStart;
 				this.clearSelection();
+				this.contentChanged();
 				return;
 			} else if(keyCode == 203) {
 				this.cursorLeft();
@@ -157,6 +160,7 @@ public class TextBox extends Component {
 						this.clearSelection();
 					}
 					this.writeText(Character.toString(typedChar));
+					this.contentChanged();
 				}
 			}
 		}catch(Exception e) {
@@ -267,5 +271,13 @@ public class TextBox extends Component {
 		tessellator.draw();
 		GlStateManager.disableColorLogic();
 		GlStateManager.enableTexture2D();
+	}
+	
+	public String getText() {
+		return this.text;
+	}
+	
+	public void contentChanged() {
+		
 	}
 }

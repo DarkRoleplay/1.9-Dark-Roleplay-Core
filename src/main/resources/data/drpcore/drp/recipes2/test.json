@@ -1,0 +1,47 @@
+{
+	"type":"drpcore:simple_recipe",
+	"crafting_stations":[
+		"minecraft:air",
+		"minecraft:stone"
+	],
+	"recipes":[
+		{
+			"name":"drpcore:test_1",
+			"outputs":[
+				{
+					"item":"minecraft:apple",
+					"count":3
+				}
+			],
+			"ingredients":[
+				{
+					"type":"item",
+					"item":"minecraft:cooked_beef",
+					"count":1
+				}
+			]
+		},
+		{
+			"name": "drpcore:test_2",
+			"outputs":[
+				{
+					"item":"minecraft:apple",
+					"count":4
+				}
+			],
+			"ingredients":[
+				{
+					"type":"item",
+					"item":"minecraft:cooked_chicken",
+					"count":1
+				},
+				{
+					"type":"tool",
+					"tool_type":"hammer",
+					"durability":3,
+					"level":2
+				}
+			]
+		}
+	]
+}

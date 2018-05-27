@@ -22,6 +22,8 @@ import net.dark_roleplay.drpcore.common.config.Debug;
 import net.dark_roleplay.drpcore.common.handler.DRPCoreConfigs;
 import net.dark_roleplay.drpcore.common.util.toasts.ToastController;
 import net.dark_roleplay.drpcore.modules.update_checker.Gui_UpdateInformation;
+import net.dark_roleplay.drpcore.testing.crafting.CraftingRegistry;
+import net.dark_roleplay.drpcore.testing.crafting.gui.Crafting5;
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.settings.KeyBinding;
@@ -45,8 +47,8 @@ import net.minecraftforge.fml.common.gameevent.InputEvent.KeyInputEvent;
 public class DRPCoreKeybindings {
 	
 	public static KeyBinding GUI_CRAFTING = new KeyBinding("keyBinding.openCrafting", Keyboard.KEY_C,"Dark Roleplay Core");		
-	public static KeyBinding GUI_SKILLS = new KeyBinding("keyBinding.openSkills", Keyboard.KEY_K,"Dark Roleplay Core");		
-	public static KeyBinding GUI_VARIATIONS = new KeyBinding("keyBinding.veriationSelection", Keyboard.KEY_V,"Dark Roleplay Core");	
+//	public static KeyBinding GUI_SKILLS = new KeyBinding("keyBinding.openSkills", Keyboard.KEY_K,"Dark Roleplay Core");		
+//	public static KeyBinding GUI_VARIATIONS = new KeyBinding("keyBinding.veriationSelection", Keyboard.KEY_V,"Dark Roleplay Core");	
 	public static KeyBinding TOGGLE_PLACEMENT_PREVIEW = new KeyBinding("keyBinding.placement_preview", Keyboard.KEY_P,"Dark Roleplay Core");	
 	
 	public static KeyBinding RELOAD_HUD = new KeyBinding("keyBinding.reloadHud", Keyboard.CHAR_NONE, "Dark Roleplay Core");
@@ -61,7 +63,6 @@ public class DRPCoreKeybindings {
 //		ClientRegistry.registerKeyBinding(GUI_VARIATIONS);
 //		ClientRegistry.registerKeyBinding(GUI_SKILLS);
 		ClientRegistry.registerKeyBinding(RELOAD_HUD);
-//		ClientRegistry.registerKeyBinding(openSkill);
 		
 		if(Debug.DEBUG_KEY){
 			enableDebugKeys();
@@ -108,12 +109,19 @@ public class DRPCoreKeybindings {
 		else if(Debug.DEBUG_KEY && this.debugging.isKeyDown()) {
 			
 //			//Building Viewer
-			BuildingViewerHelper.initialize(Minecraft.getMinecraft().player.getPosition().add(0, 5, 0), Minecraft.getMinecraft().player.world.getTileEntity(Minecraft.getMinecraft().player.getPosition().down()));
+//			BuildingViewerHelper.initialize(Minecraft.getMinecraft().player.getPosition().add(0, 5, 0), Minecraft.getMinecraft().player.world.getTileEntity(Minecraft.getMinecraft().player.getPosition().down()));
 			
 //			System.out.println(	PermissionAPI.hasPermission(Minecraft.getMinecraft().player, "drpcore.test.number2"));
 //			Minecraft.getMinecraft().displayGuiScreen(new Gui_Test());
-
-//			Minecraft.getMinecraft().displayGuiScreen(new Crafting5());
+			
+			
+			if(Minecraft.getMinecraft().player.isSneaking()) {
+				CraftingRegistry.clear();
+				CraftingRegistry.loadModRecipes();
+			}else {
+				Minecraft.getMinecraft().displayGuiScreen(new Crafting5(Minecraft.getMinecraft().player.getPosition(), Blocks.AIR));
+			}
+			
 			
 //			createRecipe();
 //			Minecraft.getMinecraft().displayGuiScreen(new GuiCrafting(null, 0, 0, 0, 0));

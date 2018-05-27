@@ -8,8 +8,13 @@ import com.google.gson.JsonObject;
 
 import it.unimi.dsi.fastutil.Arrays;
 import net.dark_roleplay.drpcore.api.old.models.TexturedQuad;
+import net.dark_roleplay.drpcore.api.old.models.entity.animation.AnimationState;
+import net.dark_roleplay.drpcore.api.old.models.entity.animation.BoneAnimation;
+import net.dark_roleplay.drpcore.api.old.models.entity.model.Model;
 import net.minecraft.client.renderer.BufferBuilder;
 import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.client.renderer.Tessellator;
+import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.Vec3d;
 
@@ -36,7 +41,7 @@ public class Bone {
 		if(json.has("position")){
 			JsonArray position = json.get("position").getAsJsonArray();
 			if(position.size() >= 3)
-				this.position = new Vec3d(position.get(0).getAsDouble(), position.get(1).getAsDouble(), position.get(2).getAsDouble());
+				this.position = new Vec3d(position.get(0).getAsDouble() * 0.9375F, position.get(1).getAsDouble() * 0.9375F, position.get(2).getAsDouble() * 0.9375F);
 			else
 				this.position = new Vec3d(0D, 0D, 0D);
 		}else{
@@ -84,26 +89,30 @@ public class Bone {
 		return this.children;
 	}
 	
-	public void render(BufferBuilder render, float scale) {
+	public void render(BufferBuilder render, float scale, AnimationState state) {
 		GlStateManager.translate(this.position.x, this.position.y, this.position.z);
-		GlStateManager.rotate((float) this.rotation.x, 1F, 0F, 0F);
-		GlStateManager.rotate((float) this.rotation.y, 0F, 1F, 0F);
-		GlStateManager.rotate((float) this.rotation.z, 0F, 0F, 1F);
+		BoneAnimation anim =  state.getState(this);
+		GlStateManager.rotate((float) this.rotation.x + anim.getRotationX(), 1F, 0F, 0F);
+		GlStateManager.rotate((float) this.rotation.y + anim.getRotationY(), 0F, 1F, 0F);
+		GlStateManager.rotate((float) this.rotation.z + anim.getRotationZ(), 0F, 0F, 1F);
 
 		GlStateManager.scale(this.size.x, this.size.y, this.size.z);
 		
+        render.begin(7, DefaultVertexFormats.OLDMODEL_POSITION_TEX_NORMAL);
 		for(Model mdl : models){
 			mdl.render(render, scale);
 		}
+        Tessellator.getInstance().draw();
+        
 		for(Bone child : children){
-			child.render(render, scale);
+			child.render(render, scale, state);
 		}
 		
 		GlStateManager.scale(1F / this.size.x, 1F / this.size.y, 1F / this.size.z); 
 
-		GlStateManager.rotate((float) -this.rotation.x, 1F, 0F, 0F);
-		GlStateManager.rotate((float) -this.rotation.y, 0F, 1F, 0F);
-		GlStateManager.rotate((float) -this.rotation.z, 0F, 0F, 1F);
+		GlStateManager.rotate((float) -this.rotation.x - anim.getRotationX(), 1F, 0F, 0F);
+		GlStateManager.rotate((float) -this.rotation.y - anim.getRotationY(), 0F, 1F, 0F);
+		GlStateManager.rotate((float) -this.rotation.z - anim.getRotationZ(), 0F, 0F, 1F);
 		GlStateManager.translate(-this.position.x, -this.position.y, -this.position.z);
 	}
 	

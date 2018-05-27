@@ -1,4 +1,4 @@
-package net.dark_roleplay.drpcore.client.gui.crafting_new.creation;
+package net.dark_roleplay.drpcore.testing.crafting.gui;
 
 import java.util.ArrayList;
 import java.util.List;

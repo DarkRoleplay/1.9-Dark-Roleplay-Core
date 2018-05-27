@@ -1,4 +1,4 @@
-package net.dark_roleplay.drpcore.api.old.models.entity;
+package net.dark_roleplay.drpcore.api.old.models.entity.model;
 
 import net.dark_roleplay.drpcore.api.old.models.TexturedQuad;
 import net.minecraft.client.model.PositionTextureVertex;

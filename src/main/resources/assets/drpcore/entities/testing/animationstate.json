@@ -1,0 +1,15 @@
+{
+	"animations" : [
+		"idle",
+		"sleeping",
+		"walking",
+		"running"
+	],
+	"transitions":{ //Unused for now
+		"idle": ["sleeping", "walking"],
+		"sleeping" : "idle",
+		"walking" : ["idle", "running"],
+		"running" : "walking"
+	},
+	"default" : "idle"
+}

@@ -3,7 +3,7 @@ package net.dark_roleplay.drpcore.testing.skills;
 import java.util.HashSet;
 import java.util.Set;
 
-import net.dark_roleplay.drpcore.client.gui.crafting_new.creation.IIcon;
+import net.dark_roleplay.drpcore.testing.crafting.IIcon;
 import net.minecraftforge.registries.IForgeRegistryEntry;
 
 public class SkillTree extends IForgeRegistryEntry.Impl<SkillTree>{

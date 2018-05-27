@@ -3,7 +3,7 @@ package net.dark_roleplay.drpcore.api.crafting.item_ingredient;
 import com.google.gson.JsonObject;
 
 import net.dark_roleplay.drpcore.api.crafting.IIngredient;
-import net.dark_roleplay.drpcore.client.gui.crafting_new.creation.IIcon;
+import net.dark_roleplay.drpcore.testing.crafting.IIcon;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;

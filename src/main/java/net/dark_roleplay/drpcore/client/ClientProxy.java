@@ -11,6 +11,7 @@ import java.util.List;
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 
+import net.dark_roleplay.drpcore.api.old.entities.renderer.RendererTest;
 import net.dark_roleplay.drpcore.api.old.gui.modular.ModularGui_Template;
 import net.dark_roleplay.drpcore.client.events.network.Event_ConnectServer;
 import net.dark_roleplay.drpcore.client.events.player.Event_Mouse;
@@ -19,11 +20,15 @@ import net.dark_roleplay.drpcore.client.keybindings.DRPCoreKeybindings;
 import net.dark_roleplay.drpcore.client.renderer.tileentities.Renderer_StructureController;
 import net.dark_roleplay.drpcore.client.resources.DRPModelLoader;
 import net.dark_roleplay.drpcore.client.resources.ModularGui_Handler;
+import net.dark_roleplay.drpcore.common.References;
 import net.dark_roleplay.drpcore.common.Reflections;
 import net.dark_roleplay.drpcore.common.objects.tile_entities.blueprint_controller.TE_BlueprintController;
+import net.dark_roleplay.drpcore.testing.Testing_Entity;
 import net.dark_roleplay.library.items.ItemUtil;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
+import net.minecraft.client.renderer.entity.Render;
+import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.client.renderer.entity.RenderPlayer;
 import net.minecraft.client.resources.IReloadableResourceManager;
 import net.minecraft.client.resources.IResource;
@@ -32,6 +37,8 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.model.ModelLoaderRegistry;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.client.registry.ClientRegistry;
+import net.minecraftforge.fml.client.registry.IRenderFactory;
+import net.minecraftforge.fml.client.registry.RenderingRegistry;
 import net.minecraftforge.fml.common.FMLCommonHandler;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
@@ -69,12 +76,12 @@ public class ClientProxy{
 		
 		ClientRegistry.bindTileEntitySpecialRenderer(TE_BlueprintController.class, new Renderer_StructureController());
 		
-//		RenderingRegistry.registerEntityRenderingHandler(Testing_Entity.class, new IRenderFactory<Testing_Entity>(){
-//			@Override
-//			public Render<? super Testing_Entity> createRenderFor(RenderManager manager) {
-//				return new RendererTest(manager, new ResourceLocation(DRPCoreReferences.MODID, "entities/test/bones.json"), new ResourceLocation(DRPCoreReferences.MODID, "entities/test/model.json"), new ResourceLocation(DRPCoreReferences.MODID, "entities/test/animations.json"));
-//			}
-//		});
+		RenderingRegistry.registerEntityRenderingHandler(Testing_Entity.class, new IRenderFactory<Testing_Entity>(){
+			@Override
+			public Render<? super Testing_Entity> createRenderFor(RenderManager manager) {
+				return new RendererTest(manager, new ResourceLocation(References.MODID, "testing"));
+			}
+		});
 	}
 
 	public void init(FMLInitializationEvent event) {

@@ -1,11 +1,8 @@
 package net.dark_roleplay.library.capabilities;
 
-import net.dark_roleplay.drpcore.common.handler.DRPCoreCapabilities;
 import net.minecraft.nbt.NBTBase;
-import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumFacing;
 import net.minecraftforge.common.capabilities.Capability;
-import net.minecraftforge.common.capabilities.ICapabilityProvider;
 import net.minecraftforge.common.capabilities.ICapabilitySerializable;
 
 public class CapabilityProvider <C> implements ICapabilitySerializable<NBTBase>{

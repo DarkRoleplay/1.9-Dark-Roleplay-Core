@@ -11,6 +11,8 @@ import net.dark_roleplay.drpcore.common.network.packets.debug.Packet_DebugKey;
 import net.dark_roleplay.drpcore.common.network.packets.skills.Packet_UnlockSkill;
 import net.dark_roleplay.drpcore.common.network.packets.skills.SyncPacket_SkillPoints;
 import net.dark_roleplay.drpcore.common.network.packets.weapons.Packet_ExtendedRangeAttack;
+import net.dark_roleplay.drpcore.modules.command_answer_gui.network.Packet_Answer;
+import net.dark_roleplay.drpcore.modules.command_answer_gui.network.Packet_OpenGui;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraftforge.fml.common.network.FMLEventChannel;
 import net.minecraftforge.fml.common.network.NetworkRegistry;
@@ -39,6 +41,10 @@ public class DRPCorePackets {
 		INSTANCE.registerMessage(Packet_SaveBlueprint.class, Packet_SaveBlueprint.class, i++, Side.SERVER);		
 		INSTANCE.registerMessage(Packet_LoadBlueprint.class, Packet_LoadBlueprint.class, i++, Side.SERVER);
 		INSTANCE.registerMessage(SyncPacket_LockHandler.class, SyncPacket_LockHandler.class , i++, Side.CLIENT);
+		
+
+		INSTANCE.registerMessage(Packet_Answer.class, Packet_Answer.class, i++, Side.SERVER);
+		INSTANCE.registerMessage(Packet_OpenGui.class, Packet_OpenGui.class , i++, Side.CLIENT);
 	}
 
 	public static void sendTo(IMessage message, EntityPlayerMP player) {

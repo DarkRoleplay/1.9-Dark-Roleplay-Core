@@ -1,0 +1,20 @@
+{
+	"fps" : 10,
+	"frames" : 100,
+	"animation":{
+		"arm_left":{
+			"rotation_x":{
+				"values":[
+					0, 5, 0, -5, 0
+				]
+			}
+		},
+		"arm_right":{
+			"rotation_x":{
+				"values":[
+					0, -5, 0, 5, 0
+				]
+			}
+		}
+	}
+}

@@ -2,7 +2,7 @@ package net.dark_roleplay.drpcore.api.crafting;
 
 import com.google.gson.JsonObject;
 
-import net.dark_roleplay.drpcore.client.gui.crafting_new.creation.IIcon;
+import net.dark_roleplay.drpcore.testing.crafting.IIcon;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;

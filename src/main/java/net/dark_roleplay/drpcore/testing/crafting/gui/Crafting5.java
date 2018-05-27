@@ -1,17 +1,34 @@
-package net.dark_roleplay.drpcore.client.gui.crafting_new.creation;
+package net.dark_roleplay.drpcore.testing.crafting.gui;
 
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 import net.dark_roleplay.drpcore.common.References;
+import net.dark_roleplay.drpcore.testing.crafting.CraftingRegistry;
+import net.dark_roleplay.drpcore.testing.crafting.Recipe;
+import net.dark_roleplay.drpcore.testing.gui_testing.Gui_Test;
+import net.dark_roleplay.drpcore.testing.gui_testing.components.Component;
+import net.dark_roleplay.drpcore.testing.gui_testing.components.TextBox;
+import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.math.BlockPos;
 
-public class Crafting5 extends GuiScreen{
+public class Crafting5 extends Gui_Test{
 	
 	public static final ResourceLocation texture = new ResourceLocation(References.MODID, "textures/guis/crafting/crafting_gui.png");
+	
+	private static Map<Block, List<Recipe>> globalRecipes = new HashMap<Block, List<Recipe>>();
+	
+	private List<Recipe> recipes = null;
+	private Block craftingStation;
+	private BlockPos stationPos;
 	
 	ModeButton modeButton;
 	GuiButton pageLeft;
@@ -20,12 +37,52 @@ public class Crafting5 extends GuiScreen{
 	GuiButton variantRight;
 	GuiButton craft;
 	
-	public void initGui(){
-		int i = 0;
+	public Crafting5(BlockPos pos, Block craftingStation) {
+		this.craftingStation = craftingStation;
+		this.stationPos = pos;
 		
+		if(globalRecipes.containsKey(craftingStation)) {
+			recipes = globalRecipes.get(craftingStation);
+		}else {
+			recipes = CraftingRegistry.getRecipesForStation(craftingStation);
+			globalRecipes.put(craftingStation, recipes);
+		}
+		
+//		globalRecipes = new HashMap<Block, List<Recipe>>();
+		
+		System.out.println(CraftingRegistry.recipes);
+		for(Recipe recipe : recipes) {
+			System.out.println(recipe.getRegistryName());
+		}
+	}
+	
+	public void initGui(){
+		comps.clear();
+
+		int i = 0;
+
 		int posY = (this.height - 166) / 2;
 		int posX = (this.width / 2) - 173;
-		this.addButton(new ModeButton(i++, posX + 134, posY + 12));
+		
+		TextBox tb = new TextBox(this.fontRenderer, posX + 23, posY + 14) {
+			@Override
+			public void contentChanged() {
+				if(this.getText().isEmpty()) {
+					Crafting5.this.recipes = Crafting5.globalRecipes.get(Crafting5.this.craftingStation);
+				}else {
+					Crafting5.this.recipes = Crafting5.globalRecipes.get(Crafting5.this.craftingStation);
+					Crafting5.this.recipes = Crafting5.this.recipes.parallelStream().filter(r -> r.getRegistryName().contains(this.getText())).collect(Collectors.toList());
+				}
+				System.out.println("New Recipes!");
+				for(Recipe recipe : recipes) {
+					System.out.println(recipe.getRegistryName());
+				}
+			}
+		};
+		tb.setWidth(108);
+		comps.add(tb);
+		
+		this.addButton(new ModeButton(i++, posX + 135, posY + 12));
 		this.addButton(new ArrowButton(i++, posX + 50, posY + 136, false));
 		this.addButton(new ArrowButton(i++, posX + 110, posY + 136, true));
 		
@@ -75,6 +132,7 @@ public class Crafting5 extends GuiScreen{
 		this.drawString(this.fontRenderer, I18n.format("Tools"), posX + 11, posY +  87, 0xFFFFFFFF);
 
 		Minecraft.getMinecraft().getTextureManager().bindTexture(texture);
+		
 		super.drawScreen(mouseX, mouseY, partialTicks);
     }
 	

@@ -7,7 +7,7 @@ import java.util.Set;
 
 import com.google.common.collect.Sets;
 
-import net.dark_roleplay.drpcore.client.gui.crafting_new.creation.IIcon;
+import net.dark_roleplay.drpcore.testing.crafting.IIcon;
 import net.minecraftforge.registries.IForgeRegistryEntry;
 
 public class Skill extends IForgeRegistryEntry.Impl<Skill>{

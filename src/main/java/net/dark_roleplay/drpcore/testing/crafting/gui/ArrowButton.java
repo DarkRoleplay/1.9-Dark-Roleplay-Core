@@ -1,4 +1,4 @@
-package net.dark_roleplay.drpcore.client.gui.crafting_new.creation;
+package net.dark_roleplay.drpcore.testing.crafting.gui;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;

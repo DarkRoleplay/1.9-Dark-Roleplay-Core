@@ -92,7 +92,7 @@ public class Gui_Test extends GuiScreen {
 
 	@Override
 	public void drawScreen(int mouseX, int mouseY, float partialTicks) {
-		this.drawDefaultBackground();
+//		this.drawDefaultBackground();
 		super.drawScreen(mouseX, mouseY, partialTicks);
 
 		for (Component comp : comps) {

@@ -1,8 +1,7 @@
 {
-	"textures" : {
-		"all" : "steve"
-		//Insert optional per Bone Texture here or 
-	},
+	"textures" : [
+		//Insert optional per Bone Texture here
+	],
 	"models" : {
 		"torso"  : [
 			{

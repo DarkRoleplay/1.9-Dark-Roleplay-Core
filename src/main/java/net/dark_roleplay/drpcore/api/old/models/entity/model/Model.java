@@ -1,4 +1,4 @@
-package net.dark_roleplay.drpcore.api.old.models.entity;
+package net.dark_roleplay.drpcore.api.old.models.entity.model;
 
 import net.dark_roleplay.drpcore.api.old.models.TexturedQuad;
 import net.minecraft.client.model.PositionTextureVertex;
@@ -6,7 +6,6 @@ import net.minecraft.client.renderer.BufferBuilder;
 
 public class Model{
 	
-	/** An array of 6 TexturedQuads, one for each face of a cube */
 	protected final TexturedQuad[] quadList;
 	private int freeQuads = 0;
 	

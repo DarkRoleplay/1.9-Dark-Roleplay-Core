@@ -11,6 +11,8 @@ import net.dark_roleplay.drpcore.common.handler.DRPCoreGuis;
 import net.dark_roleplay.drpcore.common.handler.DRPCorePackets;
 import net.dark_roleplay.drpcore.common.handler.DRPCorePerms;
 import net.dark_roleplay.drpcore.common.objects.tile_entities.blueprint_controller.TE_BlueprintController;
+import net.dark_roleplay.drpcore.modules.command_answer_gui.commands.CommandGui;
+import net.dark_roleplay.drpcore.testing.crafting.CraftingRegistry;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventHandler;
 import net.minecraftforge.fml.common.ProgressManager;
@@ -82,13 +84,13 @@ public class DarkRoleplayCore {
 		ProgressManager.pop(progressBar);
 		//TODO MOVE
 		
-		
 //		for(int i = 0; i < 25; i ++)
 //			PermissionAPI.registerNode("drpcore.test.number" + i, DefaultPermissionLevel.OP, "A Simple test Permission, not really doing anything (Number: " + i + ")");
 	}
 	
 	@EventHandler
 	public void postInit(FMLPostInitializationEvent event) {
+		CraftingRegistry.loadModRecipes();
 		proxy.postInit(event);
 		
 		ProgressBar progressBar = ProgressManager.push("Post Initializing Modules", Module.getModules().size());
@@ -104,6 +106,7 @@ public class DarkRoleplayCore {
 	
 	@EventHandler
 	public void serverLoad(FMLServerStartingEvent event){
+		event.registerServerCommand(new CommandGui("drpopengui", "drpcore.commands.opengui", "Allows to use /drpopengui to show the player a GUI and get's it's selection into a scoreboard", "opengui"));
 //		event.registerServerCommand(new CommandTest());
 //		event.registerServerCommand(new Command_Recipe("drprecipes"));
 //		event.registerServerCommand(new Command_Skill("drpskills"));

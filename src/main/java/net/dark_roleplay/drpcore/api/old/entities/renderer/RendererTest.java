@@ -1,50 +1,65 @@
 package net.dark_roleplay.drpcore.api.old.entities.renderer;
 
-import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
-import com.google.gson.Gson;
-import com.google.gson.JsonArray;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
-
-import net.dark_roleplay.drpcore.api.old.models.TexturedQuad;
 import net.dark_roleplay.drpcore.api.old.models.entity.Bone;
-import net.dark_roleplay.drpcore.api.old.models.entity.Json_Bones;
-import net.dark_roleplay.drpcore.api.old.models.entity.Json_Models;
-import net.dark_roleplay.drpcore.api.old.models.entity.Model;
-import net.dark_roleplay.drpcore.api.old.models.entity.ModelCube;
-import net.dark_roleplay.drpcore.client.ClientProxy;
+import net.dark_roleplay.drpcore.api.old.models.entity.animation.AnimationState;
+import net.dark_roleplay.drpcore.api.old.models.entity.serialization.Json_Animation;
+import net.dark_roleplay.drpcore.api.old.models.entity.serialization.Json_Bones;
+import net.dark_roleplay.drpcore.api.old.models.entity.serialization.Json_Models;
 import net.dark_roleplay.drpcore.common.References;
-import net.dark_roleplay.drpcore.common.objects.entities.util.sitting.Sittable;
 import net.dark_roleplay.drpcore.testing.Testing_Entity;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.model.PositionTextureVertex;
 import net.minecraft.client.renderer.BufferBuilder;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.entity.Render;
 import net.minecraft.client.renderer.entity.RenderManager;
-import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
-import net.minecraft.client.resources.IResource;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.world.World;
+import scala.actors.threadpool.Arrays;
 
 public class RendererTest extends Render<Testing_Entity> {
 
 	ResourceLocation loc = new ResourceLocation(References.MODID + ":textures/testing/wheel.png");
 	
 	Bone[] bones;
+	Bone[] fullBoneList;
 	
 	ResourceLocation bonesFile, modelFile, animationsFile;
 	
-	public RendererTest(RenderManager renderManager, ResourceLocation bones, ResourceLocation model, ResourceLocation animationsFolder) {
+	AnimationState animationState;
+	
+	public RendererTest(RenderManager renderManager, ResourceLocation registryName) {
 		super(renderManager);
 		
-		this.bones = Json_Bones.readBonesFromJson(bones);
-		Json_Models.readModelFromJson(model, this.bones);
-		this.bonesFile = bones;
-		this.modelFile = model;
-		this.animationsFile = animationsFolder;
+		String modid = registryName.getResourceDomain();
+		String entityID = registryName.getResourcePath();
+		
+
+		this.bonesFile = new ResourceLocation(modid, "entities/" + entityID + "/bones.json");
+		this.modelFile = new ResourceLocation(modid, "entities/" + entityID + "/model.json");
+		this.animationsFile = new ResourceLocation(modid, "entities/" + entityID + "/animationstate.json");
+
+		this.bones = Json_Bones.readBonesFromJson(this.bonesFile);
+		List<Bone> fullBoneList = new ArrayList<Bone>();
+		for(Bone bone : bones) {
+			fullBoneList.add(bone);
+			addChildBones(bone, fullBoneList);
+		}
+		this.fullBoneList = fullBoneList.toArray(new Bone[fullBoneList.size()]);
+		
+		Json_Models.readModelFromJson(this.modelFile, this.bones);
+		this.animationState = Json_Animation.readStateFromJson(this.animationsFile, this.fullBoneList);
+	}
+	
+	private List<Bone> addChildBones(Bone bone, List<Bone> bones){
+		Bone[] subBones = bone.getChildren();
+		for(Bone subBone : subBones) {
+			addChildBones(subBone, bones);
+			bones.add(subBone);
+		}
+		return bones;
 	}
 	
 	@Override
@@ -70,8 +85,9 @@ public class RendererTest extends Render<Testing_Entity> {
         Tessellator tessellator = Tessellator.getInstance();
         BufferBuilder bufferbuilder = tessellator.getBuffer();
         
+        this.animationState.progressAnimation(partialTicks);
         for(Bone bone : bones){
-        	bone.render(bufferbuilder, 1F);
+        	bone.render(bufferbuilder, 1F, this.animationState);
         }
         
         GlStateManager.disableAlpha();

@@ -1,8 +1,9 @@
-package net.dark_roleplay.drpcore.api.old.models.entity;
+package net.dark_roleplay.drpcore.api.old.models.entity.serialization;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 
+import net.dark_roleplay.drpcore.api.old.models.entity.Bone;
 import net.dark_roleplay.drpcore.client.ClientProxy;
 import net.dark_roleplay.drpcore.common.References;
 import net.minecraft.util.ResourceLocation;
