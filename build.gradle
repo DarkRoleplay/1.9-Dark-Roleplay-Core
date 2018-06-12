@@ -10,8 +10,8 @@ buildscript {
 apply plugin: 'net.minecraftforge.gradle.forge'
 
 version = "0.3.6"
-group= "net.dark_roleplay.core"
-archivesBaseName = "Dark Roleplay Core Alpha"
+group= "net.dark_roleplay"
+archivesBaseName = "core"
 
 sourceCompatibility = targetCompatibility = '1.8'
 compileJava {
@@ -19,9 +19,9 @@ compileJava {
 }
 
 minecraft {
-    version = "1.12.2-14.23.2.2640"
+    version = "1.12.2-14.23.4.2703"
     runDir = "run"
-	
+    
     mappings = "snapshot_20171003"
 }
 
@@ -56,4 +56,15 @@ processResources {
     from(sourceSets.main.resources.srcDirs) {
         exclude 'mcmod.info'
     }
+	
+	rename '(.+_at.cfg)', 'META-INF/$1'
+}
+
+manifest {
+	attributes([
+		'FMLAT': "drpcore_at.cfg",
+		'ContainedDeps': "drplibrary-1.12.2-0.1.0.jar",
+		'Maven-Artifact': "${project.group}:${project.archivesBaseName}:${project.version}",
+		'Timestamp': System.currentTimeMillis()
+	])
 }
