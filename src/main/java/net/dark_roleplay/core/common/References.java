@@ -63,15 +63,14 @@ public class References {
 		
 		FOLDER_MAIN = new File(event.getModConfigurationDirectory().getParentFile().getPath() + "/dark roleplay/");
 		FOLDER_MAIN.mkdirs();
-		 
 		
 		FOLDER_RECIPES = new File(FOLDER_MAIN.getPath() + "/recipes/");
 		FOLDER_RECIPES.mkdirs();
-		
+
+		FOLDER_BLUEPRINTS = new File(FOLDER_MAIN.getPath() + "/blueprints/");
+		FOLDER_BLUEPRINTS.mkdirs();
 		
 		if(SIDE.isServer()) {
-			FOLDER_BLUEPRINTS = new File(FOLDER_MAIN.getPath() + "/blueprints/");
-			FOLDER_BLUEPRINTS.mkdirs();
 			
 			FOLDER_PERMISSIONS = new File(FOLDER_MAIN.getPath() + "/permissions/");
 			FOLDER_PERMISSIONS.mkdirs();

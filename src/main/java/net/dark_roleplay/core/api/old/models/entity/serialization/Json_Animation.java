@@ -42,10 +42,8 @@ public class Json_Animation {
 		int frames = element.get("frames").getAsInt();
 		
 		JsonObject subAnimations = element.get("animation").getAsJsonObject();
-		Map<Bone, BoneAnimation> boneAnimation = new HashMap<Bone, BoneAnimation>();
-		System.out.println(loc);
-		
-		System.out.println(bones);
+		Map<Bone, BoneAnimation> boneAnimation = new HashMap<Bone, BoneAnimation>();		
+
 		for(Bone bone : bones) {
 			if(subAnimations.has(bone.getName())) {
 				boneAnimation.put(bone, readBoneAnimationFromJson(subAnimations.get(bone.getName()).getAsJsonObject(), fps, frames));

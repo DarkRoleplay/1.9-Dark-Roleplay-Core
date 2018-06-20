@@ -26,14 +26,21 @@ minecraft {
 }
 
 repositories {
-  maven {
-    name = "Progwml6 maven"
-    url = "http://dvs1.progwml6.com/files/maven"
-  }
-  maven {
-    name = "ModMaven"
-    url = "modmaven.k-4u.nl"
-  }
+	//JEI
+	maven {
+		name = "Progwml6 maven"
+		url = "http://dvs1.progwml6.com/files/maven"
+	}
+	maven {
+		name = "DarkRoleplayMaven"
+		url = "http://dark-roleplay.net/files/maven/"
+	}
+}
+
+configurations {
+    // configuration that holds jars to embed inside the jar
+    embed
+    compile.extendsFrom(embed)
 }
 
 dependencies {
@@ -41,6 +48,8 @@ dependencies {
   deobfProvided "mezz.jei:jei_${mc_version}:${jei_version}:api"
   // at runtime, use the full JEI jar
   runtime "mezz.jei:jei_${mc_version}:${jei_version}"
+  
+  embed "darkroleplay.library:drplibrary-${mc_version}:${drp_library_version}"
 }
 
 processResources {
@@ -60,11 +69,18 @@ processResources {
 	rename '(.+_at.cfg)', 'META-INF/$1'
 }
 
-manifest {
-	attributes([
-		'FMLAT': "drpcore_at.cfg",
-		'ContainedDeps': "drplibrary-1.12.2-0.1.0.jar",
-		'Maven-Artifact': "${project.group}:${project.archivesBaseName}:${project.version}",
-		'Timestamp': System.currentTimeMillis()
-	])
+
+jar{
+	into('META-INF/libraries'){
+		from configurations.embed
+	}
+
+	manifest {
+		attributes([
+			'FMLAT': "drpcore_at.cfg",
+            'ContainedDeps': configurations.embed.collect { it.getName() }.join(' '),
+			'Maven-Artifact': "${project.group}:${project.archivesBaseName}:${project.version}",
+			'Timestamp': System.currentTimeMillis()
+		])
+	}
 }

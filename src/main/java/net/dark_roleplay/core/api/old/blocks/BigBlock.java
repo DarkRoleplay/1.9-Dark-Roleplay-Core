@@ -8,6 +8,7 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.Mirror;
 import net.minecraft.util.Rotation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
@@ -26,16 +27,16 @@ public class BigBlock extends Block{
 	public void onBlockPlacedBy(World world, BlockPos pos, IBlockState state, EntityLivingBase placer, ItemStack stack){
 		switch(placer.getHorizontalFacing()){
 		case EAST:
-			blueprint.build(world, pos, Rotation.CLOCKWISE_90);
+			blueprint.build(world, pos, Rotation.CLOCKWISE_90, Mirror.NONE);
 			break;
 		case NORTH:
-			blueprint.build(world, pos, Rotation.NONE);
+			blueprint.build(world, pos, Rotation.NONE, Mirror.NONE);
 			break;
 		case SOUTH:
-			blueprint.build(world, pos, Rotation.CLOCKWISE_180);
+			blueprint.build(world, pos, Rotation.CLOCKWISE_180, Mirror.NONE);
 			break;
 		case WEST:
-			blueprint.build(world, pos, Rotation.COUNTERCLOCKWISE_90);
+			blueprint.build(world, pos, Rotation.COUNTERCLOCKWISE_90, Mirror.NONE);
 			break;
 		default:
 			break;

@@ -13,6 +13,8 @@ import net.dark_roleplay.library.blueprints.BlueprintUtil;
 import net.dark_roleplay.library.networking.PacketBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.Mirror;
+import net.minecraft.util.Rotation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.common.network.ByteBufUtils;
@@ -77,7 +79,7 @@ public class Packet_LoadBlueprint extends PacketBase.Server<Packet_LoadBlueprint
 					try {
 						Blueprint bp = BlueprintUtil.readFromFile(new FileInputStream(structure));
 						if(bp != null){
-							bp.build(te.getWorld(), te.getPos().add(te.getOffset()));
+							bp.build(te.getWorld(), te.getPos().add(te.getOffset()), Rotation.NONE, Mirror.NONE);
 						}
 					} catch (FileNotFoundException e) {
 						e.printStackTrace();

@@ -83,7 +83,7 @@ public class Packet_SaveBlueprint extends PacketBase.Server<Packet_SaveBlueprint
 				te.setMode(message.mode);
 				te.markDirty();
 				
-				File structure = new File("./test/village.blueprint");//References.FOLDER_BLUEPRINTS.getPath() + "/" + message.name + ".blueprint");
+				File structure = new File(References.FOLDER_BLUEPRINTS.getPath() + "/" + message.name + ".blueprint");
 				structure.getParentFile().mkdirs();
 				
 				Blueprint bp = BlueprintUtil.createBlueprint(te.getWorld(), te.getPos().add(message.offset.getX(), message.offset.getY(), message.offset.getZ()), (short) message.size.getX(), (short) message.size.getY(), (short) message.size.getZ(), message.name, message.architects);

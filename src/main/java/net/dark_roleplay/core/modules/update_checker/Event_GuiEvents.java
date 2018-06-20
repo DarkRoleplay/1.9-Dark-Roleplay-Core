@@ -16,7 +16,6 @@ public class Event_GuiEvents {
 	@SubscribeEvent
 	public static void guiInit(GuiScreenEvent.InitGuiEvent event) {
 		if(event.getGui() instanceof GuiMainMenu && !Modules.UPDATE_CHECKER.mods.isEmpty()) {
-			System.out.println("GuiMainMenu");
 			GuiMainMenu menu = (GuiMainMenu) event.getGui();
 			GuiButton updateAvailableButton = new GuiButton(222, menu.width - 105, 5, 100, 20, "Updates Available!" );
 			event.getButtonList().add(updateAvailableButton);

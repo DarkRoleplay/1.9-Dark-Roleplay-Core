@@ -153,6 +153,7 @@ public class CraftingRegistry {
 			
 			File recipesIDMapping = new File(worldFolder.getPath() + "/data/drp/recipes.dat");
 			if(!recipesIDMapping.exists()) {
+				recipesIDMapping.getParentFile().mkdirs();
 				recipesIDMapping.createNewFile();
 
 				
