@@ -1,17 +1,12 @@
 package net.dark_roleplay.core.testing.skills;
 
 import net.dark_roleplay.core.common.References;
-import net.minecraft.block.Block;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.common.Mod.EventHandler;
-import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.registry.GameRegistry.ObjectHolder;
 import net.minecraftforge.registries.ForgeRegistry;
-import net.minecraftforge.registries.IForgeRegistry;
-import net.minecraftforge.registries.IForgeRegistryModifiable;
 import net.minecraftforge.registries.RegistryBuilder;
 
 @Mod.EventBusSubscriber(modid = References.MODID)
@@ -29,7 +24,7 @@ public class SkillRegistries {
 	public static void register(RegistryEvent.NewRegistry event) {
 		System.out.println("DEBUG SERACH ME");
 		
-		RegistryBuilder builder = new RegistryBuilder();
+		RegistryBuilder<SkillPoint> builder = new RegistryBuilder<SkillPoint>();
 		builder.setType(SkillPoint.class);
 		builder.setName(new ResourceLocation(References.MODID, "skill_points"));
 		builder.allowModification();
@@ -37,7 +32,7 @@ public class SkillRegistries {
 		builder.disableOverrides();
 		SKILL_POINTS = (ForgeRegistry<SkillPoint>) builder.create();
 		
-		RegistryBuilder builderSkills = new RegistryBuilder();
+		RegistryBuilder<Skill> builderSkills = new RegistryBuilder<Skill>();
 		builderSkills.setType(Skill.class);
 		builderSkills.setName(new ResourceLocation(References.MODID, "skills"));
 		builderSkills.allowModification();
@@ -45,7 +40,7 @@ public class SkillRegistries {
 		builderSkills.disableOverrides();
 		SKILLS = (ForgeRegistry<Skill>) builderSkills.create();
 
-		RegistryBuilder builderSkillTrees = new RegistryBuilder();
+		RegistryBuilder<SkillTree> builderSkillTrees = new RegistryBuilder<SkillTree>();
 		builderSkillTrees.setType(SkillTree.class);
 		builderSkillTrees.setName(new ResourceLocation(References.MODID, "skill_trees"));
 		builderSkillTrees.allowModification();

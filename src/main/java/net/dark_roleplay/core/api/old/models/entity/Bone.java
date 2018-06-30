@@ -6,8 +6,6 @@ import java.util.List;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 
-import it.unimi.dsi.fastutil.Arrays;
-import net.dark_roleplay.core.api.old.models.TexturedQuad;
 import net.dark_roleplay.core.api.old.models.entity.animation.AnimationState;
 import net.dark_roleplay.core.api.old.models.entity.animation.BoneAnimation;
 import net.dark_roleplay.core.api.old.models.entity.model.Model;

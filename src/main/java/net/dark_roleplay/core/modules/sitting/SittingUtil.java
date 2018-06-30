@@ -5,7 +5,6 @@ import java.util.List;
 import net.dark_roleplay.core.modules.sitting.entities.Sittable;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.math.AxisAlignedBB;
-import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraft.world.World;
 
 public class SittingUtil {

@@ -1,7 +1,6 @@
 package net.dark_roleplay.library_old.items;
 
 import net.minecraft.creativetab.CreativeTabs;
-import net.minecraft.item.EnumAction;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.NonNullList;

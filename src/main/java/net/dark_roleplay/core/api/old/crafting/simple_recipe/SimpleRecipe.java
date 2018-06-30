@@ -5,13 +5,10 @@ import java.util.Arrays;
 import mezz.jei.api.ingredients.IIngredients;
 import mezz.jei.api.recipe.IRecipeWrapper;
 import net.dark_roleplay.core.common.crafting.CraftingRegistry;
-import net.dark_roleplay.core.common.handler.DRPCoreCapabilities;
 import net.minecraft.block.Block;
-import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.common.Optional.Interface;
-import net.minecraftforge.registries.IForgeRegistryEntry;
 
 
 @Interface(iface="mezz.jei.api.recipe.IRecipeWrapper",modid="jei")

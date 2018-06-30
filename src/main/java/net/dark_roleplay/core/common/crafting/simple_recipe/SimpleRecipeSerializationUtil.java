@@ -1,15 +1,10 @@
 package net.dark_roleplay.core.common.crafting.simple_recipe;
 
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.io.PrintWriter;
-import java.nio.file.Files;
-import java.util.ArrayList;
 
 import net.dark_roleplay.core.api.old.crafting.simple_recipe.SimpleRecipe;
-import net.dark_roleplay.library.blueprints.Blueprint;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompressedStreamTools;
 import net.minecraft.nbt.NBTTagCompound;

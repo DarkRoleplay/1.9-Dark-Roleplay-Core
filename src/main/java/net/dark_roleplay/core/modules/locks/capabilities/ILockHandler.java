@@ -3,7 +3,6 @@ package net.dark_roleplay.core.modules.locks.capabilities;
 import java.util.HashMap;
 import java.util.Map.Entry;
 
-import net.dark_roleplay.core.modules.crops.ICropHandler;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;

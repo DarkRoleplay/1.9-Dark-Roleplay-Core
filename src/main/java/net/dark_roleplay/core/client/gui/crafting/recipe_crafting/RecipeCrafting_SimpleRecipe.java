@@ -58,7 +58,7 @@ public class RecipeCrafting_SimpleRecipe extends DRPGuiScreen implements ITimedG
 	
 	public RecipeCrafting_SimpleRecipe(SimpleRecipe recipe, RecipeSelection parent) {
 		super(bg, 178, 161);
-		this.recipe = recipe;
+		RecipeCrafting_SimpleRecipe.recipe = recipe;
 		this.parent = parent;
 	}
 	
@@ -228,14 +228,14 @@ public class RecipeCrafting_SimpleRecipe extends DRPGuiScreen implements ITimedG
 	protected void actionPerformed(GuiButton button) throws IOException {
 
 		if (button.id == this.craft.id) {
-			DRPCorePackets.sendToServer(new Packet_InitSimpleRecipe(this.recipe.getRegistryString(), this.multiplier));
+			DRPCorePackets.sendToServer(new Packet_InitSimpleRecipe(RecipeCrafting_SimpleRecipe.recipe.getRegistryString(), this.multiplier));
 			if(this.multiplier == 1)
 				this.craftButtonHold = 1;
 		} else if (button.id == this.ingScrollLeft.id) {
 			if (this.currentIngredientOffset - 1 >= 0)
 				this.currentIngredientOffset--;
 		} else if (button.id == this.ingScrollRight.id) {
-			if (this.currentIngredientOffset + 9 < this.recipe.getMainIngredients().length)
+			if (this.currentIngredientOffset + 9 < RecipeCrafting_SimpleRecipe.recipe.getMainIngredients().length)
 				this.currentIngredientOffset++;
 		} else if (button.id == this.incMultiplier.id) {
 			if(this.multiplier - 1 > 0)
@@ -267,7 +267,7 @@ public class RecipeCrafting_SimpleRecipe extends DRPGuiScreen implements ITimedG
 				ticksTillCraft--;
 				if (ticksTillCraft <= 0) {
 					ticksTillCraft = 3;
-					DRPCorePackets.sendToServer(new Packet_InitSimpleRecipe(this.recipe.getRegistryString(), this.multiplier));
+					DRPCorePackets.sendToServer(new Packet_InitSimpleRecipe(RecipeCrafting_SimpleRecipe.recipe.getRegistryString(), this.multiplier));
 				}
 			}
 		} else if (this.craftButtonHold > 0) {

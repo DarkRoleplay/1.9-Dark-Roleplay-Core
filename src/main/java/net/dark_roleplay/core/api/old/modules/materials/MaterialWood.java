@@ -2,8 +2,6 @@ package net.dark_roleplay.core.api.old.modules.materials;
 
 import java.awt.image.BufferedImage;
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
 
 import javax.imageio.ImageIO;
 
@@ -23,7 +21,7 @@ public class MaterialWood extends Material{
 	public MaterialWood(String name, ResourceLocation bark, ResourceLocation plank, ResourceLocation cleanPlank, ResourceLocation logTop) {
 		super("wood", "%wood%", name, Material.ResourceGeneratorType.TEXTURES);
 		
-		if(Modules.MATERIALS.side.isClient()){
+		if(Module_Material.side.isClient()){
 			ProgressBar progressBar = ProgressManager.push("Loading wood Textures for " + name, 4);
 			progressBar.step("bark: " + bark.toString());
 			try{

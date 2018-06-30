@@ -1,6 +1,5 @@
 package net.dark_roleplay.core.modules.date.capabilities;
 
-import net.dark_roleplay.core.modules.crops.ICropHandler;
 import net.dark_roleplay.core.modules.date.Date;
 import net.dark_roleplay.core.modules.date.Season;
 

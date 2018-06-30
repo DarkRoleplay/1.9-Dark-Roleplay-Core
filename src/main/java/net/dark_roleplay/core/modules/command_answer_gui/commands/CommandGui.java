@@ -10,7 +10,6 @@ import net.dark_roleplay.core.modules.command_answer_gui.network.Packet_OpenGui;
 import net.dark_roleplay.library_old.commands.DRPCommand;
 import net.minecraft.command.CommandException;
 import net.minecraft.command.ICommandSender;
-import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.math.BlockPos;

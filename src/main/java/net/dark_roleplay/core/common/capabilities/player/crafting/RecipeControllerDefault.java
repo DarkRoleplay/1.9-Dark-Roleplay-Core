@@ -5,11 +5,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import it.unimi.dsi.fastutil.Arrays;
-import net.dark_roleplay.core.common.util.toasts.ToastController;
-import net.minecraft.item.ItemStack;
-import net.minecraftforge.oredict.OreDictionary;
-
 public class RecipeControllerDefault implements IRecipeController{
 	
 	private List<String> lockedRecipes = new ArrayList<String>();

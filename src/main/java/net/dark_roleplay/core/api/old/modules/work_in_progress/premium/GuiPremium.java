@@ -1,10 +1,6 @@
 package net.dark_roleplay.core.api.old.modules.work_in_progress.premium;
 
 import net.dark_roleplay.core.api.old.gui.DRPGuiScreen;
-import net.dark_roleplay.core.api.old.modules.crafting.Panel_Categories;
-import net.dark_roleplay.core.api.old.modules.crafting.Panel_Craft;
-import net.dark_roleplay.core.api.old.modules.crafting.Panel_Recipes;
-import net.dark_roleplay.core.modules.Modules;
 
 public class GuiPremium extends DRPGuiScreen{
 

@@ -1,7 +1,6 @@
 package net.dark_roleplay.core.api.old.modules.materials;
 
 import java.awt.image.BufferedImage;
-import java.util.Map;
 
 public abstract class Material {
 

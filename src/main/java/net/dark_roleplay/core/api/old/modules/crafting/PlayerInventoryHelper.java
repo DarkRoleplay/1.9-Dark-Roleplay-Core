@@ -1,7 +1,5 @@
 package net.dark_roleplay.core.api.old.modules.crafting;
 
-import java.util.List;
-
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.item.ItemStack;

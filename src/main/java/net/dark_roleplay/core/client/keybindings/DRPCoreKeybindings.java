@@ -1,12 +1,8 @@
 package net.dark_roleplay.core.client.keybindings;
 
-import java.io.BufferedInputStream;
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.io.InputStream;
 
 import org.apache.commons.lang3.ArrayUtils;
 import org.lwjgl.input.Keyboard;
@@ -17,31 +13,17 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 
 import net.dark_roleplay.core.api.old.crafting.Crafting_Util;
-import net.dark_roleplay.core.client.build_mode.BuildingViewerHelper;
-import net.dark_roleplay.core.client.build_mode.EntityViewer;
 import net.dark_roleplay.core.common.References;
 import net.dark_roleplay.core.common.config.Client;
 import net.dark_roleplay.core.common.config.Debug;
-import net.dark_roleplay.core.common.handler.DRPCoreConfigs;
-import net.dark_roleplay.core.common.util.toasts.ToastController;
-import net.dark_roleplay.core.modules.blueprints.BlueprintPreview;
 import net.dark_roleplay.core.modules.hud.HudLoader;
-import net.dark_roleplay.core.modules.update_checker.Gui_UpdateInformation;
-import net.dark_roleplay.core.testing.crafting.CraftingRegistry;
-import net.dark_roleplay.core.testing.crafting.gui.Crafting5;
-import net.dark_roleplay.library.blueprints.Blueprint;
-import net.dark_roleplay.library.blueprints.BlueprintUtil;
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.settings.KeyBinding;
-import net.minecraft.entity.passive.EntitySheep;
-import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.math.AxisAlignedBB;
-import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.config.Config;
 import net.minecraftforge.common.config.ConfigManager;
@@ -102,20 +84,20 @@ public class DRPCoreKeybindings {
 	
 	@SubscribeEvent
 	public void KeyInput(KeyInputEvent event) {
-		if(this.GUI_CRAFTING.isKeyDown()) {
+		if(GUI_CRAFTING.isKeyDown()) {
 			Crafting_Util.openRecipeSelection(Blocks.AIR, Minecraft.getMinecraft().player.getPosition().add(0, -1, 0), 0f, -90f);
 			References.CRAFTING_TUT.hide();
 //		}else if(this.GUI_SKILLS.isKeyDown()){
 //			ToastController.displayInfoToast("dpcore.featureNotImplemented", null);
 //		}else if(this.GUI_VARIATIONS.isKeyDown()){
 //			ToastController.displayInfoToast("dpcore.featureNotImplemented", null);
-		}else if(this.RELOAD_HUD.isKeyDown()) {
+		}else if(RELOAD_HUD.isKeyDown()) {
 			HudLoader.initializeHuds();
-		}else if(this.TOGGLE_PLACEMENT_PREVIEW.isKeyDown()) {
+		}else if(TOGGLE_PLACEMENT_PREVIEW.isKeyDown()) {
 			Client.BUILDING.PLACEMENT_PREVIEW = !Client.BUILDING.PLACEMENT_PREVIEW;
 			ConfigManager.sync(References.MODID, Config.Type.INSTANCE);
 		}
-		else if(Debug.DEBUG_KEY && this.debugging.isKeyDown()) {
+		else if(Debug.DEBUG_KEY && debugging.isKeyDown()) {
 			
 			
 //			File structure = new File("./test/just_a_test.blueprint");

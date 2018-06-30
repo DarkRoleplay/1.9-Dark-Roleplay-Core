@@ -1,9 +1,6 @@
 package net.dark_roleplay.library_old.images;
 
 import java.awt.image.BufferedImage;
-import java.awt.image.DataBufferByte;
-import java.awt.image.DataBufferInt;
-import java.awt.image.IndexColorModel;
 
 import net.minecraft.nbt.NBTTagCompound;
 

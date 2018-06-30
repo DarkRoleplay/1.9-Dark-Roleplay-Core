@@ -1,7 +1,5 @@
 package net.dark_roleplay.core.client.events.rendering;
 
-import java.util.List;
-
 import net.dark_roleplay.core.common.References;
 import net.dark_roleplay.core.common.config.Client;
 import net.dark_roleplay.core.common.handler.DRPCoreConfigs;

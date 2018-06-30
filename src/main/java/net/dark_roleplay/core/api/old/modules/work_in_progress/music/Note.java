@@ -1,7 +1,6 @@
 package net.dark_roleplay.core.api.old.modules.work_in_progress.music;
 
 import net.minecraft.client.Minecraft;
-import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.BlockPos;

@@ -1,13 +1,10 @@
 package net.dark_roleplay.core.api.old.modules.crafting;
 
 import net.dark_roleplay.core.api.old.gui.DRPGuiScreen;
-import net.dark_roleplay.core.api.old.modules.gui.HorizontalPanel;
-import net.dark_roleplay.core.api.old.modules.gui.HorizontalScrollBar;
 import net.dark_roleplay.core.api.old.modules.gui.IntegerWrapper;
-import net.dark_roleplay.core.api.old.modules.gui.Panel;
 import net.dark_roleplay.core.common.References;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiScreen;
+import net.minecraft.client.gui.Gui;
 import net.minecraft.util.ResourceLocation;
 
 public class GuiCrafting extends DRPGuiScreen{
@@ -40,10 +37,10 @@ public class GuiCrafting extends DRPGuiScreen{
 		this.drawDefaultBackground();
 
         Minecraft.getMinecraft().getTextureManager().bindTexture(BG);
-		this.drawScaledCustomSizeModalRect(4, 4, 0, 0, 6, 6, 6, 6, 64, 64);
-		this.drawScaledCustomSizeModalRect(4, this.height - 10, 0, 58, 6, 6, 6, 6, 64, 64);
-		this.drawScaledCustomSizeModalRect(this.width - 10, 4, 58, 0, 6, 6, 6, 6, 64, 64);
-		this.drawScaledCustomSizeModalRect(this.width - 10, this.height - 10, 58, 58, 6, 6, 6, 6, 64, 64);
+        Gui.drawScaledCustomSizeModalRect(4, 4, 0, 0, 6, 6, 6, 6, 64, 64);
+        Gui.drawScaledCustomSizeModalRect(4, this.height - 10, 0, 58, 6, 6, 6, 6, 64, 64);
+        Gui.drawScaledCustomSizeModalRect(this.width - 10, 4, 58, 0, 6, 6, 6, 6, 64, 64);
+        Gui.drawScaledCustomSizeModalRect(this.width - 10, this.height - 10, 58, 58, 6, 6, 6, 6, 64, 64);
 		this.drawTiled(4, 10, 6, this.height - 19, 0, 6, 6, 52, 64, 64);
 		this.drawTiled(this.width - 10, 10, 6, this.height - 19, 58, 6, 6, 52, 64, 64);
 		this.drawTiled(10, 4, this.width - 19, 6, 6, 0, 52, 6, 64, 64);

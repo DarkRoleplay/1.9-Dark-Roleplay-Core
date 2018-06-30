@@ -1,7 +1,5 @@
 package net.dark_roleplay.core.common.objects.packets.chunks;
 
-import java.util.concurrent.Callable;
-
 import io.netty.buffer.ByteBuf;
 import net.dark_roleplay.core.common.handler.DRPCoreCapabilities;
 import net.dark_roleplay.core.modules.locks.capabilities.ILockHandler;

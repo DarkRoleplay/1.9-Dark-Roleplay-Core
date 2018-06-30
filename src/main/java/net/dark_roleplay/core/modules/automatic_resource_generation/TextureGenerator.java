@@ -96,14 +96,14 @@ public class TextureGenerator {
 					case "overlay":
 						if(texture != null){
 							for(Material mat : materials){
-								base.put(mat.getFormatValue(), overlay(base.get(mat.getFormatValue()), !cached ? requiredTextures[texture.getAsInt()] : this.cache.containsKey(mat.getFormatted(texture.getAsString())) ? this.cache.get(mat.getFormatted(texture.getAsString())) : this.globalCache.get(mat.getFormatted(texture.getAsString()))));
+								base.put(mat.getFormatValue(), overlay(base.get(mat.getFormatValue()), !cached ? requiredTextures[texture.getAsInt()] : this.cache.containsKey(mat.getFormatted(texture.getAsString())) ? this.cache.get(mat.getFormatted(texture.getAsString())) : TextureGenerator.globalCache.get(mat.getFormatted(texture.getAsString()))));
 							}
 						}
 						break;
 					case "mask":
 						if(texture != null){
 							for(Material mat : materials){
-								base.put(mat.getFormatValue(), mask(base.get(mat.getFormatValue()), !cached ? requiredTextures[texture.getAsInt()] : this.cache.containsKey(mat.getFormatted(texture.getAsString())) ? this.cache.get(mat.getFormatted(texture.getAsString())) : this.globalCache.get(mat.getFormatted(texture.getAsString()))));
+								base.put(mat.getFormatValue(), mask(base.get(mat.getFormatValue()), !cached ? requiredTextures[texture.getAsInt()] : this.cache.containsKey(mat.getFormatted(texture.getAsString())) ? this.cache.get(mat.getFormatted(texture.getAsString())) : TextureGenerator.globalCache.get(mat.getFormatted(texture.getAsString()))));
 							}
 						}
 						break;
@@ -134,7 +134,7 @@ public class TextureGenerator {
 				}else if(obj.has("cache")){
 					this.cache.put(obj.get("cache").getAsString().replace("%wood%", key), base.get(key));
 				}else if(obj.has("global_cache")){
-					this.globalCache.put(obj.get("global_cache").getAsString().replace("%wood%", key), base.get(key));
+					TextureGenerator.globalCache.put(obj.get("global_cache").getAsString().replace("%wood%", key), base.get(key));
 				}
 			}
 		}

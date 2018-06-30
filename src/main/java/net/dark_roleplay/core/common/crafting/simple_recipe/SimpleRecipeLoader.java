@@ -1,15 +1,7 @@
 package net.dark_roleplay.core.common.crafting.simple_recipe;
 
-import java.io.InputStreamReader;
-import java.io.Reader;
-
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-
-import net.minecraft.block.Block;
-import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.JsonToNBT;
-import net.minecraft.nbt.NBTTagCompound;
 
 public class SimpleRecipeLoader {
 

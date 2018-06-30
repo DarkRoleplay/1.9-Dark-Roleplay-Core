@@ -1,8 +1,5 @@
 package net.dark_roleplay.core.common.util.premium;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class PremiumData {
 	
 	private int premiumPoints;

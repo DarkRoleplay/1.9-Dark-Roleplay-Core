@@ -157,8 +157,6 @@ public abstract class Hud extends IForgeRegistryEntry.Impl<Hud> {
 	 * Draws a textured rectangle at the current z-value.
 	 */
 	public void drawTexturedModalRect(int x, int y, int textureX, int textureY, int width, int height) {
-		float f = 0.00390625F;
-		float f1 = 0.00390625F;
 		Tessellator tessellator = Tessellator.getInstance();
 		BufferBuilder bufferbuilder = tessellator.getBuffer();
 		bufferbuilder.begin(7, DefaultVertexFormats.POSITION_TEX);

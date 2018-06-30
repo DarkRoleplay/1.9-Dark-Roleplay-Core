@@ -3,8 +3,6 @@ package net.dark_roleplay.core.modules.update_checker;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Locale;
 import java.util.Set;
 
@@ -14,14 +12,7 @@ import net.dark_roleplay.core.modules.Modules;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiConfirmOpenLink;
-import net.minecraft.client.gui.GuiLabel;
 import net.minecraft.client.gui.GuiScreen;
-import net.minecraft.client.gui.GuiYesNoCallback;
-import net.minecraft.client.resources.I18n;
-import net.minecraftforge.common.ForgeVersion;
-import net.minecraftforge.common.ForgeVersion.CheckResult;
-import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.common.ModContainer;
 
 public class Gui_UpdateInformation extends GuiScreen{
 
@@ -40,7 +31,7 @@ public class Gui_UpdateInformation extends GuiScreen{
 	public Gui_UpdateInformation(){
 		
 		
-		if(Modules.UPDATE_CHECKER.mods.isEmpty()) {
+		if(Module_UpdateChecker.mods.isEmpty()) {
 			this.mc.displayGuiScreen(null);
 		}
 	}
@@ -57,29 +48,29 @@ public class Gui_UpdateInformation extends GuiScreen{
 	
 	@Override
 	public void drawScreen(int mouseX, int mouseY, float partialTicks){
-		if(this.currentMod >= Modules.UPDATE_CHECKER.mods.size()) {
+		if(this.currentMod >= Module_UpdateChecker.mods.size()) {
 			this.mc.displayGuiScreen(null);
 		}
 		this.drawBackground(0);
 		
-		if((Modules.UPDATE_CHECKER.mods.size()) == 1) {
+		if((Module_UpdateChecker.mods.size()) == 1) {
 			this.fontRenderer.drawString("There's 1 mod outdated!", 7, 5,0xFFFFFFFF);
 		}else {
-			this.fontRenderer.drawString("There are " + Modules.UPDATE_CHECKER.mods.size() + " mods outdated!", 7, 5,0xFFFFFFFF);
+			this.fontRenderer.drawString("There are " + Module_UpdateChecker.mods.size() + " mods outdated!", 7, 5,0xFFFFFFFF);
 		}
 		
 		this.drawGradientRect(0, 30, this.width, this.height - 30, 0x80000000, 0x80000000);
 		
 		int offsetTop = 25;
 		
-		UpdateInfo info = Modules.UPDATE_CHECKER.mods.get(this.currentMod);
+		UpdateInfo info = Module_UpdateChecker.mods.get(this.currentMod);
 		if(info.getChangelog().isEmpty()) {
 			this.fontRenderer.drawString("No Changelog provided :(", 15, offsetTop + 10, 0xFFFFFFFF);
 		}
 		
 		this.fontRenderer.drawString("Changelog - " + info.getModname(), 7, 18, 0xFFFFFFFF);
 		
-		this.fontRenderer.drawString(this.currentMod + 1 + "/" + Modules.UPDATE_CHECKER.mods.size(), (this.width - this.fontRenderer.getStringWidth(this.currentMod + 1 + "/" + Modules.UPDATE_CHECKER.mods.size())) / 2, this.height - 20, 0xFFFFFFFF);
+		this.fontRenderer.drawString(this.currentMod + 1 + "/" + Module_UpdateChecker.mods.size(), (this.width - this.fontRenderer.getStringWidth(this.currentMod + 1 + "/" + Module_UpdateChecker.mods.size())) / 2, this.height - 20, 0xFFFFFFFF);
 		
 		for(int i = 0; i < info.getVersions().size(); i++) {
 			this.fontRenderer.drawString(info.getVersions().get(i), 15, offsetTop += 10, 0xFFFFFFFF);
@@ -93,7 +84,7 @@ public class Gui_UpdateInformation extends GuiScreen{
 	protected void actionPerformed(GuiButton button) throws IOException{
 		if(button == btnDownload) {
 			downloadMod();
-		}else if(button == btnNext && this.currentMod + 1 < Modules.UPDATE_CHECKER.mods.size()) {
+		}else if(button == btnNext && this.currentMod + 1 < Module_UpdateChecker.mods.size()) {
 			this.currentMod ++;
 		}else if(button == btnPrev && this.currentMod - 1 >= 0) {
 			this.currentMod --;
@@ -106,7 +97,7 @@ public class Gui_UpdateInformation extends GuiScreen{
     private static final Set<String> PROTOCOLS = Sets.newHashSet("http", "https");
 	private void downloadMod() {
 		try{
-            URI uri = Modules.UPDATE_CHECKER.mods.get(this.currentMod).getUpdateURL();
+            URI uri = Module_UpdateChecker.mods.get(this.currentMod).getUpdateURL();
             String s = uri.getScheme();
 
             if (s == null) {

@@ -5,7 +5,6 @@ import com.google.gson.JsonElement;
 
 import net.dark_roleplay.core.api.old.models.entity.Bone;
 import net.dark_roleplay.core.client.ClientProxy;
-import net.dark_roleplay.core.common.References;
 import net.minecraft.util.ResourceLocation;
 
 public class Json_Bones {

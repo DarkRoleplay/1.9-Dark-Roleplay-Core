@@ -2,18 +2,10 @@ package net.dark_roleplay.core.client.build_mode;
 
 import java.io.IOException;
 
-import org.lwjgl.input.Keyboard;
 import org.lwjgl.input.Mouse;
 
 import net.dark_roleplay.core.testing.gui_testing.Gui_Test;
-import net.dark_roleplay.core.testing.gui_testing.components.CheckBox;
-import net.dark_roleplay.core.testing.gui_testing.components.RadioButton;
-import net.dark_roleplay.core.testing.gui_testing.components.RadioGroup;
-import net.dark_roleplay.core.testing.gui_testing.components.Switch;
-import net.dark_roleplay.core.testing.gui_testing.components.TextBox;
-import net.dark_roleplay.library_old.wrapper.BooleanWrapper;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiLabel;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.tileentity.TileEntity;
 
@@ -110,7 +102,7 @@ public class GuiBuildingViewer extends Gui_Test {
 		int rotateX = Mouse.getEventDX();
 		int rotateY = Mouse.getEventDY();
 		
-		if(this.isAltKeyDown()) {
+		if(GuiScreen.isAltKeyDown()) {
 			if(!hasGrabbedMouse) {
 				Minecraft.getMinecraft().mouseHelper.grabMouseCursor();
 				hasGrabbedMouse = true;

@@ -32,7 +32,7 @@ public class Panel_Craft extends Panel{
 //		TODO Draw Player Inventory
 //		TODO Craft Button
 //		TODO Disable Inventory Slots
-        Minecraft.getMinecraft().getTextureManager().bindTexture(parent.BG);
+        Minecraft.getMinecraft().getTextureManager().bindTexture(GuiCrafting.BG);
         
         this.drawTiled(posInvX, posInvY, 162, 72, 8, 34, 18, 18, 64, 64);
         this.drawString(this.fontRenderer, "Inventory", posInvX, posInvY - 10, 0xFFFFFFFF);

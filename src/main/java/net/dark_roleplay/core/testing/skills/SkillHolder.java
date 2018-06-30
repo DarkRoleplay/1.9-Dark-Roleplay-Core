@@ -1,10 +1,8 @@
 package net.dark_roleplay.core.testing.skills;
 
 import java.security.InvalidParameterException;
-import java.security.spec.InvalidParameterSpecException;
 
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.nbt.NBTUtil;
 import net.minecraft.util.ResourceLocation;
 
 public class SkillHolder {

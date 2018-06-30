@@ -2,27 +2,22 @@ package net.dark_roleplay.core.modules.automatic_resource_generation;
 
 import java.awt.image.BufferedImage;
 import java.io.BufferedInputStream;
-import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.FileFilter;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
-import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
 import javax.annotation.Nullable;
-import javax.imageio.ImageIO;
 
 import org.apache.commons.io.filefilter.DirectoryFileFilter;
-import org.apache.logging.log4j.LogManager;
 
 import com.google.common.collect.Sets;
 
-import net.minecraft.client.resources.FolderResourcePack;
 import net.minecraft.client.resources.IResourceManager;
 import net.minecraft.client.resources.IResourceManagerReloadListener;
 import net.minecraft.client.resources.IResourcePack;
@@ -32,8 +27,6 @@ import net.minecraft.client.resources.data.MetadataSerializer;
 import net.minecraft.client.resources.data.PackMetadataSection;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.TextComponentString;
-import net.minecraftforge.fml.common.FMLContainerHolder;
-import net.minecraftforge.fml.common.ModContainer;
 
 public class GeneratedResourcePack implements IResourcePack, IResourceManagerReloadListener {
 	

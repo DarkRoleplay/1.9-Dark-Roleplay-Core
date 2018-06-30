@@ -5,9 +5,7 @@ import java.util.List;
 
 import net.dark_roleplay.core.modules.automatic_resource_generation.GeneratedResourcePack;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.resources.FolderResourcePack;
 import net.minecraft.client.resources.IResourcePack;
-import net.minecraftforge.fml.client.FMLFolderResourcePack;
 import net.minecraftforge.fml.relauncher.ReflectionHelper;
 
 public class Reflections {

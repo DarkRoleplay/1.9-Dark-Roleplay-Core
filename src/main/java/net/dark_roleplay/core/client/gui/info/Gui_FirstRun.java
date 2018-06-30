@@ -1,16 +1,9 @@
 package net.dark_roleplay.core.client.gui.info;
 
 import java.awt.Color;
-import java.awt.Toolkit;
-import java.awt.datatransfer.Clipboard;
-import java.util.Map;
 
-import net.dark_roleplay.core.common.References;
 import net.minecraft.client.gui.FontRenderer;
-import net.minecraft.client.gui.GuiLabel;
 import net.minecraft.client.gui.GuiScreen;
-import net.minecraftforge.common.ForgeVersion.CheckResult;
-import net.minecraftforge.fml.common.versioning.ComparableVersion;
 
 public class Gui_FirstRun extends GuiScreen{
 

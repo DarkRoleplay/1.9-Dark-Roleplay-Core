@@ -5,8 +5,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.google.common.collect.Lists;
-import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
@@ -88,7 +86,7 @@ public class Song {
 				for(int k = 0; k < jaNotesIntern.size(); k += 2){
 					if(jaNotesIntern.size() > k + 1){
 						if(jaNotesIntern.get(k).getAsInt() == j)
-							internNotes.add(new Note(this.INSTRUMENTS.get(instrument), jaNotesIntern.get(k + 1).getAsInt()));
+							internNotes.add(new Note(Song.INSTRUMENTS.get(instrument), jaNotesIntern.get(k + 1).getAsInt()));
 					}
 				}
 				notes[i] = internNotes.toArray(new Note[internNotes.size()]);	

@@ -55,16 +55,18 @@ public class CraftingRegistry {
 
 	@SubscribeEvent
 	public static void registerRegistries(RegistryEvent.NewRegistry reg) {
-		RegistryBuilder builder = new RegistryBuilder();
+		RegistryBuilder<IngredientFactory> builder = new RegistryBuilder<IngredientFactory>();
 		builder.disableSaving();
 		builder.setName(new ResourceLocation(References.MODID, "ingredient_factories"));
 		builder.setType(IngredientFactory.class);
 		builder.disableOverrides();
 		ingredientFactoryRegistry = builder.create();
 		
-		builder.setName(new ResourceLocation(References.MODID, "recipe_factories"));
-		builder.setType(RecipeFactory.class);
-		recipeFactoryRegistry = builder.create();
+		RegistryBuilder<RecipeFactory> builder2 = new RegistryBuilder<RecipeFactory>();
+		builder2.disableSaving();
+		builder2.setName(new ResourceLocation(References.MODID, "recipe_factories"));
+		builder2.setType(RecipeFactory.class);
+		recipeFactoryRegistry = builder2.create();
 	}
 	
 	@SubscribeEvent

@@ -1,6 +1,5 @@
 package net.dark_roleplay.core.common.capabilities.player.crafting;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 

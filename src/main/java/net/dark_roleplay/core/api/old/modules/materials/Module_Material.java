@@ -55,7 +55,7 @@ public class Module_Material extends Module{
 
 	@Override
 	public void preInit(FMLPreInitializationEvent event){
-		this.side = event.getSide();
+		Module_Material.side = event.getSide();
 		AddMaterials<MaterialWood> woods = new AddMaterials<MaterialWood>();
 		MinecraftForge.EVENT_BUS.post(woods);
 		List<Material> materialsWood = new ArrayList<Material>();
@@ -64,7 +64,7 @@ public class Module_Material extends Module{
 		}
 		materials.put(WOOD_KEY, materialsWood);
 		
-		if(Modules.MATERIALS.side.isClient()){
+		if(Module_Material.side.isClient()){
 			AddResourceGenerators resGens = new AddResourceGenerators();
 			MinecraftForge.EVENT_BUS.post(resGens);
 			ProgressBar bar = ProgressManager.push("Generating Resources", resGens.getResourceGenerators().size());

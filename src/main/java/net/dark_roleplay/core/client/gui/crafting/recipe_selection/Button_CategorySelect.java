@@ -1,7 +1,5 @@
 package net.dark_roleplay.core.client.gui.crafting.recipe_selection;
 
-import org.lwjgl.util.Color;
-
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
 

@@ -1,6 +1,5 @@
 package net.dark_roleplay.core.client.gui.crafting.recipe_creation;
 
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.inventory.Container;
 

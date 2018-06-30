@@ -2,6 +2,7 @@ package net.dark_roleplay.core.api.old.modules.gui;
 
 import net.dark_roleplay.core.common.References;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.Gui;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.util.ResourceLocation;
 
@@ -30,10 +31,10 @@ public class HorizontalScrollBar extends IGuiElement.IMPL{
         GlStateManager.color(1F, 1F, 1F);
         
         this.drawTiled(posX + 1, posY, width - 2, height, 1, 0, 62, 7, 64, 12);
-		this.drawScaledCustomSizeModalRect(posX, posY, 0, 0, 1, 7, 1, 7, 64, 12);
-		this.drawScaledCustomSizeModalRect(posX, posY, 63, 0, 1, 7, 1, 7, 64, 12);
+		Gui.drawScaledCustomSizeModalRect(posX, posY, 0, 0, 1, 7, 1, 7, 64, 12);
+		Gui.drawScaledCustomSizeModalRect(posX, posY, 63, 0, 1, 7, 1, 7, 64, 12);
 
-		this.drawScaledCustomSizeModalRect((int) (posX + (currentScroll.get() * renderMultiplier) + 1), posY + 1, 0, 7, 11, 5, 11, 5, 64, 12);
+		Gui.drawScaledCustomSizeModalRect((int) (posX + (currentScroll.get() * renderMultiplier) + 1), posY + 1, 0, 7, 11, 5, 11, 5, 64, 12);
 	}
 	
 	@Override

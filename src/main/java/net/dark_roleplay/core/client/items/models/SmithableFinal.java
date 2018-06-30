@@ -1,19 +1,21 @@
 package net.dark_roleplay.core.client.items.models;
 
-import com.google.common.primitives.Ints;
-import net.minecraft.block.state.IBlockState;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.block.model.*;
-import net.minecraft.client.renderer.texture.TextureAtlasSprite;
-import net.minecraft.util.EnumFacing;
-import net.minecraftforge.common.model.TRSRTransformation;
-import org.apache.commons.lang3.tuple.Pair;
-
-import javax.annotation.Nullable;
-import javax.vecmath.Matrix4f;
-import java.awt.*;
+import java.awt.Color;
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.annotation.Nullable;
+
+import com.google.common.primitives.Ints;
+
+import net.minecraft.block.state.IBlockState;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.block.model.BakedQuad;
+import net.minecraft.client.renderer.block.model.IBakedModel;
+import net.minecraft.client.renderer.block.model.ItemCameraTransforms;
+import net.minecraft.client.renderer.block.model.ItemOverrideList;
+import net.minecraft.client.renderer.texture.TextureAtlasSprite;
+import net.minecraft.util.EnumFacing;
 
 public class SmithableFinal implements IBakedModel {
 
@@ -28,7 +30,7 @@ public class SmithableFinal implements IBakedModel {
 			return parentModel.getQuads(state, side, rand);
 		}
 
-		List<BakedQuad> combinedQuadsList = new ArrayList(parentModel.getQuads(state, side, rand));
+		List<BakedQuad> combinedQuadsList = new ArrayList<BakedQuad>(parentModel.getQuads(state, side, rand));
 		combinedQuadsList.addAll(getChessPiecesQuads(numberOfChessPieces));
 		return combinedQuadsList;
 		// FaceBakery.makeBakedQuad() can also be useful for generating quads

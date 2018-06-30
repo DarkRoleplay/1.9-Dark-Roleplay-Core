@@ -1,7 +1,5 @@
 package net.dark_roleplay.core.client.events.player;
 
-import java.util.Random;
-
 import net.dark_roleplay.core.common.References;
 import net.dark_roleplay.core.common.handler.DRPCorePotions;
 import net.minecraft.potion.PotionEffect;

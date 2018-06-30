@@ -1,6 +1,5 @@
 package net.dark_roleplay.core.api.old.crafting.simple_recipe;
 
-import net.dark_roleplay.core.common.handler.DRPCoreCapabilities;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;

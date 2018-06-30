@@ -2,6 +2,7 @@ package net.dark_roleplay.core.api.old.modules.gui;
 
 import net.dark_roleplay.core.common.References;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.Gui;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.util.ResourceLocation;
 
@@ -30,10 +31,10 @@ public class VerticalScrollBar extends IGuiElement.IMPL{
         GlStateManager.color(1F, 1F, 1F);
         
         this.drawTiled(posX, posY + 1, width, height - 2, 0, 1, 7, 62, 12, 64);
-		this.drawScaledCustomSizeModalRect(posX, posY, 0, 0, 7, 1, 7, 1, 12, 64);
-		this.drawScaledCustomSizeModalRect(posX, posY, 0, 63, 7, 1, 7, 1, 12, 64);
+        Gui.drawScaledCustomSizeModalRect(posX, posY, 0, 0, 7, 1, 7, 1, 12, 64);
+        Gui.drawScaledCustomSizeModalRect(posX, posY, 0, 63, 7, 1, 7, 1, 12, 64);
 
-		this.drawScaledCustomSizeModalRect(posX + 1, (int) (posY + (currentScroll.get() * renderMultiplier) + 1), 7, 0, 5, 11, 5, 11, 12, 64);
+        Gui.drawScaledCustomSizeModalRect(posX + 1, (int) (posY + (currentScroll.get() * renderMultiplier) + 1), 7, 0, 5, 11, 5, 11, 12, 64);
 	}
 	 
 	@Override

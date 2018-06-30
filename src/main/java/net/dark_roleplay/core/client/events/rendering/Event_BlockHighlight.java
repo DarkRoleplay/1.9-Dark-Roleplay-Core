@@ -7,7 +7,6 @@ import java.util.Set;
 
 import net.dark_roleplay.core.common.References;
 import net.dark_roleplay.core.common.config.Client;
-import net.dark_roleplay.core.common.handler.DRPCoreConfigs;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;

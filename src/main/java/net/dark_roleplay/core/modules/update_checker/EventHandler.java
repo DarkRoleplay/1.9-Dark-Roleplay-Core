@@ -8,14 +8,13 @@ import net.minecraft.client.gui.GuiMainMenu;
 import net.minecraftforge.client.event.GuiScreenEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
-import net.minecraftforge.fml.relauncher.Side;
 
 @Mod.EventBusSubscriber(modid = References.MODID)
 public class EventHandler {
 	
 	@SubscribeEvent
 	public static void guiInit(GuiScreenEvent.InitGuiEvent event) {
-		if(event.getGui() instanceof GuiMainMenu && !Modules.UPDATE_CHECKER.mods.isEmpty()) {
+		if(event.getGui() instanceof GuiMainMenu && !Module_UpdateChecker.mods.isEmpty()) {
 			GuiMainMenu menu = (GuiMainMenu) event.getGui();
 			GuiButton updateAvailableButton = new GuiButton(222, menu.width - 105, 5, 100, 20, "Updates Available!" );
 			event.getButtonList().add(updateAvailableButton);

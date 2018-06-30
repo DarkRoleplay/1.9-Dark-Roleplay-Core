@@ -1,6 +1,5 @@
 package net.dark_roleplay.core.api.old.modules.work_in_progress.premium;
 
-import net.dark_roleplay.core.api.old.modules.work_in_progress.premium.Module_Premium.Equiped;
 import net.dark_roleplay.core.common.References;
 import net.minecraft.client.model.ModelPlayer;
 import net.minecraft.client.renderer.entity.RenderPlayer;

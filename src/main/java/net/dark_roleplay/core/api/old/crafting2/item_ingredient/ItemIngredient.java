@@ -1,18 +1,11 @@
 package net.dark_roleplay.core.api.old.crafting2.item_ingredient;
 
-import com.google.gson.JsonObject;
-
 import net.dark_roleplay.core.api.old.crafting2.IIngredient;
 import net.dark_roleplay.core.testing.crafting.IIcon;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.JsonUtils;
-import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import net.minecraftforge.fml.common.registry.GameRegistry;
-import net.minecraftforge.registries.IForgeRegistry;
 
 public class ItemIngredient implements IIngredient{
 

@@ -1,17 +1,9 @@
 package net.dark_roleplay.core.api.old.modules.crafting;
 
-import java.io.IOException;
-
-import org.lwjgl.input.Mouse;
-
-import net.dark_roleplay.core.api.old.modules.gui.HorizontalPanel;
-import net.dark_roleplay.core.api.old.modules.gui.HorizontalScrollBar;
 import net.dark_roleplay.core.api.old.modules.gui.IntegerWrapper;
 import net.dark_roleplay.core.api.old.modules.gui.VerticalPanel;
 import net.dark_roleplay.core.api.old.modules.gui.VerticalScrollBar;
-import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.init.Blocks;
-import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.MathHelper;
 

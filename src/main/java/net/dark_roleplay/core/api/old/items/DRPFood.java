@@ -67,11 +67,11 @@ public class DRPFood extends DRPItem{
 
         if (playerIn.canEat(false)){
             playerIn.setActiveHand(handIn);
-            return new ActionResult(EnumActionResult.SUCCESS, itemstack);
+            return new ActionResult<ItemStack>(EnumActionResult.SUCCESS, itemstack);
         }
         else
         {
-            return new ActionResult(EnumActionResult.FAIL, itemstack);
+            return new ActionResult<ItemStack>(EnumActionResult.FAIL, itemstack);
         }
     }
 }

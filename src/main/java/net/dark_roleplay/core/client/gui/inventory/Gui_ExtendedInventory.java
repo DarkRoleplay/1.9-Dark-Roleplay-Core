@@ -4,7 +4,6 @@ import org.lwjgl.opengl.GL11;
 
 import net.dark_roleplay.core.common.References;
 import net.minecraft.client.gui.inventory.GuiContainer;
-import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.inventory.Container;
 import net.minecraft.util.ResourceLocation;
 

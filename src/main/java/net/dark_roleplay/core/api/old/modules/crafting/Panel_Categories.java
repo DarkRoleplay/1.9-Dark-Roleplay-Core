@@ -3,9 +3,6 @@ package net.dark_roleplay.core.api.old.modules.crafting;
 import net.dark_roleplay.core.api.old.modules.gui.HorizontalPanel;
 import net.dark_roleplay.core.api.old.modules.gui.HorizontalScrollBar;
 import net.dark_roleplay.core.api.old.modules.gui.IntegerWrapper;
-import net.dark_roleplay.core.api.old.modules.gui.VerticalScrollBar;
-import net.minecraft.init.Items;
-import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.MathHelper;
 
 public class Panel_Categories extends HorizontalPanel{

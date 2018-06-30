@@ -2,7 +2,6 @@ package net.dark_roleplay.core.client.gui.crafting.recipe_selection;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
-import net.minecraft.util.ResourceLocation;
 
 public class Button_ChangePage extends GuiButton {
 

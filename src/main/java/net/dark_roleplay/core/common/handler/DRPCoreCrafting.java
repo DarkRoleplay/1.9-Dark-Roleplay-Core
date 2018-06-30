@@ -3,17 +3,10 @@ package net.dark_roleplay.core.common.handler;
 import net.dark_roleplay.core.api.old.crafting.simple_recipe.RecipeCategory;
 import net.dark_roleplay.core.api.old.crafting.simple_recipe.SimpleRecipe;
 import net.dark_roleplay.core.api.old.crafting.simple_recipe.StackList;
-import net.dark_roleplay.core.common.References;
-import net.dark_roleplay.core.common.crafting.CraftingRegistry;
-import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.event.RegistryEvent;
-import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.common.Mod.EventHandler;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
-import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 
 public class DRPCoreCrafting {
 

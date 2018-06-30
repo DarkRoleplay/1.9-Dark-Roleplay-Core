@@ -3,7 +3,6 @@ package net.dark_roleplay.core.modules.hud;
 import java.util.List;
 
 import net.dark_roleplay.core.api.old.util.DRPRegistries;
-import net.dark_roleplay.core.common.handler.DRPCoreConfigs;
 import net.dark_roleplay.core.modules.Modules;
 import net.minecraftforge.client.event.RenderGameOverlayEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;

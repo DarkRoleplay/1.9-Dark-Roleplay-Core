@@ -1,7 +1,6 @@
 package net.dark_roleplay.core.modules.command_answer_gui.network;
 
 import io.netty.buffer.ByteBuf;
-import net.dark_roleplay.core.common.objects.packets.chunks.SyncPacket_LockHandler;
 import net.dark_roleplay.core.modules.command_answer_gui.Gui_CommandAnswer;
 import net.dark_roleplay.library.networking.PacketBase;
 import net.minecraft.client.Minecraft;

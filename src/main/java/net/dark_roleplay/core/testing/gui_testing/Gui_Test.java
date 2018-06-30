@@ -11,7 +11,6 @@ import net.dark_roleplay.core.testing.gui_testing.components.RadioGroup;
 import net.dark_roleplay.core.testing.gui_testing.components.Switch;
 import net.dark_roleplay.core.testing.gui_testing.components.TextBox;
 import net.dark_roleplay.library_old.wrapper.BooleanWrapper;
-import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiLabel;
 import net.minecraft.client.gui.GuiScreen;
 

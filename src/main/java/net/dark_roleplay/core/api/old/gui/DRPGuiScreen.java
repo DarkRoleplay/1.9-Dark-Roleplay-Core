@@ -5,12 +5,11 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.lwjgl.input.Mouse;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.util.Point;
 
 import net.dark_roleplay.core.api.old.modules.gui.IGuiElement;
-import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.Gui;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiLabel;
 import net.minecraft.client.gui.GuiScreen;
@@ -19,11 +18,7 @@ import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
-import net.minecraft.client.renderer.vertex.VertexBuffer;
-import net.minecraft.inventory.ClickType;
 import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.client.event.GuiScreenEvent;
-import net.minecraftforge.common.MinecraftForge;
 
 public abstract class DRPGuiScreen extends GuiScreen{
 
@@ -148,11 +143,11 @@ public abstract class DRPGuiScreen extends GuiScreen{
 	protected void drawTiled(int posX, int posY, int width, int height, int u, int v, int tileWidth, int tileHeight, int textureWidth, int textureHeight){
 		if(height > tileHeight)
 			for(int i = 0; i < height; i += tileHeight){
-				this.drawScaledCustomSizeModalRect(posX, posY + i, u, v, tileWidth, height - i >= tileHeight ? tileHeight : height - i, tileWidth, height - i >= tileHeight ? tileHeight : height - i, textureWidth, textureHeight);
+				Gui.drawScaledCustomSizeModalRect(posX, posY + i, u, v, tileWidth, height - i >= tileHeight ? tileHeight : height - i, tileWidth, height - i >= tileHeight ? tileHeight : height - i, textureWidth, textureHeight);
 			}
 		if(width > tileWidth)
 			for(int i = 0; i < width; i += tileWidth){
-				this.drawScaledCustomSizeModalRect(posX + i, posY, u, v,  width - i >= tileWidth ? tileWidth : width - i, tileHeight, width - i >= tileWidth ? tileWidth : width - i, tileHeight, textureWidth, textureHeight);
+				Gui.drawScaledCustomSizeModalRect(posX + i, posY, u, v,  width - i >= tileWidth ? tileWidth : width - i, tileHeight, width - i >= tileWidth ? tileWidth : width - i, tileHeight, textureWidth, textureHeight);
 			}
 	}
 

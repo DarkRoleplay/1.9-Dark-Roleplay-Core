@@ -1,12 +1,10 @@
 package net.dark_roleplay.core.api.old.crafting;
 
 import net.dark_roleplay.core.client.build_mode.EntityViewer;
-import net.dark_roleplay.core.client.build_mode.GuiBuildingViewer;
 import net.dark_roleplay.core.client.gui.crafting.recipe_selection.RecipeSelection;
 import net.dark_roleplay.core.common.References;
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
-import net.minecraft.init.Blocks;
 import net.minecraft.util.math.BlockPos;
 
 public class Crafting_Util {

@@ -2,6 +2,7 @@ package net.dark_roleplay.core.modules.date.events;
 
 import net.dark_roleplay.core.common.References;
 import net.dark_roleplay.core.common.handler.DRPCoreCapabilities;
+import net.dark_roleplay.core.modules.date.capabilities.IDateHandler;
 import net.dark_roleplay.library.capabilities.CapabilityProvider;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
@@ -16,6 +17,6 @@ public class EventManager {
     public static void attachCapabilityWorld(AttachCapabilitiesEvent<World> event){
         if (!(event.getObject() instanceof World)) return;
         
-        event.addCapability(new ResourceLocation(References.MODID, "date_handler"), new CapabilityProvider(DRPCoreCapabilities.DATE_HANDLER));
+        event.addCapability(new ResourceLocation(References.MODID, "date_handler"), new CapabilityProvider<IDateHandler>(DRPCoreCapabilities.DATE_HANDLER));
 	}
 }

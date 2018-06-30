@@ -1,7 +1,6 @@
 package net.dark_roleplay.core.client.events.rendering;
 
 import net.dark_roleplay.core.client.items.models.SmithableSword;
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.block.model.IBakedModel;
 import net.minecraftforge.client.event.ModelBakeEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
