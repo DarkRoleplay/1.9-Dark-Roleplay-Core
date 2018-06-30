@@ -5,8 +5,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Set;
 
-import net.dark_roleplay.core.api.old.Modules;
 import net.dark_roleplay.core.api.old.modules.Module;
+import net.dark_roleplay.core.modules.Modules;
 import net.minecraftforge.common.ForgeVersion;
 import net.minecraftforge.common.ForgeVersion.CheckResult;
 import net.minecraftforge.fml.common.Loader;

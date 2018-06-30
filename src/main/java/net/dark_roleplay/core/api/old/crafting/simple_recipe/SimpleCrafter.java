@@ -3,15 +3,12 @@ package net.dark_roleplay.core.api.old.crafting.simple_recipe;
 import java.util.ArrayList;
 import java.util.List;
 
-import net.dark_roleplay.core.api.old.events.player.Event_PlayerCraft;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.text.TextComponentString;
-import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraftforge.common.MinecraftForge;
 
 public class SimpleCrafter {
@@ -43,7 +40,6 @@ public class SimpleCrafter {
 				}
 			}
 		}
-		MinecraftForge.EVENT_BUS.post(new Event_PlayerCraft(player, recipe));
 		player.openContainer.detectAndSendChanges();
 	}
 

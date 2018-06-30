@@ -5,7 +5,7 @@ import java.util.List;
 import net.dark_roleplay.core.api.old.items.weapons.IExtendedRange;
 import net.dark_roleplay.core.common.References;
 import net.dark_roleplay.core.common.handler.DRPCorePackets;
-import net.dark_roleplay.core.common.network.packets.weapons.Packet_ExtendedRangeAttack;
+import net.dark_roleplay.core.common.objects.packets.weapons.Packet_ExtendedRangeAttack;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;

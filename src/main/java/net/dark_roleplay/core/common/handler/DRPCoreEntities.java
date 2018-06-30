@@ -1,7 +1,7 @@
 package net.dark_roleplay.core.common.handler;
 
 import net.dark_roleplay.core.common.References;
-import net.dark_roleplay.core.common.objects.entities.util.sitting.Sittable;
+import net.dark_roleplay.core.modules.sitting.entities.Sittable;
 import net.dark_roleplay.core.testing.Testing_Entity;
 import net.minecraft.entity.Entity;
 import net.minecraft.util.ResourceLocation;

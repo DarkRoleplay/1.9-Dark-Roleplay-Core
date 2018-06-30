@@ -2,12 +2,12 @@ package net.dark_roleplay.core.common.handler;
 
 import java.util.concurrent.Callable;
 
-import net.dark_roleplay.core.api.old.modules.crops.CropStorage;
-import net.dark_roleplay.core.api.old.modules.crops.ICropHandler;
-import net.dark_roleplay.core.api.old.modules.locks.ILockHandler;
-import net.dark_roleplay.core.api.old.modules.locks.LockStorage;
-import net.dark_roleplay.core.api.old.modules.time.DateStorage;
-import net.dark_roleplay.core.api.old.modules.time.IDateHandler;
+import net.dark_roleplay.core.modules.crops.CropStorage;
+import net.dark_roleplay.core.modules.crops.ICropHandler;
+import net.dark_roleplay.core.modules.date.capabilities.DateStorage;
+import net.dark_roleplay.core.modules.date.capabilities.IDateHandler;
+import net.dark_roleplay.core.modules.locks.capabilities.ILockHandler;
+import net.dark_roleplay.core.modules.locks.capabilities.LockStorage;
 import net.dark_roleplay.core.testing.skills.SkillHandler;
 import net.dark_roleplay.core.testing.skills.SkillStorage;
 import net.minecraftforge.common.capabilities.Capability;

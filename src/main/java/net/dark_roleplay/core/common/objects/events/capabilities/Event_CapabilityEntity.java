@@ -28,13 +28,4 @@ public class Event_CapabilityEntity {
         event.addCapability(new ResourceLocation(References.MODID, "crop_handler"), new CapabilityProvider(DRPCoreCapabilities.CROP_HANDLER));
         event.addCapability(new ResourceLocation(References.MODID, "lock_handler"), new CapabilityProvider(DRPCoreCapabilities.LOCK_HANDLER));
 	}
-	
-	@SubscribeEvent
-    public static void attachCapabilityWorld(AttachCapabilitiesEvent<World> event){
-        if (!(event.getObject() instanceof World)) return;
-        
-        
-        event.addCapability(new ResourceLocation(References.MODID, "date_handler"), new CapabilityProvider(DRPCoreCapabilities.DATE_HANDLER));
-
-	}
 }

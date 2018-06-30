@@ -12,34 +12,25 @@ import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 
 import net.dark_roleplay.core.api.old.entities.renderer.RendererTest;
-import net.dark_roleplay.core.api.old.gui.modular.ModularGui_Template;
-import net.dark_roleplay.core.client.events.network.Event_ConnectServer;
 import net.dark_roleplay.core.client.events.player.Event_Mouse;
 import net.dark_roleplay.core.client.events.rendering.Event_BlockHighlight;
 import net.dark_roleplay.core.client.keybindings.DRPCoreKeybindings;
-import net.dark_roleplay.core.client.renderer.tileentities.Renderer_StructureController;
 import net.dark_roleplay.core.client.resources.DRPModelLoader;
-import net.dark_roleplay.core.client.resources.ModularGui_Handler;
 import net.dark_roleplay.core.common.References;
 import net.dark_roleplay.core.common.Reflections;
-import net.dark_roleplay.core.common.objects.tile_entities.blueprint_controller.TE_BlueprintController;
 import net.dark_roleplay.core.testing.Testing_Entity;
 import net.dark_roleplay.library_old.items.ItemUtil;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.client.renderer.entity.Render;
 import net.minecraft.client.renderer.entity.RenderManager;
-import net.minecraft.client.renderer.entity.RenderPlayer;
-import net.minecraft.client.resources.IReloadableResourceManager;
 import net.minecraft.client.resources.IResource;
 import net.minecraft.client.resources.IResourceManager;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.model.ModelLoaderRegistry;
 import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.fml.client.registry.ClientRegistry;
 import net.minecraftforge.fml.client.registry.IRenderFactory;
 import net.minecraftforge.fml.client.registry.RenderingRegistry;
-import net.minecraftforge.fml.common.FMLCommonHandler;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
@@ -52,7 +43,7 @@ public class ClientProxy{
 	public static short selectedCategory = 0;
 	public static byte currentTick = 0;
 	
-	public static List<ModularGui_Template> modularGuis = new ArrayList<ModularGui_Template>();
+//	public static List<ModularGui_Template> modularGuis = new ArrayList<ModularGui_Template>();
 		
 	public ClientProxy(){
 		Reflections.init();
@@ -64,7 +55,6 @@ public class ClientProxy{
 		
 
 		ModelLoaderRegistry.registerLoader(new DRPModelLoader());
-
 		
 		//MinecraftForge.EVENT_BUS.register(Event_ModelBaked.instance);
 		MinecraftForge.EVENT_BUS.register(new Event_Mouse());
@@ -74,7 +64,6 @@ public class ClientProxy{
 	    ModelResourceLocation itemModelResourceLocation = new ModelResourceLocation("drpcore:medicine", "inventory");
 
 		
-		ClientRegistry.bindTileEntitySpecialRenderer(TE_BlueprintController.class, new Renderer_StructureController());
 		
 		RenderingRegistry.registerEntityRenderingHandler(Testing_Entity.class, new IRenderFactory<Testing_Entity>(){
 			@Override
@@ -86,17 +75,12 @@ public class ClientProxy{
 
 	public void init(FMLInitializationEvent event) {
 		DRPCoreKeybindings.init(event);
-		FMLCommonHandler.instance().bus().register(new Event_ConnectServer());
 		
-		RenderPlayer steve = ((RenderPlayer)Minecraft.getMinecraft().getRenderManager().getSkinMap().get("default"));
-		RenderPlayer alex = ((RenderPlayer)Minecraft.getMinecraft().getRenderManager().getSkinMap().get("slim"));
+//		RenderPlayer steve = ((RenderPlayer)Minecraft.getMinecraft().getRenderManager().getSkinMap().get("default"));
+//		RenderPlayer alex = ((RenderPlayer)Minecraft.getMinecraft().getRenderManager().getSkinMap().get("slim"));
 //		steve.addLayer(new RenderLayer_PremiumAddon(steve));
 //		alex.addLayer(new RenderLayer_PremiumAddon(alex));
 		
-		IResourceManager manager = Minecraft.getMinecraft().getResourceManager();
-		if(manager instanceof IReloadableResourceManager) {
-		    ((IReloadableResourceManager)manager).registerReloadListener(new ModularGui_Handler());
-		}
 	}
 	
 	public void postInit(FMLPostInitializationEvent event) {

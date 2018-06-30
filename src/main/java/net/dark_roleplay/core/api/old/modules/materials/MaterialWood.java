@@ -7,8 +7,8 @@ import java.util.Map;
 
 import javax.imageio.ImageIO;
 
-import net.dark_roleplay.core.api.old.Modules;
 import net.dark_roleplay.core.client.ClientProxy;
+import net.dark_roleplay.core.modules.Modules;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.common.ProgressManager;
 import net.minecraftforge.fml.common.ProgressManager.ProgressBar;

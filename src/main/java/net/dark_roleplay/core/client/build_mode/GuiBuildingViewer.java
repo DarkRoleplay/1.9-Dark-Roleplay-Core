@@ -25,12 +25,12 @@ public class GuiBuildingViewer extends Gui_Test {
 	private boolean hasGrabbedMouse = false;
 	
 	public GuiBuildingViewer(EntityViewer viewer, TileEntity te) {
-		if(!(te instanceof TileEntityBuilder)) {
-			Minecraft.getMinecraft().displayGuiScreen(null);
-		}
-		this.viewer = viewer;
-		this.te = te;
-		this.doesGuiPauseGame();
+//		if(!(te instanceof TileEntityBuilder)) {
+//			Minecraft.getMinecraft().displayGuiScreen(null);
+//		}
+//		this.viewer = viewer;
+//		this.te = te;
+//		this.doesGuiPauseGame();
 	}
 
 	@Override

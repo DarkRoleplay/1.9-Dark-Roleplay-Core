@@ -1,16 +1,13 @@
 package net.dark_roleplay.core.common;
 
 
-import net.dark_roleplay.core.api.old.Modules;
 import net.dark_roleplay.core.api.old.modules.Module;
 import net.dark_roleplay.core.client.ClientProxy;
-import net.dark_roleplay.core.common.config.SyncedConfigRegistry;
 import net.dark_roleplay.core.common.handler.DRPCoreCapabilities;
 import net.dark_roleplay.core.common.handler.DRPCoreCrafting;
 import net.dark_roleplay.core.common.handler.DRPCoreGuis;
 import net.dark_roleplay.core.common.handler.DRPCorePackets;
-import net.dark_roleplay.core.common.handler.DRPCorePerms;
-import net.dark_roleplay.core.common.objects.tile_entities.blueprint_controller.TE_BlueprintController;
+import net.dark_roleplay.core.modules.Modules;
 import net.dark_roleplay.core.modules.command_answer_gui.commands.CommandGui;
 import net.dark_roleplay.core.testing.crafting.CraftingRegistry;
 import net.minecraftforge.fml.common.Mod;
@@ -18,12 +15,10 @@ import net.minecraftforge.fml.common.Mod.EventHandler;
 import net.minecraftforge.fml.common.ProgressManager;
 import net.minecraftforge.fml.common.ProgressManager.ProgressBar;
 import net.minecraftforge.fml.common.SidedProxy;
-import net.minecraftforge.fml.common.event.FMLConstructionEvent;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLServerStartingEvent;
-import net.minecraftforge.fml.common.registry.GameRegistry;
 
 @Mod(modid = References.MODID, version = References.VERSION, name = References.NAME, acceptedMinecraftVersions = References.ACCEPTEDVERSIONS, updateJSON = References.UPDATE_JSON)
 public class DarkRoleplayCore {
@@ -39,11 +34,7 @@ public class DarkRoleplayCore {
 	@EventHandler
 	public void preInit(FMLPreInitializationEvent event){				
 		References.init(event);
-		
-		SyncedConfigRegistry.setSide(event.getSide());
-		
-		GameRegistry.registerTileEntity(TE_BlueprintController.class, References.MODID + ":" + "tileentity_structure_controller");
-
+	
 		proxy.preInit(event);
 		
 		Modules.HUD.enable();
@@ -73,8 +64,6 @@ public class DarkRoleplayCore {
 		DRPCoreGuis.init(event);
 		DRPCorePackets.init();
 		proxy.init(event);
-		
-		DRPCorePerms.init(event);
 
 		ProgressBar progressBar = ProgressManager.push("Initializing Modules", Module.getModules().size());
 		for(Module module : Module.getModules()){

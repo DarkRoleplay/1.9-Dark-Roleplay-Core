@@ -2,9 +2,9 @@ package net.dark_roleplay.core.common.objects.huds;
 
 import java.util.Calendar;
 
-import net.dark_roleplay.core.api.old.modules.hud.Hud;
-import net.dark_roleplay.core.api.old.modules.hud.Hud.ALIGNMENT;
 import net.dark_roleplay.core.common.References;
+import net.dark_roleplay.core.modules.hud.Hud;
+import net.dark_roleplay.core.modules.hud.Hud.ALIGNMENT;
 import net.minecraft.client.Minecraft;
 import net.minecraft.util.ResourceLocation;
 

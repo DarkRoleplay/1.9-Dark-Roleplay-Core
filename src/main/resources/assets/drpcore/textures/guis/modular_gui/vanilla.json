@@ -2,8 +2,8 @@
 	"version" : "1",
 	"name" : "Vanilla",
 	"background" : {
-		"path" : "drpcore:textures/guis/modular_gui/vanilla_normal.png",
-		"path_hollow" : "drpcore:textures/guis/modular_gui/vanilla_hollow.png",
+		"path" : "drplibrary:textures/guis/modular_gui/vanilla_normal.png",
+		"path_hollow" : "drplibrary:textures/guis/modular_gui/vanilla_hollow.png",
 		"left" : 6,
 		"top" : 6,
 		"right" : 26,
@@ -12,9 +12,9 @@
 		"height" : 32
 	},
 	"buttons" :{
-		"path_disabled" : "drpcore:textures/guis/modular_gui/vanilla_buttons_disabled.png",
-		"path_enabled" : "drpcore:textures/guis/modular_gui/vanilla_buttons_enabled.png",
-		"path_hovered" : "drpcore:textures/guis/modular_gui/vanilla_buttons_hovered.png",
+		"path_disabled" : "drplibrary:textures/guis/modular_gui/vanilla_buttons_disabled.png",
+		"path_enabled" : "drplibrary:textures/guis/modular_gui/vanilla_buttons_enabled.png",
+		"path_hovered" : "drplibrary:textures/guis/modular_gui/vanilla_buttons_hovered.png",
 		"left" : 2,
 		"top" : 2,
 		"right" : 198,

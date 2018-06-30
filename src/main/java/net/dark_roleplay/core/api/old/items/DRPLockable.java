@@ -1,6 +1,6 @@
 package net.dark_roleplay.core.api.old.items;
 
-import net.dark_roleplay.core.api.old.modules.locks.ILock;
+import net.dark_roleplay.core.modules.locks.capabilities.ILock;
 import net.dark_roleplay.library_old.items.DRPItem;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.ItemStack;

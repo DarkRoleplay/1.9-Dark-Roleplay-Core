@@ -17,7 +17,6 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 
 import net.dark_roleplay.core.api.old.crafting.Crafting_Util;
-import net.dark_roleplay.core.api.old.modules.hud.HudLoader;
 import net.dark_roleplay.core.client.build_mode.BuildingViewerHelper;
 import net.dark_roleplay.core.client.build_mode.EntityViewer;
 import net.dark_roleplay.core.common.References;
@@ -26,6 +25,7 @@ import net.dark_roleplay.core.common.config.Debug;
 import net.dark_roleplay.core.common.handler.DRPCoreConfigs;
 import net.dark_roleplay.core.common.util.toasts.ToastController;
 import net.dark_roleplay.core.modules.blueprints.BlueprintPreview;
+import net.dark_roleplay.core.modules.hud.HudLoader;
 import net.dark_roleplay.core.modules.update_checker.Gui_UpdateInformation;
 import net.dark_roleplay.core.testing.crafting.CraftingRegistry;
 import net.dark_roleplay.core.testing.crafting.gui.Crafting5;
@@ -68,6 +68,7 @@ public class DRPCoreKeybindings {
 
 	public static void init(FMLInitializationEvent event) {
 		ClientRegistry.registerKeyBinding(GUI_CRAFTING);
+		ClientRegistry.registerKeyBinding(TOGGLE_PLACEMENT_PREVIEW);
 //		ClientRegistry.registerKeyBinding(GUI_VARIATIONS);
 //		ClientRegistry.registerKeyBinding(GUI_SKILLS);
 		ClientRegistry.registerKeyBinding(RELOAD_HUD);
@@ -117,18 +118,18 @@ public class DRPCoreKeybindings {
 		else if(Debug.DEBUG_KEY && this.debugging.isKeyDown()) {
 			
 			
-			File structure = new File("./test/just_a_test.blueprint");
-			try {
-				InputStream is = new BufferedInputStream(new FileInputStream(structure));
-				Blueprint bp = BlueprintUtil.readFromFile(is);
-				BlueprintPreview.buildModel(Minecraft.getMinecraft().player.getEntityWorld(), new BlockPos(0, 0, 0), bp);
-				BlueprintPreview.setPos(new BlockPos(0, 15, 0));
-				BlueprintPreview.activate();
-
-//				BlueprintPreview.deactivate();
-			} catch (FileNotFoundException e) {
-				e.printStackTrace();
-			}
+//			File structure = new File("./test/just_a_test.blueprint");
+//			try {
+//				InputStream is = new BufferedInputStream(new FileInputStream(structure));
+//				Blueprint bp = BlueprintUtil.readFromFile(is);
+//				BlueprintPreview.buildModel(Minecraft.getMinecraft().player.getEntityWorld(), new BlockPos(0, 0, 0), bp);
+//				BlueprintPreview.setPos(new BlockPos(0, 15, 0));
+//				BlueprintPreview.activate();
+//
+////				BlueprintPreview.deactivate();
+//			} catch (FileNotFoundException e) {
+//				e.printStackTrace();
+//			}
 			
 //			//Building Viewer
 //			BuildingViewerHelper.initialize(Minecraft.getMinecraft().player.getPosition().add(0, 5, 0), Minecraft.getMinecraft().player.world.getTileEntity(Minecraft.getMinecraft().player.getPosition().down()));

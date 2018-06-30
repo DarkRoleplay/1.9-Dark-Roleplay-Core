@@ -1,9 +1,5 @@
 package net.dark_roleplay.core.api.old.modules.gui;
 
-import java.util.List;
-
-import net.dark_roleplay.core.api.old.gui.modular.ModularGui_Drawer;
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
 
 public class Panel extends IGuiElement.IMPL{

@@ -1,17 +1,7 @@
 package net.dark_roleplay.core.common.handler;
 
-import java.io.File;
-import java.lang.invoke.MethodHandle;
-
-import net.dark_roleplay.core.client.events.config.Event_ConfigChange;
 import net.dark_roleplay.core.common.References;
-import net.dark_roleplay.core.common.config.SyncedConfigRegistry;
-import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.config.Config;
-import net.minecraftforge.common.config.Configuration;
-import net.minecraftforge.common.config.Property;
-import net.minecraftforge.fml.common.FMLCommonHandler;
-import net.minecraftforge.fml.common.Mod;
 
 @Config(modid = References.MODID, name = "Dark Roleplay Core/Dark Roleplay Core", category = "drpcore")
 public class DRPCoreConfigs {

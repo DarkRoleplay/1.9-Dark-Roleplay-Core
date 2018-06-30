@@ -6,10 +6,10 @@ import java.util.Map;
 
 import com.google.common.collect.ImmutableMultiset;
 
-import net.dark_roleplay.core.api.old.modules.crops.CropLoadingTracker;
-import net.dark_roleplay.core.api.old.modules.crops.ICropHandler;
-import net.dark_roleplay.core.api.old.modules.time.IDateHandler;
 import net.dark_roleplay.core.common.handler.DRPCoreCapabilities;
+import net.dark_roleplay.core.modules.crops.CropLoadingTracker;
+import net.dark_roleplay.core.modules.crops.ICropHandler;
+import net.dark_roleplay.core.modules.date.capabilities.IDateHandler;
 import net.minecraft.util.math.ChunkPos;
 import net.minecraft.world.DimensionType;
 import net.minecraft.world.World;
@@ -47,7 +47,6 @@ public class WorldTickEvent {
 					IDateHandler date = world.getCapability(DRPCoreCapabilities.DATE_HANDLER, null);
 
 					if(date != null && date.attemptIncrease((world.getWorldTime() + 6000L) % 24000L)){
-						System.out.println("Date Increased!");
 						Collection<Chunk> chunks = ((ChunkProviderServer) world.getChunkProvider()).getLoadedChunks();
 						for(Chunk chunk : chunks){
 							ICropHandler crops = chunk.getCapability(DRPCoreCapabilities.CROP_HANDLER, null);

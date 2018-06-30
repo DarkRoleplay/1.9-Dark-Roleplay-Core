@@ -4,12 +4,8 @@ import java.io.IOException;
 
 import org.lwjgl.input.Mouse;
 
-import net.dark_roleplay.core.api.old.gui.modular.ModularGui_Drawer;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.BufferBuilder;
 import net.minecraft.client.renderer.GlStateManager;
-import net.minecraft.client.renderer.Tessellator;
-import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 
 public class HorizontalPanel extends Panel{
 

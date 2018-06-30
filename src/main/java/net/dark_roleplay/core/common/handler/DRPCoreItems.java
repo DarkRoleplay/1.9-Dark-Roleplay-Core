@@ -6,10 +6,9 @@ import java.util.List;
 import net.dark_roleplay.core.api.old.items.DRPInstrument;
 import net.dark_roleplay.core.api.old.items.DRPLockable;
 import net.dark_roleplay.core.api.old.items.Seed;
-import net.dark_roleplay.core.api.old.modules.locks.ILock;
 import net.dark_roleplay.core.common.DarkRoleplayCore;
 import net.dark_roleplay.core.common.References;
-import net.dark_roleplay.core.testing.Test_PaintItem;
+import net.dark_roleplay.core.modules.locks.capabilities.ILock;
 import net.dark_roleplay.library_old.items.DRPItem;
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
@@ -78,7 +77,6 @@ public class DRPCoreItems {
 	
 	public static final Item TEST_PAINT = null;
 	
-	@SideOnly(Side.CLIENT)
 	@SubscribeEvent
 	public static final void registerEvent(RegistryEvent.Register<Item> event) {
 //		if(DRPCoreConfigs.ENABLE_DEBUG_ITEMS){

@@ -13,8 +13,8 @@ import java.util.Map;
 
 import org.apache.commons.io.IOUtils;
 
-import net.dark_roleplay.core.api.old.Modules;
 import net.dark_roleplay.core.api.old.modules.Module;
+import net.dark_roleplay.core.modules.Modules;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.ProgressManager;
 import net.minecraftforge.fml.common.ProgressManager.ProgressBar;

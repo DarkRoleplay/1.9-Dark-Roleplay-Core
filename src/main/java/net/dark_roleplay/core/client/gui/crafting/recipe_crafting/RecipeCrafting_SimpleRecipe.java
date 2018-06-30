@@ -1,6 +1,5 @@
 package net.dark_roleplay.core.client.gui.crafting.recipe_crafting;
 
-import java.awt.Color;
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -9,27 +8,18 @@ import net.dark_roleplay.core.api.old.crafting.simple_recipe.SimpleRecipe;
 import net.dark_roleplay.core.api.old.gui.DRPGuiScreen;
 import net.dark_roleplay.core.api.old.gui.ITimedGui;
 import net.dark_roleplay.core.client.ClientProxy;
-import net.dark_roleplay.core.client.gui.crafting.recipe_selection.Button_CategorySelect;
-import net.dark_roleplay.core.client.gui.crafting.recipe_selection.Button_ChangeCategory;
-import net.dark_roleplay.core.client.gui.crafting.recipe_selection.Button_ChangePage;
 import net.dark_roleplay.core.client.gui.crafting.recipe_selection.RecipeSelection;
 import net.dark_roleplay.core.client.keybindings.DRPCoreKeybindings;
-import net.dark_roleplay.core.common.DarkRoleplayCore;
 import net.dark_roleplay.core.common.References;
-import net.dark_roleplay.core.common.config.SyncedConfigRegistry;
-import net.dark_roleplay.core.common.handler.DRPCoreCapabilities;
-import net.dark_roleplay.core.common.handler.DRPCoreGuis;
 import net.dark_roleplay.core.common.handler.DRPCorePackets;
-import net.dark_roleplay.core.common.network.packets.crafting.Packet_InitSimpleRecipe;
+import net.dark_roleplay.core.common.objects.packets.crafting.Packet_InitSimpleRecipe;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.GuiButton;
-import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.math.BlockPos;
 
 public class RecipeCrafting_SimpleRecipe extends DRPGuiScreen implements ITimedGui {
 
@@ -81,8 +71,6 @@ public class RecipeCrafting_SimpleRecipe extends DRPGuiScreen implements ITimedG
 	public void initGui() {
 		super.initGui();
 		short buttonID = 0;
-
-		this.enableMultiplier = SyncedConfigRegistry.getBooleanValue("enable_craft_multiplicator");
 		
 		this.craft = new Button_Craft(buttonID++, this.guiLeft + 150, this.guiTop + 9);
 		this.buttonList.add(this.craft);

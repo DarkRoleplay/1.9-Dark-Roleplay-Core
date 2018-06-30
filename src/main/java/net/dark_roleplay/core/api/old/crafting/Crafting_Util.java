@@ -15,21 +15,21 @@ public class Crafting_Util {
 
 	private static boolean isInitialized = false;
 	
-	public static void initialize(BlockPos pos, float yaw, float pitch) {
-		if(!isInitialized) {
-			isInitialized = true;
-			if(viewer == null) {
-				viewer = new EntityViewer(Minecraft.getMinecraft().player.world);
-				Minecraft.getMinecraft().player.world.spawnEntity(viewer);
-			}
-
-			viewer.setPosition(pos.getX() + 0.5F, pos.getY() + 0.5F, pos.getZ() + 0.5F);
-			viewer.turn(yaw, pitch);
-			viewer.setInvisible(true);
-			
-			Minecraft.getMinecraft().setRenderViewEntity(viewer);
-		}
-	}
+//	public static void initialize(BlockPos pos, float yaw, float pitch) {
+//		if(!isInitialized) {
+//			isInitialized = true;
+//			if(viewer == null) {
+//				viewer = new EntityViewer(Minecraft.getMinecraft().player.world);
+//				Minecraft.getMinecraft().player.world.spawnEntity(viewer);
+//			}
+//
+//			viewer.setPosition(pos.getX() + 0.5F, pos.getY() + 0.5F, pos.getZ() + 0.5F);
+//			viewer.turn(yaw, pitch);
+//			viewer.setInvisible(true);
+//			
+//			Minecraft.getMinecraft().setRenderViewEntity(viewer);
+//		}
+//	}
 	
 	public static void exit() {
 		if(isInitialized) {
@@ -45,8 +45,8 @@ public class Crafting_Util {
 	
 	public static void openRecipeSelection(Block block, BlockPos pos, float yaw, float pitch){
 		if(References.SIDE.isClient()) {
-			if(pos != null)
-				initialize(pos, yaw, pitch);
+//			if(pos != null)
+//				initialize(pos, yaw, pitch);
 			Minecraft.getMinecraft().displayGuiScreen(new RecipeSelection(block));
 		}
 	}
