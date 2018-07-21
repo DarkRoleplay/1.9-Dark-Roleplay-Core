@@ -24,6 +24,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.client.renderer.entity.Render;
 import net.minecraft.client.renderer.entity.RenderManager;
+import net.minecraft.client.renderer.entity.RenderPlayer;
 import net.minecraft.client.resources.IResource;
 import net.minecraft.client.resources.IResourceManager;
 import net.minecraft.util.ResourceLocation;
@@ -76,11 +77,11 @@ public class ClientProxy{
 	public void init(FMLInitializationEvent event) {
 		DRPCoreKeybindings.init(event);
 		
-//		RenderPlayer steve = ((RenderPlayer)Minecraft.getMinecraft().getRenderManager().getSkinMap().get("default"));
+		RenderPlayer steve = ((RenderPlayer)Minecraft.getMinecraft().getRenderManager().getSkinMap().get("default"));
 //		RenderPlayer alex = ((RenderPlayer)Minecraft.getMinecraft().getRenderManager().getSkinMap().get("slim"));
 //		steve.addLayer(new RenderLayer_PremiumAddon(steve));
 //		alex.addLayer(new RenderLayer_PremiumAddon(alex));
-		
+//		steve.addLayer(layer)
 	}
 	
 	public void postInit(FMLPostInitializationEvent event) {

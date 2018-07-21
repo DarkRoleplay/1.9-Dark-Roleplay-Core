@@ -2,10 +2,6 @@ package net.dark_roleplay.core.common.handler;
 
 import java.util.concurrent.Callable;
 
-import net.dark_roleplay.core.modules.crops.CropStorage;
-import net.dark_roleplay.core.modules.crops.ICropHandler;
-import net.dark_roleplay.core.modules.date.capabilities.DateStorage;
-import net.dark_roleplay.core.modules.date.capabilities.IDateHandler;
 import net.dark_roleplay.core.modules.locks.capabilities.ILockHandler;
 import net.dark_roleplay.core.modules.locks.capabilities.LockStorage;
 import net.dark_roleplay.core.testing.skills.SkillHandler;
@@ -17,11 +13,6 @@ import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 
 public class DRPCoreCapabilities {
 	
-	@CapabilityInject(ICropHandler.class)
-	public static final Capability<ICropHandler> CROP_HANDLER = null;
-	
-	@CapabilityInject(IDateHandler.class)
-	public static final Capability<IDateHandler> DATE_HANDLER = null;
 	
 	@CapabilityInject(ILockHandler.class)
 	public static final Capability<ILockHandler> LOCK_HANDLER = null;
@@ -36,11 +27,6 @@ public class DRPCoreCapabilities {
 	}
 	
 	public static final void init(FMLInitializationEvent event) {
-//		CapabilityManager.INSTANCE.register(IRecipeController.class, new RecipeControllerStorage(), (Callable<IRecipeController>)() -> {return new RecipeControllerDefault();});;
-//		CapabilityManager.INSTANCE.register(ISkillController.class, new SkillControllerStorage(), (Callable<ISkillController>)() -> {return new ISkillController.Impl();});
-
-		CapabilityManager.INSTANCE.register(ICropHandler.class, new CropStorage(), (Callable<ICropHandler>)() -> {return new ICropHandler.Impl();});
-		CapabilityManager.INSTANCE.register(IDateHandler.class, new DateStorage(), (Callable<IDateHandler>)() -> {return new IDateHandler.Impl();});
 		CapabilityManager.INSTANCE.register(ILockHandler.class, new LockStorage(), (Callable<ILockHandler>)() -> {return new ILockHandler.Impl();});
 		CapabilityManager.INSTANCE.register(SkillHandler.class, new SkillStorage(), (Callable<SkillHandler>)() -> {return new SkillHandler();});
 
