@@ -15,8 +15,8 @@ public class DRPHuds {
 	@SubscribeEvent
 	public static final void register(RegistryEvent.Register<Hud> event) {
 		event.getRegistry().registerAll(
-			new RealTimeClock(new ResourceLocation(References.MODID, "real_time_clock")),
-			new VariationSelection(new ResourceLocation(References.MODID, "variation_selection"))
+			new RealTimeClock(new ResourceLocation(References.MODID, "real_time_clock"))
+//			new VariationSelection(new ResourceLocation(References.MODID, "variation_selection"))
 		);
 	}
 	

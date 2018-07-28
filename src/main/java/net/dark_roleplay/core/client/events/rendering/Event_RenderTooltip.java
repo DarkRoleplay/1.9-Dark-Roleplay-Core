@@ -28,36 +28,36 @@ public class Event_RenderTooltip extends Gui {
 	
 	@SubscribeEvent
 	public static void highlightGhostBlock(RenderTooltipEvent.PostText event) {
-		if(!GuiScreen.isCtrlKeyDown())
-			return;
-		
-		ScaledResolution res = new ScaledResolution(Minecraft.getMinecraft());
-		
-		
-		FontRenderer font = event.getFontRenderer();
-		
-		int posX = 0;
-		int posY = 0;
-		
-		if(Client.FOOD.FOOD_STAT_TYPE == DRPCoreConfigs.FoodStatsDisplayType.LINES) {
-			posX = event.getX() + 1;
-			posY = event.getY() + 25;
-			drawLines(posX, posY, res, 0.1F, 0.0F, 1.0F, 0.15F, 0.2F);
-			font.drawStringWithShadow("Sweet", posX + 53, posY + 2, 0xFFFFFFFF); //20  -
-			font.drawStringWithShadow("Bitter", posX + 53, posY + 12, 0xFFFFFFFF); //0
-			font.drawStringWithShadow("Umami", posX + 53, posY + 22, 0xFFFFFFFF); //40
-			font.drawStringWithShadow("Salty", posX + 53, posY + 32, 0xFFFFFFFF); //5
-			font.drawStringWithShadow("Sour", posX + 53, posY + 42, 0xFFFFFFFF); //35
-		}else {
-			posX = event.getX() + (font.getStringWidth("                             ") / 2) - 20;
-			posY = event.getY() + 45;
-			drawPentagon(posX, event.getY() + 32, res, 0.1F, 0.0F, 1.0F, 0.15F, 0.2F);
-			font.drawStringWithShadow("Sweet", posX + 20 - (font.getStringWidth("Sweet")/2), event.getY() + 23, 0xFFFFFFFF); //20  -
-			font.drawStringWithShadow("Sour", posX - font.getStringWidth("Sour"), event.getY() + 42, 0xFFFFFFFF); //0
-			font.drawStringWithShadow("Bitter", posX + 40, event.getY() + 42, 0xFFFFFFFF); //40
-			font.drawStringWithShadow("Salty", posX + 5 - font.getStringWidth("Salty"), event.getY() + 70, 0xFFFFFFFF); //5
-			font.drawStringWithShadow("Umami", posX + 35, event.getY() + 70, 0xFFFFFFFF); //35
-		}
+//		if(!GuiScreen.isCtrlKeyDown())
+//			return;
+//		
+//		ScaledResolution res = new ScaledResolution(Minecraft.getMinecraft());
+//		
+//		
+//		FontRenderer font = event.getFontRenderer();
+//		
+//		int posX = 0;
+//		int posY = 0;
+//		
+//		if(Client.FOOD.FOOD_STAT_TYPE == DRPCoreConfigs.FoodStatsDisplayType.LINES) {
+//			posX = event.getX() + 1;
+//			posY = event.getY() + 25;
+//			drawLines(posX, posY, res, 0.1F, 0.0F, 1.0F, 0.15F, 0.2F);
+//			font.drawStringWithShadow("Sweet", posX + 53, posY + 2, 0xFFFFFFFF); //20  -
+//			font.drawStringWithShadow("Bitter", posX + 53, posY + 12, 0xFFFFFFFF); //0
+//			font.drawStringWithShadow("Umami", posX + 53, posY + 22, 0xFFFFFFFF); //40
+//			font.drawStringWithShadow("Salty", posX + 53, posY + 32, 0xFFFFFFFF); //5
+//			font.drawStringWithShadow("Sour", posX + 53, posY + 42, 0xFFFFFFFF); //35
+//		}else {
+//			posX = event.getX() + (font.getStringWidth("                             ") / 2) - 20;
+//			posY = event.getY() + 45;
+//			drawPentagon(posX, event.getY() + 32, res, 0.1F, 0.0F, 1.0F, 0.15F, 0.2F);
+//			font.drawStringWithShadow("Sweet", posX + 20 - (font.getStringWidth("Sweet")/2), event.getY() + 23, 0xFFFFFFFF); //20  -
+//			font.drawStringWithShadow("Sour", posX - font.getStringWidth("Sour"), event.getY() + 42, 0xFFFFFFFF); //0
+//			font.drawStringWithShadow("Bitter", posX + 40, event.getY() + 42, 0xFFFFFFFF); //40
+//			font.drawStringWithShadow("Salty", posX + 5 - font.getStringWidth("Salty"), event.getY() + 70, 0xFFFFFFFF); //5
+//			font.drawStringWithShadow("Umami", posX + 35, event.getY() + 70, 0xFFFFFFFF); //35
+//		}
 	}
 	
 	/**
