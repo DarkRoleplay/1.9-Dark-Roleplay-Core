@@ -6,7 +6,10 @@ import net.dark_roleplay.core.client.ClientProxy;
 import net.dark_roleplay.core.modules.automatic_resource_generation.JsonGenerator;
 import net.dark_roleplay.core.modules.automatic_resource_generation.TextureGenerator;
 import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
+@SideOnly(Side.CLIENT)
 public class ResourceGenerator {
 
 	String resourceType;

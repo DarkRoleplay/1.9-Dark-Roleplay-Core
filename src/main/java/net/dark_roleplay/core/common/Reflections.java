@@ -7,10 +7,13 @@ import net.dark_roleplay.core.modules.automatic_resource_generation.GeneratedRes
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.resources.IResourcePack;
 import net.minecraftforge.fml.relauncher.ReflectionHelper;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
+@SideOnly(Side.CLIENT)
 public class Reflections {
 	
-	public static void init(){
+	public void init(){
 		File resourcesFile = new File(Minecraft.getMinecraft().mcDataDir.getPath() + "/dark roleplay/argh/");
 		File resourcesFolder = new File(Minecraft.getMinecraft().mcDataDir.getPath() + "/dark roleplay/argh/assets/");
 		resourcesFolder.mkdirs();

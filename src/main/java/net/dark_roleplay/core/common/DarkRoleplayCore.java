@@ -2,10 +2,8 @@ package net.dark_roleplay.core.common;
 
 
 import net.dark_roleplay.core.api.old.modules.Module;
-import net.dark_roleplay.core.client.ClientProxy;
 import net.dark_roleplay.core.common.handler.DRPCoreCapabilities;
 import net.dark_roleplay.core.common.handler.DRPCoreCrafting;
-import net.dark_roleplay.core.common.handler.DRPCoreGuis;
 import net.dark_roleplay.core.common.handler.DRPCorePackets;
 import net.dark_roleplay.core.modules.Modules;
 import net.dark_roleplay.core.modules.command_answer_gui.commands.CommandGui;
@@ -25,8 +23,8 @@ public class DarkRoleplayCore {
 	
 	public static boolean isServerSide = false;
 	
-	@SidedProxy(clientSide = "net.dark_roleplay.core.client.ClientProxy")
-	public static ClientProxy proxy;
+	@SidedProxy(modId = References.MODID, serverSide = "net.dark_roleplay.core.server.ServerProxy", clientSide = "net.dark_roleplay.core.client.ClientProxy")
+	public static IProxy proxy;
 	
 	@Mod.Instance(References.MODID)
 	public static DarkRoleplayCore instance;
@@ -37,7 +35,8 @@ public class DarkRoleplayCore {
 	
 		proxy.preInit(event);
 		
-		Modules.HUD.enable();
+		if(event.getSide().isClient())
+			Modules.HUD.enable();
 		Modules.CRAFTING2.enable();
 		Modules.MATERIALS.enable();
 		Modules.UPDATE_CHECKER.enable();
@@ -61,7 +60,6 @@ public class DarkRoleplayCore {
 //		CraftingRegistry.loadRecipes();
 		
 		DRPCoreCapabilities.init(event);
-		DRPCoreGuis.init(event);
 		DRPCorePackets.init();
 		proxy.init(event);
 

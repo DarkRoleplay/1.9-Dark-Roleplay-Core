@@ -8,8 +8,9 @@ import net.minecraftforge.common.config.ConfigManager;
 import net.minecraftforge.fml.client.event.ConfigChangedEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.fml.relauncher.Side;
 
-@Mod.EventBusSubscriber(modid = References.MODID)
+@Mod.EventBusSubscriber(value = Side.CLIENT, modid = References.MODID)
 public class Event_ConfigChange {
 
 	@SubscribeEvent

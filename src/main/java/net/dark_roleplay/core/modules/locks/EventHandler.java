@@ -3,6 +3,7 @@ package net.dark_roleplay.core.modules.locks;
 import java.util.ArrayList;
 import java.util.List;
 
+import net.dark_roleplay.core.common.References;
 import net.dark_roleplay.core.common.handler.DRPCoreCapabilities;
 import net.dark_roleplay.core.common.handler.DRPCorePackets;
 import net.dark_roleplay.core.common.objects.packets.chunks.SyncPacket_LockHandler;
@@ -18,9 +19,10 @@ import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.event.world.ChunkWatchEvent;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.items.ItemHandlerHelper;
 
-@EventBusSubscriber
+@EventBusSubscriber(modid = References.MODID)
 public class EventHandler {
 	
 	@SubscribeEvent

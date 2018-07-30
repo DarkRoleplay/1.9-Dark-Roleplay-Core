@@ -8,8 +8,9 @@ import net.minecraft.client.gui.GuiMainMenu;
 import net.minecraftforge.client.event.GuiScreenEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.fml.relauncher.Side;
 
-@Mod.EventBusSubscriber(modid = References.MODID)
+@Mod.EventBusSubscriber(value = Side.CLIENT, modid = References.MODID)
 public class EventHandler {
 	
 	@SubscribeEvent

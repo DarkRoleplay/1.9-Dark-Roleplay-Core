@@ -2,11 +2,7 @@ package net.dark_roleplay.core.client.events.rendering;
 
 import net.dark_roleplay.core.common.References;
 import net.dark_roleplay.core.common.config.Client;
-import net.dark_roleplay.core.common.handler.DRPCoreConfigs;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.Gui;
-import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.client.renderer.BufferBuilder;
 import net.minecraft.client.renderer.GlStateManager;
@@ -15,8 +11,9 @@ import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraftforge.client.event.RenderTooltipEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.fml.relauncher.Side;
 
-@Mod.EventBusSubscriber(modid = References.MODID)
+@Mod.EventBusSubscriber(modid = References.MODID, value = Side.CLIENT)
 public class Event_RenderTooltip extends Gui {
 
 	private static Event_RenderTooltip tooltip = new Event_RenderTooltip();

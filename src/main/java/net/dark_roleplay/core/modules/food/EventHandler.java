@@ -14,16 +14,17 @@ public class EventHandler {
 	
 	@SubscribeEvent(priority = EventPriority.HIGHEST)
 	public static void onItemTooltipEvent(ItemTooltipEvent event) {
-	    ItemStack itemStack = event.getItemStack();
-
-		if(!GuiScreen.isCtrlKeyDown())
-			return;
-		
-	    event.getToolTip().add("                             ");
-	    event.getToolTip().add("                             ");
-	    event.getToolTip().add("                             ");
-	    event.getToolTip().add("                             ");
-	    event.getToolTip().add("                             ");
-	    event.getToolTip().add("                             ");
+		return;
+//	    ItemStack itemStack = event.getItemStack();
+//
+//		if(!GuiScreen.isCtrlKeyDown())
+//			return;
+//		
+//	    event.getToolTip().add("                             ");
+//	    event.getToolTip().add("                             ");
+//	    event.getToolTip().add("                             ");
+//	    event.getToolTip().add("                             ");
+//	    event.getToolTip().add("                             ");
+//	    event.getToolTip().add("                             ");
 	}
 }

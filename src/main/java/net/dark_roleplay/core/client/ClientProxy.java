@@ -16,8 +16,10 @@ import net.dark_roleplay.core.client.events.player.Event_Mouse;
 import net.dark_roleplay.core.client.events.rendering.Event_BlockHighlight;
 import net.dark_roleplay.core.client.keybindings.DRPCoreKeybindings;
 import net.dark_roleplay.core.client.resources.DRPModelLoader;
+import net.dark_roleplay.core.common.IProxy;
 import net.dark_roleplay.core.common.References;
 import net.dark_roleplay.core.common.Reflections;
+import net.dark_roleplay.core.common.handler.DRPCoreGuis;
 import net.dark_roleplay.core.testing.Testing_Entity;
 import net.dark_roleplay.library_old.items.ItemUtil;
 import net.minecraft.client.Minecraft;
@@ -32,11 +34,15 @@ import net.minecraftforge.client.model.ModelLoaderRegistry;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.client.registry.IRenderFactory;
 import net.minecraftforge.fml.client.registry.RenderingRegistry;
+import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
-public class ClientProxy{
+@SideOnly(Side.CLIENT)
+public class ClientProxy implements IProxy{
 		
 	public static boolean useRecipeData = false;
 	public static int recipePage = 0;
@@ -47,7 +53,8 @@ public class ClientProxy{
 //	public static List<ModularGui_Template> modularGuis = new ArrayList<ModularGui_Template>();
 		
 	public ClientProxy(){
-		Reflections.init();
+		Reflections reflections = new Reflections();
+		reflections.init();
 	}
 	
 	public void preInit(FMLPreInitializationEvent event) {
@@ -76,6 +83,8 @@ public class ClientProxy{
 
 	public void init(FMLInitializationEvent event) {
 		DRPCoreKeybindings.init(event);
+		
+		DRPCoreGuis.init(event);
 		
 		RenderPlayer steve = ((RenderPlayer)Minecraft.getMinecraft().getRenderManager().getSkinMap().get("default"));
 //		RenderPlayer alex = ((RenderPlayer)Minecraft.getMinecraft().getRenderManager().getSkinMap().get("slim"));

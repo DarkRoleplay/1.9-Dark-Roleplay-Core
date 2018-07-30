@@ -11,8 +11,9 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.client.event.RenderWorldLastEvent;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.fml.relauncher.Side;
 
-@EventBusSubscriber(modid = References.MODID)
+@EventBusSubscriber(value = Side.CLIENT, modid = References.MODID)
 public class EventListener {
 
 	@SubscribeEvent
