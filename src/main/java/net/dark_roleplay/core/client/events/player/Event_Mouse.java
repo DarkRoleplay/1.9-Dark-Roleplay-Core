@@ -18,8 +18,9 @@ import net.minecraftforge.fml.client.FMLClientHandler;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.EventPriority;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.fml.relauncher.Side;
 
-@Mod.EventBusSubscriber(modid = References.MODID)
+@Mod.EventBusSubscriber(value = Side.CLIENT, modid = References.MODID)
 public class Event_Mouse {
 
 	/**

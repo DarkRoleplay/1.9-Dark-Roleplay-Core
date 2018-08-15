@@ -8,8 +8,9 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.fml.relauncher.Side;
 
-@Mod.EventBusSubscriber
+@Mod.EventBusSubscriber(value = Side.CLIENT, modid = References.MODID)
 public class DRPHuds {
 
 	@SubscribeEvent
