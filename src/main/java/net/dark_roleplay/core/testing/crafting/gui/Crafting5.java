@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-import net.dark_roleplay.core.common.References;
+import net.dark_roleplay.core.References;
 import net.dark_roleplay.core.testing.crafting.CraftingRegistry;
 import net.dark_roleplay.core.testing.crafting.Recipe;
 import net.dark_roleplay.core.testing.gui_testing.Gui_Test;

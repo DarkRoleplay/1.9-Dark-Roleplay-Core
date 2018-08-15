@@ -1,6 +1,6 @@
 package net.dark_roleplay.core.testing.gui_testing.components;
 
-import net.dark_roleplay.core.common.References;
+import net.dark_roleplay.core.References;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.ResourceLocation;

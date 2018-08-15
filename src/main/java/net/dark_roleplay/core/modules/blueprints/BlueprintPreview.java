@@ -3,7 +3,7 @@ package net.dark_roleplay.core.modules.blueprints;
 import java.util.BitSet;
 import java.util.List;
 
-import net.dark_roleplay.core.common.References;
+import net.dark_roleplay.core.References;
 import net.dark_roleplay.library.blueprints.Blueprint;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockLiquid;

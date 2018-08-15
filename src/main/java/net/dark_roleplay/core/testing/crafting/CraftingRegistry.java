@@ -19,7 +19,7 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParseException;
 
-import net.dark_roleplay.core.common.References;
+import net.dark_roleplay.core.References;
 import net.dark_roleplay.core.testing.crafting.factories.IngredientFactory;
 import net.dark_roleplay.core.testing.crafting.factories.RecipeFactory;
 import net.dark_roleplay.core.testing.crafting.impl.SimpleRecipe;

@@ -3,12 +3,12 @@ package net.dark_roleplay.core.api.old.entities.renderer;
 import java.util.ArrayList;
 import java.util.List;
 
+import net.dark_roleplay.core.References;
 import net.dark_roleplay.core.api.old.models.entity.Bone;
 import net.dark_roleplay.core.api.old.models.entity.animation.AnimationState;
 import net.dark_roleplay.core.api.old.models.entity.serialization.Json_Animation;
 import net.dark_roleplay.core.api.old.models.entity.serialization.Json_Bones;
 import net.dark_roleplay.core.api.old.models.entity.serialization.Json_Models;
-import net.dark_roleplay.core.common.References;
 import net.dark_roleplay.core.testing.Testing_Entity;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.BufferBuilder;

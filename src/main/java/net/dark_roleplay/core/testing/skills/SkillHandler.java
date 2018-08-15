@@ -5,7 +5,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
-import net.dark_roleplay.core.common.References;
+import net.dark_roleplay.core.References;
 
 public class SkillHandler {
 

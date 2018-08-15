@@ -1,6 +1,6 @@
 package net.dark_roleplay.core.api.old.modules.materials;
 
-import net.dark_roleplay.core.common.References;
+import net.dark_roleplay.core.References;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;

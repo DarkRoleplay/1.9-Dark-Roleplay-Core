@@ -1,4 +1,4 @@
-package net.dark_roleplay.core.common;
+package net.dark_roleplay.core;
 
 
 import net.dark_roleplay.core.api.old.modules.Module;

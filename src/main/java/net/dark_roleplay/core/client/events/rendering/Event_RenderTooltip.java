@@ -1,6 +1,6 @@
 package net.dark_roleplay.core.client.events.rendering;
 
-import net.dark_roleplay.core.common.References;
+import net.dark_roleplay.core.References;
 import net.dark_roleplay.core.common.config.Client;
 import net.dark_roleplay.core.common.handler.DRPCoreConfigs;
 import net.minecraft.client.Minecraft;

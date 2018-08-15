@@ -6,6 +6,7 @@ import java.util.List;
 
 import org.lwjgl.opengl.GL11;
 
+import net.dark_roleplay.core.References;
 import net.dark_roleplay.core.api.old.crafting.Crafting_Util;
 import net.dark_roleplay.core.api.old.crafting.simple_recipe.IRecipe;
 import net.dark_roleplay.core.api.old.crafting.simple_recipe.RecipeCategory;
@@ -13,7 +14,6 @@ import net.dark_roleplay.core.api.old.crafting.simple_recipe.SimpleRecipe;
 import net.dark_roleplay.core.api.old.gui.DRPGuiScreen;
 import net.dark_roleplay.core.client.gui.crafting.recipe_crafting.RecipeCrafting_SimpleRecipe;
 import net.dark_roleplay.core.client.keybindings.DRPCoreKeybindings;
-import net.dark_roleplay.core.common.References;
 import net.dark_roleplay.core.common.config.Debug;
 import net.dark_roleplay.core.common.crafting.CraftingRegistry;
 import net.dark_roleplay.core.common.handler.DRPCoreConfigs;

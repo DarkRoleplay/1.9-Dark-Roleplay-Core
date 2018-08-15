@@ -1,7 +1,7 @@
 package net.dark_roleplay.core.api.old.modules.crafting;
 
+import net.dark_roleplay.core.References;
 import net.dark_roleplay.core.api.old.modules.gui.IGuiElement;
-import net.dark_roleplay.core.common.References;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Gui;
 import net.minecraft.client.renderer.RenderItem;

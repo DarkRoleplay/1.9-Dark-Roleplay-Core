@@ -3,7 +3,7 @@ package net.dark_roleplay.core.testing.skills;
 import java.util.Collection;
 import java.util.List;
 
-import net.dark_roleplay.core.common.References;
+import net.dark_roleplay.core.References;
 import net.dark_roleplay.core.common.handler.DRPCoreCapabilities;
 import net.dark_roleplay.library_old.commands.DRPCommand;
 import net.minecraft.client.Minecraft;

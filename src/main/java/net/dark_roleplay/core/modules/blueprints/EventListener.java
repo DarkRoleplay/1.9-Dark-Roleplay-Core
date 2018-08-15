@@ -1,6 +1,6 @@
 package net.dark_roleplay.core.modules.blueprints;
 
-import net.dark_roleplay.core.common.References;
+import net.dark_roleplay.core.References;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.BlockModelRenderer;
 import net.minecraft.client.renderer.BlockRendererDispatcher;

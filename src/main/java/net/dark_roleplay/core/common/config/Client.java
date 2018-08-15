@@ -1,6 +1,6 @@
 package net.dark_roleplay.core.common.config;
 
-import net.dark_roleplay.core.common.References;
+import net.dark_roleplay.core.References;
 import net.dark_roleplay.core.common.handler.DRPCoreConfigs.FoodStatsDisplayType;
 import net.minecraftforge.common.config.Config;
 

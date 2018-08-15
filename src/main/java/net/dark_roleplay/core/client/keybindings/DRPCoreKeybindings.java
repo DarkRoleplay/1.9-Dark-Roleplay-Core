@@ -12,8 +12,8 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 
+import net.dark_roleplay.core.References;
 import net.dark_roleplay.core.api.old.crafting.Crafting_Util;
-import net.dark_roleplay.core.common.References;
 import net.dark_roleplay.core.common.config.Client;
 import net.dark_roleplay.core.common.config.Debug;
 import net.dark_roleplay.core.modules.hud.HudLoader;

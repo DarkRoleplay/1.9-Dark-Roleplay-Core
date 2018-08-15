@@ -23,9 +23,10 @@ public class UpdateInfo {
 		this.modid = mod.getModId();
 		this.modname = mod.getName();
 		this.currentVersion = mod.getVersion();
-		this.targetVersion = result.target.toString();
+		this.targetVersion = result.target == null ? "NaN" : result.target.toString();
 		this.versions = new ArrayList<String>();
 		this.changelog = new ArrayList<String>();
+		if(result.changes != null)
 		for(ComparableVersion key : result.changes.keySet()){
 			String value = result.changes.get(key);
 			versions.add(key.toString());

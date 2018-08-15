@@ -2,7 +2,7 @@ package net.dark_roleplay.core.testing.crafting;
 
 import java.io.IOException;
 
-import net.dark_roleplay.core.common.References;
+import net.dark_roleplay.core.References;
 import net.minecraftforge.event.world.WorldEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;

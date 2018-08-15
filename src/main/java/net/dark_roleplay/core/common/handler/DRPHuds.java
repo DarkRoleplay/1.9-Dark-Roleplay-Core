@@ -1,6 +1,6 @@
 package net.dark_roleplay.core.common.handler;
 
-import net.dark_roleplay.core.common.References;
+import net.dark_roleplay.core.References;
 import net.dark_roleplay.core.common.objects.huds.RealTimeClock;
 import net.dark_roleplay.core.common.objects.huds.VariationSelection;
 import net.dark_roleplay.core.modules.hud.Hud;

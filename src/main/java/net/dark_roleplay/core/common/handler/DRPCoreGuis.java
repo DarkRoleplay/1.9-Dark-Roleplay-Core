@@ -1,8 +1,8 @@
 package net.dark_roleplay.core.common.handler;
 
+import net.dark_roleplay.core.DarkRoleplayCore;
 import net.dark_roleplay.core.client.gui.crafting.recipe_creation.Container_RecipeCreation;
 import net.dark_roleplay.core.client.gui.crafting.recipe_creation.Gui_RecipeCreation;
-import net.dark_roleplay.core.common.DarkRoleplayCore;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;

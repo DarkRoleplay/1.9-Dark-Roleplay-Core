@@ -1,6 +1,6 @@
 package net.dark_roleplay.core.modules.update_checker;
 
-import net.dark_roleplay.core.common.References;
+import net.dark_roleplay.core.References;
 import net.dark_roleplay.core.modules.Modules;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;

@@ -1,7 +1,7 @@
 package net.dark_roleplay.core.client.events.config;
 
+import net.dark_roleplay.core.References;
 import net.dark_roleplay.core.client.keybindings.DRPCoreKeybindings;
-import net.dark_roleplay.core.common.References;
 import net.dark_roleplay.core.common.config.Debug;
 import net.minecraftforge.common.config.Config;
 import net.minecraftforge.common.config.ConfigManager;

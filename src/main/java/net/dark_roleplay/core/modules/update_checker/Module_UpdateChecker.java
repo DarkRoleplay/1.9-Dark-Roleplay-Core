@@ -22,6 +22,7 @@ public class Module_UpdateChecker extends Module{
 		List<ModContainer> mods = Loader.instance().getActiveModList();
 		for(ModContainer mod : mods){
 			CheckResult res = ForgeVersion.getResult(mod);
+			if(res != null)
 			if(res.status == ForgeVersion.Status.OUTDATED) {
 				Module_UpdateChecker.mods.add(new UpdateInfo(mod, res));
 			}

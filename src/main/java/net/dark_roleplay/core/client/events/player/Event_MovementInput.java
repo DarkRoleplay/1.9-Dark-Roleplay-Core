@@ -1,6 +1,6 @@
 package net.dark_roleplay.core.client.events.player;
 
-import net.dark_roleplay.core.common.References;
+import net.dark_roleplay.core.References;
 import net.dark_roleplay.core.common.handler.DRPCorePotions;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.MovementInput;

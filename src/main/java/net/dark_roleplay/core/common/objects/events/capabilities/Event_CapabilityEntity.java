@@ -1,6 +1,6 @@
 package net.dark_roleplay.core.common.objects.events.capabilities;
 
-import net.dark_roleplay.core.common.References;
+import net.dark_roleplay.core.References;
 import net.dark_roleplay.core.common.handler.DRPCoreCapabilities;
 import net.dark_roleplay.core.modules.locks.capabilities.ILockHandler;
 import net.dark_roleplay.core.testing.skills.SkillHandler;

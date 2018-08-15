@@ -2,7 +2,7 @@ package net.dark_roleplay.core.testing.gui_testing.components;
 
 import java.io.IOException;
 
-import net.dark_roleplay.core.common.References;
+import net.dark_roleplay.core.References;
 import net.dark_roleplay.library_old.wrapper.BooleanWrapper;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.audio.PositionedSoundRecord;

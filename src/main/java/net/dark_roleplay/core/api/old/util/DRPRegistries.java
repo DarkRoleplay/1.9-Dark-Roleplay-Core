@@ -1,6 +1,6 @@
 package net.dark_roleplay.core.api.old.util;
 
-import net.dark_roleplay.core.common.References;
+import net.dark_roleplay.core.References;
 import net.dark_roleplay.core.modules.hud.Hud;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.event.RegistryEvent;

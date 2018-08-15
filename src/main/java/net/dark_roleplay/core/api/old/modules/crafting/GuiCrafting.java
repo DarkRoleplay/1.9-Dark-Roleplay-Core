@@ -1,8 +1,8 @@
 package net.dark_roleplay.core.api.old.modules.crafting;
 
+import net.dark_roleplay.core.References;
 import net.dark_roleplay.core.api.old.gui.DRPGuiScreen;
 import net.dark_roleplay.core.api.old.modules.gui.IntegerWrapper;
-import net.dark_roleplay.core.common.References;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Gui;
 import net.minecraft.util.ResourceLocation;

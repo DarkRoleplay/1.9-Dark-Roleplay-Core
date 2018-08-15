@@ -3,7 +3,7 @@ package net.dark_roleplay.core.common.handler;
 import java.util.ArrayList;
 import java.util.List;
 
-import net.dark_roleplay.core.common.References;
+import net.dark_roleplay.core.References;
 import net.dark_roleplay.library_old.items.DRPItem;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.item.Item;

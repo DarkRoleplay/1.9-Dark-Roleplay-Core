@@ -3,6 +3,7 @@ package net.dark_roleplay.core.client.gui.crafting.recipe_crafting;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import net.dark_roleplay.core.References;
 import net.dark_roleplay.core.api.old.crafting.Crafting_Util;
 import net.dark_roleplay.core.api.old.crafting.simple_recipe.SimpleRecipe;
 import net.dark_roleplay.core.api.old.gui.DRPGuiScreen;
@@ -10,7 +11,6 @@ import net.dark_roleplay.core.api.old.gui.ITimedGui;
 import net.dark_roleplay.core.client.ClientProxy;
 import net.dark_roleplay.core.client.gui.crafting.recipe_selection.RecipeSelection;
 import net.dark_roleplay.core.client.keybindings.DRPCoreKeybindings;
-import net.dark_roleplay.core.common.References;
 import net.dark_roleplay.core.common.handler.DRPCorePackets;
 import net.dark_roleplay.core.common.objects.packets.crafting.Packet_InitSimpleRecipe;
 import net.minecraft.client.Minecraft;
