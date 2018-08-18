@@ -9,7 +9,7 @@ buildscript {
 }
 apply plugin: 'net.minecraftforge.gradle.forge'
 
-version = "1.12.2-0.4.3.2"
+version = "1.12.2-0.4.3.4"
 group= "net.dark_roleplay"
 archivesBaseName = "drpcore"
 
@@ -49,10 +49,10 @@ dependencies {
 	// at runtime, use the full JEI jar
 	runtime "mezz.jei:jei_${mc_version}:${jei_version}"
   
-	embed "darkroleplay.library:drplibrary-${mc_version}:${drp_library_version}"
-	embed "darkroleplay.core_modules.drpcmblueprints:drpcmblueprints-${mc_version}:${drp_core_module_blueprints_version}"
-	embed "darkroleplay.core_modules.drpcmdates:drpcmdates-${mc_version}:${drp_core_module_dates_version}"
-	embed "darkroleplay.core_modules.drpcmcrops:drpcmcrops-${mc_version}:${drp_core_module_crops_version}"
+	embed "darkroleplay:drplibrary:${mc_version}-${drp_library_version}"
+	embed "darkroleplay.core_modules:drpcmblueprints:${mc_version}-${drp_core_module_blueprints_version}"
+	embed "darkroleplay.core_modules:drpcmdates:${mc_version}-${drp_core_module_dates_version}"
+	embed "darkroleplay.core_modules:drpcmcrops:${mc_version}-${drp_core_module_crops_version}"
 }
 
 processResources {

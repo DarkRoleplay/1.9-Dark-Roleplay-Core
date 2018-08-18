@@ -6,6 +6,7 @@ import java.util.List;
 import net.dark_roleplay.core.modules.automatic_resource_generation.GeneratedResourcePack;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.resources.IResourcePack;
+
 import net.minecraftforge.fml.relauncher.ReflectionHelper;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;

@@ -14,6 +14,7 @@ import com.google.gson.JsonObject;
 
 import net.dark_roleplay.core.References;
 import net.dark_roleplay.core.api.old.crafting.Crafting_Util;
+import net.dark_roleplay.core.client.ClientProxy;
 import net.dark_roleplay.core.common.config.Client;
 import net.dark_roleplay.core.common.config.Debug;
 import net.dark_roleplay.core.modules.hud.HudLoader;
@@ -87,7 +88,7 @@ public class DRPCoreKeybindings {
 	public void KeyInput(KeyInputEvent event) {
 		if(GUI_CRAFTING.isKeyDown()) {
 			Crafting_Util.openRecipeSelection(Blocks.AIR, Minecraft.getMinecraft().player.getPosition().add(0, -1, 0), 0f, -90f);
-			References.CRAFTING_TUT.hide();
+			ClientProxy.CRAFTING_TUT.hide();
 //		}else if(this.GUI_SKILLS.isKeyDown()){
 //			ToastController.displayInfoToast("dpcore.featureNotImplemented", null);
 //		}else if(this.GUI_VARIATIONS.isKeyDown()){

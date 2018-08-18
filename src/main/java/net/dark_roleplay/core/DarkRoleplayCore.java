@@ -2,6 +2,7 @@ package net.dark_roleplay.core;
 
 
 import net.dark_roleplay.core.api.old.modules.Module;
+import net.dark_roleplay.core.common.IProxy;
 import net.dark_roleplay.core.common.handler.DRPCoreCapabilities;
 import net.dark_roleplay.core.common.handler.DRPCoreCrafting;
 import net.dark_roleplay.core.common.handler.DRPCorePackets;

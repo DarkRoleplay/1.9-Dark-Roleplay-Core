@@ -17,11 +17,13 @@ import net.dark_roleplay.core.client.events.player.Event_Mouse;
 import net.dark_roleplay.core.client.events.rendering.Event_BlockHighlight;
 import net.dark_roleplay.core.client.keybindings.DRPCoreKeybindings;
 import net.dark_roleplay.core.client.resources.DRPModelLoader;
+import net.dark_roleplay.core.common.IProxy;
 import net.dark_roleplay.core.common.Reflections;
 import net.dark_roleplay.core.common.handler.DRPCoreGuis;
 import net.dark_roleplay.core.testing.Testing_Entity;
 import net.dark_roleplay.library_old.items.ItemUtil;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.toasts.TutorialToast;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.client.renderer.entity.Render;
 import net.minecraft.client.renderer.entity.RenderManager;
@@ -29,6 +31,7 @@ import net.minecraft.client.renderer.entity.RenderPlayer;
 import net.minecraft.client.resources.IResource;
 import net.minecraft.client.resources.IResourceManager;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraftforge.client.model.ModelLoaderRegistry;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.client.registry.IRenderFactory;
@@ -43,6 +46,8 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 @SideOnly(Side.CLIENT)
 public class ClientProxy implements IProxy{
 		
+	public static final TutorialToast CRAFTING_TUT = new TutorialToast(TutorialToast.Icons.RECIPE_BOOK, new TextComponentTranslation("drpcore.tutorial.craft.title"), new TextComponentTranslation("drpcore.tutorial.craft.desc", "C"), false);
+	
 	public static boolean useRecipeData = false;
 	public static int recipePage = 0;
 	public static int categoryOffset = 0;

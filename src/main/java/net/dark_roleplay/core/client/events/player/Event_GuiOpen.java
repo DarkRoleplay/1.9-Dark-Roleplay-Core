@@ -1,6 +1,7 @@
 package net.dark_roleplay.core.client.events.player;
 
 import net.dark_roleplay.core.References;
+import net.dark_roleplay.core.client.ClientProxy;
 import net.dark_roleplay.core.common.config.Client;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.inventory.GuiInventory;
@@ -20,7 +21,7 @@ public class Event_GuiOpen {
 	public static void onEvent(GuiOpenEvent event) {
 				
 		if(event.getGui() instanceof GuiInventory && Client.TUTORIAL.SHOW_CRAFTING_TUT) {
-			Minecraft.getMinecraft().getToastGui().add(References.CRAFTING_TUT);
+			Minecraft.getMinecraft().getToastGui().add(ClientProxy.CRAFTING_TUT);
 			Client.TUTORIAL.SHOW_CRAFTING_TUT = false;
 			ConfigManager.sync(References.MODID, Config.Type.INSTANCE);
 		}

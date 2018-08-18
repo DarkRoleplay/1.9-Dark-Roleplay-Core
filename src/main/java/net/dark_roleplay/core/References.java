@@ -22,7 +22,7 @@ public class References {
 
 	public static final String MODID = "drpcore";
 	public static final String NAME = "Dark Roleplay Core";
-	public static final String VERSION = "0.4.3.3";
+	public static final String VERSION = "1.12.2-0.4.3.4";
 	public static final String ACCEPTEDVERSIONS = "[1.12,1.13)";
 	public static final String UPDATE_JSON = "http://dark-roleplay.net/version_files/DarkRoleplayCore.json";
 	public static final String DEPENDECIES = "required-after:forge@[1.12.2-14.23.0.2499,)";
@@ -49,8 +49,6 @@ public class References {
 	public static Side SIDE;
 	
 	public static CheckResult VERSION_STATUS;
-	
-	public static final TutorialToast CRAFTING_TUT = new TutorialToast(TutorialToast.Icons.RECIPE_BOOK, new TextComponentTranslation("drpcore.tutorial.craft.title"), new TextComponentTranslation("drpcore.tutorial.craft.desc", "C"), false);
 	
 	public static void init(FMLPreInitializationEvent event){
 		References.LOGGER = LogManager.getLogger(References.MODID);
