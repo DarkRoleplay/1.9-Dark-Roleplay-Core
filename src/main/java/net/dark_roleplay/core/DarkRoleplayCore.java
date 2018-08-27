@@ -9,6 +9,8 @@ import net.dark_roleplay.core.common.handler.DRPCorePackets;
 import net.dark_roleplay.core.modules.Modules;
 import net.dark_roleplay.core.modules.command_answer_gui.commands.CommandGui;
 import net.dark_roleplay.core.testing.crafting.CraftingRegistry;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventHandler;
 import net.minecraftforge.fml.common.ProgressManager;
@@ -72,6 +74,7 @@ public class DarkRoleplayCore {
 		}
 		ProgressManager.pop(progressBar);
 		//TODO MOVE
+
 		
 //		for(int i = 0; i < 25; i ++)
 //			PermissionAPI.registerNode("drpcore.test.number" + i, DefaultPermissionLevel.OP, "A Simple test Permission, not really doing anything (Number: " + i + ")");

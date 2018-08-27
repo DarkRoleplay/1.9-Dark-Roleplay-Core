@@ -3,6 +3,7 @@ package net.dark_roleplay.core.common.objects.huds;
 import java.util.Calendar;
 
 import net.dark_roleplay.core.References;
+import net.dark_roleplay.core.common.config.Client;
 import net.dark_roleplay.core.modules.hud.Hud;
 import net.minecraft.client.Minecraft;
 import net.minecraft.util.ResourceLocation;
@@ -22,6 +23,8 @@ public class RealTimeClock extends Hud{
 	private static ResourceLocation minuteTexture = new ResourceLocation(References.MODID, "textures/hud/minute.png");
 	
 	public void render(int width, int height, float partialTicks){
+		if(!Client.HUD.DRAW_REALTIME_CLOCK) return;
+		
 		Minecraft.getMinecraft().renderEngine.bindTexture(clockTexture);
 		int baseX = this.alignment.getBaseX(width, 32) + this.posX + 16;
 		int baseY = this.alignment.getBaseY(height, 32) + this.posY + 16;
