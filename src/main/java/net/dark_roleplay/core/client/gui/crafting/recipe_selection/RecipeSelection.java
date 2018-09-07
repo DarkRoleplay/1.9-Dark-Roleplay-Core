@@ -145,6 +145,7 @@ public class RecipeSelection extends DRPGuiScreen{
 			if (this.isMouseOverButton(recipeButtons[i], mouseX, mouseY)){
 				int k = (18 * recipePage);
 				if(recipes.size() > k + i){
+					if(recipes.get(i + k).getDisplayItems()[0] == null) break;
 					renderToolTip(recipes.get(i + k).getDisplayItems()[0] ,mouseX,mouseY);
 					if(Debug.DEBUG_RECIPE_NAMES){
 						this.fontRenderer.drawString(recipes.get(i + k).getRegistryString(), 5, this.height - 25, 16777215);

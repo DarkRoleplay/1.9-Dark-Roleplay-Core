@@ -7,10 +7,7 @@ import net.dark_roleplay.core.common.handler.DRPCoreCapabilities;
 import net.dark_roleplay.core.common.handler.DRPCoreCrafting;
 import net.dark_roleplay.core.common.handler.DRPCorePackets;
 import net.dark_roleplay.core.modules.Modules;
-import net.dark_roleplay.core.modules.command_answer_gui.commands.CommandGui;
 import net.dark_roleplay.core.testing.crafting.CraftingRegistry;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventHandler;
 import net.minecraftforge.fml.common.ProgressManager;
@@ -26,7 +23,7 @@ public class DarkRoleplayCore {
 	
 	public static boolean isServerSide = false;
 	
-	@SidedProxy(modId = References.MODID, serverSide = "net.dark_roleplay.core.server.ServerProxy", clientSide = "net.dark_roleplay.core.client.ClientProxy")
+	@SidedProxy(modId = References.MODID, clientSide = "net.dark_roleplay.core.client.ClientProxy")
 	public static IProxy proxy;
 	
 	@Mod.Instance(References.MODID)
@@ -41,7 +38,6 @@ public class DarkRoleplayCore {
 		if(event.getSide().isClient())
 			Modules.HUD.enable();
 		Modules.CRAFTING2.enable();
-		Modules.MATERIALS.enable();
 		Modules.UPDATE_CHECKER.enable();
 		ProgressBar progressBar = ProgressManager.push("Pre Initializing Modules", Module.getModules().size());
 		for(Module module : Module.getModules()){
@@ -96,9 +92,19 @@ public class DarkRoleplayCore {
 	
 	@EventHandler
 	public void serverLoad(FMLServerStartingEvent event){
-		event.registerServerCommand(new CommandGui("drpopengui", "drpcore.commands.opengui", "Allows to use /drpopengui to show the player a GUI and get's it's selection into a scoreboard", "opengui"));
 //		event.registerServerCommand(new CommandTest());
 //		event.registerServerCommand(new Command_Recipe("drprecipes"));
 //		event.registerServerCommand(new Command_Skill("drpskills"));
+	}
+	
+	public static class ServerProxy implements IProxy{
+		@Override
+		public void preInit(FMLPreInitializationEvent event) {}
+
+		@Override
+		public void init(FMLInitializationEvent event) {}
+
+		@Override
+		public void postInit(FMLPostInitializationEvent event) {}
 	}
 }

@@ -18,6 +18,7 @@ import net.dark_roleplay.core.client.ClientProxy;
 import net.dark_roleplay.core.common.config.Client;
 import net.dark_roleplay.core.common.config.Debug;
 import net.dark_roleplay.core.modules.hud.HudLoader;
+import net.dark_roleplay.core.testing.gui_testing.Gui_Test;
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.settings.KeyBinding;
@@ -119,7 +120,7 @@ public class DRPCoreKeybindings {
 //			BuildingViewerHelper.initialize(Minecraft.getMinecraft().player.getPosition().add(0, 5, 0), Minecraft.getMinecraft().player.world.getTileEntity(Minecraft.getMinecraft().player.getPosition().down()));
 			
 //			System.out.println(	PermissionAPI.hasPermission(Minecraft.getMinecraft().player, "drpcore.test.number2"));
-//			Minecraft.getMinecraft().displayGuiScreen(new Gui_Test());
+			Minecraft.getMinecraft().displayGuiScreen(new Gui_Test());
 			
 			
 //			if(Minecraft.getMinecraft().player.isSneaking()) {

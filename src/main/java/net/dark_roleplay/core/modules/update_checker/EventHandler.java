@@ -1,7 +1,7 @@
 package net.dark_roleplay.core.modules.update_checker;
 
 import net.dark_roleplay.core.References;
-import net.dark_roleplay.core.modules.Modules;
+import net.dark_roleplay.core.common.config.Client;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiMainMenu;
@@ -15,13 +15,13 @@ public class EventHandler {
 	
 	@SubscribeEvent
 	public static void guiInit(GuiScreenEvent.InitGuiEvent event) {
-		if(event.getGui() instanceof GuiMainMenu && !Module_UpdateChecker.mods.isEmpty()) {
+		if(!Client.DISABLE_UPDATE_INFO && event.getGui() instanceof GuiMainMenu && !Module_UpdateChecker.mods.isEmpty()) {
 			GuiMainMenu menu = (GuiMainMenu) event.getGui();
 			GuiButton updateAvailableButton = new GuiButton(222, menu.width - 105, 5, 100, 20, "Updates Available!" );
 			event.getButtonList().add(updateAvailableButton);
 		}
 	}
-	
+	 
 	@SubscribeEvent
 	public static void guiButtonPressed(GuiScreenEvent.ActionPerformedEvent event) {
 		if(event.getGui() instanceof GuiMainMenu && event.getButton().id == 222) {

@@ -2,6 +2,7 @@ package net.dark_roleplay.core.common.config;
 
 import net.dark_roleplay.core.References;
 import net.dark_roleplay.core.common.handler.DRPCoreConfigs.FoodStatsDisplayType;
+import net.dark_roleplay.library.configs.prefabs.RGB;
 import net.minecraftforge.common.config.Config;
 
 @Config(modid = References.MODID, name = "Dark Roleplay Core/Client", category = "client")
@@ -18,6 +19,9 @@ public class Client {
 	
 	@Config.Comment("Containing Settings for Tutorial Toasts")
 	public static Tutorial TUTORIAL = new Tutorial();
+	
+	@Config.Comment("Disables the Button that's added to the main menu when an update is available")
+	public static boolean DISABLE_UPDATE_INFO = false;
 	
 	public static class Hud{
 		
@@ -64,60 +68,6 @@ public class Client {
 		@Config.Comment("Set to true this will prevent the crafting gui to show up again.")
 		public boolean SHOW_CRAFTING_TUT = true;
 		
-	}
-	
-	public static class RGB{
-		
-		@Config.Name("Red Value")
-		@Config.Comment("1.0 = full red, 0.0 = not red at all")
-		@Config.RangeDouble(min = 0.0, max = 1.0)
-		public float RED = 1.0F;
-		
-		@Config.Name("Green Value")
-		@Config.Comment("1.0 = full green, 0.0 = not green at all")
-		@Config.RangeDouble(min = 0.0, max = 1.0)
-		public float GREEN = 1.0F;
-		
-		@Config.Name("Blue Value")
-		@Config.Comment("1.0 = full blue, 0.0 = not blue at all")
-		@Config.RangeDouble(min = 0.0, max = 1.0)
-		public float BLUE = 1.0F;
-		
-		public RGB(float red, float green, float blue) {
-			this.RED = red;
-			this.GREEN = green;
-			this.BLUE = blue;
-		}
-	}
-	
-	public static class RGBA{
-		
-		@Config.Name("Red Value")
-		@Config.Comment("1.0 = full red, 0.0 = not red at all")
-		@Config.RangeDouble(min = 0.0, max = 1.0)
-		public float RED = 1.0F;
-		
-		@Config.Name("Green Value")
-		@Config.Comment("1.0 = full green, 0.0 = not green at all")
-		@Config.RangeDouble(min = 0.0, max = 1.0)
-		public float GREEN = 1.0F;
-		
-		@Config.Name("Blue Value")
-		@Config.Comment("1.0 = full blue, 0.0 = not blue at all")
-		@Config.RangeDouble(min = 0.0, max = 1.0)
-		public float BLUE = 1.0F;
-		
-		@Config.Name("Alpha Value")
-		@Config.Comment("1.0 = full visible, 0.0 = not visible at all")
-		@Config.RangeDouble(min = 0.0, max = 1.0)
-		public float ALPHA = 1.0F;
-		
-		public RGBA(float red, float green, float blue, float alpha) {
-			this.RED = red;
-			this.GREEN = green;
-			this.BLUE = blue;
-			this.ALPHA = alpha;
-		}
 	}
 	
 }

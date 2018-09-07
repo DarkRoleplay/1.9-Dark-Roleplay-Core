@@ -79,6 +79,8 @@ public abstract class Component extends Gui{
 	
 	public boolean mouseClicked(int mouseX, int mouseY, int mouseButton) throws IOException { return false; }
 	
+	public boolean mouseHold(int mouseX, int mouseY, int mouseButton, long ticksHold) { return false; }
+
 	public void keyTyped(char typedChar, int keyCode) throws IOException {}
 	
 	public void onFocusGain() {}

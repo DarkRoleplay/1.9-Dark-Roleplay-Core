@@ -7,8 +7,6 @@ import java.util.List;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import net.minecraft.client.gui.toasts.TutorialToast;
-import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraftforge.common.ForgeVersion;
 import net.minecraftforge.common.ForgeVersion.CheckResult;
 import net.minecraftforge.fml.common.Loader;
@@ -22,7 +20,7 @@ public class References {
 
 	public static final String MODID = "drpcore";
 	public static final String NAME = "Dark Roleplay Core";
-	public static final String VERSION = "1.12.2-0.4.4";
+	public static final String VERSION = "1.12.2-0.4.5";
 	public static final String ACCEPTEDVERSIONS = "[1.12,1.13)";
 	public static final String UPDATE_JSON = "http://dark-roleplay.net/version_files/DarkRoleplayCore.json";
 	public static final String DEPENDECIES = "required-after:forge@[1.12.2-14.23.0.2499,)";
@@ -35,7 +33,6 @@ public class References {
 	public static File FOLDER_MAIN;
 	public static File FOLDER_BLUEPRINTS;
 	public static File FOLDER_RECIPES;
-	public static File FOLDER_ARG;
 	
 	@SideOnly (Side.SERVER)
 	public static File FOLDER_PERMISSIONS;
@@ -76,8 +73,7 @@ public class References {
 			FOLDER_PERMISSIONS_GROUPS.mkdirs();
 		}
 		
-		FOLDER_ARG = new File(FOLDER_MAIN.getPath() + "/argh/assets/");
-		FOLDER_ARG.mkdirs();
+		
 		
 		ModContainer mod = Loader.instance().activeModContainer();
 		if(mod.getModId().equals(References.MODID)){

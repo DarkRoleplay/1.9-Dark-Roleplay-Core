@@ -9,16 +9,16 @@ import net.dark_roleplay.core.api.old.models.entity.animation.AnimationState;
 import net.dark_roleplay.core.api.old.models.entity.serialization.Json_Animation;
 import net.dark_roleplay.core.api.old.models.entity.serialization.Json_Bones;
 import net.dark_roleplay.core.api.old.models.entity.serialization.Json_Models;
-import net.dark_roleplay.core.testing.Testing_Entity;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.BufferBuilder;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.entity.Render;
 import net.minecraft.client.renderer.entity.RenderManager;
+import net.minecraft.entity.EntityLiving;
 import net.minecraft.util.ResourceLocation;
 
-public class RendererTest extends Render<Testing_Entity> {
+public class RendererTest extends Render<EntityLiving> {
 
 	ResourceLocation loc = new ResourceLocation(References.MODID + ":textures/testing/wheel.png");
 	
@@ -62,11 +62,11 @@ public class RendererTest extends Render<Testing_Entity> {
 	}
 	
 	@Override
-	protected ResourceLocation getEntityTexture(Testing_Entity entity) {
+	protected ResourceLocation getEntityTexture(EntityLiving entity) {
 		return null;
 	}
 
-	public void doRender(Testing_Entity entity, double x, double y, double z, float entityYaw, float partialTicks) {
+	public void doRender(EntityLiving entity, double x, double y, double z, float entityYaw, float partialTicks) {
 //		this.bones = Json_Bones.readBonesFromJson(bonesFile);
 //		Json_Models.readModelFromJson(modelFile, this.bones);
 //		this.bones = Json_Bones.readBonesFromJson(new ResourceLocation(DRPCoreInfo.MODID + ":textures/testing/testing_bones.json"));

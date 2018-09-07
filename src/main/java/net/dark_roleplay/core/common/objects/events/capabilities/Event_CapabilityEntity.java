@@ -2,7 +2,6 @@ package net.dark_roleplay.core.common.objects.events.capabilities;
 
 import net.dark_roleplay.core.References;
 import net.dark_roleplay.core.common.handler.DRPCoreCapabilities;
-import net.dark_roleplay.core.modules.locks.capabilities.ILockHandler;
 import net.dark_roleplay.core.testing.skills.SkillHandler;
 import net.dark_roleplay.library.capabilities.CapabilityProvider;
 import net.minecraft.entity.Entity;
@@ -22,10 +21,4 @@ public class Event_CapabilityEntity {
 
         event.addCapability(new ResourceLocation(References.MODID, "skill_handler"), new CapabilityProvider<SkillHandler>(DRPCoreCapabilities.SKILL_HANDLER));
     }
-	
-	@SubscribeEvent
-    public static void attachCapabilityChunk(AttachCapabilitiesEvent<Chunk> event){
-        if (!(event.getObject() instanceof Chunk)) return;
-        event.addCapability(new ResourceLocation(References.MODID, "lock_handler"), new CapabilityProvider<ILockHandler>(DRPCoreCapabilities.LOCK_HANDLER));
-	}
 }

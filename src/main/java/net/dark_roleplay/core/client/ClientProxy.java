@@ -11,32 +11,22 @@ import java.util.List;
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 
-import net.dark_roleplay.core.References;
-import net.dark_roleplay.core.api.old.entities.renderer.RendererTest;
 import net.dark_roleplay.core.client.events.player.Event_Mouse;
 import net.dark_roleplay.core.client.events.rendering.Event_BlockHighlight;
 import net.dark_roleplay.core.client.keybindings.DRPCoreKeybindings;
 import net.dark_roleplay.core.client.resources.DRPModelLoader;
 import net.dark_roleplay.core.common.IProxy;
-import net.dark_roleplay.core.common.Reflections;
 import net.dark_roleplay.core.common.handler.DRPCoreGuis;
-import net.dark_roleplay.core.testing.Testing_Entity;
 import net.dark_roleplay.library_old.items.ItemUtil;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.toasts.TutorialToast;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
-import net.minecraft.client.renderer.entity.Render;
-import net.minecraft.client.renderer.entity.RenderManager;
-import net.minecraft.client.renderer.entity.RenderPlayer;
 import net.minecraft.client.resources.IResource;
 import net.minecraft.client.resources.IResourceManager;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraftforge.client.model.ModelLoaderRegistry;
 import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.fml.client.registry.IRenderFactory;
-import net.minecraftforge.fml.client.registry.RenderingRegistry;
-import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
@@ -55,11 +45,7 @@ public class ClientProxy implements IProxy{
 	public static byte currentTick = 0;
 	
 //	public static List<ModularGui_Template> modularGuis = new ArrayList<ModularGui_Template>();
-		
-	public ClientProxy(){
-		Reflections reflections = new Reflections();
-		reflections.init();
-	}
+
 	
 	public void preInit(FMLPreInitializationEvent event) {
 		DRPCoreKeybindings.preInit(event);
@@ -74,15 +60,6 @@ public class ClientProxy implements IProxy{
 		
 	    // model to be used for rendering this item
 	    ModelResourceLocation itemModelResourceLocation = new ModelResourceLocation("drpcore:medicine", "inventory");
-
-		
-		
-		RenderingRegistry.registerEntityRenderingHandler(Testing_Entity.class, new IRenderFactory<Testing_Entity>(){
-			@Override
-			public Render<? super Testing_Entity> createRenderFor(RenderManager manager) {
-				return new RendererTest(manager, new ResourceLocation(References.MODID, "testing"));
-			}
-		});
 	}
 
 	public void init(FMLInitializationEvent event) {
@@ -90,7 +67,7 @@ public class ClientProxy implements IProxy{
 		
 		DRPCoreGuis.init(event);
 		
-		RenderPlayer steve = ((RenderPlayer)Minecraft.getMinecraft().getRenderManager().getSkinMap().get("default"));
+//		RenderPlayer steve = ((RenderPlayer)Minecraft.getMinecraft().getRenderManager().getSkinMap().get("default"));
 //		RenderPlayer alex = ((RenderPlayer)Minecraft.getMinecraft().getRenderManager().getSkinMap().get("slim"));
 //		steve.addLayer(new RenderLayer_PremiumAddon(steve));
 //		alex.addLayer(new RenderLayer_PremiumAddon(alex));
@@ -101,8 +78,6 @@ public class ClientProxy implements IProxy{
 		DRPCoreKeybindings.postInit(event);
 //	    Minecraft.getMinecraft().getItemColors().registerItemColorHandler(new ColorHandler(), DRPCoreItems.TEST_PAINT);
 	}
-	
-
 	
 	public static IResource getResource(ResourceLocation location){
         IResourceManager manager = Minecraft.getMinecraft().getResourceManager();

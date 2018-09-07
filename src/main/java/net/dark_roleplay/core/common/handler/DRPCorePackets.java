@@ -1,14 +1,11 @@
 package net.dark_roleplay.core.common.handler;
 
-import net.dark_roleplay.core.common.objects.packets.chunks.SyncPacket_LockHandler;
 import net.dark_roleplay.core.common.objects.packets.crafting.Packet_InitSimpleRecipe;
 import net.dark_roleplay.core.common.objects.packets.crafting.SyncPacket_PlayerRecipeState;
 import net.dark_roleplay.core.common.objects.packets.debug.Packet_DebugKey;
 import net.dark_roleplay.core.common.objects.packets.skills.Packet_UnlockSkill;
 import net.dark_roleplay.core.common.objects.packets.skills.SyncPacket_SkillPoints;
 import net.dark_roleplay.core.common.objects.packets.weapons.Packet_ExtendedRangeAttack;
-import net.dark_roleplay.core.modules.command_answer_gui.network.Packet_Answer;
-import net.dark_roleplay.core.modules.command_answer_gui.network.Packet_OpenGui;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraftforge.fml.common.network.NetworkRegistry;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
@@ -29,13 +26,7 @@ public class DRPCorePackets {
 		INSTANCE.registerMessage(Packet_ExtendedRangeAttack.class, Packet_ExtendedRangeAttack.class, i++, Side.SERVER);
 		INSTANCE.registerMessage(SyncPacket_SkillPoints.class, SyncPacket_SkillPoints.class, i++, Side.CLIENT);
 		INSTANCE.registerMessage(Packet_UnlockSkill.class, Packet_UnlockSkill.class, i++, Side.SERVER);
-//		INSTANCE.registerMessage(SyncPacket_Skills.class, SyncPacket_Skills.class, i++, Side.CLIENT);
 		INSTANCE.registerMessage(Packet_DebugKey.class, Packet_DebugKey.class, i++, Side.SERVER);
-		INSTANCE.registerMessage(SyncPacket_LockHandler.class, SyncPacket_LockHandler.class , i++, Side.CLIENT);
-		
-
-		INSTANCE.registerMessage(Packet_Answer.class, Packet_Answer.class, i++, Side.SERVER);
-		INSTANCE.registerMessage(Packet_OpenGui.class, Packet_OpenGui.class , i++, Side.CLIENT);
 	}
 
 	public static void sendTo(IMessage message, EntityPlayerMP player) {

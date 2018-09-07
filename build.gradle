@@ -9,7 +9,7 @@ buildscript {
 }
 apply plugin: 'net.minecraftforge.gradle.forge'
 
-version = "1.12.2-0.4.4"
+version = "1.12.2-0.4.5"
 group= "net.dark_roleplay"
 archivesBaseName = "drpcore"
 
@@ -53,6 +53,7 @@ dependencies {
 	embed "darkroleplay.core_modules:drpcmblueprints:${mc_version}-${drp_core_module_blueprints_version}"
 	embed "darkroleplay.core_modules:drpcmdates:${mc_version}-${drp_core_module_dates_version}"
 	embed "darkroleplay.core_modules:drpcmcrops:${mc_version}-${drp_core_module_crops_version}"
+	embed "darkroleplay.core_modules:drpcmmaarg:${mc_version}-${drp_core_module_maarg_version}"
 }
 
 processResources {

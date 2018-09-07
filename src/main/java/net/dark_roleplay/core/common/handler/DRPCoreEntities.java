@@ -2,7 +2,6 @@ package net.dark_roleplay.core.common.handler;
 
 import net.dark_roleplay.core.References;
 import net.dark_roleplay.core.modules.sitting.entities.Sittable;
-import net.dark_roleplay.core.testing.Testing_Entity;
 import net.minecraft.entity.Entity;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.event.RegistryEvent;
@@ -20,10 +19,6 @@ public class DRPCoreEntities {
 	public static void register(RegistryEvent.Register<EntityEntry> e) {
 		e.getRegistry().register(
 			createBuilder("sittable").entity(Sittable.class).tracker(32, 1, false).build()
-		);
-		
-		e.getRegistry().register(
-			createBuilder("testing").entity(Testing_Entity.class).tracker(32, 1, false).build()
 		);
 	}
 	
