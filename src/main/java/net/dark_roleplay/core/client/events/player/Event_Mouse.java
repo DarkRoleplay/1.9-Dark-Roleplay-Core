@@ -45,7 +45,7 @@ public class Event_Mouse {
 
 						float range = ranged.getRange();
 						RayTraceResult res = getMouseOverExtended(range);
-						
+
 						if (res != null) {
 							if (res.entityHit != null && res.entityHit.hurtResistantTime < 1) {
 								if (res.entityHit != player) {
@@ -74,11 +74,11 @@ public class Event_Mouse {
 			}
 
 			Vec3d lookvec = theRenderViewEntity.getLook(0);
-			Vec3d var8 = pos.addVector(lookvec.x * dist, lookvec.y * dist, lookvec.z * dist);
+			Vec3d var8 = pos.add(lookvec.x * dist, lookvec.y * dist, lookvec.z * dist);
 			Entity pointedEntity = null;
 			float var9 = 0.2F;
-			
-			
+
+
 			List<Entity> list = mc.world.getEntitiesWithinAABBExcludingEntity(theRenderViewEntity,
 					theViewBoundingBox.offset(lookvec.x * 4.2, lookvec.y * 4.2, lookvec.z * 4.2)
 					.expand(var9, var9, var9));

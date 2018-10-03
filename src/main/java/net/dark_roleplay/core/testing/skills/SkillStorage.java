@@ -27,19 +27,19 @@ public class SkillStorage implements IStorage<SkillHandler>{
 			NBTTagCompound skillTag = skill.serialize();
 			skillsTag.appendTag(skillTag);
 		});
-		
-		if(!skillsTag.hasNoTags())
+
+		if(!skillsTag.isEmpty())
 			tag.setTag("skills", skillsTag);
-		
+
 		Collection<SkillPointHolder> skillPoints = instance.getSkillPointHolders();
 		skillPoints.forEach(skillPoint ->{
 			NBTTagCompound skillTag = skillPoint.serialize();
 			skillPointsTag.appendTag(skillTag);
 		});
 
-		if(!skillPointsTag.hasNoTags())
+		if(!skillPointsTag.isEmpty())
 			tag.setTag("skill_points", skillPointsTag);
-		
+
 		return tag;
 	}
 
@@ -47,9 +47,9 @@ public class SkillStorage implements IStorage<SkillHandler>{
 	public void readNBT(Capability<SkillHandler> capability, SkillHandler instance, EnumFacing side, NBTBase nbt) {
 		if(!(nbt instanceof NBTTagCompound))
 			return;
-		
+
 		NBTTagCompound tag = (NBTTagCompound) nbt;
-		
+
 		if(tag.hasKey("skills")) {
 			Set<SkillHolder> skills = new HashSet<SkillHolder>();
 			NBTTagList skillList = tag.getTagList("skills", NBT.TAG_COMPOUND);
@@ -63,7 +63,7 @@ public class SkillStorage implements IStorage<SkillHandler>{
 			}
 			instance.setSkillHolders(skills);
 		}
-		
+
 		if(tag.hasKey("skill_points")) {
 			Set<SkillPointHolder> skillPoints = new HashSet<SkillPointHolder>();
 			NBTTagList skillPointList = tag.getTagList("skill_points", NBT.TAG_COMPOUND);

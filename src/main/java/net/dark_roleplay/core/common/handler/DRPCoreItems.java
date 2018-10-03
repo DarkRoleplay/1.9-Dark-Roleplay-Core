@@ -14,21 +14,20 @@ import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.registry.GameRegistry.ObjectHolder;
-import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.registries.IForgeRegistry;
 
 @ObjectHolder(value="drpcore")
 @Mod.EventBusSubscriber(modid = References.MODID)
 public class DRPCoreItems {
-	
+
 	private static List<ItemBlock> blockItems = new ArrayList<ItemBlock>();
 
 	public static void addBlockItem(ItemBlock item){
 		blockItems.add(item);
 	}
-	
-	/**---------- EXAMPLE ITEM ---------**/	
-	
+
+	/**---------- EXAMPLE ITEM ---------**/
+
 	/**---------- A ----------**/
 	/**---------- B ----------**/
 	/**---------- C ----------**/
@@ -55,15 +54,15 @@ public class DRPCoreItems {
 	/**---------- X ----------**/
 	/**---------- Y ----------**/
 	/**---------- Z ----------**/
-	
+
 	public static final Item TEST_PAINT = null;
-	
+
 	@SubscribeEvent
 	public static final void registerEvent(RegistryEvent.Register<Item> event) {
 //		if(DRPCoreConfigs.ENABLE_DEBUG_ITEMS){
 			//Register here all Debug Item
 //		}
-		
+
 		event.getRegistry().registerAll(
 //			new DRPLockable("test_lock", ILock.TYPE.LOCK, 1),
 //			new DRPLockable("test_key", ILock.TYPE.KEY, 1),
@@ -71,21 +70,21 @@ public class DRPCoreItems {
 //			new DRPInstrument("test_instrument_1", "HARP", 1),
 //			new DRPInstrument("test_instrument_2", "FLUTE", 1)
 		);
-		
+
 		for(ItemBlock b : blockItems){
 			event.getRegistry().register(b);
 		}
 	}
-	
+
 	@SubscribeEvent
 	public static void registerModels(ModelRegistryEvent event){
 		for(Item i : blockItems){
-			ModelLoader.setCustomModelResourceLocation(i, 0, new ModelResourceLocation(References.MODID + ":" + i.getUnlocalizedName().toString().substring(i.getUnlocalizedName().toString().indexOf(".") + 1, i.getUnlocalizedName().toString().length()), "inventory"));
+			ModelLoader.setCustomModelResourceLocation(i, 0, new ModelResourceLocation(References.MODID + ":" + i.getTranslationKey().toString().substring(i.getTranslationKey().toString().indexOf(".") + 1, i.getTranslationKey().toString().length()), "inventory"));
 		}
 	}
 
 	public static final void register(IForgeRegistry<Item> registry, DRPItem item){
 		registry.register(item);
 	}
-	
+
 }

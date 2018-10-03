@@ -4,7 +4,7 @@ import java.io.IOException;
 
 import org.lwjgl.input.Mouse;
 
-import net.dark_roleplay.core.testing.gui_testing.Gui_Test;
+import net.dark_roleplay.core_modules.guis.objects.testing.Gui_Test;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.tileentity.TileEntity;

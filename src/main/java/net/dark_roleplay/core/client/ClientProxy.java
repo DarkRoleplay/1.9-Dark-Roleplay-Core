@@ -35,50 +35,53 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 @SideOnly(Side.CLIENT)
 public class ClientProxy implements IProxy{
-		
+
 	public static final TutorialToast CRAFTING_TUT = new TutorialToast(TutorialToast.Icons.RECIPE_BOOK, new TextComponentTranslation("drpcore.tutorial.craft.title"), new TextComponentTranslation("drpcore.tutorial.craft.desc", "C"), false);
-	
+
 	public static boolean useRecipeData = false;
 	public static int recipePage = 0;
 	public static int categoryOffset = 0;
 	public static short selectedCategory = 0;
 	public static byte currentTick = 0;
-	
+
 //	public static List<ModularGui_Template> modularGuis = new ArrayList<ModularGui_Template>();
 
-	
+
+	@Override
 	public void preInit(FMLPreInitializationEvent event) {
 		DRPCoreKeybindings.preInit(event);
 		ItemUtil.registerItemMeshs();
-		
+
 
 		ModelLoaderRegistry.registerLoader(new DRPModelLoader());
-		
+
 		//MinecraftForge.EVENT_BUS.register(Event_ModelBaked.instance);
 		MinecraftForge.EVENT_BUS.register(new Event_Mouse());
 		MinecraftForge.EVENT_BUS.register(new Event_BlockHighlight());
-		
+
 	    // model to be used for rendering this item
 	    ModelResourceLocation itemModelResourceLocation = new ModelResourceLocation("drpcore:medicine", "inventory");
 	}
 
+	@Override
 	public void init(FMLInitializationEvent event) {
 		DRPCoreKeybindings.init(event);
-		
+
 		DRPCoreGuis.init(event);
-		
+
 //		RenderPlayer steve = ((RenderPlayer)Minecraft.getMinecraft().getRenderManager().getSkinMap().get("default"));
 //		RenderPlayer alex = ((RenderPlayer)Minecraft.getMinecraft().getRenderManager().getSkinMap().get("slim"));
 //		steve.addLayer(new RenderLayer_PremiumAddon(steve));
 //		alex.addLayer(new RenderLayer_PremiumAddon(alex));
 //		steve.addLayer(layer)
 	}
-	
+
+	@Override
 	public void postInit(FMLPostInitializationEvent event) {
 		DRPCoreKeybindings.postInit(event);
 //	    Minecraft.getMinecraft().getItemColors().registerItemColorHandler(new ColorHandler(), DRPCoreItems.TEST_PAINT);
 	}
-	
+
 	public static IResource getResource(ResourceLocation location){
         IResourceManager manager = Minecraft.getMinecraft().getResourceManager();
         IResource res = null;
@@ -89,27 +92,27 @@ public class ClientProxy implements IProxy{
 		}
         return res;
     }
-	
+
 	public static List<IResource> getResources(ResourceLocation location){
 		List<IResource> resources = new ArrayList<IResource>();
-		
+
 		File folder;
 		try {
-			folder = new File(ClientProxy.class.getClassLoader().getResource("/assets/" + location.getResourceDomain() + "/" + location.getResourcePath()).toURI());
-			
+			folder = new File(ClientProxy.class.getClassLoader().getResource("/assets/" + location.getNamespace() + "/" + location.getPath()).toURI());
+
 			for (final File file : folder.listFiles()) {
 		        if (file.isDirectory()) {
 		        } else {
-		        	resources.add(getResource(new ResourceLocation(location.getResourceDomain(), location.getResourcePath() + file.getName())));
+		        	resources.add(getResource(new ResourceLocation(location.getNamespace(), location.getPath() + file.getName())));
 		        }
 		    }
 		} catch (URISyntaxException e) {
 			e.printStackTrace();
 		}
-		
+
 		return resources;
 	}
-	
+
 	public static JsonElement getResourceAsJson(ResourceLocation location){
 		IResource res = getResource(location);
 		Gson gson = new Gson();

@@ -17,44 +17,44 @@ public class Json_Animation {
 
 	public static AnimationState readStateFromJson(ResourceLocation loc, Bone[] bones){
 		JsonObject element = ClientProxy.getResourceAsJson(loc).getAsJsonObject();
-		
+
 		AnimationState state = null;
-		
+
 		if(element != null){
 			JsonArray animationKeys = element.get("animations").getAsJsonArray();
 			Map<String, Animation> animations = new HashMap<String, Animation>();
-			
+
 			for(int i = 0; i < animationKeys.size(); i++) {
-				animations.put(animationKeys.get(i).getAsString(), Json_Animation.readAnimationFromJson(new ResourceLocation(loc.getResourceDomain(), "entities/" + loc.getResourcePath().split("/")[1] + "/animations/" + animationKeys.get(i).getAsString() + ".json"), bones));
+				animations.put(animationKeys.get(i).getAsString(), Json_Animation.readAnimationFromJson(new ResourceLocation(loc.getNamespace(), "entities/" + loc.getPath().split("/")[1] + "/animations/" + animationKeys.get(i).getAsString() + ".json"), bones));
 			}
-			
+
 			state = new AnimationState(animations, animations.get(element.get("default").getAsString()));
 		}
-		
+
 		return state;
 	}
-	
+
 	public static Animation readAnimationFromJson(ResourceLocation loc, Bone[] bones){
 		JsonObject element = ClientProxy.getResourceAsJson(loc).getAsJsonObject();
-		
+
 		int fps = element.get("fps").getAsInt();
 		int frames = element.get("frames").getAsInt();
-		
+
 		JsonObject subAnimations = element.get("animation").getAsJsonObject();
-		Map<Bone, BoneAnimation> boneAnimation = new HashMap<Bone, BoneAnimation>();		
+		Map<Bone, BoneAnimation> boneAnimation = new HashMap<Bone, BoneAnimation>();
 
 		for(Bone bone : bones) {
 			if(subAnimations.has(bone.getName())) {
 				boneAnimation.put(bone, readBoneAnimationFromJson(subAnimations.get(bone.getName()).getAsJsonObject(), fps, frames));
 			}
 		}
-		
-		
+
+
 		return new Animation(fps, frames, boneAnimation);
 	}
-	
+
 	public static BoneAnimation readBoneAnimationFromJson(JsonObject obj, int fps, int frames){
-		
+
 		float[] rotX = new float[0];
 		if(obj.has("rotation_x")) {
 			JsonObject subObj = obj.get("rotation_x").getAsJsonObject();
@@ -90,8 +90,8 @@ public class Json_Animation {
 		}else {
 			rotZ = new float[] {0F};
 		}
-		
+
 		return new BoneAnimation(fps, frames, rotX, rotY, rotZ);
 	}
-	
+
 }

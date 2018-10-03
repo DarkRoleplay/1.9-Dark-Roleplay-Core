@@ -23,7 +23,7 @@ public class DRPModelLoader implements ICustomModelLoader{
 
 	@Override
 	public boolean accepts(ResourceLocation modelLocation) {
-		return modelLocation instanceof ModelResourceLocation && modelLocation.getResourcePath().contains("advanced_model");
+		return modelLocation instanceof ModelResourceLocation && modelLocation.getPath().contains("advanced_model");
 	}
 
 	@Override

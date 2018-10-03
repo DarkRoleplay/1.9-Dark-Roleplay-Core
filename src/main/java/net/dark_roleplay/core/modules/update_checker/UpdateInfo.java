@@ -35,7 +35,7 @@ public class UpdateInfo {
 		
 		try {
 			this.updateURL = new URI(result.url);
-		} catch (URISyntaxException e) {
+		} catch (Exception e) {
 			this.updateURL = null;
 		}
 	}

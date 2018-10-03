@@ -9,7 +9,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.util.ResourceLocation;
 
 public class RealTimeClock extends Hud{
-	
+
 	public RealTimeClock(ResourceLocation registryName) {
 		super(registryName);
 		this.posX =-1;
@@ -21,10 +21,11 @@ public class RealTimeClock extends Hud{
 	private static ResourceLocation clockTexture = new ResourceLocation(References.MODID, "textures/hud/clock.png");
 	private static ResourceLocation hourTexture = new ResourceLocation(References.MODID, "textures/hud/hour.png");
 	private static ResourceLocation minuteTexture = new ResourceLocation(References.MODID, "textures/hud/minute.png");
-	
+
+	@Override
 	public void render(int width, int height, float partialTicks){
 		if(!Client.HUD.DRAW_REALTIME_CLOCK) return;
-		
+
 		Minecraft.getMinecraft().renderEngine.bindTexture(clockTexture);
 		int baseX = this.alignment.getBaseX(width, 32) + this.posX + 16;
 		int baseY = this.alignment.getBaseY(height, 32) + this.posY + 16;
@@ -39,5 +40,4 @@ public class RealTimeClock extends Hud{
 		Minecraft.getMinecraft().renderEngine.bindTexture(hourTexture);
 		this.drawTexturedCenteredRect(baseX, baseY, 0F, 0F, 1F, 1F, 16, hourAngle);
 	}
-
 }

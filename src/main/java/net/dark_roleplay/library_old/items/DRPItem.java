@@ -18,7 +18,7 @@ public class DRPItem extends Item{
 
 	protected String[] subNames;
 	protected String itemFolder;
-	
+
 	/**
 	 * A Variant for Item that Automaticly registers it's Model	and has also easy to use support for sub Items
 	 * ({@link net.dark_roleplay.library_old.items.ItemUtil#addItem(DRPItem) ItemUtil.addItem(DRPItem)} should be called by each Mod during the Model Registry Event)
@@ -28,30 +28,30 @@ public class DRPItem extends Item{
 	public DRPItem(String name, int stackSize, String... subNames){
 		this(name, null, stackSize, subNames);
 	}
-	
+
 	public DRPItem(String name, String itemFolder, int stackSize, String... subNames){
 		ModContainer mc = Loader.instance().activeModContainer();
         String modid = (mc == null) || ((mc instanceof InjectedModContainer) && (((InjectedModContainer)mc).wrappedContainer instanceof FMLContainer)) ? "minecraft" : mc.getModId().toLowerCase();
-		
-        this.setUnlocalizedName(name);
+
+        this.setTranslationKey(name);
 		this.setRegistryName(modid + ":" + name);
-		
+
 		this.setMaxStackSize(stackSize);
-		if(subNames != null){
+		if(subNames != null && subNames.length > 0){
 	        this.setHasSubtypes(true);
 		}
 		this.subNames = subNames != null && subNames.length > 0 ? subNames : null;
 		this.itemFolder = itemFolder;
-	
+
 		ItemUtil.addItem(this);
 	}
-	
+
 	/**
 	 * Returns the Folder/Folder Path for the Model files
 	 * @return
 	 */
 	public String getItemFolder() {
-		return itemFolder;
+		return this.itemFolder;
 	}
 
 	/**
@@ -60,15 +60,15 @@ public class DRPItem extends Item{
 	 * @return
 	 */
 	public String[] getSubNames(){
-		return subNames;
+		return this.subNames;
 	}
-	
+
 	@Override
 	@SideOnly(Side.CLIENT)
 	public void getSubItems(CreativeTabs tab, NonNullList<ItemStack> list){
 		if(this.isInCreativeTab(tab)){
-			if(getSubNames()!=null){
-				for(int i=0;i<getSubNames().length;i++){
+			if(this.getSubNames()!=null){
+				for(int i=0;i<this.getSubNames().length;i++){
 					list.add(new ItemStack(this,1,i));
 				}
 			}else{
@@ -76,13 +76,13 @@ public class DRPItem extends Item{
 			}
 		}
 	}
-	
+
 	@Override
-	public String getUnlocalizedName(ItemStack stack){
-		if(getSubNames()!=null){
-			String subName = stack.getItemDamage() < getSubNames().length ? "." + getSubNames()[stack.getItemDamage()] : "";
-			return this.getUnlocalizedName() + subName;
+	public String getTranslationKey(ItemStack stack){
+		if(this.getSubNames()!=null){
+			String subName = stack.getItemDamage() < this.getSubNames().length ? "." + this.getSubNames()[stack.getItemDamage()] : "";
+			return this.getTranslationKey() + subName;
 		}
-		return this.getUnlocalizedName();
+		return this.getTranslationKey();
 	}
 }

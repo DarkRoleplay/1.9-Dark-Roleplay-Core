@@ -5,6 +5,7 @@ import java.util.List;
 
 import net.minecraft.client.renderer.BufferBuilder;
 import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.vertex.VertexFormat;
 import net.minecraft.client.renderer.vertex.VertexFormatElement;
 
@@ -21,11 +22,11 @@ public class BlueprintTessellator {
 		this.buffer.getByteBuffer().position(0);
 		this.draw(this.buffer);
 	}
-
+	Tessellator tes;
 	public void draw(BufferBuilder bufferBuilderIn) {
 		if (bufferBuilderIn.getVertexCount() > 0) {
 			VertexFormat vertexformat = bufferBuilderIn.getVertexFormat();
-			int i = vertexformat.getNextOffset();
+			int i = vertexformat.getSize();
 			ByteBuffer bytebuffer = bufferBuilderIn.getByteBuffer();
 			List<VertexFormatElement> list = vertexformat.getElements();
 

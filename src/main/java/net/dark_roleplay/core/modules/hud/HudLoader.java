@@ -19,16 +19,16 @@ import net.dark_roleplay.core.modules.Modules;
 import net.minecraft.util.ResourceLocation;
 
 public class HudLoader {
-	
+
 	public static void initializeHuds(){
 		if(Modules.HUD.isEnabled()){
 			List<Hud> huds = DRPRegistries.getHudRegistry().getValues();
-				
+
 			for(Hud hud : huds){
 				ResourceLocation regName = hud.getRegistryName();
-		        
+
 		        File hudFolder = new File(References.FOLDER_CONFIGS + "\\dark roleplay\\client\\huds");
-		        File hudConfig = new File(hudFolder.getPath() + "\\" + regName.getResourcePath() + ".json");
+		        File hudConfig = new File(hudFolder.getPath() + "\\" + regName.getPath() + ".json");
 		        hudFolder.mkdirs();
 		        if(hudConfig.exists()){
 		        	try(Reader reader = new FileReader(hudConfig.getPath())){

@@ -20,21 +20,21 @@ import net.minecraftforge.fml.common.event.FMLServerStartingEvent;
 
 @Mod(modid = References.MODID, version = References.VERSION, name = References.NAME, acceptedMinecraftVersions = References.ACCEPTEDVERSIONS, updateJSON = References.UPDATE_JSON, certificateFingerprint = "893c317856cf6819b3a8381c5664e4b06df7d1cc")
 public class DarkRoleplayCore {
-	
+
 	public static boolean isServerSide = false;
-	
+
 	@SidedProxy(modId = References.MODID, clientSide = "net.dark_roleplay.core.client.ClientProxy")
 	public static IProxy proxy;
-	
+
 	@Mod.Instance(References.MODID)
 	public static DarkRoleplayCore instance;
-	
+
 	@EventHandler
-	public void preInit(FMLPreInitializationEvent event){				
+	public void preInit(FMLPreInitializationEvent event){
 		References.init(event);
-	
+
 		proxy.preInit(event);
-		
+
 		if(event.getSide().isClient())
 			Modules.HUD.enable();
 		Modules.CRAFTING2.enable();
@@ -45,19 +45,19 @@ public class DarkRoleplayCore {
 			if(module.isEnabled())
 		        module.preInit(event);
 		}
-		
+
 		ProgressManager.pop(progressBar);
-		
+
 //		PermissionAPI.setPermissionHandler(new DRPPermissionHandler());
 	}
-	
+
 	@EventHandler
 	public void init(FMLInitializationEvent event) {
 		DRPCoreCrafting.init(event);
-		
+
 		//TODO REMOVE?
 //		CraftingRegistry.loadRecipes();
-		
+
 		DRPCoreCapabilities.init(event);
 		DRPCorePackets.init();
 		proxy.init(event);
@@ -71,16 +71,15 @@ public class DarkRoleplayCore {
 		ProgressManager.pop(progressBar);
 		//TODO MOVE
 
-		
 //		for(int i = 0; i < 25; i ++)
 //			PermissionAPI.registerNode("drpcore.test.number" + i, DefaultPermissionLevel.OP, "A Simple test Permission, not really doing anything (Number: " + i + ")");
 	}
-	
+
 	@EventHandler
 	public void postInit(FMLPostInitializationEvent event) {
 		CraftingRegistry.loadModRecipes();
 		proxy.postInit(event);
-		
+
 		ProgressBar progressBar = ProgressManager.push("Post Initializing Modules", Module.getModules().size());
 		for(Module module : Module.getModules()){
 			progressBar.step(module.getName());
@@ -89,14 +88,15 @@ public class DarkRoleplayCore {
 		}
 		ProgressManager.pop(progressBar);
 	}
-	
+
 	@EventHandler
 	public void serverLoad(FMLServerStartingEvent event){
 //		event.registerServerCommand(new CommandTest());
 //		event.registerServerCommand(new Command_Recipe("drprecipes"));
 //		event.registerServerCommand(new Command_Skill("drpskills"));
+//		event.registerServerCommand(new CommandOpenGui());
 	}
-	
+
 	public static class ServerProxy implements IProxy{
 		@Override
 		public void preInit(FMLPreInitializationEvent event) {}

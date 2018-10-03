@@ -9,7 +9,7 @@ buildscript {
 }
 apply plugin: 'net.minecraftforge.gradle.forge'
 
-version = "1.12.2-0.4.5"
+version = "1.12.2-0.4.6-pre"
 group= "net.dark_roleplay"
 archivesBaseName = "drpcore"
 
@@ -19,28 +19,50 @@ compileJava {
 }
 
 minecraft {
-    version = "1.12.2-14.23.4.2705"
+    version = "1.12.2-14.23.4.2765"
     runDir = "run"
     
-    mappings = "snapshot_20171003"
+    mappings = "snapshot_20180814"
+	
+	if (project.hasProperty('mc_username')) {
+		clientRunArgs += ['--username', project.mc_username]
+		if (project.hasProperty('mc_password')) {
+			clientRunArgs += ['--password', project.mc_password]
+		}
+	}
+	if (project.hasProperty('mc_uuid')) {
+		clientRunArgs += ['--uuid', project.mc_uuid]
+	}
+
+	// disable server gui
+	serverRunArgs += 'nogui'
+
+	// skip the screen to confirm that you want to load a world with missing registry entries
+	serverJvmArgs += '-Dfml.doNotBackup=true'
+	clientJvmArgs += '-Dfml.doNotBackup=true'
+
+	// skip having to confirm on server
+	serverJvmArgs += '-Dfml.queryResult=confirm'
+
+	//skip jansi warnings in the log
+	serverJvmArgs += '-Dlog4j.skipJansi=true'
+	clientJvmArgs += '-Dlog4j.skipJansi=true'
+}
+
+configurations {
+    embed
+    compile.extendsFrom(embed)
 }
 
 repositories {
-	//JEI
 	maven {
-		name = "Progwml6 maven"
+		name = "JEI"
 		url = "http://dvs1.progwml6.com/files/maven"
 	}
 	maven {
 		name = "DarkRoleplayMaven"
 		url = "https://dark-roleplay.net/files/maven/"
 	}
-}
-
-configurations {
-    // configuration that holds jars to embed inside the jar
-    embed
-    compile.extendsFrom(embed)
 }
 
 dependencies {
@@ -54,6 +76,7 @@ dependencies {
 	embed "darkroleplay.core_modules:drpcmdates:${mc_version}-${drp_core_module_dates_version}"
 	embed "darkroleplay.core_modules:drpcmcrops:${mc_version}-${drp_core_module_crops_version}"
 	embed "darkroleplay.core_modules:drpcmmaarg:${mc_version}-${drp_core_module_maarg_version}"
+	embed "darkroleplay.core_modules:drpcmguis:${mc_version}-${drp_core_module_guis_version}"
 }
 
 processResources {
@@ -62,25 +85,23 @@ processResources {
 
     from(sourceSets.main.resources.srcDirs) {
         include 'mcmod.info'
-                
+
         expand 'version':project.version, 'mcversion':project.minecraft.version
     }
-        
+
     from(sourceSets.main.resources.srcDirs) {
         exclude 'mcmod.info'
     }
-	
-	rename '(.+_at.cfg)', 'META-INF/$1'
 }
 
 //Signing the Jar
 task signJar(type: SignJar, dependsOn: reobfJar) {
 
-	if(project.hasProperty('keyStore')){
-		keyStore = project.findProperty('keyStore')
-		alias = project.findProperty('keyStoreAlias')
-		storePass = project.findProperty('keyStorePass')
-		keyPass = project.findProperty('keyStoreKeyPass')
+	if(project.hasProperty('jarSigning.store')){
+		keyStore = project.findProperty('jarSigning.store')
+		alias = project.findProperty('jarSigning.alias')
+		storePass = project.findProperty('jarSigning.storePass')
+		keyPass = project.findProperty('jarSigning.keyPass')
 		
 		inputFile = jar.archivePath
 		outputFile = jar.archivePath
