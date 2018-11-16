@@ -9,7 +9,7 @@ buildscript {
 }
 apply plugin: 'net.minecraftforge.gradle.forge'
 
-version = "1.12.2-0.4.6-SNAPSHOT"
+version = "1.12.2-0.4.6"
 group= "net.dark_roleplay"
 archivesBaseName = "drpcore"
 
