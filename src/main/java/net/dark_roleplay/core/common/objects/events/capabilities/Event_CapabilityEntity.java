@@ -2,12 +2,13 @@ package net.dark_roleplay.core.common.objects.events.capabilities;
 
 import net.dark_roleplay.core.References;
 import net.dark_roleplay.core.common.handler.DRPCoreCapabilities;
+import net.dark_roleplay.core.testing.expanded_inventory.ExpandedInventoryHandler;
+import net.dark_roleplay.core.testing.expanded_inventory.IExpandedInventory;
 import net.dark_roleplay.core.testing.skills.SkillHandler;
 import net.dark_roleplay.library.capabilities.CapabilityProvider;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.world.chunk.Chunk;
 import net.minecraftforge.event.AttachCapabilitiesEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
@@ -20,5 +21,11 @@ public class Event_CapabilityEntity {
         if (!(event.getObject() instanceof EntityPlayer)) return;
 
         event.addCapability(new ResourceLocation(References.MODID, "skill_handler"), new CapabilityProvider<SkillHandler>(DRPCoreCapabilities.SKILL_HANDLER));
+
+        event.addCapability(new ResourceLocation(References.MODID, "extended_inventory"), new CapabilityProvider<IExpandedInventory>(DRPCoreCapabilities.EXPANDED_INVENTORY,
+        		new ExpandedInventoryHandler(4 + 4 + 4 + 3 + 1)));
+
+//        EntityPlayer player;
+//        player.getCapability(capability, facing)
     }
 }

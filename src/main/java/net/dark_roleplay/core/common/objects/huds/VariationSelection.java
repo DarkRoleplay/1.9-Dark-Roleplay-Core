@@ -1,7 +1,7 @@
 package net.dark_roleplay.core.common.objects.huds;
 
 import net.dark_roleplay.core.References;
-import net.dark_roleplay.core.modules.hud.Hud;
+import net.dark_roleplay.core_modules.guis.api.huds.Hud;
 import net.dark_roleplay.library_old.items.ItemVariantBlock;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Gui;

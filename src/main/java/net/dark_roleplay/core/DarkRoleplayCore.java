@@ -35,8 +35,6 @@ public class DarkRoleplayCore {
 
 		proxy.preInit(event);
 
-		if(event.getSide().isClient())
-			Modules.HUD.enable();
 		Modules.CRAFTING2.enable();
 		Modules.UPDATE_CHECKER.enable();
 		ProgressBar progressBar = ProgressManager.push("Pre Initializing Modules", Module.getModules().size());

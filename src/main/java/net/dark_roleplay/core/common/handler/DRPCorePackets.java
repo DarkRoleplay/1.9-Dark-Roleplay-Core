@@ -15,7 +15,7 @@ import net.minecraftforge.fml.relauncher.Side;
 
 public class DRPCorePackets {
 
-	public static final SimpleNetworkWrapper INSTANCE = NetworkRegistry.INSTANCE.newSimpleChannel("dark_roleplay_core".toLowerCase());
+	public static final SimpleNetworkWrapper INSTANCE = NetworkRegistry.INSTANCE.newSimpleChannel("drp_core");
 
 	public static void init() {
 		// INSTANCE.registerMessage(/*PacketClass.class,PacketClass.class, ID,

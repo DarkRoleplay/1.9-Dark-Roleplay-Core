@@ -15,7 +15,7 @@ public class GameRuleComponent extends Switch{
 
 	public GameRuleComponent(int posX, int posY, BooleanWrapper bool, String gamerule) {
 		super(posX, posY, bool);
-		this.maxWidth = 300;
+		this.setMaxSize(300, 500);
 		this.setWidth(300);
 		this.gamerule = gamerule;
 	}

@@ -22,20 +22,20 @@ public class Event_RenderTooltip extends Gui {
 	@SubscribeEvent
 	public static void highlightGhostBlock(RenderTooltipEvent.Color event) {
 	}
-	
+
 	@SubscribeEvent
 	public static void highlightGhostBlock(RenderTooltipEvent.PostText event) {
 //		if(!GuiScreen.isCtrlKeyDown())
 //			return;
-//		
+//
 //		ScaledResolution res = new ScaledResolution(Minecraft.getMinecraft());
-//		
-//		
+//
+//
 //		FontRenderer font = event.getFontRenderer();
-//		
+//
 //		int posX = 0;
 //		int posY = 0;
-//		
+//
 //		if(Client.FOOD.FOOD_STAT_TYPE == DRPCoreConfigs.FoodStatsDisplayType.LINES) {
 //			posX = event.getX() + 1;
 //			posY = event.getY() + 25;
@@ -56,17 +56,17 @@ public class Event_RenderTooltip extends Gui {
 //			font.drawStringWithShadow("Umami", posX + 35, event.getY() + 70, 0xFFFFFFFF); //35
 //		}
 	}
-	
+
 	/**
-	 * 
-	 * @param posX
-	 * @param posY
-	 * @param res
-	 * @param f1 Sweet
-	 * @param f2 Bitter
-	 * @param f3 Spicy
-	 * @param f4 Salty
-	 * @param f5 Sour
+	 *
+	 * @param posX Position X
+	 * @param posY Position Y
+	 * @param res Screen Resolution
+	 * @param sweet Sweet
+	 * @param bitter Bitter
+	 * @param umami Spicy
+	 * @param salty Salty
+	 * @param sour Sour
 	 */
 	public static void drawLines(int posX, int posY, ScaledResolution res, float sweet, float bitter, float umami, float salty, float sour) {
 		GlStateManager.disableTexture2D();
@@ -74,13 +74,13 @@ public class Event_RenderTooltip extends Gui {
 		GlStateManager.disableAlpha();
 		GlStateManager.tryBlendFuncSeparate(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA, GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ZERO);
 		GlStateManager.shadeModel(7425);
-		
+
 		Tessellator tessellator = Tessellator.getInstance();
 		BufferBuilder bufferbuilder = tessellator.getBuffer();
-		
+
 		int width = 50;
 		int height = 52;
-		
+
 		bufferbuilder.begin(7, DefaultVertexFormats.POSITION_COLOR);
 		bufferbuilder.pos( posX +     0, posY + height, 50).color(0.1f, 0.1f, 0.1f, 1f).endVertex();
 		bufferbuilder.pos( posX + width, posY + height, 50).color(0.1f, 0.1f, 0.1f, 1f).endVertex();
@@ -103,14 +103,14 @@ public class Event_RenderTooltip extends Gui {
 		for(int i = 0; i < 5; i++) {
 			float multiplier = i == 0 ? sweet : i == 1 ? bitter : i == 2 ? umami : i == 3 ? salty : sour;
 			bufferbuilder.begin(7, DefaultVertexFormats.POSITION_COLOR);
-			
+
 			float redLeft = Client.FOOD.SINGLE_COLOR_MODE ? Client.FOOD.SINGLE_COLOR.RED : Client.FOOD.DUAL_COLOR_ONE.RED;
 			float greenLeft = Client.FOOD.SINGLE_COLOR_MODE ? Client.FOOD.SINGLE_COLOR.GREEN : Client.FOOD.DUAL_COLOR_ONE.GREEN;
 			float blueLeft = Client.FOOD.SINGLE_COLOR_MODE ? Client.FOOD.SINGLE_COLOR.BLUE : Client.FOOD.DUAL_COLOR_ONE.BLUE;
 			float redRight = Client.FOOD.SINGLE_COLOR_MODE ? Client.FOOD.SINGLE_COLOR.RED : (Client.FOOD.DUAL_COLOR_ONE.RED * (1f - multiplier)) + (Client.FOOD.DUAL_COLOR_TWO.RED * multiplier);
 			float greenRight = Client.FOOD.SINGLE_COLOR_MODE ? Client.FOOD.SINGLE_COLOR.GREEN : (Client.FOOD.DUAL_COLOR_ONE.GREEN * (1f - multiplier)) + (Client.FOOD.DUAL_COLOR_TWO.GREEN * multiplier);
 			float blueRight =Client.FOOD.SINGLE_COLOR_MODE ? Client.FOOD.SINGLE_COLOR.BLUE :  (Client.FOOD.DUAL_COLOR_ONE.BLUE * (1f - multiplier)) + (Client.FOOD.DUAL_COLOR_TWO.BLUE * multiplier);
-				
+
 			bufferbuilder.pos( posX +     0, posY + 8, 50).color(redLeft, greenLeft, blueLeft, 1f).endVertex();
 			bufferbuilder.pos( posX + width * multiplier, posY + 8, 50).color(redRight, greenRight, blueRight, 1f).endVertex();
 			bufferbuilder.pos( posX + width * multiplier, posY + 0, 50).color(redRight, greenRight, blueRight, 1f).endVertex();
@@ -119,16 +119,16 @@ public class Event_RenderTooltip extends Gui {
 			tessellator.draw();
 			posY += 10;
 		}
-		
-		
+
+
 		GlStateManager.shadeModel(7424);
 		GlStateManager.disableBlend();
 		GlStateManager.enableAlpha();
 		GlStateManager.enableTexture2D();
 	}
-	
+
 	/**
-	 * 
+	 *
 	 * @param posX
 	 * @param posY
 	 * @param res
@@ -146,10 +146,10 @@ public class Event_RenderTooltip extends Gui {
 		GlStateManager.disableAlpha();
 		GlStateManager.tryBlendFuncSeparate(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA, GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ZERO);
 		GlStateManager.shadeModel(7425);
-		
+
 		Tessellator tessellator = Tessellator.getInstance();
 		BufferBuilder bufferbuilder = tessellator.getBuffer();
-		
+
 		//BG
 		bufferbuilder.begin(9, DefaultVertexFormats.POSITION_COLOR);
 		bufferbuilder.pos( posX +  0, posY - 20, 50).color(0.1f, 0.1f, 0.1f, 1f).endVertex();
@@ -158,7 +158,7 @@ public class Event_RenderTooltip extends Gui {
 		bufferbuilder.pos( posX + 12, posY + 16, 50).color(0.1f, 0.1f, 0.1f, 1f).endVertex();
 		bufferbuilder.pos( posX + 19, posY -  6, 50).color(0.1f, 0.1f, 0.1f, 1f).endVertex();
 		tessellator.draw();
-		
+
 		//Actuall Values
 		bufferbuilder.begin(9, DefaultVertexFormats.POSITION_COLOR);
 		bufferbuilder.pos( posX +  0, posY - (20 * sweet), 50).color(
@@ -187,7 +187,7 @@ public class Event_RenderTooltip extends Gui {
 				Client.FOOD.SINGLE_COLOR_MODE ? Client.FOOD.SINGLE_COLOR.BLUE : (Client.FOOD.DUAL_COLOR_ONE.BLUE * (1f - bitter)) + (Client.FOOD.DUAL_COLOR_TWO.BLUE * bitter),
 			1f).endVertex();
 		tessellator.draw();
-		
+
 		GlStateManager.glLineWidth(1F);
 		bufferbuilder.begin(1, DefaultVertexFormats.POSITION_COLOR);
 		bufferbuilder.pos( posX +  0, posY - 20, 51).color(0.75f, 0.75f, 0.75f, 1f).endVertex();
@@ -201,7 +201,7 @@ public class Event_RenderTooltip extends Gui {
 		bufferbuilder.pos( posX + 19, posY -  6, 51).color(0.75f, 0.75f, 0.75f, 1f).endVertex();
 		bufferbuilder.pos( posX, posY, 51).color(0.75f, 0.75f, 0.75f, 1f).endVertex();
 		tessellator.draw();
-		
+
 		GlStateManager.glLineWidth(res.getScaleFactor());
 		bufferbuilder.begin(2, DefaultVertexFormats.POSITION_COLOR);
 		bufferbuilder.pos( posX +  0, posY - 20, 50).color(0f, 0f, 0f, 1f).endVertex();

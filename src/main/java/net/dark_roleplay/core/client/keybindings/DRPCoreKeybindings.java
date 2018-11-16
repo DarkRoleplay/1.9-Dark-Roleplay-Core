@@ -17,8 +17,8 @@ import net.dark_roleplay.core.api.old.crafting.Crafting_Util;
 import net.dark_roleplay.core.client.ClientProxy;
 import net.dark_roleplay.core.common.config.Client;
 import net.dark_roleplay.core.common.config.Debug;
-import net.dark_roleplay.core.modules.hud.HudLoader;
-import net.dark_roleplay.core.testing.item_exporter.ItemExporterGui;
+import net.dark_roleplay.core.common.handler.DRPCorePackets;
+import net.dark_roleplay.core.common.objects.packets.debug.Packet_DebugKey;
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.settings.KeyBinding;
@@ -43,8 +43,6 @@ public class DRPCoreKeybindings {
 //	public static KeyBinding GUI_VARIATIONS = new KeyBinding("keyBinding.veriationSelection", Keyboard.KEY_V,"Dark Roleplay Core");
 	public static KeyBinding TOGGLE_PLACEMENT_PREVIEW = new KeyBinding("keyBinding.placement_preview", Keyboard.KEY_P,"Dark Roleplay Core");
 
-	public static KeyBinding RELOAD_HUD = new KeyBinding("keyBinding.reloadHud", Keyboard.CHAR_NONE, "Dark Roleplay Core");
-
 	public static KeyBinding debugging = new KeyBinding("keyBinding.debuging", Keyboard.KEY_B, "Dark Roleplay Core");
 
 	public static void preInit(FMLPreInitializationEvent event) {
@@ -55,7 +53,6 @@ public class DRPCoreKeybindings {
 		ClientRegistry.registerKeyBinding(TOGGLE_PLACEMENT_PREVIEW);
 //		ClientRegistry.registerKeyBinding(GUI_VARIATIONS);
 //		ClientRegistry.registerKeyBinding(GUI_SKILLS);
-		ClientRegistry.registerKeyBinding(RELOAD_HUD);
 
 		if(Debug.DEBUG_KEY){
 			enableDebugKeys();
@@ -93,8 +90,6 @@ public class DRPCoreKeybindings {
 //			ToastController.displayInfoToast("dpcore.featureNotImplemented", null);
 //		}else if(this.GUI_VARIATIONS.isKeyDown()){
 //			ToastController.displayInfoToast("dpcore.featureNotImplemented", null);
-		}else if(RELOAD_HUD.isKeyDown()) {
-			HudLoader.initializeHuds();
 		}else if(TOGGLE_PLACEMENT_PREVIEW.isKeyDown()) {
 			Client.BUILDING.PLACEMENT_PREVIEW = !Client.BUILDING.PLACEMENT_PREVIEW;
 			ConfigManager.sync(References.MODID, Config.Type.INSTANCE);
@@ -107,7 +102,9 @@ public class DRPCoreKeybindings {
 //					0xFFAA7A46, 0xFF57007F, 0xFFD70270, 0xFF734F96
 //					}, 24, 16, 16));
 
-			Minecraft.getMinecraft().displayGuiScreen(new ItemExporterGui());
+//			Minecraft.getMinecraft().displayGuiScreen(new ItemExporterGui());
+
+			DRPCorePackets.sendToServer(new Packet_DebugKey());
 
 //			Minecraft.getMinecraft().displayGuiScreen(new DrawingGui(new int[] {
 //					0xFFFFFFFF,

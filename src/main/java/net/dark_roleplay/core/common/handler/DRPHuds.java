@@ -3,7 +3,7 @@ package net.dark_roleplay.core.common.handler;
 import net.dark_roleplay.core.References;
 import net.dark_roleplay.core.common.objects.huds.RealTimeClock;
 import net.dark_roleplay.core.common.objects.huds.VariationSelection;
-import net.dark_roleplay.core.modules.hud.Hud;
+import net.dark_roleplay.core_modules.guis.api.huds.Hud;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.fml.common.Mod;

@@ -4,7 +4,7 @@ import java.util.Calendar;
 
 import net.dark_roleplay.core.References;
 import net.dark_roleplay.core.common.config.Client;
-import net.dark_roleplay.core.modules.hud.Hud;
+import net.dark_roleplay.core_modules.guis.api.huds.Hud;
 import net.minecraft.client.Minecraft;
 import net.minecraft.util.ResourceLocation;
 
@@ -17,7 +17,6 @@ public class RealTimeClock extends Hud{
 		this.alignment = ALIGNMENT.TOP_RIGHT;
 	}
 
-	private static Calendar instance = Calendar.getInstance();
 	private static ResourceLocation clockTexture = new ResourceLocation(References.MODID, "textures/hud/clock.png");
 	private static ResourceLocation hourTexture = new ResourceLocation(References.MODID, "textures/hud/hour.png");
 	private static ResourceLocation minuteTexture = new ResourceLocation(References.MODID, "textures/hud/minute.png");
