@@ -7,6 +7,7 @@ import java.util.List;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import net.dark_roleplay.library.resources.ModDataFolders;
 import net.minecraftforge.common.ForgeVersion;
 import net.minecraftforge.common.ForgeVersion.CheckResult;
 import net.minecraftforge.fml.common.Loader;
@@ -14,16 +15,15 @@ import net.minecraftforge.fml.common.ModContainer;
 import net.minecraftforge.fml.common.ModMetadata;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class References {
 
 	public static final String MODID = "drpcore";
 	public static final String NAME = "Dark Roleplay Core";
-	public static final String VERSION = "1.12.2-0.4.6";
+	public static final String VERSION = "1.12.2-0.4.7";
 	public static final String ACCEPTEDVERSIONS = "[1.12,1.13)";
 	public static final String UPDATE_JSON = "http://dark-roleplay.net/version_files/DarkRoleplayCore.json";
-	public static final String DEPENDECIES = "required-after:forge@[1.12.2-14.23.0.2499,)";
+	public static final String DEPENDECIES = "required-after:forge@[14.23.0.2499,)";
 	public static final String URL = "http://dark-roleplay.net/";
 	public static final List<String> AUTHORS = Arrays.asList("JTK222");
 	public static final String CREDITS = "Lead Programmer: JTK222";
@@ -31,15 +31,13 @@ public class References {
 
 	public static File FOLDER_CONFIGS;
 	public static File FOLDER_MAIN;
-	public static File FOLDER_BLUEPRINTS;
-	public static File FOLDER_RECIPES;
 
-	@SideOnly (Side.SERVER)
-	public static File FOLDER_PERMISSIONS;
-	@SideOnly(Side.SERVER)
-	public static File FOLDER_PERMISSIONS_USERS;
-	@SideOnly(Side.SERVER)
-	public static File FOLDER_PERMISSIONS_GROUPS;
+//	@SideOnly (Side.SERVER)
+//	public static File FOLDER_PERMISSIONS;
+//	@SideOnly(Side.SERVER)
+//	public static File FOLDER_PERMISSIONS_USERS;
+//	@SideOnly(Side.SERVER)
+//	public static File FOLDER_PERMISSIONS_GROUPS;
 
 	public static Logger LOGGER;
 
@@ -54,23 +52,23 @@ public class References {
 
 		FOLDER_CONFIGS = event.getModConfigurationDirectory();
 
+		boolean useModDataFolder = false;
+
 		FOLDER_MAIN = new File(event.getModConfigurationDirectory().getParentFile().getPath() + "/dark roleplay/");
+
+		if(ModDataFolders.doesGlobalModDataExist()) {
+			FOLDER_MAIN = ModDataFolders.getModDataFolder("Dark Roleplay/Core/");
+		}
 		FOLDER_MAIN.mkdirs();
-
-		FOLDER_RECIPES = new File(FOLDER_MAIN.getPath() + "/recipes/");
-		FOLDER_RECIPES.mkdirs();
-
-		FOLDER_BLUEPRINTS = new File(FOLDER_MAIN.getPath() + "/blueprints/");
-		FOLDER_BLUEPRINTS.mkdirs();
 
 		if(SIDE.isServer()) {
 
-			FOLDER_PERMISSIONS = new File(FOLDER_MAIN.getPath() + "/permissions/");
-			FOLDER_PERMISSIONS.mkdirs();
-			FOLDER_PERMISSIONS_USERS = new File(FOLDER_PERMISSIONS.getPath() + "/users/");
-			FOLDER_PERMISSIONS_USERS.mkdirs();
-			FOLDER_PERMISSIONS_GROUPS = new File(FOLDER_PERMISSIONS.getPath() + "/groups/");
-			FOLDER_PERMISSIONS_GROUPS.mkdirs();
+//			FOLDER_PERMISSIONS = new File(FOLDER_MAIN.getPath() + "/permissions/");
+//			FOLDER_PERMISSIONS.mkdirs();
+//			FOLDER_PERMISSIONS_USERS = new File(FOLDER_PERMISSIONS.getPath() + "/users/");
+//			FOLDER_PERMISSIONS_USERS.mkdirs();
+//			FOLDER_PERMISSIONS_GROUPS = new File(FOLDER_PERMISSIONS.getPath() + "/groups/");
+//			FOLDER_PERMISSIONS_GROUPS.mkdirs();
 		}
 
 

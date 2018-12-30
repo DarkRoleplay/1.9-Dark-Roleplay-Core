@@ -1,20 +1,13 @@
 package net.dark_roleplay.core.client.keybindings;
 
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
-
 import org.apache.commons.lang3.ArrayUtils;
 import org.lwjgl.input.Keyboard;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 
 import net.dark_roleplay.core.References;
 import net.dark_roleplay.core.api.old.crafting.Crafting_Util;
-import net.dark_roleplay.core.client.ClientProxy;
 import net.dark_roleplay.core.common.config.Client;
 import net.dark_roleplay.core.common.config.Debug;
 import net.dark_roleplay.core.common.handler.DRPCorePackets;
@@ -41,9 +34,9 @@ public class DRPCoreKeybindings {
 	public static KeyBinding GUI_CRAFTING = new KeyBinding("keyBinding.openCrafting", Keyboard.KEY_C,"Dark Roleplay Core");
 //	public static KeyBinding GUI_SKILLS = new KeyBinding("keyBinding.openSkills", Keyboard.KEY_K,"Dark Roleplay Core");
 //	public static KeyBinding GUI_VARIATIONS = new KeyBinding("keyBinding.veriationSelection", Keyboard.KEY_V,"Dark Roleplay Core");
-	public static KeyBinding TOGGLE_PLACEMENT_PREVIEW = new KeyBinding("keyBinding.placement_preview", Keyboard.KEY_P,"Dark Roleplay Core");
+	public static KeyBinding TOGGLE_PLACEMENT_PREVIEW = new KeyBinding("keyBinding.placement_preview", Keyboard.KEY_NONE,"Dark Roleplay Core");
 
-	public static KeyBinding debugging = new KeyBinding("keyBinding.debuging", Keyboard.KEY_B, "Dark Roleplay Core");
+	public static KeyBinding debugging = new KeyBinding("keyBinding.debuging", Keyboard.KEY_NONE, "Dark Roleplay Core");
 
 	public static void preInit(FMLPreInitializationEvent event) {
 	}
@@ -85,7 +78,6 @@ public class DRPCoreKeybindings {
 	public void KeyInput(KeyInputEvent event) {
 		if(GUI_CRAFTING.isKeyDown()) {
 			Crafting_Util.openRecipeSelection(Blocks.AIR, Minecraft.getMinecraft().player.getPosition().add(0, -1, 0), 0f, -90f);
-			ClientProxy.CRAFTING_TUT.hide();
 //		}else if(this.GUI_SKILLS.isKeyDown()){
 //			ToastController.displayInfoToast("dpcore.featureNotImplemented", null);
 //		}else if(this.GUI_VARIATIONS.isKeyDown()){
@@ -181,28 +173,28 @@ public class DRPCoreKeybindings {
 		obj.add("ingredients", inputArr);
 
 
-		File file = new File(References.FOLDER_RECIPES.getPath() + "/" + output.getItem().getRegistryName().getPath() + ".json");
-		int i = 1;
-		while(file.exists()){
-			file = new File(References.FOLDER_RECIPES.getPath() + "/" + output.getItem().getRegistryName().getPath() + i + ".json");
-			i++;
-		}
+//		File file = new File(References.FOLDER_RECIPES.getPath() + "/" + output.getItem().getRegistryName().getPath() + ".json");
+//		int i = 1;
+//		while(file.exists()){
+//			file = new File(References.FOLDER_RECIPES.getPath() + "/" + output.getItem().getRegistryName().getPath() + i + ".json");
+//			i++;
+//		}
 
-		try {
-			file.createNewFile();
-
-
-
-			System.out.println(obj.toString());
-
-			FileWriter writer = new FileWriter(file);
-		    Gson gson = new GsonBuilder().setPrettyPrinting().create();
-		    gson.toJson(obj, writer);
-		    writer.flush();
-
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+//		try {
+//			file.createNewFile();
+//
+//
+//
+//			System.out.println(obj.toString());
+//
+//			FileWriter writer = new FileWriter(file);
+//		    Gson gson = new GsonBuilder().setPrettyPrinting().create();
+//		    gson.toJson(obj, writer);
+//		    writer.flush();
+//
+//		} catch (IOException e) {
+//			e.printStackTrace();
+//		}
 
 	}
 
