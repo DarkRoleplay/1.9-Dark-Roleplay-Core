@@ -12,11 +12,11 @@ import net.minecraftforge.items.ItemStackHandler;
 public class DynamicStorageTileEntity extends TileEntity{
 
 	protected ItemStackHandler inventoryMain = null;
-	
+
 	public DynamicStorageTileEntity() {
 		this(9);
 	}
-	
+
 	public DynamicStorageTileEntity(int size) {
 		this.inventoryMain = new ItemStackHandler(size) {
 			@Override
@@ -25,31 +25,32 @@ public class DynamicStorageTileEntity extends TileEntity{
 		    }
 		};
 	}
-	
+
 	@Override
     public void readFromNBT(NBTTagCompound compound){
         super.readFromNBT(compound);
-        
+
         this.inventoryMain = new ItemStackHandler() {
 			@Override
 		    protected void onContentsChanged(int slot){
 				DynamicStorageTileEntity.this.markDirty();
 		    }
 		};
-		
+
         if(compound.hasKey("inventoryMain"))
-        	inventoryMain.deserializeNBT((NBTTagCompound) compound.getTag("inventoryMain"));   
+        	this.inventoryMain.deserializeNBT((NBTTagCompound) compound.getTag("inventoryMain"));
     }
 
-    public NBTTagCompound writeToNBT(NBTTagCompound compound) {
+    @Override
+	public NBTTagCompound writeToNBT(NBTTagCompound compound) {
         NBTTagCompound comp = super.writeToNBT(compound);
-        
+
         NBTTagCompound inventory = this.inventoryMain.serializeNBT();
         comp.setTag("inventoryMain", inventory);
-        
+
         return comp;
     }
-	
+
 	@Override
 	public boolean hasCapability(Capability<?> capability, @Nullable EnumFacing facing) {
 		if(capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY)
@@ -63,5 +64,15 @@ public class DynamicStorageTileEntity extends TileEntity{
 		if(capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY)
 			return (T) this.inventoryMain;
     	return super.getCapability(capability, facing);
+	}
+
+	@Override
+	public NBTTagCompound getUpdateTag(){
+		return this.writeToNBT(new NBTTagCompound());
+	}
+
+	@Override
+	public void handleUpdateTag(NBTTagCompound tag){
+		this.readFromNBT(tag);;
 	}
 }

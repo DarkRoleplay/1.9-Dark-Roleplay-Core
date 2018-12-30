@@ -53,6 +53,7 @@ public class ClientProxy implements IProxy{
 		ItemUtil.registerItemMeshs();
 
 
+
 		ModelLoaderRegistry.registerLoader(new DRPModelLoader());
 
 		//MinecraftForge.EVENT_BUS.register(Event_ModelBaked.instance);

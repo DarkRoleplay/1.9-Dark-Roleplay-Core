@@ -93,6 +93,7 @@ public class DarkRoleplayCore {
 //		event.registerServerCommand(new Command_Recipe("drprecipes"));
 //		event.registerServerCommand(new Command_Skill("drpskills"));
 //		event.registerServerCommand(new CommandOpenGui());
+//		event.registerServerCommand(new CommandSpectatorBuilding());
 	}
 
 	public static class ServerProxy implements IProxy{

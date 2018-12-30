@@ -11,7 +11,6 @@ import org.lwjgl.util.Point;
 import net.dark_roleplay.core.api.old.modules.gui.IGuiElement;
 import net.minecraft.client.gui.Gui;
 import net.minecraft.client.gui.GuiButton;
-import net.minecraft.client.gui.GuiLabel;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.renderer.BufferBuilder;
 import net.minecraft.client.renderer.GlStateManager;
@@ -25,7 +24,7 @@ public abstract class DRPGuiScreen extends GuiScreen{
 	protected ResourceLocation bgTexture;
 
 	protected boolean hasBG = true;
-	
+
 	protected int bgWidth = 0;
 	protected int bgHeight = 0;
 
@@ -37,10 +36,10 @@ public abstract class DRPGuiScreen extends GuiScreen{
 
 	protected int startButtonID = 0;
 	protected int startInfoFieldID = 50;
-	
+
 	protected static final int COLOR_WHITE = new Color(255,255,255).getRGB();
 	protected static final int COLOR_DARK_GRAY = new Color(55,55,55).getRGB();
-	
+
 	protected List<IGuiElement> elements = new ArrayList<IGuiElement>();
 
 	protected GuiButton selectedButton;
@@ -48,7 +47,7 @@ public abstract class DRPGuiScreen extends GuiScreen{
 	public DRPGuiScreen(){
 		this.hasBG = false;
 	}
-	
+
 	public DRPGuiScreen(ResourceLocation bgTexture, int bgWidth, int bgHeight) {
 		this(bgTexture, bgWidth, bgHeight, 0, 0);
 	}
@@ -64,6 +63,7 @@ public abstract class DRPGuiScreen extends GuiScreen{
 		this.guiTop = ((this.height - this.bgHeight) / 2) + this.bgOffsetY;
 	}
 
+	@Override
 	public void initGui() {
 		super.initGui();
 		this.reAdjust();
@@ -72,15 +72,15 @@ public abstract class DRPGuiScreen extends GuiScreen{
 	@Override
 	protected void mouseReleased(int mouseX, int mouseY, int state){
 		super.mouseReleased(mouseX, mouseY, state);
-		for(IGuiElement element : elements){
+		for(IGuiElement element : this.elements){
 			element.mouseReleased(mouseX - element.getPosX(), mouseY - element.getPosY());
 		}
 	}
-	
+
 	@Override
 	protected void mouseClicked(int mouseX, int mouseY, int mouseButton) throws IOException{
 		super.mouseClicked(mouseX, mouseY, mouseButton);
-		for(IGuiElement element : elements){
+		for(IGuiElement element : this.elements){
 			if(element.isHovered(mouseX - element.getPosX(), mouseY - element.getPosY()) ){
 				element.mousePressed(this.mc, mouseX - element.getPosX(), mouseY - element.getPosY());
 				element.mouseClicked(mouseX - element.getPosX(), mouseY - element.getPosY(), mouseButton);
@@ -91,11 +91,11 @@ public abstract class DRPGuiScreen extends GuiScreen{
 	@Override
 	public void handleMouseInput() throws IOException{
 		super.handleMouseInput();
-		for(IGuiElement element : elements){
+		for(IGuiElement element : this.elements){
 			element.handleMouseInput();
 		}
     }
-	
+
 	// -------------------------------------------------- Drawing --------------------------------------------------
 
 	@Override
@@ -106,7 +106,7 @@ public abstract class DRPGuiScreen extends GuiScreen{
 		// Background Texture
 		this.drawBackground(mouseX, mouseY, partialTicks);
 
-		for(IGuiElement element : elements){
+		for(IGuiElement element : this.elements){
 			element.mouseDragged(this.mc, mouseX - element.getPosX(), mouseY - element.getPosY());
 		}
 		// Slots & Buttons
@@ -125,7 +125,7 @@ public abstract class DRPGuiScreen extends GuiScreen{
 	}
 
 	protected void drawMiddleground(int mouseX, int mouseY, float partialTicks) {
-		for(IGuiElement element : elements){
+		for(IGuiElement element : this.elements){
 			element.draw(mouseX, mouseY, partialTicks);
 		}
 	}
@@ -139,7 +139,7 @@ public abstract class DRPGuiScreen extends GuiScreen{
 		this.drawTexturedModalRect(this.guiLeft, this.guiTop, this.bgOffsetX, this.bgOffsetY, this.bgWidth,this.bgHeight);
 		GL11.glEnable(GL11.GL_LIGHTING);
 	}
-	
+
 	protected void drawTiled(int posX, int posY, int width, int height, int u, int v, int tileWidth, int tileHeight, int textureWidth, int textureHeight){
 		if(height > tileHeight)
 			for(int i = 0; i < height; i += tileHeight){
@@ -154,25 +154,25 @@ public abstract class DRPGuiScreen extends GuiScreen{
 	protected void drawButtons(int mouseX, int mouseY, float partialTicks) {
 		GL11.glDisable(GL11.GL_LIGHTING);
 		for (int i = 0; i < this.buttonList.size(); ++i) {
-			((GuiButton) this.buttonList.get(i)).drawButton(this.mc, mouseX, mouseY, partialTicks);
+			this.buttonList.get(i).drawButton(this.mc, mouseX, mouseY, partialTicks);
 		}
 
 		for (int j = 0; j < this.labelList.size(); ++j) {
-			((GuiLabel) this.labelList.get(j)).drawLabel(this.mc, mouseX, mouseY);
+			this.labelList.get(j).drawLabel(this.mc, mouseX, mouseY);
 		}
 		GL11.glEnable(GL11.GL_LIGHTING);
 	}
-	
+
 	protected boolean isMouseBetween(int mouseX, int mouseY, int posX1, int posY1, int posX2, int posY2){
 		return mouseX > posX1 && mouseX < posX2 && mouseY > posY1 && mouseY < posY2;
 	}
 
 	protected static void drawLine(int x1, int y1, int x2, int y2, int color) {
 
-		float f3 = (float) (color >> 24 & 255) / 255.0F;
-		float f = (float) (color >> 16 & 255) / 255.0F;
-		float f1 = (float) (color >> 8 & 255) / 255.0F;
-		float f2 = (float) (color & 255) / 255.0F;
+		float f3 = (color >> 24 & 255) / 255.0F;
+		float f = (color >> 16 & 255) / 255.0F;
+		float f1 = (color >> 8 & 255) / 255.0F;
+		float f2 = (color & 255) / 255.0F;
 		Tessellator tessellator = Tessellator.getInstance();
 		BufferBuilder vertexbuffer = tessellator.getBuffer();
 		GlStateManager.enableBlend();
@@ -181,15 +181,15 @@ public abstract class DRPGuiScreen extends GuiScreen{
 		GlStateManager.color(f, f1, f2, f3);
 
 		float angle = getAngleRad(new Point(x1,y1), new Point(x2,y2));
-		
+
 		double halfPi = Math.PI / 2;
-		
+
 		float a1 = (float) (x1 + 0.5F * Math.cos(angle + halfPi)), a2 = (float) (y1 + 0.5F * Math.sin(angle + halfPi));
 		float b1 = (float) (x2 + 0.5F * Math.cos(angle + halfPi)), b2 = (float) (y2 + 0.5F * Math.sin(angle + halfPi));
 		float c1 = (float) (x2 + 0.5F * Math.cos(angle - halfPi)), c2 = (float) (y2 + 0.5F * Math.sin(angle - halfPi));
 		float d1 = (float) (x1 + 0.5F * Math.cos(angle - halfPi)), d2 = (float) (y1 + 0.5F * Math.sin(angle - halfPi));
 
-		
+
 		vertexbuffer.begin(7, DefaultVertexFormats.POSITION);
 		//new
 		vertexbuffer.pos(a1, a2, 0.0D).endVertex();
@@ -200,12 +200,12 @@ public abstract class DRPGuiScreen extends GuiScreen{
 		GlStateManager.enableTexture2D();
 		GlStateManager.disableBlend();
 	}
-	
+
 	private static float getAngleRad(Point a, Point b){
 		Point vec = new Point(b.getX() - a.getX(), b.getY() - a.getY());
 		return (float) (Math.acos(vec.getX() / (Math.sqrt(Math.pow(vec.getX(), 2) + Math.pow(vec.getY(), 2)))));
 	}
-	
+
 	private static float getAngle(Point a, Point b){
 		return (float) (getAngleRad(a, b) * 180 / Math.PI);
 	}

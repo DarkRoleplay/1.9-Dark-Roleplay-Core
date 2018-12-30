@@ -30,10 +30,7 @@ public class Packet_ExtendedRangeAttack extends PacketBase.Server<Packet_Extende
 	@Override
 	public void handleServerSide(Packet_ExtendedRangeAttack message, EntityPlayer player) {
 		player.getServer().addScheduledTask(
-                new Runnable(){
-                    @Override
-                    public void run(){
-
+				() ->	{
                         Entity entity = player.getEntityWorld().getEntityByID(message.entityID);
 
                         if(player.getHeldItemMainhand() != null && player.getHeldItemMainhand().getItem() instanceof IExtendedRange){
@@ -45,8 +42,7 @@ public class Packet_ExtendedRangeAttack extends PacketBase.Server<Packet_Extende
                                 player.attackTargetEntityWithCurrentItem(entity);
                             }
                         }
-                    }
-              }
+                }
           );
 	}
 }
