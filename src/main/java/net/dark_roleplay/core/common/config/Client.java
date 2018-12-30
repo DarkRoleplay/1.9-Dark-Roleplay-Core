@@ -27,7 +27,7 @@ public class Client {
 
 		@Config.Name("Draw a Realtime Clock")
 		@Config.Comment("Enables a realtime Clock")
-		public boolean DRAW_REALTIME_CLOCK = true;
+		public boolean DRAW_REALTIME_CLOCK = false;
 
 	}
 
@@ -59,7 +59,7 @@ public class Client {
 
 		@Config.Name("Enable Placement Preview")
 		@Config.Comment("Show a preview of how the block that you are holding would be placed. \nAllowed values: true, false")
-		public boolean PLACEMENT_PREVIEW = true;
+		public boolean PLACEMENT_PREVIEW = false;
 	}
 
 	public static class Tutorial{
