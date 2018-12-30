@@ -19,12 +19,10 @@ import net.dark_roleplay.core.common.IProxy;
 import net.dark_roleplay.core.common.handler.DRPCoreGuis;
 import net.dark_roleplay.library_old.items.ItemUtil;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.toasts.TutorialToast;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.client.resources.IResource;
 import net.minecraft.client.resources.IResourceManager;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraftforge.client.model.ModelLoaderRegistry;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
@@ -36,7 +34,6 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 @SideOnly(Side.CLIENT)
 public class ClientProxy implements IProxy{
 
-	public static final TutorialToast CRAFTING_TUT = new TutorialToast(TutorialToast.Icons.RECIPE_BOOK, new TextComponentTranslation("drpcore.tutorial.craft.title"), new TextComponentTranslation("drpcore.tutorial.craft.desc", "C"), false);
 
 	public static boolean useRecipeData = false;
 	public static int recipePage = 0;
@@ -45,7 +42,6 @@ public class ClientProxy implements IProxy{
 	public static byte currentTick = 0;
 
 //	public static List<ModularGui_Template> modularGuis = new ArrayList<ModularGui_Template>();
-
 
 	@Override
 	public void preInit(FMLPreInitializationEvent event) {

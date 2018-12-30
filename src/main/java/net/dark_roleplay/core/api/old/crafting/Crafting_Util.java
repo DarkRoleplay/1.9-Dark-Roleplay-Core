@@ -1,6 +1,7 @@
 package net.dark_roleplay.core.api.old.crafting;
 
 import net.dark_roleplay.core.References;
+import net.dark_roleplay.core.client.ToastHelper;
 import net.dark_roleplay.core.client.build_mode.EntityViewer;
 import net.dark_roleplay.core.client.gui.crafting.recipe_selection.RecipeSelection;
 import net.minecraft.block.Block;
@@ -12,7 +13,7 @@ public class Crafting_Util {
 	private static EntityViewer viewer = null;
 
 	private static boolean isInitialized = false;
-	
+
 //	public static void initialize(BlockPos pos, float yaw, float pitch) {
 //		if(!isInitialized) {
 //			isInitialized = true;
@@ -24,11 +25,11 @@ public class Crafting_Util {
 //			viewer.setPosition(pos.getX() + 0.5F, pos.getY() + 0.5F, pos.getZ() + 0.5F);
 //			viewer.turn(yaw, pitch);
 //			viewer.setInvisible(true);
-//			
+//
 //			Minecraft.getMinecraft().setRenderViewEntity(viewer);
 //		}
 //	}
-	
+
 	public static void exit() {
 		if(isInitialized) {
 			viewer.setInvisible(true);
@@ -36,17 +37,18 @@ public class Crafting_Util {
 			Minecraft.getMinecraft().setRenderViewEntity(Minecraft.getMinecraft().player);
 		}
 	}
-	
+
 	public static void openRecipeSelection(Block block){
 		openRecipeSelection(block, null, 0f, 0f);
 	}
-	
+
 	public static void openRecipeSelection(Block block, BlockPos pos, float yaw, float pitch){
 		if(References.SIDE.isClient()) {
+			ToastHelper.getCraftingTutorial().hide();
 //			if(pos != null)
 //				initialize(pos, yaw, pitch);
 			Minecraft.getMinecraft().displayGuiScreen(new RecipeSelection(block));
 		}
 	}
-	
+
 }

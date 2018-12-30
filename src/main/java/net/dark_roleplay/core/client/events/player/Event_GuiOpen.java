@@ -1,7 +1,7 @@
 package net.dark_roleplay.core.client.events.player;
 
 import net.dark_roleplay.core.References;
-import net.dark_roleplay.core.client.ClientProxy;
+import net.dark_roleplay.core.client.ToastHelper;
 import net.dark_roleplay.core.common.config.Client;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.inventory.GuiInventory;
@@ -16,16 +16,16 @@ import net.minecraftforge.fml.relauncher.Side;
 public class Event_GuiOpen {
 
 	public static boolean hasOpened = false;
-	
+
 	@SubscribeEvent
 	public static void onEvent(GuiOpenEvent event) {
-				
+
 		if(event.getGui() instanceof GuiInventory && Client.TUTORIAL.SHOW_CRAFTING_TUT) {
-			Minecraft.getMinecraft().getToastGui().add(ClientProxy.CRAFTING_TUT);
+			Minecraft.getMinecraft().getToastGui().add(ToastHelper.getCraftingTutorial());
 			Client.TUTORIAL.SHOW_CRAFTING_TUT = false;
 			ConfigManager.sync(References.MODID, Config.Type.INSTANCE);
 		}
-//			
+//
 //			event.setGui(new GuiTutorial(event.getGui()));
 //
 //			if(DRPCoreConfigs.GENERAL.FIRST_INSTALL){
@@ -38,16 +38,16 @@ public class Event_GuiOpen {
 //			}
 //		}
 	}
-	
+
 //	GuiButton updateAvailableButton;
-//	
+//
 //	@SubscribeEvent
 //	public void onEvent(GuiScreenEvent.InitGuiEvent event) {
 //		if(event.getGui() instanceof GuiMainMenu){
 //			event.getButtonList().add(updateAvailableButton = new GuiButton(9, 5, 25, 100, 20, "Test Button2"));
 //		}
 //	}
-//	
+//
 //	@SubscribeEvent
 //	public void onEvent(GuiScreenEvent.ActionPerformedEvent event) {
 //		if(event.getGui() instanceof GuiMainMenu){
@@ -56,5 +56,5 @@ public class Event_GuiOpen {
 //			}
 //		}
 //	}
-	
+
 }

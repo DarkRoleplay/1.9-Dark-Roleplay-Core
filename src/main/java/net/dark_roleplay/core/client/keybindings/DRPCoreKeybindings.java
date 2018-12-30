@@ -31,12 +31,12 @@ import net.minecraftforge.fml.common.gameevent.InputEvent.KeyInputEvent;
 
 public class DRPCoreKeybindings {
 
-	public static KeyBinding GUI_CRAFTING = new KeyBinding("keyBinding.openCrafting", Keyboard.KEY_C,"Dark Roleplay Core");
+	public static KeyBinding GUI_CRAFTING = new KeyBinding("drpcore.keyBinding.openCrafting", Keyboard.KEY_C, "Dark Roleplay Core");
 //	public static KeyBinding GUI_SKILLS = new KeyBinding("keyBinding.openSkills", Keyboard.KEY_K,"Dark Roleplay Core");
 //	public static KeyBinding GUI_VARIATIONS = new KeyBinding("keyBinding.veriationSelection", Keyboard.KEY_V,"Dark Roleplay Core");
-	public static KeyBinding TOGGLE_PLACEMENT_PREVIEW = new KeyBinding("keyBinding.placement_preview", Keyboard.KEY_NONE,"Dark Roleplay Core");
+	public static KeyBinding TOGGLE_PLACEMENT_PREVIEW = new KeyBinding("drpcore.keyBinding.placement_preview", Keyboard.KEY_NONE, "Dark Roleplay Core");
 
-	public static KeyBinding debugging = new KeyBinding("keyBinding.debuging", Keyboard.KEY_NONE, "Dark Roleplay Core");
+	public static KeyBinding debugging = new KeyBinding("drpcore.keyBinding.debuging", Keyboard.KEY_NONE, "Dark Roleplay Core");
 
 	public static void preInit(FMLPreInitializationEvent event) {
 	}
