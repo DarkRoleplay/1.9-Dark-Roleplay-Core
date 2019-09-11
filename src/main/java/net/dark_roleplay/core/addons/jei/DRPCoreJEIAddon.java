@@ -18,8 +18,6 @@ public class DRPCoreJEIAddon implements IModPlugin {
 
 	public static IRecipeRegistry reg;
 
-	public static List<DRPCoreWrapper> allRecipes = new ArrayList<DRPCoreWrapper>();
-
 	private static List<DRPCoreJEICategory> drpCategories = new ArrayList<DRPCoreJEICategory>();
 
 	@Override
