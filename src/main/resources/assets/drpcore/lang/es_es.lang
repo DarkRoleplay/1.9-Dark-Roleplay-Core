@@ -15,4 +15,4 @@ crafting.defaultCategory.name=Categoría Predeterminada
 drpcore.skill.required_skill_points=Puntos de Habilidad Requeridos
 drpcore.skill.required=Cantidad
 
-config.drpcore:general_placement_preview=SOLO DEPURARkeyBinding.openPurse=Open Purse
+config.drpcore:general_placement_preview=SOLO DEPURAR
