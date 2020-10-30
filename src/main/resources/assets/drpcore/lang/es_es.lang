@@ -1,0 +1,18 @@
+keyBinding.openPurse=Monedero abierto
+keyBinding.openCrafting=Abrir Menú de Creación
+keyBinding.openInventory=Inventario Abierto
+
+drpcore.util.modName=Núcleo de Juego de rol Oscuro
+drpcore.update.newVersionAvailable=¡Hay una nueva versión disponible!
+drpcore.update.currentVersion=Su versión actual es
+drpcore.update.latestVersion=pero el último es
+drpcore.update.openDownload=Haga clic aquí para abrir la Página de Descarga,
+drpcore.update.openChangelog=o aquí para echar un vistazo primero al registro de cambios.
+
+drpcore.crafting.freeCrafting=Elaboración Gratuita
+crafting.defaultCategory.name=Categoría Predeterminada
+
+drpcore.skill.required_skill_points=Puntos de Habilidad Requeridos
+drpcore.skill.required=Cantidad
+
+config.drpcore:general_placement_preview=SOLO DEPURARkeyBinding.openPurse=Open Purse
